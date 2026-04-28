@@ -428,8 +428,8 @@ body {
 .header-profile img {
   width: 24px;
   height: 24px;
-  border-radius: 3px;
-  border: var(--border-width) solid var(--border-color-light);
+  border-radius: 0px;
+  border: 0.75px solid var(--border-color-light);
   object-fit: cover;
 }
 
