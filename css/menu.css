@@ -49,8 +49,9 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: -7px;
-  line-height: 0.95;
-  display: inline-block;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
   white-space: nowrap;
   padding-right: 30px;
 }
