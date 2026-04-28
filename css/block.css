@@ -134,7 +134,7 @@
   letter-spacing: -0.3px;
   padding: 10px 0px;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
+   border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
   transition:
     color 0.15s,
     border-color 0.15s;
@@ -142,7 +142,7 @@
 
 .block-tab.active {
   color: #fff;
-  border-bottom: 1px solid rgba(107, 158, 255, 0.4);
+  border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
 }
 
 /* ── List container ── */
@@ -568,7 +568,7 @@
 
 .block-poll-card {
   padding: 20px 30px;
-  border-bottom: 1px solid #1e1e1e;
+  border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
   display: flex;
   flex-direction: column;
 }
