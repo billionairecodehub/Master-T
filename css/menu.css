@@ -66,19 +66,22 @@
 .menu-header {
   display: flex;
   flex-direction: column;
-  padding: 10px 0;
+  padding: 10px;
   gap: 8px;
   flex-shrink: 0;
   position: sticky;
   top: 0;
   z-index: 5;
+  border-radius: 10px;
   background: transparent;
+  /* background: rgba(10, 14, 39, 0.92); */
   backdrop-filter: var(--glass-blur-md);
 }
 
 /* ── Nav Tab Blocks ── */
 .menu-abc-block {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
