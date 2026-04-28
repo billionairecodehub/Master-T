@@ -16,7 +16,7 @@
   flex-direction: column;
   width: 100%;
   position: relative;
-  padding: 0 20px;
+  /* padding: 0 20px; */
 }
 
 .menu-home {
@@ -32,7 +32,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 44px 0 20px;
+  padding: 20px 80px;
 }
 
 .store-hero-icon-wrap {
@@ -67,7 +67,7 @@
 .menu-header {
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 20px 44px;
   gap: 8px;
   flex-shrink: 0;
   position: sticky;
@@ -172,7 +172,7 @@
 
 .menu-main {
   width: 100%;
-  padding: 16px 0;
+  padding: 16px 32px;
   display: flex;
   flex-direction: column;
   gap: 0;

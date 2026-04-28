@@ -429,7 +429,7 @@ body {
   width: 24px;
   height: 24px;
   border-radius: 0px;
-  border: 0.75px solid var(--border-color-light);
+  border: 1px solid var(--border-color-light);
   object-fit: cover;
 }
 
