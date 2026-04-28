@@ -73,6 +73,13 @@ document.querySelectorAll(".profile-view-back").forEach((btn) => {
   });
 });
 
+// Click anywhere in header to go back
+document.querySelectorAll(".profile-view-header").forEach((header) => {
+  header.addEventListener("click", () => {
+    closeProfileView();
+  });
+});
+
 // ── Sub board toggle-open ──
 document.querySelectorAll(".profile-sub-board[data-sub]").forEach((sub) => {
   sub.addEventListener("click", () => {
