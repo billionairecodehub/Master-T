@@ -142,7 +142,7 @@
 
 .block-tab.active {
   color: #fff;
-  border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
+  border-bottom: 2px solid rgba(107, 158, 255, 0.08);
 }
 
 /* ── List container ── */
@@ -291,7 +291,7 @@
 /* ─ 3. Story expanded: card header persisted inside full view ─ */
 .block-story-full-card-header {
   padding: 18px 0 14px;
-  border-bottom: 1px solid #1e1e1e;
+  border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
   margin-bottom: 0;
   display: flex;
   flex-direction: column;
@@ -392,7 +392,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 0 12px;
-  border-bottom: 0.5px solid #1e1e1e;
+  border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
 }
 
 .block-recommend-header-label {
@@ -408,7 +408,7 @@
 
 .block-recommend-card {
   padding: 24px 0 12px;
-  border-bottom: 0.5px solid #1e1e1e;
+  border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
   cursor: pointer;
 }
 
@@ -466,7 +466,7 @@
   width: 100%;
   padding: 20px 20px;
   border: none;
-  border-radius: 7px;
+  border-radius: 0px;
   border: var(--border-width) solid var(--border-color-light);
   background: transparent;
   color: #fff;
@@ -512,7 +512,7 @@
 
 .block-recommend-item {
   padding: 16px 0;
-  border-bottom: 1px solid #222;
+  border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
   color: rgba(255, 255, 255, 0.75);
   font-size: 11px;
   line-height: 1.65;
