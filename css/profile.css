@@ -702,13 +702,14 @@ button {
   z-index: 1;
   font-size: clamp(56px, 17vw, 64px);
   font-weight: 500;
-  line-height: 1;
-  letter-spacing: -8px;
+  line-height: 0.7;
+  letter-spacing: -5px;
   background: linear-gradient(160deg, #5ecfff 0%, #1a8fff 50%, #0055cc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   padding: 10px;
+  margin-bottom: 5px;
 }
 
 .message-form {
