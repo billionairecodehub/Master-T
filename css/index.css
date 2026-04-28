@@ -428,7 +428,7 @@ body {
 .header-profile img {
   width: 24px;
   height: 24px;
-  border-radius: 0px;
+  border-radius: 2px;
   border: 1px solid var(--border-color-light);
   object-fit: cover;
 }
