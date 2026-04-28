@@ -720,6 +720,7 @@ button {
   padding: 20px;
   font-size: var(--font-size-md);
   /* border: 0.5px solid rgba(231, 239, 255, 0.3); */
+  border: none;
   outline: none;
   border-radius: 30px;
   background: rgba(0, 5, 22, 0.7) !important;
