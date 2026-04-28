@@ -1,0 +1,51 @@
+<div class="block-page" style="display: none">
+  <div class="block-wrapper">
+    <!-- Sticky header + tabs -->
+    <div class="block-header-area" id="block-header-area">
+      <header class="block-header">
+        <div class="block-header-left">
+          <div class="block-title-block">
+            <div class="block-name-sub">Master's</div>
+            <div class="block-name" id="block-header-name">Block</div>
+            <div class="block-tagline">Building the Masculine Blocks</div>
+          </div>
+        </div>
+        <div class="block-header-right">
+          <img
+            src="https://i.postimg.cc/xTYDWHSN/Mstogan-Block-Icon.png"
+            alt="Block"
+            class="block-header-icon"
+            id="block-header-icon"
+          />
+        </div>
+      </header>
+
+      <!-- Sub-page tabs -->
+      <div class="block-tabs" id="block-tabs">
+        <div class="block-tab active" data-tab="stories">Stories</div>
+        <div class="block-tab" data-tab="recommends">Updates</div>
+        <div class="block-tab" data-tab="polls">Poll</div>
+      </div>
+    </div>
+
+    <!-- List views (one active at a time) -->
+    <div class="block-lists" id="block-lists">
+      <div id="block-stories-main" class="block-sub-main"></div>
+      <div
+        id="block-recommends-main"
+        class="block-sub-main"
+        style="display: none"
+      ></div>
+      <div
+        id="block-polls-main"
+        class="block-sub-main"
+        style="display: none"
+      ></div>
+    </div>
+
+    <!-- Full view — replaces lists when story/recommend opened -->
+    <div class="block-full-view" id="block-full-view" style="display: none">
+      <div id="block-full-content"></div>
+    </div>
+  </div>
+</div>

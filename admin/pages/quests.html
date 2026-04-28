@@ -1,0 +1,97 @@
+<div class="admin-page quests-page" data-admin-page="quests">
+  <div class="admin-page-title">Quests</div>
+  <div class="admin-page-subtitle">Manage your quest Q&amp;A content</div>
+
+  <div class="quest-list" id="quest-list"></div>
+
+  <button class="admin-fab" id="fab-quest">+</button>
+</div>
+
+<!-- Quest Form Modal -->
+<div class="admin-modal" id="modal-quest">
+  <div class="admin-modal-header">
+    <div class="admin-modal-title" id="modal-quest-title">New Quest</div>
+    <button class="admin-modal-close" id="modal-quest-close">✕</button>
+  </div>
+  <div class="admin-modal-body">
+    <input type="hidden" id="quest-edit-id" />
+
+    <div class="admin-field">
+      <div class="admin-field-label">Subject (Question)</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="quest-subject"
+        placeholder="Quest question..."
+      />
+    </div>
+
+    <div class="admin-field">
+      <div class="admin-field-label">Author</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="quest-author"
+        value="Master Togan"
+      />
+    </div>
+
+    <div class="admin-field">
+      <div class="admin-field-label">Solution Threads</div>
+      <div class="thread-list" id="quest-thread-list"></div>
+      <div
+        class="thread-add-form"
+        id="quest-thread-add-form"
+        style="display: none"
+      >
+        <input
+          type="text"
+          class="admin-field-input"
+          id="quest-thread-title-input"
+          placeholder="Thread title..."
+          style="margin-bottom: 8px"
+        />
+        <textarea
+          class="admin-field-textarea"
+          id="quest-thread-text-input"
+          placeholder="Thread text..."
+          style="min-height: 60px; margin-bottom: 8px"
+        ></textarea>
+        <div style="display: flex; gap: 8px">
+          <button
+            class="admin-save-btn"
+            id="quest-thread-confirm-btn"
+            style="flex: 1; padding: 12px; font-size: 13px"
+          >
+            Add
+          </button>
+          <button
+            class="admin-delete-btn"
+            id="quest-thread-cancel-btn"
+            style="
+              flex: 1;
+              padding: 12px;
+              font-size: 13px;
+              border-color: #333;
+              color: #888;
+            "
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+      <button class="add-thread-btn" id="add-quest-thread-btn">
+        + Add Solution Thread
+      </button>
+    </div>
+
+    <button class="admin-save-btn" id="save-quest-btn">Save Quest</button>
+    <button
+      class="admin-delete-btn"
+      id="delete-quest-btn"
+      style="display: none"
+    >
+      Delete Quest
+    </button>
+  </div>
+</div>

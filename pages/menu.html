@@ -1,0 +1,430 @@
+<div class="menu-page">
+  <div class="menu-wrapper">
+    <div class="menu-home">
+      <!-- ── Store Hero Header ── -->
+      <div class="store-hero">
+        <div class="store-hero-icon-wrap">
+          <img
+            src="https://i.postimg.cc/nV2gGxJr/Mt-Store-Icon.png"
+            alt="Store"
+            class="store-hero-icon"
+          />
+        </div>
+        <div class="store-hero-main">store</div>
+      </div>
+
+      <header class="menu-header">
+        <div class="menu-abc-block">
+          <div class="abc-title active" data-category="apps">Apps</div>
+          <div class="abc-title" data-category="books">Books</div>
+          <div class="abc-title" data-category="circle">Circle</div>
+        </div>
+
+        <div class="menu-search-bar">
+          <img
+            src="https://i.postimg.cc/657Zv49g/Mtogan-Search-Icon.png"
+            alt="Search"
+            class="search-icon"
+          />
+          <input
+            type="text"
+            class="menu-search-input"
+            placeholder="Search Apps"
+          />
+          <img
+            src="https://i.postimg.cc/yd6S3BXr/Mt-Filter-Icon.png"
+            alt="Filter"
+            class="filter-icon"
+          />
+        </div>
+      </header>
+
+      <main class="menu-main">
+        <!-- ── APPS PANEL ─────────────────────── -->
+        <div class="menu-panel" data-panel="apps" id="apps-panel"></div>
+
+        <!-- ── BOOKS PANEL ─────────────────────── -->
+        <div
+          class="menu-panel"
+          data-panel="books"
+          id="books-panel"
+          style="display: none"
+        ></div>
+
+        <!-- ── CIRCLE PANEL ─────────────────────── -->
+        <div
+          class="menu-panel"
+          data-panel="circle"
+          id="circle-panel"
+          style="display: none"
+        ></div>
+      </main>
+    </div>
+    <!-- /.menu-home -->
+
+    <!-- ── App Detail Panel ── -->
+    <div class="menu-app-panel" id="panel-app">
+      <div class="menu-app-panel-scroll">
+        <!-- Topbar -->
+        <div class="circle-panel-topbar">
+          <div class="circle-panel-topbar-meta">
+            <button class="app-panel-back" id="app-panel-back">
+              <img
+                src="https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png"
+                alt="Back"
+              />
+            </button>
+            <div class="circle-panel-topbar-label" id="app-topbar-label">
+              App
+            </div>
+            <div class="circle-panel-topbar-name" id="app-topbar-name">
+              Store
+            </div>
+          </div>
+          <img
+            id="app-topbar-img"
+            src=""
+            alt=""
+            class="circle-panel-topbar-img"
+          />
+        </div>
+
+        <!-- White content board -->
+        <div class="circle-content-board">
+          <!-- Hero row: icon left, details right -->
+          <div class="app-board-hero">
+            <img id="app-board-img" src="" alt="" class="app-board-icon" />
+            <div class="app-board-details">
+              <div class="app-board-name" id="app-board-name">Store</div>
+              <div class="app-board-platform" id="app-board-platform">
+                Web App
+              </div>
+              <div class="app-board-version" id="app-board-version">v1.0</div>
+            </div>
+          </div>
+
+          <!-- Visual strip -->
+          <div class="circle-board-section">
+            <div class="circle-section-label">Web App Visual</div>
+            <div class="app-visual-strip">
+              <img id="app-visual-1" src="" alt="" class="app-visual-img" />
+              <img id="app-visual-2" src="" alt="" class="app-visual-img" />
+            </div>
+          </div>
+
+          <!-- Short text -->
+          <p class="app-short-text" id="app-short-text">
+            Explore the latest offerings, connect with reputable sellers.
+          </p>
+
+          <!-- App Description -->
+          <div class="circle-board-section">
+            <div class="circle-section-label">App Description</div>
+            <p class="app-desc-text" id="app-desc-text">
+              Full description here.
+            </p>
+          </div>
+
+          <!-- CTA board image -->
+          <div class="app-cta-board" id="app-cta-board"></div>
+        </div>
+
+        <!-- CTA Button -->
+        <button class="panel-cta" id="app-panel-cta">
+          Visit <span id="app-cta-name">Store</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Book Detail Panel ── -->
+    <div class="menu-book-panel" id="panel-book">
+      <div class="menu-book-panel-scroll">
+        <!-- Topbar -->
+        <div class="circle-panel-topbar">
+          <div class="circle-panel-topbar-meta">
+            <button class="book-panel-back" id="book-panel-back">
+              <img
+                src="https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png"
+                alt="Back"
+              />
+            </button>
+            <div class="circle-panel-topbar-label" id="book-topbar-label">
+              Book
+            </div>
+            <div class="circle-panel-topbar-name" id="book-topbar-name">
+              Frame Control
+            </div>
+          </div>
+          <img
+            id="book-topbar-img"
+            src=""
+            alt=""
+            class="circle-panel-topbar-img"
+          />
+        </div>
+
+        <!-- White content board -->
+        <div class="circle-content-board">
+          <!-- Visual strip -->
+          <div class="app-visual-strip">
+            <img id="book-visual-1" src="" alt="" class="app-visual-img" />
+            <img id="book-visual-2" src="" alt="" class="app-visual-img" />
+          </div>
+
+          <!-- Title -->
+          <div class="circle-board-section">
+            <div class="circle-section-label">Title</div>
+            <div class="book-content-title" id="book-content-title">
+              Frame Control
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="circle-board-section">
+            <div class="circle-section-label">Description</div>
+            <p class="book-content-text" id="book-desc-text">
+              Description here.
+            </p>
+          </div>
+
+          <!-- Key Points -->
+          <div class="circle-board-section">
+            <div class="circle-section-label">Key Points</div>
+            <p class="book-content-text" id="book-keypoints-text">
+              Key points here.
+            </p>
+          </div>
+
+          <!-- Short text -->
+          <p class="book-content-text" id="book-short-text">
+            Frame Control is a short yet powerful resource for any man.
+          </p>
+
+          <!-- Post-review text -->
+          <p class="book-content-text" id="book-post-review-text">
+            In this short concise course you will learn how to control the frame
+            and maintain a strong frame.
+          </p>
+
+          <!-- CTA board image -->
+          <div class="app-cta-board" id="book-cta-board"></div>
+        </div>
+
+        <!-- CTA Button -->
+        <button class="panel-cta" id="book-panel-cta">
+          Get <span id="book-cta-name">Frame Control</span> ~
+          <span id="book-cta-price">$29.01</span>
+        </button>
+      </div>
+
+      <!-- Ratings Expand Overlay -->
+      <div class="book-ratings-overlay" id="book-ratings-overlay">
+        <div class="book-ratings-overlay-scroll">
+          <div class="book-ratings-overlay-header">
+            <div class="book-ratings-overlay-titles">
+              <div class="book-ratings-overlay-title">
+                Ratings &amp; Reviews ~
+                <span id="book-overlay-score">3.4</span>
+              </div>
+              <div class="book-ratings-overlay-subtitle">
+                <span id="book-overlay-platforms">Gumroad, Selar, Payhip</span>
+                ~
+                <span id="book-overlay-count">2740</span> Reviews
+              </div>
+            </div>
+            <button
+              class="book-ratings-overlay-close"
+              id="book-ratings-overlay-close"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24">
+                <path fill="#333" d="M7 10l5 5 5-5z" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Category pills -->
+          <div class="book-ratings-categories">
+            <div class="book-ratings-pill">Good<span>~1,240</span></div>
+            <div class="book-ratings-pill">Bad<span>~740</span></div>
+            <div class="book-ratings-pill">Average<span>~980</span></div>
+          </div>
+
+          <!-- Full review cards (vertical) -->
+          <div class="book-ratings-full-list">
+            <div class="book-review-card book-review-card-full">
+              <div class="book-review-header">
+                <img
+                  src="https://i.postimg.cc/QdkJJF6h/image.png"
+                  alt=""
+                  class="book-review-avatar"
+                />
+                <div class="book-review-meta">
+                  <div class="book-review-name">Jose</div>
+                  <div class="book-review-score">Ratings ~ 3/5</div>
+                </div>
+              </div>
+              <p class="book-review-text">
+                "Nice book you got there Mastrr Togan, any girl I use this frame
+                control technique on 2 or 3 times would be extremely careful of
+                how she says things to me because of the fear of being accused
+                😄 I love your book man"
+              </p>
+              <div class="book-review-footer">
+                <div class="book-review-platform">~ Selar</div>
+                <div class="book-review-bookname book-overlay-bn">
+                  Frame Control
+                </div>
+              </div>
+            </div>
+            <div class="book-review-card book-review-card-full">
+              <div class="book-review-header">
+                <img
+                  src="https://i.postimg.cc/QdkJJF6h/image.png"
+                  alt=""
+                  class="book-review-avatar"
+                />
+                <div class="book-review-meta">
+                  <div class="book-review-name">Kene</div>
+                  <div class="book-review-score">Ratings ~ 3/5</div>
+                </div>
+              </div>
+              <p class="book-review-text">
+                Frame Control by master Togan 🤭 Book is top drawer 👌
+              </p>
+              <div class="book-review-footer">
+                <div class="book-review-platform">~ Selar</div>
+                <div class="book-review-bookname book-overlay-bn">
+                  Frame Control
+                </div>
+              </div>
+            </div>
+            <div class="book-review-card book-review-card-full">
+              <div class="book-review-header">
+                <img
+                  src="https://i.postimg.cc/QdkJJF6h/image.png"
+                  alt=""
+                  class="book-review-avatar"
+                />
+                <div class="book-review-meta">
+                  <div class="book-review-name">Neo Bell</div>
+                  <div class="book-review-score">Ratings ~ 3/5</div>
+                </div>
+              </div>
+              <p class="book-review-text">Such a master pirce, mindblowing!</p>
+              <div class="book-review-footer">
+                <div class="book-review-platform">~ Selar</div>
+                <div class="book-review-bookname book-overlay-bn">
+                  Frame Control
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Circle Detail Panel ── -->
+    <div class="menu-circle-panel" id="panel-circle">
+      <div class="menu-circle-panel-scroll">
+        <!-- Topbar -->
+        <div class="circle-panel-topbar">
+          <div class="circle-panel-topbar-meta">
+            <button class="circle-panel-back" id="circle-panel-back">
+              <img
+                src="https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png"
+                alt="Back"
+              />
+            </button>
+
+            <div class="circle-panel-topbar-label" id="circle-topbar-label">
+              Circle
+            </div>
+            <div class="circle-panel-topbar-name" id="circle-topbar-name">
+              Female Thoughts
+            </div>
+          </div>
+          <img
+            id="circle-topbar-img"
+            src=""
+            alt=""
+            class="circle-panel-topbar-img"
+          />
+        </div>
+
+        <!-- White content board -->
+        <div class="circle-content-board">
+          <div class="circle-board-hero">
+            <img id="circle-board-img" src="" alt="" class="circle-board-img" />
+            <div class="circle-board-category" id="circle-board-category">
+              Romance
+            </div>
+            <div class="circle-board-name" id="circle-board-name">
+              Female Thoughts
+            </div>
+            <div class="circle-board-platform">
+              On <span id="circle-board-platform">X</span>
+            </div>
+          </div>
+          <div class="circle-board-section">
+            <div class="circle-section-label">About</div>
+            <div class="circle-section-text" id="circle-board-about">
+              The thoughts from female minds.
+            </div>
+          </div>
+          <div class="circle-board-section">
+            <div class="circle-section-label">Description</div>
+            <div class="circle-desc-list">
+              <div class="circle-desc-item">
+                <img
+                  src="https://i.postimg.cc/bYB3Bv49/Mt-Circle-Icon.png"
+                  alt=""
+                  class="circle-desc-icon"
+                />
+                <span
+                  >Learn Clear Insights on Female Thoughts in the Dating
+                  World</span
+                >
+              </div>
+              <div class="circle-desc-item">
+                <img
+                  src="https://i.postimg.cc/bYB3Bv49/Mt-Circle-Icon.png"
+                  alt=""
+                  class="circle-desc-icon"
+                />
+                <span
+                  >Gaining Direct Insights into Female Perspectives on
+                  Dating</span
+                >
+              </div>
+              <div class="circle-desc-item">
+                <img
+                  src="https://i.postimg.cc/bYB3Bv49/Mt-Circle-Icon.png"
+                  alt=""
+                  class="circle-desc-icon"
+                />
+                <span>Developing More Effective Communication Strategies</span>
+              </div>
+              <div class="circle-desc-item">
+                <img
+                  src="https://i.postimg.cc/bYB3Bv49/Mt-Circle-Icon.png"
+                  alt=""
+                  class="circle-desc-icon"
+                />
+                <span
+                  >Building Greater Self-Awareness and Emotional
+                  Intelligence</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <button class="panel-cta" id="circle-panel-cta">
+          Check Out <span id="circle-cta-name">Female Thoughts</span> On
+          <span id="circle-cta-platform">X</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,309 @@
+/* ── Notifications Page ─────────────────────────────────── */
+.notifications-page {
+  display: none;
+  flex-direction: column;
+  min-height: 100%;
+  background: var(--gradient-bg-global);
+}
+
+.notifications-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px;
+  gap: 0;
+}
+
+/* ── Hero Header ─────────────────────────────────────────── */
+.noti-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 44px 0 20px;
+}
+
+.noti-hero-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.noti-hero-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(107, 158, 255, 0.6));
+}
+
+.noti-hero-title {
+  font-size: 64px;
+  font-weight: 500;
+  letter-spacing: -7px;
+  line-height: 0.9;
+  background: var(--gradient-primary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding-right: 20px;
+}
+
+/* ── Search Bar ──────────────────────────────────────────── */
+.noti-search-wrap {
+  padding: 0 0 18px;
+}
+
+.noti-search-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  background: rgba(0, 9, 26, 0.35);
+  /* border: var(--border-width) solid var(--border-color-light); */
+  border-radius: 10px;
+  padding: 13px 18px;
+  backdrop-filter: var(--glass-blur-lg);
+  transition: var(--transition-fast);
+}
+
+.noti-search-bar:focus-within {
+  border-color: var(--border-color-dark);
+  background: rgba(0, 9, 26, 0.5);
+  box-shadow: var(--shadow-glow-sm);
+}
+
+.noti-search-icon {
+  width: 16px;
+  height: 16px;
+  opacity: var(--opacity-icon-medium);
+  flex-shrink: 0;
+}
+
+.noti-search-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: var(--font-size-xl);
+  color: var(--color-accent-light);
+  font-family: "Gellix", sans-serif;
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.noti-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Summary Line ────────────────────────────────────────── */
+.notifications-meta {
+  padding: 4px 0 16px;
+  border-bottom: var(--border-width) solid rgba(107, 158, 255, 0.12);
+}
+
+.notifications-updates {
+  font-size: 15px;
+  font-weight: 700;
+  background: var(--gradient-secondary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.8px;
+}
+
+/* ── Boards Container ────────────────────────────────────── */
+.notifications-boards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 16px;
+}
+
+/* ── Date Group Label ────────────────────────────────────── */
+.noti-date-group-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-loose);
+  padding: 12px 0 4px;
+  background: var(--gradient-primary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.6;
+}
+
+/* ── Notification Card ───────────────────────────────────── */
+.notification-board {
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--gradient-card-light);
+  border: var(--border-width) solid var(--border-color-light);
+  backdrop-filter: var(--glass-blur-md);
+  transition: var(--transition-fast);
+}
+
+.notification-board:active {
+  background: var(--gradient-card-active);
+  border-color: var(--border-color-medium);
+  box-shadow: var(--shadow-glow-sm);
+  transform: scale(0.99);
+}
+
+.notification-board.read {
+  opacity: 0.65;
+}
+
+/* ── Card Header ─────────────────────────────────────────── */
+.notification-board-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 20px 18px 18px;
+  position: relative;
+}
+
+.notification-board-icon-wrap {
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.notification-board-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(107, 158, 255, 0.55));
+}
+
+/* Unread dot */
+.noti-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background: #e53935;
+  border-radius: 50%;
+}
+
+.notification-board-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.notification-board-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.3;
+  letter-spacing: var(--letter-spacing-semi-compact);
+  background: var(--gradient-primary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.notification-board-author {
+  color: rgba(200, 215, 255, 0.45);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+}
+
+.notification-board-timeframe {
+  color: rgba(200, 215, 255, 0.4);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  letter-spacing: var(--letter-spacing-loose);
+}
+
+/* ── Expanded Content ────────────────────────────────────── */
+.notification-board-content {
+  display: none;
+  color: rgba(200, 215, 255, 0.75);
+  font-size: 12px;
+  line-height: 1.75;
+  padding: 0 18px 22px;
+  letter-spacing: var(--letter-spacing-loose);
+}
+
+.notification-board.open .notification-board-content {
+  display: block;
+  animation: slideDown 0.25s ease;
+}
+
+/* ── Nav / Feed / Quest dots (shared, unchanged) ─────────── */
+.noti-nav-dot {
+  position: absolute;
+  bottom: -1px;
+  right: -3px;
+  width: 7px;
+  height: 7px;
+  background: #e53935;
+  border-radius: 50%;
+  display: none;
+}
+
+.feed-nav-dot {
+  position: absolute;
+  bottom: -1px;
+  right: -3px;
+  width: 7px;
+  height: 7px;
+  background: #e53935;
+  border-radius: 50%;
+  display: none;
+}
+
+.quest-nav-dot {
+  position: absolute;
+  bottom: -1px;
+  right: -3px;
+  width: 7px;
+  height: 7px;
+  background: #e53935;
+  border-radius: 50%;
+  display: none;
+}
+
+.feed-unread-dot,
+.quest-unread-dot {
+  width: 12px;
+  height: 12px;
+  background: #e53935;
+  border-radius: 50%;
+  display: none;
+  margin-right: 4px;
+}
+
+/* ── Search filter: hide non-matching cards ──────────────── */
+.notification-board.noti-hidden,
+.noti-date-group-label.noti-hidden {
+  display: none;
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+}
+
+/* Collapsed content — hidden by default */
+.notification-board-content {
+  display: none;
+  color: #ccc;
+  font-size: 11px;
+  line-height: 1.2;
+  padding: 60px 40px;
+}
+
+/* Expanded state */
+.notification-board.open .notification-board-content {
+  display: block;
+}
+
+/* Date group label for notification grouping */
+.noti-date-group-label {
+  color: #555;
+  font-size: 11px;
+  padding: 12px 0 4px;
+}

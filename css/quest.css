@@ -1,0 +1,246 @@
+/* ── Quest Page ─────────────────────────────── */
+.quest-page {
+  display: none;
+}
+
+.quest-wrapper {
+  display: flex;
+  flex-direction: column;
+  /* padding: 12px 0 80px; */
+  background: var(--gradient-bg-global);
+  min-height: 100%;
+}
+
+/* Quest Header */
+.quest-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(10, 14, 39, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(107, 158, 255, 0.15);
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.quest-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quest-image-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.quest-image-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.18) 48%,
+    rgba(255, 255, 255, 0.32) 52%,
+    transparent 68%
+  );
+  transform: translateX(-120%) skewX(-20deg);
+  animation: glass-shine 3.6s ease-in-out 1.8s infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.quest-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  display: block;
+}
+
+.quest-title-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+}
+
+.quest-name-sub {
+  font-size: 7px;
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.2;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.quest-name {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -1.75px;
+  line-height: 0.95;
+  background: var(--gradient-primary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.quest-tagline {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-normal);
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2px;
+}
+
+.quest-header-right {
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 2px;
+}
+
+.quest-icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.5;
+  transform: translateY(8px);
+}
+
+/* Quest Main */
+.quest-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 20px;
+}
+
+/* Quest Board */
+.quest-board {
+  padding: 28px 0;
+  border-bottom: 1px solid #222;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Quest top row: question + icon */
+.quest-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.quest-question {
+  color: #ddd;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  flex: 1;
+}
+
+.quest-question-icon {
+  width: 28px;
+  height: 28px;
+  opacity: 0.5;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* Open to Read label */
+.quest-read-label {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 11px;
+}
+
+/* Thumbs row — always visible */
+.quest-thumbs {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-top: 4px;
+}
+
+.quest-thumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: default;
+  opacity: 0.5;
+}
+
+.quest-thumb-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.quest-thumb-count {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Expanded quest — solution visible */
+.quest-board.expanded .quest-read-label {
+  display: none;
+}
+
+.quest-solution {
+  display: none;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.quest-board.expanded .quest-solution {
+  display: flex;
+}
+
+/* Solution block with dashed border */
+.quest-solution-block {
+  padding: 15px 0;
+  color: rgba(255, 255, 255, 0.75);
+  border-bottom: 1px solid #222;
+}
+
+.quest-solution-title {
+  font-weight: 700;
+  color: #ddd;
+  font-size: 12px;
+}
+
+/* Solution text content */
+.quest-solution-text {
+  color: #ddd;
+  font-size: 11px;
+  line-height: 1.7;
+  text-align: justify;
+}
+
+/* Thumbs become votable when expanded */
+.quest-board.expanded .quest-thumb {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.quest-thumb.voted .quest-thumb-icon {
+  opacity: 1;
+}
+
+.quest-thumb.voted .quest-thumb-count {
+  color: #fff;
+}

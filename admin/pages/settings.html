@@ -1,0 +1,99 @@
+<div class="admin-page settings-page" data-admin-page="settings">
+  <div class="admin-page-title">Settings</div>
+  <div class="admin-page-subtitle">Admin preferences</div>
+
+  <div class="settings-group">
+    <div class="settings-group-title">Security</div>
+    <div class="settings-row" id="settings-change-pin">
+      <div class="settings-row-left">
+        <div class="settings-row-label">Change PIN</div>
+        <div class="settings-row-desc">Update your admin access code</div>
+      </div>
+      <div class="settings-row-arrow">›</div>
+    </div>
+  </div>
+
+  <div class="settings-group">
+    <div class="settings-group-title">Data</div>
+    <div class="settings-row" id="settings-export">
+      <div class="settings-row-left">
+        <div class="settings-row-label">Export Data</div>
+        <div class="settings-row-desc">Download all content as JSON</div>
+      </div>
+      <div class="settings-row-arrow">›</div>
+    </div>
+    <div class="settings-row" id="settings-export-subscribers">
+      <div class="settings-row-left">
+        <div class="settings-row-label">Export Subscribers</div>
+        <div class="settings-row-desc">Download subscriber list as JSON</div>
+      </div>
+      <div class="settings-row-arrow">›</div>
+    </div>
+    <div class="settings-row" id="settings-import">
+      <div class="settings-row-left">
+        <div class="settings-row-label">Import Data</div>
+        <div class="settings-row-desc">Load content from a JSON file</div>
+      </div>
+      <div class="settings-row-arrow">›</div>
+    </div>
+  </div>
+
+  <div class="settings-group settings-danger">
+    <div class="settings-group-title">Danger Zone</div>
+    <div class="settings-row" id="settings-reset">
+      <div class="settings-row-left">
+        <div class="settings-row-label">Reset All Data</div>
+        <div class="settings-row-desc">
+          Clear everything and re-seed defaults
+        </div>
+      </div>
+      <div class="settings-row-arrow">›</div>
+    </div>
+  </div>
+</div>
+
+<!-- Change PIN Modal -->
+<div class="admin-modal" id="modal-pin">
+  <div class="admin-modal-header">
+    <div class="admin-modal-title">Change PIN</div>
+    <button class="admin-modal-close" id="modal-pin-close">✕</button>
+  </div>
+  <div class="admin-modal-body">
+    <div class="admin-field">
+      <div class="admin-field-label">Current PIN</div>
+      <input
+        type="password"
+        class="admin-field-input"
+        id="pin-current"
+        placeholder="Current PIN"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">New PIN</div>
+      <input
+        type="password"
+        class="admin-field-input"
+        id="pin-new"
+        placeholder="New PIN"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Confirm New PIN</div>
+      <input
+        type="password"
+        class="admin-field-input"
+        id="pin-confirm"
+        placeholder="Confirm PIN"
+      />
+    </div>
+    <button class="admin-save-btn" id="save-pin-btn">Update PIN</button>
+  </div>
+</div>
+
+<!-- Hidden file input for import -->
+<input
+  type="file"
+  id="import-file-input"
+  accept=".json"
+  style="display: none"
+/>

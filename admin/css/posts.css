@@ -1,0 +1,150 @@
+/* Posts Management Page */
+.posts-page .post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.post-list-card {
+  background: #111;
+  border-radius: 4px;
+  padding: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.post-list-card:active {
+  background: #0a0a0a;
+}
+
+.post-list-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.post-list-subject {
+  font-size: 14px;
+  font-weight: 600;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post-list-date {
+  font-size: 11px;
+  color: #555;
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+.post-list-preview {
+  font-size: 12px;
+  color: #666;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+/* Post form extras */
+.thread-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.thread-item {
+  background: #0a0a0a;
+  border-radius: 5px;
+  padding: 12px;
+  position: relative;
+}
+
+.thread-item-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #ccc;
+}
+
+.thread-item-text {
+  font-size: 12px;
+  color: #666;
+}
+
+.thread-remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.add-thread-btn {
+  background: #0a0a0a;
+  border: 1px dashed #333;
+  border-radius: 5px;
+  padding: 12px;
+  color: #555;
+  font-size: 13px;
+  font-family: "Gellix", sans-serif;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.add-thread-btn:active {
+  border-color: #555;
+}
+
+/* Color picker row */
+.color-picker-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.color-swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 2px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.color-swatch.selected {
+  border-color: #fff;
+}
+
+.swatch-none {
+  background: #111;
+  position: relative;
+  overflow: hidden;
+}
+
+.swatch-none::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  background: #555;
+  transform: rotate(45deg);
+  transform-origin: center;
+}

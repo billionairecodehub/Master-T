@@ -1,0 +1,336 @@
+<div class="admin-page content-page" data-admin-page="content">
+  <div class="admin-page-title">Content</div>
+  <div class="admin-page-subtitle">Manage apps, books &amp; circles</div>
+
+  <div class="admin-tabs" id="content-tabs">
+    <div class="admin-tab active" data-content-tab="apps">Apps</div>
+    <div class="admin-tab" data-content-tab="books">Books</div>
+    <div class="admin-tab" data-content-tab="circles">Circles</div>
+  </div>
+
+  <!-- Apps list -->
+  <div class="content-grid" id="content-apps"></div>
+  <!-- Books list -->
+  <div class="content-grid" id="content-books" style="display: none"></div>
+  <!-- Circles list -->
+  <div class="content-grid" id="content-circles" style="display: none"></div>
+
+  <button class="admin-fab" id="fab-content">+</button>
+</div>
+
+<!-- App Form Modal -->
+<div class="admin-modal" id="modal-app">
+  <div class="admin-modal-header">
+    <div class="admin-modal-title" id="modal-app-title">New App</div>
+    <button class="admin-modal-close" id="modal-app-close">✕</button>
+  </div>
+  <div class="admin-modal-body">
+    <input type="hidden" id="app-edit-id" />
+    <div class="admin-field">
+      <div class="admin-field-label">Name</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="app-name"
+        placeholder="App name"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Platform</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="app-platform"
+        placeholder="e.g. Web App"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Version</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="app-version"
+        placeholder="e.g. v1.0"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Alpha Letter</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="app-letter"
+        placeholder="e.g. M"
+        maxlength="1"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Icon URL</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="app-img"
+        placeholder="https://..."
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Visual Image URL</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="app-visual"
+        placeholder="https://..."
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">CTA Image URL</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="app-ctaimg"
+        placeholder="https://..."
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Short Description</div>
+      <textarea
+        class="admin-field-textarea"
+        id="app-short"
+        placeholder="Brief description..."
+        style="min-height: 60px"
+      ></textarea>
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Full Description</div>
+      <textarea
+        class="admin-field-textarea"
+        id="app-desc"
+        placeholder="Full app description..."
+      ></textarea>
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Rating</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="app-rating"
+        placeholder="e.g. 4.4"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Rating Count</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="app-ratingcount"
+        placeholder="e.g. 188"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Rating Text</div>
+      <textarea
+        class="admin-field-textarea"
+        id="app-ratingtext"
+        placeholder="Rating description..."
+        style="min-height: 60px"
+      ></textarea>
+    </div>
+    <div class="admin-field-checkbox">
+      <input type="checkbox" id="app-pinned" />
+      <label for="app-pinned">Pinned (Top Recommended)</label>
+    </div>
+    <button class="admin-save-btn" id="save-app-btn">Save App</button>
+    <button class="admin-delete-btn" id="delete-app-btn" style="display: none">
+      Delete App
+    </button>
+  </div>
+</div>
+
+<!-- Book Form Modal -->
+<div class="admin-modal" id="modal-book">
+  <div class="admin-modal-header">
+    <div class="admin-modal-title" id="modal-book-title">New Book</div>
+    <button class="admin-modal-close" id="modal-book-close">✕</button>
+  </div>
+  <div class="admin-modal-body">
+    <input type="hidden" id="book-edit-id" />
+    <div class="admin-field">
+      <div class="admin-field-label">Title</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="book-name"
+        placeholder="Book title"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Price</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="book-price"
+        placeholder="e.g. $29.01"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Icon URL</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="book-img"
+        placeholder="https://..."
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Visual Image URL</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="book-visual"
+        placeholder="https://..."
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">CTA Image URL</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="book-ctaimg"
+        placeholder="https://..."
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Short Description</div>
+      <textarea
+        class="admin-field-textarea"
+        id="book-short"
+        placeholder="Brief description..."
+        style="min-height: 60px"
+      ></textarea>
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Full Description</div>
+      <textarea
+        class="admin-field-textarea"
+        id="book-desc"
+        placeholder="Full book description..."
+      ></textarea>
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Key Points</div>
+      <textarea
+        class="admin-field-textarea"
+        id="book-keypoints"
+        placeholder="Key points (one per line)..."
+        style="min-height: 60px"
+      ></textarea>
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Rating</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="book-rating"
+        placeholder="e.g. 4.6"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Rating Count</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="book-ratingcount"
+        placeholder="e.g. 3,240"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Rating Platforms</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="book-ratingplatforms"
+        placeholder="e.g. Gumroad, Selar, Payhip"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Rating Text</div>
+      <textarea
+        class="admin-field-textarea"
+        id="book-ratingtext"
+        placeholder="Rating description..."
+        style="min-height: 60px"
+      ></textarea>
+    </div>
+    <div class="admin-field-checkbox">
+      <input type="checkbox" id="book-pinned" />
+      <label for="book-pinned">Pinned (Book of the Week)</label>
+    </div>
+    <button class="admin-save-btn" id="save-book-btn">Save Book</button>
+    <button class="admin-delete-btn" id="delete-book-btn" style="display: none">
+      Delete Book
+    </button>
+  </div>
+</div>
+
+<!-- Circle Form Modal -->
+<div class="admin-modal" id="modal-circle">
+  <div class="admin-modal-header">
+    <div class="admin-modal-title" id="modal-circle-title">New Circle</div>
+    <button class="admin-modal-close" id="modal-circle-close">✕</button>
+  </div>
+  <div class="admin-modal-body">
+    <input type="hidden" id="circle-edit-id" />
+    <div class="admin-field">
+      <div class="admin-field-label">Name</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="circle-name"
+        placeholder="Circle name"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Category</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="circle-category"
+        placeholder="e.g. Masculine World"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Platform</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="circle-platform"
+        placeholder="e.g. X"
+      />
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">About</div>
+      <textarea
+        class="admin-field-textarea"
+        id="circle-about"
+        placeholder="About this circle..."
+        style="min-height: 60px"
+      ></textarea>
+    </div>
+    <div class="admin-field">
+      <div class="admin-field-label">Image URL</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="circle-img"
+        placeholder="https://..."
+      />
+    </div>
+    <button class="admin-save-btn" id="save-circle-btn">Save Circle</button>
+    <button
+      class="admin-delete-btn"
+      id="delete-circle-btn"
+      style="display: none"
+    >
+      Delete Circle
+    </button>
+  </div>
+</div>

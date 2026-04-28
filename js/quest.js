@@ -1,0 +1,255 @@
+// Quest — Render quests from DataStore + Expand/Collapse + Voting
+
+const questIcon = document.querySelector(".quest-icon");
+const QUEST_ICON_DEFAULT = questIcon ? questIcon.getAttribute("src") : "";
+const QUEST_BACK_ICON = "https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png";
+const QUEST_LOGO = "https://i.postimg.cc/pdv2ftPx/Master-Togan-Logo.png";
+
+// ── Quest unread dot ─────────────────────────────────────
+const QUEST_SEEN_KEY = "mt_quest_seen";
+
+function getQuestSeenIds() {
+  try {
+    return JSON.parse(localStorage.getItem(QUEST_SEEN_KEY)) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function updateQuestDot() {
+  const quests = DataStore.getAll("quests");
+  const seen = getQuestSeenIds();
+  const hasUnread = quests.some((q) => !seen.includes(q.id));
+  const navDot = document.getElementById("quest-nav-dot");
+  const headerDot = document.getElementById("quest-unread-dot");
+  if (navDot) navDot.style.display = hasUnread ? "block" : "none";
+  if (headerDot) headerDot.style.display = hasUnread ? "block" : "none";
+}
+
+function markQuestSeen() {
+  const ids = DataStore.getAll("quests").map((q) => q.id);
+  localStorage.setItem(QUEST_SEEN_KEY, JSON.stringify(ids));
+  updateQuestDot();
+}
+
+// ── Surgical count-only update (no re-render, preserves expanded state) ──
+function syncQuestCounts() {
+  const quests = DataStore.getAll("quests");
+  quests.forEach((q) => {
+    const fmt = (v) => (v >= 1000 ? (v / 1000).toFixed(1) + "k" : String(v));
+    const upEl = document.querySelector(
+      `.quest-thumb-up[data-id="${q.id}"] .quest-thumb-count`,
+    );
+    if (upEl) upEl.textContent = fmt(q.thumbsUp || 0);
+    const downEl = document.querySelector(
+      `.quest-thumb-down[data-id="${q.id}"] .quest-thumb-count`,
+    );
+    if (downEl) downEl.textContent = fmt(q.thumbsDown || 0);
+  });
+}
+// ────────────────────────────────────────────────────────
+
+function renderQuests() {
+  const container = document.getElementById("quest-main");
+  if (!container) return;
+  const quests = DataStore.getAll("quests")
+    .slice()
+    .sort((a, b) => {
+      const da = new Date(a.createdAt || 0).getTime();
+      const db = new Date(b.createdAt || 0).getTime();
+      return db - da;
+    });
+
+  if (quests.length === 0) {
+    container.innerHTML =
+      '<div style="text-align:center;padding:40px;color:#333">No quests yet</div>';
+    return;
+  }
+
+  container.innerHTML = quests
+    .map((p) => {
+      const solutionHTML = (p.threads || [])
+        .map(
+          (t) =>
+            `<div class="quest-solution-block"><span class="quest-solution-title">${t.title || ""}</span></div>
+             <p class="quest-solution-text">${t.text}</p>`,
+        )
+        .join("");
+
+      const hasThreads = p.threads && p.threads.length > 0;
+      const thumbsUp = p.thumbsUp || 0;
+      const thumbsDown = p.thumbsDown || 0;
+
+      // Check existing vote
+      const voteKey = "mt_quest_vote_" + p.id;
+      const existingVote = localStorage.getItem(voteKey);
+
+      // Auto question mark on subject
+      let subject = p.subject || "";
+      if (subject && !subject.endsWith("?")) subject += "?";
+
+      return `
+        <div class="quest-board" data-id="${p.id}">
+          <div class="quest-top">
+            <div class="quest-question">${subject}</div>
+            <img src="https://i.postimg.cc/261CZPjm/Mt-Admin-Bar-Icon-Quest.png" alt="" class="quest-question-icon" />
+          </div>
+          ${hasThreads ? '<div class="quest-read-label">Open to Read Solution</div>' : ""}
+          <div class="quest-thumbs">
+            <div class="quest-thumb quest-thumb-up${existingVote === "up" ? " voted" : ""}" data-id="${p.id}" data-vote="up">
+              <img src="https://i.postimg.cc/8C7LB7fM/Mt-Quest-Thumbs-Up-Icon.png" alt="Up" class="quest-thumb-icon" />
+              <span class="quest-thumb-count">${thumbsUp > 0 ? (thumbsUp >= 1000 ? (thumbsUp / 1000).toFixed(1) + "k" : thumbsUp) : "0"}</span>
+            </div>
+            <div class="quest-thumb quest-thumb-down${existingVote === "down" ? " voted" : ""}" data-id="${p.id}" data-vote="down">
+              <img src="https://i.postimg.cc/fb1mHMY1/Mt-Quest-Thumbs-Down-Icon.png" alt="Down" class="quest-thumb-icon" />
+              <span class="quest-thumb-count">${thumbsDown > 0 ? (thumbsDown >= 1000 ? (thumbsDown / 1000).toFixed(1) + "k" : thumbsDown) : "0"}</span>
+            </div>
+          </div>
+          ${hasThreads ? `<div class="quest-solution">${solutionHTML}</div>` : ""}
+        </div>`;
+    })
+    .join("");
+
+  bindQuestExpand();
+  bindQuestVotes();
+  updateQuestDot();
+}
+
+function bindQuestExpand() {
+  const boards = document.querySelectorAll(".quest-board");
+  boards.forEach((board) => {
+    board.addEventListener("click", (e) => {
+      // Don't toggle if clicking a vote button
+      if (e.target.closest(".quest-thumb")) return;
+      if (board.classList.contains("expanded")) return;
+      // Isolate: hide all boards, show only this one (mirror feed pattern)
+      boards.forEach((b) => {
+        b.classList.remove("expanded");
+        b.style.display = "none";
+      });
+      board.style.display = "flex";
+      board.classList.add("expanded");
+      if (questIcon) questIcon.src = QUEST_BACK_ICON;
+    });
+  });
+}
+
+function bindQuestVotes() {
+  document.querySelectorAll(".quest-thumb").forEach((thumb) => {
+    thumb.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const board = thumb.closest(".quest-board");
+      // Only allow voting when expanded
+      if (!board || !board.classList.contains("expanded")) return;
+
+      const questId = thumb.getAttribute("data-id");
+      const voteType = thumb.getAttribute("data-vote");
+      const quest = DataStore.getById("quests", questId);
+      if (!quest) return;
+
+      const voteKey = "mt_quest_vote_" + questId;
+      const existingVote = localStorage.getItem(voteKey);
+
+      if (existingVote === voteType) {
+        // Undo vote (same button clicked again)
+        if (voteType === "up") {
+          DataStore.update("quests", questId, {
+            thumbsUp: Math.max((quest.thumbsUp || 0) - 1, 0),
+          });
+        } else {
+          DataStore.update("quests", questId, {
+            thumbsDown: Math.max((quest.thumbsDown || 0) - 1, 0),
+          });
+        }
+        localStorage.removeItem(voteKey);
+        thumb.classList.remove("voted");
+        // Update count
+        const updated = DataStore.getById("quests", questId);
+        const countEl = thumb.querySelector(".quest-thumb-count");
+        const newCount =
+          voteType === "up" ? updated.thumbsUp || 0 : updated.thumbsDown || 0;
+        countEl.textContent =
+          newCount >= 1000
+            ? (newCount / 1000).toFixed(1) + "k"
+            : newCount.toString();
+      } else if (existingVote) {
+        // Switch vote (different button clicked)
+        if (existingVote === "up") {
+          DataStore.update("quests", questId, {
+            thumbsUp: Math.max((quest.thumbsUp || 0) - 1, 0),
+            thumbsDown: (quest.thumbsDown || 0) + 1,
+          });
+        } else {
+          DataStore.update("quests", questId, {
+            thumbsUp: (quest.thumbsUp || 0) + 1,
+            thumbsDown: Math.max((quest.thumbsDown || 0) - 1, 0),
+          });
+        }
+        localStorage.setItem(voteKey, voteType);
+        // Update both thumbs visually
+        const allThumbs = board.querySelectorAll(".quest-thumb");
+        allThumbs.forEach((t) => t.classList.remove("voted"));
+        thumb.classList.add("voted");
+        const updated = DataStore.getById("quests", questId);
+        board.querySelector(".quest-thumb-up .quest-thumb-count").textContent =
+          (updated.thumbsUp || 0) >= 1000
+            ? ((updated.thumbsUp || 0) / 1000).toFixed(1) + "k"
+            : (updated.thumbsUp || 0).toString();
+        board.querySelector(
+          ".quest-thumb-down .quest-thumb-count",
+        ).textContent =
+          (updated.thumbsDown || 0) >= 1000
+            ? ((updated.thumbsDown || 0) / 1000).toFixed(1) + "k"
+            : (updated.thumbsDown || 0).toString();
+      } else {
+        // New vote
+        if (voteType === "up") {
+          DataStore.update("quests", questId, {
+            thumbsUp: (quest.thumbsUp || 0) + 1,
+          });
+        } else {
+          DataStore.update("quests", questId, {
+            thumbsDown: (quest.thumbsDown || 0) + 1,
+          });
+        }
+        localStorage.setItem(voteKey, voteType);
+        thumb.classList.add("voted");
+        const updated = DataStore.getById("quests", questId);
+        const countEl = thumb.querySelector(".quest-thumb-count");
+        const newCount =
+          voteType === "up" ? updated.thumbsUp || 0 : updated.thumbsDown || 0;
+        countEl.textContent =
+          newCount >= 1000
+            ? (newCount / 1000).toFixed(1) + "k"
+            : newCount.toString();
+      }
+    });
+  });
+}
+
+// Close quest via header icon
+if (questIcon) {
+  questIcon.addEventListener("click", (e) => {
+    e.stopPropagation();
+    document.querySelectorAll(".quest-board").forEach((b) => {
+      b.classList.remove("expanded");
+      b.style.display = "flex";
+    });
+    questIcon.src = QUEST_ICON_DEFAULT;
+  });
+}
+
+// Click anywhere on quest-header to close expanded quest
+const questHeader = document.querySelector(".quest-header");
+if (questHeader) {
+  questHeader.addEventListener("click", () => {
+    document.querySelectorAll(".quest-board").forEach((b) => {
+      b.classList.remove("expanded");
+      b.style.display = "flex";
+    });
+    if (questIcon) questIcon.src = QUEST_ICON_DEFAULT;
+  });
+}
+
+// Initial render
+renderQuests();

@@ -1,0 +1,187 @@
+/* ── App Page (About) ─────────────────────────────────── */
+.about-page {
+  display: none;
+  flex-direction: column;
+  min-height: 100%;
+  background: var(--gradient-bg-global);
+  padding: 10px 20px;
+}
+
+/* ── Hero Header ───────────────────────────────────────── */
+.app-hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 48px 24px 20px;
+}
+
+.app-hero-title-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.app-hero-sub {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-normal);
+  background: var(--gradient-secondary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.app-hero-main {
+  font-size: 96px;
+  font-weight: 500;
+  letter-spacing: -8px;
+  line-height: 0.9;
+  background: var(--gradient-primary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding-right: 8px;
+  padding-bottom: 5px;
+}
+
+/* ── Search Bar ─────────────────────────────────────────── */
+.app-search-wrap {
+  padding: 12px 20px 24px;
+}
+
+.app-search-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  background: rgba(0, 9, 26, 0.35);
+  border: 0.5px solid var(--border-color-light);
+  border-radius: 10px;
+  padding: 13px 20px;
+  backdrop-filter: var(--glass-blur-lg);
+  transition: var(--transition-fast);
+}
+
+.app-search-bar:focus-within {
+  border-color: var(--border-color-dark);
+  background: rgba(0, 9, 26, 0.5);
+  box-shadow: var(--shadow-glow-sm);
+}
+
+.app-search-icon {
+  width: 16px;
+  height: 16px;
+  opacity: var(--opacity-icon-medium);
+  flex-shrink: 0;
+}
+
+.app-search-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: var(--font-size-xl);
+  color: var(--color-accent-light);
+  font-family: var(--font-family-primary);
+  letter-spacing: var(--letter-spacing-normal);
+  font-family: "Gellix", sans-serif;
+}
+
+.app-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Boards Wrapper ─────────────────────────────────────── */
+.about-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px 10px;
+  gap: 10px;
+}
+
+/* ── Board Item ─────────────────────────────────────────── */
+.about-board-item {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  /* border: var(--border-width) solid var(--border-color-light); */
+  border: 0.5px solid var(--border-color-light);
+  background: var(--gradient-card-light);
+  backdrop-filter: var(--glass-blur-md);
+  transition: var(--transition-fast);
+}
+
+.about-board-item.hidden {
+  display: none;
+}
+
+/* ── Board Trigger (card face) ──────────────────────────── */
+.about-board {
+  width: 100%;
+  aspect-ratio: 180 / 100;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  position: relative;
+  transition: var(--transition-fast);
+}
+
+.about-board:active {
+  background: var(--gradient-card-active);
+}
+
+.about-board-item.expanded .about-board {
+  border-bottom: var(--border-width) solid var(--border-color-light);
+  aspect-ratio: auto;
+  padding: 18px 20px;
+}
+
+.about-board-title {
+  position: relative;
+  z-index: 2;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-normal);
+  padding: 20px;
+  background: var(--gradient-tertiary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Board Content (Hidden by default) ───────────────────────── */
+.about-board-content {
+  display: none;
+  padding: 20px;
+}
+
+/* Show content with animation when expanded */
+.about-board-item.expanded .about-board-content {
+  display: block;
+  animation: slideDown 0.25s ease;
+}
+
+.about-content-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-loose);
+  margin-bottom: 10px;
+  background: var(--gradient-secondary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: uppercase;
+}
+
+.about-content-description {
+  color: rgba(200, 215, 255, 0.75);
+  font-size: var(--font-size-base);
+  line-height: 1.75;
+  letter-spacing: var(--letter-spacing-loose);
+}

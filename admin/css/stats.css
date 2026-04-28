@@ -1,0 +1,74 @@
+﻿/* Stats Page */
+.stats-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stats-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stats-bar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stats-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.stats-bar-name {
+  color: #aaa;
+  font-weight: 500;
+}
+
+.stats-bar-value {
+  color: #fff;
+  font-weight: 700;
+}
+
+.stats-bar-track {
+  height: 8px;
+  background: #111;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.stats-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: #fff;
+  transition: width 0.4s ease;
+}
+
+/* Breakdown cards */
+.stats-breakdown {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.stats-breakdown-card {
+  background: #111;
+  border-radius: 4px;
+  padding: 16px;
+  text-align: center;
+}
+
+.stats-breakdown-number {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.stats-breakdown-label {
+  font-size: 11px;
+  color: #555;
+  font-weight: 500;
+}

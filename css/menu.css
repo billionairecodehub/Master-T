@@ -1,0 +1,1043 @@
+/* Menu / Store Page */
+.menu-page {
+  display: none;
+  color: white;
+  text-align: center;
+  background: var(--gradient-bg-global);
+  min-height: 100%;
+}
+
+.menu-page.active {
+  display: block;
+}
+
+.menu-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  padding: 0 20px;
+}
+
+.menu-home {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── Store Hero Header ── */
+.store-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 44px 0 20px;
+}
+
+.store-hero-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.store-hero-main {
+  font-size: 72px;
+  font-weight: 500;
+  background: linear-gradient(90deg, #5b8fff, #f8f6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -7px;
+  line-height: 0.95;
+  display: inline-block;
+  white-space: nowrap;
+  padding-right: 30px;
+}
+
+.store-hero-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(107, 158, 255, 0.6));
+}
+
+.menu-header {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+  gap: 12px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: transparent;
+  backdrop-filter: var(--glass-blur-md);
+}
+
+/* ── Nav Tab Blocks ── */
+.menu-abc-block {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.abc-title {
+  flex: 1;
+  padding: 12px 16px;
+  background: transparent;
+  border: 0.5px solid rgba(107, 158, 255, 0.3);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.7px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.abc-title.active {
+  border-color: rgba(107, 158, 255, 0.8);
+  background: linear-gradient(
+    135deg,
+    rgba(107, 158, 255, 0.15),
+    rgba(163, 128, 255, 0.12)
+  );
+  color: #fff;
+  box-shadow: 0 0 12px rgba(107, 158, 255, 0.2);
+}
+
+/* ── Search Bar ── */
+.menu-search-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 9, 26, 0.15);
+  border-radius: 10px;
+  padding: 18px 14px;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.menu-search-bar:focus-within {
+  border-color: var(--border-color-dark);
+  background: rgba(0, 9, 26, 0.5);
+  box-shadow: var(--shadow-glow-sm);
+}
+
+.search-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  opacity: var(--opacity-icon-medium);
+  flex-shrink: 0;
+}
+
+.menu-search-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--color-accent-light);
+  font-size: 15px;
+  font-family: var(--font-family-primary);
+  letter-spacing: -0.25px;
+  font-family: "Gellix", sans-serif;
+  min-width: 0;
+}
+
+.menu-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.filter-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  cursor: pointer;
+  opacity: var(--opacity-icon-medium);
+  transition: var(--transition-fast);
+}
+
+.menu-main {
+  width: 100%;
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Panel container */
+.menu-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Scrollable upper section */
+.menu-panel-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 16px;
+}
+
+/* ── Section label ── */
+.menu-section-label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: -0.25px;
+  margin-bottom: 12px;
+  background: var(--gradient-secondary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.75;
+}
+
+/* ── Alpha group letter ── */
+.menu-alpha-group {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-alpha-letter {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-looser);
+  margin-bottom: 6px;
+  background: var(--gradient-primary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.55;
+}
+
+/* ── App grid & icons ── */
+.menu-app-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.menu-app-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  width: 80px;
+  cursor: pointer;
+}
+
+.menu-app-icon {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: var(--radius-2xl);
+  background: rgba(0, 9, 26, 0.5);
+  border: var(--border-width) solid var(--border-color-light);
+}
+
+.menu-app-name {
+  color: rgba(200, 215, 255, 0.75);
+  font-size: var(--font-size-sm);
+  line-height: 1.3;
+}
+
+/* ── Book grid & icons ── */
+.menu-book-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px 10px;
+}
+
+.menu-book-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.menu-book-icon {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  background: rgba(0, 9, 26, 0.5);
+  border: var(--border-width) solid var(--border-color-light);
+}
+
+.menu-book-name {
+  color: rgba(200, 215, 255, 0.75);
+  font-size: var(--font-size-sm);
+  line-height: 1.3;
+}
+
+/* ── Circle grid & icons ── */
+.menu-circle-category {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.menu-circle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.menu-circle-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.menu-circle-icon {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  background: rgba(0, 9, 26, 0.5);
+  border: var(--border-width) solid var(--border-color-light);
+}
+
+.menu-circle-name {
+  color: rgba(200, 215, 255, 0.75);
+  font-size: var(--font-size-sm);
+  line-height: 1.3;
+}
+
+/* ── Expandable letter / category ─── */
+.menu-alpha-letter.expandable,
+.menu-cat-label.expandable {
+  cursor: pointer;
+}
+
+/* ── Full-page Expand View ─── */
+.menu-expand-view {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0;
+}
+
+/* ── Pinned / Recommended board ── */
+.menu-pinned-board {
+  margin-bottom: 24px;
+}
+
+.menu-pinned-item {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  align-items: flex-start;
+  cursor: pointer;
+  padding: 16px;
+  border-radius: 5px;
+  background: var(--gradient-card-light);
+  border: 0.5px solid var(--border-color-light);
+  backdrop-filter: var(--glass-blur-md);
+  transition: var(--transition-fast);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Override grid-item styles when used as a pinned card */
+.menu-pinned-item.menu-app-item,
+.menu-pinned-item.menu-book-item,
+.menu-pinned-item.menu-circle-item {
+  flex-direction: row;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.menu-pinned-item:active {
+  background: var(--gradient-card-active);
+  border-color: var(--border-color-medium);
+  box-shadow: var(--shadow-glow-sm);
+  transform: scale(0.99);
+}
+
+.menu-pinned-icon {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  flex-shrink: 0;
+  background: rgba(0, 9, 26, 0.5);
+}
+
+.menu-pinned-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.menu-pinned-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-normal);
+  background: var(--gradient-primary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.menu-pinned-desc {
+  color: rgba(200, 215, 255, 0.55);
+  font-size: var(--font-size-base);
+  line-height: 1.55;
+  text-align: left;
+}
+
+.menu-pinned-cta {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-loose);
+  background: var(--gradient-secondary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-top: 2px;
+}
+
+.menu-circle-tagline {
+  font-size: var(--font-size-xl);
+  line-height: 1.2;
+  max-width: 280px;
+  letter-spacing: var(--letter-spacing-normal);
+  text-align: left;
+  padding: 8px 0;
+  background: var(--gradient-tertiary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Shared Panel Styles (topbar, content board) ─── */
+.circle-panel-topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.circle-panel-back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.circle-panel-back img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.circle-panel-topbar-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.circle-panel-topbar-label {
+  font-size: 10px;
+  color: #aaa;
+  font-weight: 400;
+}
+
+.circle-panel-topbar-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.circle-panel-topbar-img {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 4px;
+  transform: rotate(-6deg);
+  flex-shrink: 0;
+}
+
+/* White content board */
+.circle-content-board {
+  background: #fff;
+  border-radius: 5px;
+  padding: 28px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.circle-board-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 8px;
+}
+
+.circle-board-img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  transform: rotate(-6deg);
+  flex-shrink: 0;
+}
+
+.circle-board-category {
+  font-size: 10px;
+  color: #aaa;
+}
+
+.circle-board-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+  letter-spacing: -0.5px;
+}
+
+.circle-board-platform {
+  font-size: 11px;
+  color: #777;
+}
+
+.circle-board-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.circle-section-label {
+  font-size: 10px;
+  color: #aaa;
+  font-weight: 400;
+}
+
+.circle-section-text {
+  font-size: 12px;
+  color: #333;
+  line-height: 1.7;
+  text-align: left;
+}
+
+.circle-desc-list {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 12px;
+}
+
+.circle-desc-item {
+  display: flex;
+  max-width: 320px;
+  gap: 10px;
+}
+
+.circle-desc-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.circle-desc-item span {
+  font-size: 11px;
+  color: #222;
+  line-height: 1.6;
+}
+
+/* ── Circle Detail Panel ─── */
+#panel-circle {
+  /* background: #111; */
+  z-index: 200;
+}
+
+.menu-circle-panel {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.menu-circle-panel.open {
+  display: flex;
+}
+
+.menu-circle-panel-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 18px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── App Detail Panel ─── */
+.menu-app-panel {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.menu-app-panel.open {
+  display: flex;
+}
+
+.menu-app-panel-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 18px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* App hero row */
+.app-board-hero {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 8px;
+}
+
+.app-board-icon {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.app-panel-back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.app-panel-back img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.app-board-details {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 4px;
+}
+
+.app-board-name {
+  font-size: 17px;
+  font-weight: 600;
+  color: #111;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.app-board-name-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.app-board-platform {
+  font-size: 11px;
+  color: #aaa;
+}
+
+.app-board-version {
+  display: inline-block;
+  background: #111;
+  color: #fff;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-top: 2px;
+  width: fit-content;
+}
+
+/* Visual strip — horizontal scroll */
+.app-visual-strip {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+}
+
+.app-visual-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.app-visual-img {
+  width: 75%;
+  flex-shrink: 0;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 5px;
+  scroll-snap-align: start;
+}
+
+/* Short + desc text */
+.app-short-text {
+  font-size: 12px;
+  color: #333;
+  line-height: 1.8;
+  text-align: left;
+  margin: 0;
+}
+
+.app-desc-text {
+  font-size: 12px;
+  color: #444;
+  line-height: 1.8;
+  text-align: left;
+  margin: 0;
+}
+
+/* Ratings row */
+.app-ratings-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.app-ratings-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.app-ratings-label {
+  font-size: 10px;
+  color: #aaa;
+}
+
+.app-ratings-score {
+  font-size: 13px;
+  color: #222;
+  font-weight: 500;
+}
+
+.app-ratings-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.app-ratings-viewall {
+  font-size: 10px;
+  color: #aaa;
+}
+
+.app-ratings-count {
+  font-size: 12px;
+  color: #222;
+}
+
+/* Rating platform icons */
+.app-ratings-platforms {
+  display: flex;
+  gap: 8px;
+}
+
+.app-rating-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* CTA board image */
+.app-cta-board {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 5px;
+  background-size: cover;
+  background-position: center;
+  background-color: #222;
+}
+
+/* ── Book Detail Panel ─── */
+.menu-book-panel {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 5px;
+}
+
+.menu-book-panel.open {
+  display: flex;
+}
+
+.menu-book-panel-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 18px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.book-panel-back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.book-panel-back img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* Book content title */
+.book-content-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #111;
+  letter-spacing: -0.5px;
+}
+
+/* Book content text */
+.book-content-text {
+  font-size: 12px;
+  color: #333;
+  line-height: 1.8;
+  text-align: left;
+  margin: 0;
+}
+
+/* Book review cards — horizontal strip */
+.book-reviews-strip {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+}
+
+.book-reviews-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.book-review-card {
+  flex-shrink: 0;
+  width: 75%;
+  background: #0a0a0a;
+  border-radius: 5px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scroll-snap-align: start;
+}
+
+.book-review-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.book-review-avatar {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.book-review-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.book-review-name {
+  font-size: 13px;
+  font-weight: 400;
+  color: #fff;
+}
+
+.book-review-score {
+  font-size: 10px;
+  color: #999;
+}
+
+.book-review-text {
+  font-size: 11px;
+  color: #ccc;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.book-review-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: auto;
+}
+
+.book-review-platform {
+  font-size: 11px;
+  color: #888;
+}
+
+.book-review-bookname {
+  font-size: 10px;
+  color: #666;
+}
+
+/* Ratings expand trigger */
+.book-ratings-expand-btn {
+  cursor: pointer;
+}
+
+/* Ratings Expand Overlay */
+.book-ratings-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 75%;
+  background: #fff;
+  border-radius: 5px 5px 0 0;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(105%);
+  transition: transform 0.3s ease;
+  z-index: 300;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.book-ratings-overlay.open {
+  transform: translateY(0);
+}
+
+.book-ratings-overlay-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.book-ratings-overlay-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.book-ratings-overlay-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.book-ratings-overlay-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  letter-spacing: -0.5px;
+}
+
+.book-ratings-overlay-subtitle {
+  font-size: 10px;
+  color: #999;
+}
+
+.book-ratings-overlay-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* Category pills */
+.book-ratings-categories {
+  display: flex;
+  gap: 10px;
+}
+
+.book-ratings-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 16px;
+  border: 1px solid #222;
+  border-radius: 5px;
+  font-size: 12px;
+  color: #fff;
+  background: #111;
+  cursor: pointer;
+}
+
+.book-ratings-pill span {
+  font-size: 10px;
+  color: #999;
+}
+
+/* Full review cards in overlay — full width, vertical */
+.book-ratings-full-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.book-review-card-full {
+  width: 100%;
+}

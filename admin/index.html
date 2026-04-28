@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Master Togan — Admin</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="font.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/posts.css" />
+    <link rel="stylesheet" href="css/quests.css" />
+    <link rel="stylesheet" href="css/content.css" />
+    <link rel="stylesheet" href="css/stats.css" />
+    <link rel="stylesheet" href="css/settings.css" />
+  </head>
+  <body>
+    <!-- Login Screen -->
+    <div class="admin-login">
+      <img
+        src="https://i.postimg.cc/pdv2ftPx/Master-Togan-Logo.png"
+        alt="Logo"
+        class="login-logo"
+      />
+      <div class="login-title">Admin Panel</div>
+      <div class="login-subtitle">Enter your PIN to continue</div>
+      <input
+        type="password"
+        class="login-input"
+        id="login-pin"
+        placeholder="PIN"
+        maxlength="8"
+        inputmode="numeric"
+      />
+      <div class="login-error" id="login-error"></div>
+      <button class="login-btn" id="login-btn">Enter</button>
+    </div>
+
+    <!-- Admin Layout (hidden until login) -->
+    <div class="admin-layout" style="display: none">
+      <header class="admin-header">
+        <div class="admin-header-left">
+          <img
+            src="https://i.postimg.cc/pdv2ftPx/Master-Togan-Logo.png"
+            alt="Logo"
+            class="admin-header-logo"
+          />
+          <div class="admin-header-title">Master Togan</div>
+          <div class="admin-header-badge">ADMIN</div>
+        </div>
+        <button class="admin-logout-btn" id="admin-logout">Logout</button>
+      </header>
+
+      <!-- Pages loaded by appindex.js -->
+      <main class="admin-main"></main>
+
+      <footer class="admin-footer">
+        <div class="admin-footer-wrapper">
+          <div class="admin-nav-item active" data-admin-nav="dashboard">
+            <div class="admin-nav-icon">
+              <img
+                src="https://i.postimg.cc/52K2DkvP/Mt-Admin-Bar-Icon-Home.png"
+                alt="Home"
+                class="admin-nav-img"
+              />
+            </div>
+            <div class="admin-nav-label">Home</div>
+          </div>
+          <div class="admin-nav-item" data-admin-nav="posts">
+            <div class="admin-nav-icon">
+              <img
+                src="https://i.postimg.cc/DZknTVzm/Mt-Admin-Bar-Icon-Post.png"
+                alt="Posts"
+                class="admin-nav-img"
+              />
+            </div>
+            <div class="admin-nav-label">Posts</div>
+          </div>
+          <div class="admin-nav-item" data-admin-nav="quests">
+            <div class="admin-nav-icon">
+              <img
+                src="https://i.postimg.cc/261CZPjm/Mt-Admin-Bar-Icon-Quest.png"
+                alt="Quests"
+                class="admin-nav-img"
+              />
+            </div>
+            <div class="admin-nav-label">Quests</div>
+          </div>
+          <div class="admin-nav-item" data-admin-nav="content">
+            <div class="admin-nav-icon">
+              <img
+                src="https://i.postimg.cc/c1cZVbG0/Mt-Admin-Bar-Icon-Content.png"
+                alt="Content"
+                class="admin-nav-img"
+              />
+            </div>
+            <div class="admin-nav-label">Content</div>
+          </div>
+          <div class="admin-nav-item" data-admin-nav="stats">
+            <div class="admin-nav-icon">
+              <img
+                src="https://i.postimg.cc/rFm67yJV/Mt-Admin-Bar-Icon-Stats.png"
+                alt="Stats"
+                class="admin-nav-img"
+              />
+            </div>
+            <div class="admin-nav-label">Stats</div>
+          </div>
+          <div class="admin-nav-item" data-admin-nav="settings">
+            <div class="admin-nav-icon">
+              <img
+                src="https://i.postimg.cc/RFR8b2JB/Mt-Admin-Bar-Icon-Settings.png"
+                alt="Settings"
+                class="admin-nav-img"
+              />
+            </div>
+            <div class="admin-nav-label">Settings</div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Redirect Page for Tablet & Desktop -->
+    <div class="redirect-page">
+      <div class="redirect-container">
+        <div class="redirect-title">Admin Panel</div>
+        <div class="redirect-text">
+          Please use a mobile device to access the admin panel
+        </div>
+      </div>
+    </div>
+
+    <script src="appindex.js"></script>
+  </body>
+</html>

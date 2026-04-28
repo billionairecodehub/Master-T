@@ -1,0 +1,128 @@
+<div class="admin-page posts-page" data-admin-page="posts">
+  <div class="admin-page-title">Posts</div>
+  <div class="admin-page-subtitle">Manage your feed posts</div>
+
+  <div class="post-list" id="post-list"></div>
+
+  <button class="admin-fab" id="fab-post">+</button>
+</div>
+
+<!-- Post Form Modal -->
+<div class="admin-modal" id="modal-post">
+  <div class="admin-modal-header">
+    <div class="admin-modal-title" id="modal-post-title">New Post</div>
+    <button class="admin-modal-close" id="modal-post-close">✕</button>
+  </div>
+  <div class="admin-modal-body">
+    <input type="hidden" id="post-edit-id" />
+
+    <div class="admin-field">
+      <div class="admin-field-label">Subject</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="post-subject"
+        placeholder="Post subject..."
+      />
+    </div>
+
+    <div class="admin-field">
+      <div class="admin-field-label">Author</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="post-author"
+        value="Master Togan"
+      />
+    </div>
+
+    <div class="admin-field">
+      <div class="admin-field-label">Date Label</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="post-date"
+        placeholder="e.g. 15 Apr ~ 26"
+      />
+    </div>
+
+    <div class="admin-field">
+      <div class="admin-field-label">Content</div>
+      <textarea
+        class="admin-field-textarea"
+        id="post-content"
+        placeholder="Post body text..."
+      ></textarea>
+    </div>
+
+    <div class="admin-field">
+      <div class="admin-field-label">Timeframe</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="post-timeframe"
+        placeholder="e.g. ~24min ago"
+      />
+    </div>
+
+    <div class="admin-field">
+      <div class="admin-field-label">CTA Button Text (optional)</div>
+      <input
+        type="text"
+        class="admin-field-input"
+        id="post-cta"
+        placeholder="e.g. Get Frame Control ~ $29.01"
+      />
+    </div>
+
+    <div class="admin-field">
+      <div class="admin-field-label">Thread Sections</div>
+      <div class="thread-list" id="thread-list"></div>
+      <div class="thread-add-form" id="thread-add-form" style="display: none">
+        <input
+          type="text"
+          class="admin-field-input"
+          id="thread-title-input"
+          placeholder="Thread title..."
+          style="margin-bottom: 8px"
+        />
+        <textarea
+          class="admin-field-textarea"
+          id="thread-text-input"
+          placeholder="Thread text..."
+          style="min-height: 60px; margin-bottom: 8px"
+        ></textarea>
+        <div style="display: flex; gap: 8px">
+          <button
+            class="admin-save-btn"
+            id="thread-confirm-btn"
+            style="flex: 1; padding: 12px; font-size: 13px"
+          >
+            Add
+          </button>
+          <button
+            class="admin-delete-btn"
+            id="thread-cancel-btn"
+            style="
+              flex: 1;
+              padding: 12px;
+              font-size: 13px;
+              border-color: #333;
+              color: #888;
+            "
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+      <button class="add-thread-btn" id="add-thread-btn">
+        + Add Thread Section
+      </button>
+    </div>
+
+    <button class="admin-save-btn" id="save-post-btn">Save Post</button>
+    <button class="admin-delete-btn" id="delete-post-btn" style="display: none">
+      Delete Post
+    </button>
+  </div>
+</div>

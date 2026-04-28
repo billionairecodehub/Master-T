@@ -1,0 +1,636 @@
+@import url("https://fonts.googleapis.com/css2?family=Gellix:wght@400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a,
+img,
+div,
+span,
+label {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+html,
+body {
+  font-family: "Gellix", sans-serif;
+  width: 100%;
+  height: 100%;
+  max-height: 100vh;
+  max-height: 100dvh;
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+}
+
+/* Admin Layout */
+.admin-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  background: #000;
+}
+
+/* -- Login Screen ----------------------------------- */
+.admin-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  height: 100dvh;
+  padding: 0 40px;
+  gap: 24px;
+  background: #000;
+}
+
+.login-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.login-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.login-subtitle {
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+  margin-top: -12px;
+}
+
+.login-input {
+  width: 100%;
+  max-width: 280px;
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 5px;
+  padding: 16px 20px;
+  color: #fff;
+  font-size: 18px;
+  font-family: "Gellix", sans-serif;
+  text-align: center;
+  letter-spacing: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.login-input:focus {
+  border-color: #444;
+}
+
+.login-input::placeholder {
+  letter-spacing: 2px;
+  color: #444;
+  font-size: 14px;
+}
+
+.login-btn {
+  width: 100%;
+  max-width: 280px;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: "Gellix", sans-serif;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.login-btn:active {
+  opacity: 0.8;
+}
+
+.login-error {
+  color: #e74c3c;
+  font-size: 13px;
+  min-height: 18px;
+}
+
+/* -- Header ----------------------------------------- */
+.admin-header {
+  flex: 0 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #111;
+}
+
+.admin-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-header-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.admin-header-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.admin-header-badge {
+  font-size: 10px;
+  background: #222;
+  color: #888;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.admin-logout-btn {
+  background: none;
+  border: 1px solid #222;
+  color: #666;
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Gellix", sans-serif;
+  transition: all 0.2s;
+}
+
+.admin-logout-btn:active {
+  background: #111;
+}
+
+/* -- Main ------------------------------------------- */
+.admin-main {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #000;
+}
+
+/* -- Footer Nav ------------------------------------- */
+.admin-footer {
+  flex: 0 0 auto;
+  border-top: 1px solid #111;
+  padding: 10px 0;
+  background: #000;
+}
+
+.admin-footer-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px;
+}
+
+.admin-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 6px 0;
+  transition: all 0.2s;
+}
+
+.admin-nav-icon {
+  font-size: 20px;
+  opacity: 0.4;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-nav-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.admin-nav-label {
+  font-size: 10px;
+  color: #555;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.admin-nav-item.active .admin-nav-icon {
+  opacity: 1;
+}
+
+.admin-nav-item.active .admin-nav-label {
+  color: #fff;
+}
+
+/* -- Shared Admin Components ------------------------ */
+
+.admin-page {
+  display: none;
+  flex-direction: column;
+  padding: 20px 24px;
+}
+
+.admin-page-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.admin-page-subtitle {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Stat cards row */
+.admin-stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.admin-stat-card {
+  flex: 1;
+  min-width: 0;
+  background: #111;
+  border-radius: 5px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-stat-number {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.admin-stat-label {
+  font-size: 10px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* List items */
+.admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #111;
+  border-radius: 5px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.admin-list-item:active {
+  background: #0a0a0a;
+}
+
+.admin-list-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  object-fit: cover;
+  background: #222;
+}
+
+.admin-list-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-list-name {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-list-meta {
+  font-size: 11px;
+  color: #555;
+  margin-top: 2px;
+}
+
+.admin-list-action {
+  color: #555;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* Section headers */
+.admin-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.admin-section-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.admin-section-count {
+  font-size: 12px;
+  color: #555;
+}
+
+/* Add button (FAB) */
+.admin-fab {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 52px;
+  height: 52px;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  font-size: 26px;
+  font-weight: 300;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  transition: transform 0.2s;
+}
+
+.admin-fab:active {
+  transform: scale(0.92);
+}
+
+/* -- Modal / Form Overlay --------------------------- */
+.admin-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 100;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.admin-modal.open {
+  display: flex;
+}
+
+.admin-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #111;
+  position: sticky;
+  top: 0;
+  background: #000;
+  z-index: 2;
+}
+
+.admin-modal-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.admin-modal-close {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.admin-modal-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-field-label {
+  font-size: 12px;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-field-input {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 5px;
+  padding: 14px 16px;
+  color: #fff;
+  font-size: 14px;
+  font-family: "Gellix", sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.admin-field-input:focus {
+  border-color: #444;
+}
+
+.admin-field-textarea {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 5px;
+  padding: 14px 16px;
+  color: #fff;
+  font-size: 14px;
+  font-family: "Gellix", sans-serif;
+  outline: none;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.2s;
+}
+
+.admin-field-textarea:focus {
+  border-color: #444;
+}
+
+.admin-field-select {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 5px;
+  padding: 14px 16px;
+  color: #fff;
+  font-size: 14px;
+  font-family: "Gellix", sans-serif;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.admin-field-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-field-checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #fff;
+}
+
+.admin-field-checkbox label {
+  font-size: 14px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+/* Save / Delete buttons */
+.admin-save-btn {
+  width: 100%;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: "Gellix", sans-serif;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity 0.2s;
+}
+
+.admin-save-btn:active {
+  opacity: 0.8;
+}
+
+.admin-delete-btn {
+  width: 100%;
+  background: none;
+  color: #e74c3c;
+  border: 1px solid #331111;
+  border-radius: 5px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Gellix", sans-serif;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.admin-delete-btn:active {
+  opacity: 0.8;
+}
+
+/* Tabs */
+.admin-tabs {
+  display: flex;
+  gap: 0;
+  background: #111;
+  border-radius: 5px;
+  padding: 4px;
+  margin-bottom: 16px;
+}
+
+.admin-tab {
+  flex: 1;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.admin-tab.active {
+  background: #222;
+  color: #fff;
+}
+
+/* Empty state */
+.admin-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #333;
+}
+
+.admin-empty-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.admin-empty-text {
+  font-size: 14px;
+}
+
+/* -- Tablet & Desktop redirect ---------------------- */
+@media (min-width: 768px) {
+  .admin-layout,
+  .admin-login {
+    display: none;
+  }
+
+  .redirect-page {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background-color: #0a0a0a;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .redirect-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+  }
+
+  .redirect-title {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .redirect-text {
+    font-size: 16px;
+    color: #666;
+  }
+}
