@@ -338,7 +338,7 @@
 }
 
 .block-story-rate-section {
-  border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
+  border-top: 0.5px solid rgba(107, 158, 255, 0.08);
   padding-top: 18px;
   padding-bottom: 24px;
 }
