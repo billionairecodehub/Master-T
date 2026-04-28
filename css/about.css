@@ -112,7 +112,7 @@
   /* border: var(--border-width) solid var(--border-color-light); */
   border: 0.5px solid var(--border-color-light);
   background: var(--gradient-card-light);
-  backdrop-filter: var(--glass-blur-md);
+  /* backdrop-filter: var(--glass-blur-md); */
   transition: var(--transition-fast);
 }
 
