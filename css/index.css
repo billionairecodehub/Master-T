@@ -429,7 +429,8 @@ body {
   width: 24px;
   height: 24px;
   border-radius: 3px;
-  object-fit: cover;
+  border: var(--border-width) solid var(--border-color-light);
+  object-fit: contain;
 }
 
 .header-title {
