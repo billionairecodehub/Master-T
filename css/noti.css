@@ -290,7 +290,7 @@
 /* Collapsed content — hidden by default */
 .notification-board-content {
   display: none;
-  color: #ccc;
+  color: #fff;
   font-size: 11px;
   line-height: 1.2;
   padding: 60px 40px;
