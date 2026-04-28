@@ -134,7 +134,7 @@
   letter-spacing: -0.3px;
   padding: 10px 0px;
   cursor: pointer;
-   border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
+  border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
   transition:
     color 0.15s,
     border-color 0.15s;
@@ -489,8 +489,8 @@
 }
 
 .block-recommend-full-header-icon {
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   object-fit: contain;
   opacity: 0.5;
   flex-shrink: 0;
