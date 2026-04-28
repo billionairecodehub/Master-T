@@ -489,7 +489,8 @@
 
 /* White content board */
 .circle-content-board {
-  background: #fff;
+  background: rgba(0, 5, 22, 0.7);
+  color: #fff;
   border-radius: 5px;
   padding: 28px 28px 32px;
   display: flex;
@@ -523,13 +524,13 @@
 .circle-board-name {
   font-size: 18px;
   font-weight: 600;
-  color: #111;
+  color: #fff;
   letter-spacing: -0.5px;
 }
 
 .circle-board-platform {
   font-size: 11px;
-  color: #777;
+  color: #fff;
 }
 
 .circle-board-section {
@@ -548,7 +549,7 @@
 
 .circle-section-text {
   font-size: 12px;
-  color: #333;
+  color: #fff;
   line-height: 1.7;
   text-align: left;
 }
@@ -577,7 +578,7 @@
 
 .circle-desc-item span {
   font-size: 11px;
-  color: #222;
+  color: #fff;
   line-height: 1.6;
 }
 
@@ -672,7 +673,7 @@
 .app-board-name {
   font-size: 17px;
   font-weight: 600;
-  color: #111;
+  color: #fff;
   letter-spacing: -0.5px;
   display: flex;
   align-items: center;
@@ -693,7 +694,7 @@
 
 .app-board-version {
   display: inline-block;
-  background: #111;
+  background: rgba(0, 5, 22, 0.7);
   color: #fff;
   font-size: 10px;
   padding: 3px 8px;
@@ -728,7 +729,7 @@
 /* Short + desc text */
 .app-short-text {
   font-size: 12px;
-  color: #333;
+  color: #ddd;
   line-height: 1.8;
   text-align: left;
   margin: 0;
@@ -736,7 +737,7 @@
 
 .app-desc-text {
   font-size: 12px;
-  color: #444;
+  color: #fff;
   line-height: 1.8;
   text-align: left;
   margin: 0;
@@ -762,7 +763,7 @@
 
 .app-ratings-score {
   font-size: 13px;
-  color: #222;
+  color: #aaa;
   font-weight: 500;
 }
 
@@ -780,7 +781,7 @@
 
 .app-ratings-count {
   font-size: 12px;
-  color: #222;
+  color: #fff;
 }
 
 /* Rating platform icons */
@@ -803,7 +804,7 @@
   border-radius: 5px;
   background-size: cover;
   background-position: center;
-  background-color: #222;
+  background: rgba(0, 5, 22, 0.7);
 }
 
 /* ── Book Detail Panel ─── */
@@ -848,14 +849,14 @@
 .book-content-title {
   font-size: 17px;
   font-weight: 600;
-  color: #111;
+  color: #ddd;
   letter-spacing: -0.5px;
 }
 
 /* Book content text */
 .book-content-text {
   font-size: 12px;
-  color: #333;
+  color: #fff;
   line-height: 1.8;
   text-align: left;
   margin: 0;
