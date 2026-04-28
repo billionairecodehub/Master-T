@@ -24,7 +24,7 @@
   background: rgba(10, 14, 39, 0.92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(107, 158, 255, 0.15);
+  border-bottom: 0.5px solid rgba(107, 158, 255, 0.12);
   will-change: transform;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;

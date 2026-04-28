@@ -19,7 +19,7 @@
   background: rgba(10, 14, 39, 0.92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(107, 158, 255, 0.15);
+  border-bottom: 0.5px solid rgba(107, 158, 255, 0.12);
   will-change: transform;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -129,7 +129,7 @@
   flex: 1;
   text-align: center;
   font-size: 14px;
-  color: #555;
+  color: #aaa;
   font-weight: 400;
   letter-spacing: -0.3px;
   padding: 10px 0px;
@@ -142,7 +142,7 @@
 
 .block-tab.active {
   color: #fff;
-  border-bottom: 2px solid #fff;
+  border-bottom: 1px solid rgba(107, 158, 255, 0.4);
 }
 
 /* ── List container ── */
@@ -182,7 +182,7 @@
 
 .block-story-card {
   padding: 22px 0;
-  border-bottom: 1px solid #1e1e1e;
+  border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
   cursor: pointer;
   display: flex;
   flex-direction: column;
