@@ -73,7 +73,6 @@
   position: sticky;
   top: 0;
   z-index: 5;
-  border-radius: 10px;
   background: transparent;
   /* background: rgba(10, 14, 39, 0.92); */
   backdrop-filter: var(--glass-blur-md);
@@ -599,6 +598,7 @@
   height: 100%;
   overflow: hidden;
   border-radius: 5px;
+  padding: 5px 15px;
 }
 
 .menu-circle-panel.open {
@@ -622,6 +622,7 @@
   height: 100%;
   overflow: hidden;
   border-radius: 5px;
+  padding: 5px 15px;
 }
 
 .menu-app-panel.open {
@@ -820,6 +821,7 @@
   overflow: hidden;
   position: relative;
   border-radius: 5px;
+  padding: 5px 15px;
 }
 
 .menu-book-panel.open {
