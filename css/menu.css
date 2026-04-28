@@ -67,7 +67,7 @@
 .menu-header {
   display: flex;
   flex-direction: column;
-  padding: 20px 44px;
+  padding: 16px 30px;
   gap: 8px;
   flex-shrink: 0;
   position: sticky;
@@ -172,7 +172,7 @@
 
 .menu-main {
   width: 100%;
-  padding: 16px 32px;
+  padding: 16px 24px;
   display: flex;
   flex-direction: column;
   gap: 0;
