@@ -9,6 +9,24 @@ const profileViews = {
   about: document.getElementById("profile-about"),
 };
 
+// ── Contact buttons: call and email ──
+const profileCallBtn = document.getElementById("profile-call-btn");
+const profileEmailBtn = document.getElementById("profile-email-btn");
+
+if (profileCallBtn) {
+  profileCallBtn.addEventListener("click", () => {
+    const contact = profileCallBtn.getAttribute("data-contact");
+    window.location.href = contact;
+  });
+}
+
+if (profileEmailBtn) {
+  profileEmailBtn.addEventListener("click", () => {
+    const contact = profileEmailBtn.getAttribute("data-contact");
+    window.location.href = contact;
+  });
+}
+
 // ── Open board view ──
 function openProfileView(name) {
   if (!profileHome || !profileViews[name]) return;

@@ -464,11 +464,10 @@
   justify-content: center;
   gap: 10px;
   width: 100%;
-  padding: 20px 20px;
+  padding: 18px 20px;
   border: none;
-  border-radius: 0px;
-  border: var(--border-width) solid var(--border-color-light);
-  background: transparent;
+  border-radius: 5px;
+  background: rgba(0, 5, 22, 0.7) !important;
   color: #fff;
   font-size: 13px;
   font-weight: 400;
@@ -476,7 +475,6 @@
   font-family: "Gellix", sans-serif;
   text-decoration: none;
   letter-spacing: -0.3px;
-  opacity: 0.25;
 }
 
 /* ─ 3. Recommend expanded: card header persisted inside full view ─ */

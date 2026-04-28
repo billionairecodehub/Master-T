@@ -112,6 +112,9 @@
   text-decoration: none;
   backdrop-filter: var(--glass-blur-md);
   transition: var(--transition-fast);
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
 }
 
 /* ── Profile Title ── */
