@@ -14,15 +14,19 @@ const profileCallBtn = document.getElementById("profile-call-btn");
 const profileEmailBtn = document.getElementById("profile-email-btn");
 
 if (profileCallBtn) {
-  profileCallBtn.addEventListener("click", () => {
+  profileCallBtn.addEventListener("click", (e) => {
     const contact = profileCallBtn.getAttribute("data-contact");
+    // Blur to prevent zoom
+    profileCallBtn.blur();
     window.location.href = contact;
   });
 }
 
 if (profileEmailBtn) {
-  profileEmailBtn.addEventListener("click", () => {
+  profileEmailBtn.addEventListener("click", (e) => {
     const contact = profileEmailBtn.getAttribute("data-contact");
+    // Blur to prevent zoom
+    profileEmailBtn.blur();
     window.location.href = contact;
   });
 }
@@ -49,12 +53,16 @@ function closeProfileView() {
 // Board click → open view
 document.querySelectorAll(".profile-board[data-board]").forEach((board) => {
   const name = board.getAttribute("data-board");
-  board.addEventListener("click", () => openProfileView(name));
+  board.addEventListener("click", () => {
+    board.blur();
+    openProfileView(name);
+  });
 });
 
 // Back buttons
 document.querySelectorAll(".profile-view-back").forEach((btn) => {
   btn.addEventListener("click", () => {
+    btn.blur();
     closeProfileView();
   });
 });
@@ -62,6 +70,7 @@ document.querySelectorAll(".profile-view-back").forEach((btn) => {
 // ── Sub board toggle-open ──
 document.querySelectorAll(".profile-sub-board[data-sub]").forEach((sub) => {
   sub.addEventListener("click", () => {
+    sub.blur();
     sub.classList.toggle("expanded");
   });
 });
@@ -112,6 +121,7 @@ const profileLikeBtn = document.getElementById("profile-like-btn");
 if (profileLikeBtn) {
   profileLikeBtn.addEventListener("click", (e) => {
     e.preventDefault();
+    profileLikeBtn.blur();
     const current = getProfileLikes();
     const hasLiked = !!localStorage.getItem(PROFILE_LIKED_KEY);
     if (hasLiked) {

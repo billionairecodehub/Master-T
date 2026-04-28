@@ -18,6 +18,15 @@
   }
 }
 
+/* Prevent mobile zoom on button focus */
+button {
+  font-size: 16px;
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 .profile-page {
   display: none;
   color: white;
@@ -113,8 +122,14 @@
   backdrop-filter: var(--glass-blur-md);
   transition: var(--transition-fast);
   border: none;
-  font-size: inherit;
+  font-size: 16px;
   font-family: inherit;
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 /* ── Profile Title ── */
@@ -704,10 +719,10 @@
   width: 100%;
   padding: 20px;
   font-size: var(--font-size-md);
-  border: 0.5px solid rgba(231, 239, 255, 0.3);
+  /* border: 0.5px solid rgba(231, 239, 255, 0.3); */
   outline: none;
   border-radius: 30px;
-  background: rgba(0, 5, 28, 0.65);
+  background: rgba(0, 5, 22, 0.7) !important;
   color: rgba(200, 215, 255, 0.75);
   font-family: var(--font-family-primary);
   box-sizing: border-box;

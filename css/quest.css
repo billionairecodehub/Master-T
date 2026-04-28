@@ -1,4 +1,13 @@
 /* ── Quest Page ─────────────────────────────── */
+
+/* Prevent mobile zoom on button focus */
+button {
+  font-size: 16px;
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
 .quest-page {
   display: none;
 }
