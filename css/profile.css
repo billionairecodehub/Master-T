@@ -149,7 +149,7 @@ button {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  padding-bottom: 20px;
+  padding: 20px;
 }
 
 .profile-icon-img {

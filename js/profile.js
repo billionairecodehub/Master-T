@@ -15,19 +15,25 @@ const profileEmailBtn = document.getElementById("profile-email-btn");
 
 if (profileCallBtn) {
   profileCallBtn.addEventListener("click", (e) => {
+    e.preventDefault();
     const contact = profileCallBtn.getAttribute("data-contact");
-    // Blur to prevent zoom
     profileCallBtn.blur();
-    window.location.href = contact;
+    // Delay to allow blur to complete before navigation
+    setTimeout(() => {
+      window.location.href = contact;
+    }, 50);
   });
 }
 
 if (profileEmailBtn) {
   profileEmailBtn.addEventListener("click", (e) => {
+    e.preventDefault();
     const contact = profileEmailBtn.getAttribute("data-contact");
-    // Blur to prevent zoom
     profileEmailBtn.blur();
-    window.location.href = contact;
+    // Delay to allow blur to complete before navigation
+    setTimeout(() => {
+      window.location.href = contact;
+    }, 50);
   });
 }
 
