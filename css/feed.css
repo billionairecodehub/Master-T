@@ -187,6 +187,7 @@ button {
 /* Expanded post */
 .feed-post.expanded {
   height: auto;
+  min-height: 100vh;
   overflow: visible;
   cursor: default;
 }

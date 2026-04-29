@@ -72,16 +72,14 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-    135deg,
-    rgba(107, 158, 255, 0.15),
-    rgba(163, 128, 255, 0.12)
-  );
-  /* Ticket shape: rectangle + semicircle notches on right side + rounded corners */
-  clip-path: path(
-    "M 10,0 L 175,0 A 10,10 0 0 1 195,0 L 230,0 Q 240,0 240,10 L 240,90 Q 240,100 230,100 L 195,100 A 10,10 0 0 1 175,100 L 10,100 Q 0,100 0,90 L 0,10 Q 0,0 10,0 Z"
-  );
-  filter: drop-shadow(0 0 1px rgba(107, 158, 255, 0.45));
+  background: rgba(107, 158, 255, 0.25);
+  /* Sharp corners, semicircle notches cut in from top+bottom at perforation line */
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='100'%3E%3Cpath fill='white' d='M0,0 L170,0 A10,10 0 0 1 190,0 L240,0 L240,100 L190,100 A10,10 0 0 1 170,100 L0,100 Z'/%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='100'%3E%3Cpath fill='white' d='M0,0 L170,0 A10,10 0 0 1 190,0 L240,0 L240,100 L190,100 A10,10 0 0 1 170,100 L0,100 Z'/%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
   transition: all 0.3s ease;
 }
 
@@ -89,11 +87,11 @@ button {
 .profile-hero-img-wrap::before {
   content: "";
   position: absolute;
-  left: 184px;
-  top: 0;
+  left: 180px;
+  top: 10px;
+  bottom: 10px;
   width: 0;
-  height: 100%;
-  border-left: 1.5px dashed rgba(0, 0, 0, 0.45);
+  border-left: 1.5px dashed rgba(0, 0, 0, 0.5);
   z-index: 3;
   pointer-events: none;
 }
@@ -169,7 +167,7 @@ button {
 .profile-icon-img {
   width: 16px;
   height: 16px;
-  object-fit: contain;
+  object-fit: cover;
   opacity: 0.8;
 }
 
