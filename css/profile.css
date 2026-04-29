@@ -66,21 +66,36 @@ button {
 }
 
 .profile-hero-img-wrap {
-  width: 64%;
-  height: 120px;
-  border-radius: 5px;
-  overflow: hidden;
+  position: relative;
+  width: 240px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(
     135deg,
-    rgba(107, 158, 255, 0.2),
-    rgba(163, 128, 255, 0.15)
+    rgba(107, 158, 255, 0.15),
+    rgba(163, 128, 255, 0.12)
   );
-  border: 0.5px solid rgba(107, 158, 255, 0.4);
-  backdrop-filter: blur(6px);
+  /* Ticket shape: rectangle + semicircle notches on right side + rounded corners */
+  clip-path: path(
+    "M 10,0 L 175,0 A 10,10 0 0 1 195,0 L 230,0 Q 240,0 240,10 L 240,90 Q 240,100 230,100 L 195,100 A 10,10 0 0 1 175,100 L 10,100 Q 0,100 0,90 L 0,10 Q 0,0 10,0 Z"
+  );
+  filter: drop-shadow(0 0 1px rgba(107, 158, 255, 0.45));
   transition: all 0.3s ease;
+}
+
+/* Perforation dotted line between the notches */
+.profile-hero-img-wrap::before {
+  content: "";
+  position: absolute;
+  left: 184px;
+  top: 0;
+  width: 0;
+  height: 100%;
+  border-left: 1.5px dashed rgba(0, 0, 0, 0.45);
+  z-index: 3;
+  pointer-events: none;
 }
 
 .profile-hero-img-wrap::after {
@@ -98,7 +113,6 @@ button {
   animation: glass-shine 3.6s ease-in-out infinite;
   pointer-events: none;
   z-index: 2;
-  border-radius: inherit;
 }
 
 .profile-action-row {
