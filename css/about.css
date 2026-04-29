@@ -148,7 +148,7 @@
 .about-board-title {
   position: relative;
   z-index: 2;
-  font-size: var(--font-size-xl);
+  font-size: 14px;
   font-weight: var(--font-weight-regular);
   letter-spacing: var(--letter-spacing-normal);
   padding: 20px;
