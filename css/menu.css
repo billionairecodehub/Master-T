@@ -472,10 +472,10 @@
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   border: 0.5px solid rgba(107, 158, 255, 0.2);
   border-radius: 5px;
-  padding: 10px 12px;
+  padding: 40px 12px;
   gap: 10px;
   min-width: 0;
   height: 44px;
@@ -492,16 +492,18 @@
 }
 
 .circle-panel-topbar-label {
-  font-size: 10px;
+  font-size: 8px;
   color: #aaa;
   font-weight: 400;
+  letter-spacing: 0.75px;
+  text-transform: uppercase;
 }
 
 .circle-panel-topbar-name {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 400;
   color: #fff;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.9px;
 }
 
 .circle-panel-topbar-img {
