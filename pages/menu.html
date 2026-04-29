@@ -67,13 +67,13 @@
       <div class="menu-app-panel-scroll">
         <!-- Topbar -->
         <div class="circle-panel-topbar">
+          <button class="circle-panel-back app-panel-back" id="app-panel-back">
+            <img
+              src="https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png"
+              alt="Back"
+            />
+          </button>
           <div class="circle-panel-topbar-meta">
-            <button class="app-panel-back" id="app-panel-back">
-              <img
-                src="https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png"
-                alt="Back"
-              />
-            </button>
             <div class="circle-panel-topbar-label" id="app-topbar-label">
               App
             </div>
@@ -141,13 +141,16 @@
       <div class="menu-book-panel-scroll">
         <!-- Topbar -->
         <div class="circle-panel-topbar">
+          <button
+            class="circle-panel-back book-panel-back"
+            id="book-panel-back"
+          >
+            <img
+              src="https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png"
+              alt="Back"
+            />
+          </button>
           <div class="circle-panel-topbar-meta">
-            <button class="book-panel-back" id="book-panel-back">
-              <img
-                src="https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png"
-                alt="Back"
-              />
-            </button>
             <div class="circle-panel-topbar-label" id="book-topbar-label">
               Book
             </div>
@@ -328,13 +331,13 @@
       <div class="menu-circle-panel-scroll">
         <!-- Topbar -->
         <div class="circle-panel-topbar">
+          <button class="circle-panel-back" id="circle-panel-back">
+            <img
+              src="https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png"
+              alt="Back"
+            />
+          </button>
           <div class="circle-panel-topbar-meta">
-            <button class="circle-panel-back" id="circle-panel-back">
-              <img
-                src="https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png"
-                alt="Back"
-              />
-            </button>
             <div class="circle-panel-topbar-label" id="circle-topbar-label">
               Circle
             </div>
@@ -352,6 +355,22 @@
 
         <!-- Content board -->
         <div class="circle-content-board">
+          <!-- Hero row: icon left, details right -->
+          <div class="circle-board-hero-row">
+            <img id="circle-board-img" src="" alt="" class="circle-hero-img" />
+            <div class="circle-hero-details">
+              <div class="circle-board-category" id="circle-board-category">
+                Romance
+              </div>
+              <div class="circle-board-name" id="circle-board-name">
+                Female Thoughts
+              </div>
+              <div class="circle-platform-badge" id="circle-board-platform">
+                X
+              </div>
+            </div>
+          </div>
+
           <!-- About -->
           <div class="circle-board-section">
             <div class="circle-section-label">About</div>
@@ -405,7 +424,13 @@
         </div>
 
         <!-- CTA -->
-        <a class="circle-panel-cta-link" id="circle-panel-cta" href="#" target="_blank" rel="noopener noreferrer">
+        <a
+          class="circle-panel-cta-link"
+          id="circle-panel-cta"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Check Out <span id="circle-cta-name">Female Thoughts</span> on
           <span id="circle-cta-platform">X</span>
         </a>
