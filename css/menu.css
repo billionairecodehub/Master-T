@@ -443,6 +443,7 @@
 .circle-panel-topbar {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   margin-bottom: 4px;
 }
@@ -469,14 +470,14 @@
 }
 
 .circle-panel-topbar-box {
-  flex: 1;
+  /* flex: 1; */
   display: flex;
   align-items: center;
   justify-content: center;
   border: 0.5px solid rgba(107, 158, 255, 0.2);
   border-radius: 5px;
   padding: 40px 12px;
-  gap: 10px;
+  gap: 40px;
   min-width: 0;
   height: 44px;
   box-sizing: border-box;
@@ -487,7 +488,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  flex: 1;
+  /* flex: 1; */
   min-width: 0;
 }
 
@@ -538,7 +539,7 @@
   height: 64px;
   object-fit: cover;
   border-radius: 5px;
-  transform: rotate(-6deg);
+  /* transform: rotate(-6deg); */
   flex-shrink: 0;
 }
 
