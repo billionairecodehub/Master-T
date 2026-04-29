@@ -466,7 +466,7 @@ button {
   color: rgba(255, 255, 255, 0.3);
 }
 
-/* ─ 5. Collapsed card: faded non-interactive CTA text ─ */
+/* ─ 5. Collapsed card: CTA (now clickable anchor) ─ */
 .block-recommend-cta-faded {
   display: flex;
   align-items: center;
@@ -484,6 +484,10 @@ button {
   font-family: "Gellix", sans-serif;
   text-decoration: none;
   letter-spacing: -0.3px;
+}
+
+.block-recommend-cta-faded:active {
+  background: rgba(255, 255, 255, 0.08) !important;
 }
 
 /* ─ 3. Recommend expanded: card header persisted inside full view ─ */
@@ -504,10 +508,10 @@ button {
 }
 
 .block-recommend-full-header-subject {
-  color: #fff;
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: -0.5px;
+  color: #aaa;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
   line-height: 1.3;
 }
 

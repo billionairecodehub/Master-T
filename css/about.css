@@ -109,11 +109,14 @@
   flex-direction: column;
   border-radius: var(--radius-2xl);
   overflow: hidden;
-  /* border: var(--border-width) solid var(--border-color-light); */
-  border: 0.5px solid var(--border-color-light);
-  background: var(--gradient-card-light);
-  /* backdrop-filter: var(--glass-blur-md); */
+  border: 0.5px solid rgba(107, 158, 255, 0.08);
+  background: rgba(10, 14, 39, 0.6);
   transition: var(--transition-fast);
+}
+
+.about-board-item:active {
+  background: rgba(20, 28, 60, 0.75);
+  border-color: rgba(107, 158, 255, 0.18);
 }
 
 .about-board-item.hidden {

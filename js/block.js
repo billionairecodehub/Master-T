@@ -347,13 +347,13 @@ function renderBlockRecommends() {
     return;
   }
 
-  // â”€â”€ 5. Collapsed card: faded CTA only (no active link) â”€â”€
+  // ── 5. Collapsed card: CTA (now clickable anchor) ──
   container.innerHTML =
     hdr +
     list
       .map((r) => {
         const cta = r.ctaLabel
-          ? `<div class="block-recommend-cta-faded">${r.ctaLabel}</div>`
+          ? `<a class="block-recommend-cta-faded" href="${r.ctaUrl || "#"}" target="_blank" rel="noopener noreferrer">${r.ctaLabel}</a>`
           : "";
         return `<div class="block-recommend-card" data-id="${r.id}">
           <div class="block-recommend-card-inner">
