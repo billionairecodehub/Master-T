@@ -721,7 +721,7 @@ button {
 .message-hero-title {
   position: relative;
   z-index: 1;
-  font-size: clamp(56px, 17vw, 64px);
+  font-size: clamp(56px, 17vw, 44px);
   font-weight: 500;
   line-height: 0.7;
   letter-spacing: -5px;
@@ -729,7 +729,7 @@ button {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  padding: 5px;
+  padding: 15px;
   margin-bottom: 5px;
 }
 
