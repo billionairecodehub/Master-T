@@ -87,12 +87,11 @@ function openExpandView(type, key) {
     container.appendChild(expandView);
   }
 
-  const _circleImgSrc = "https://i.postimg.cc/508MnvsH/image.png";
   const itemsHTML = items
     .map(
       (item) =>
         `<div class="${itemCls}-item" data-id="${item.id}">
-          <img src="${type === "circle" ? _circleImgSrc : "https://i.postimg.cc/xdrpDW4z/image.png"}" alt="${item.name}" class="${itemCls}-icon" />
+          <img src="https://i.postimg.cc/508MnvsH/image.png" alt="${item.name}" class="${itemCls}-icon" />
           <div class="${itemCls}-name">${item.name}</div>
         </div>`,
     )
@@ -168,7 +167,7 @@ function renderMenuApps() {
       <div class="menu-pinned-board">
         <div class="menu-section-label">Top Recommended For Creators</div>
         <div class="menu-pinned-item menu-app-item" data-id="${pinned.id}">
-          <img src="https://i.postimg.cc/xdrpDW4z/image.png" alt="${pinned.name}" class="menu-pinned-icon" />
+          <img src="https://i.postimg.cc/508MnvsH/image.png" alt="${pinned.name}" class="menu-pinned-icon" />
           <div class="menu-pinned-details">
             <div class="menu-pinned-name">${pinned.name}</div>
             <div class="menu-pinned-desc">${pinned.short}</div>
@@ -200,7 +199,7 @@ function renderMenuApps() {
       visible.forEach((a) => {
         gridHTML += `
         <div class="menu-app-item" data-id="${a.id}">
-          <img src="https://i.postimg.cc/xdrpDW4z/image.png" alt="${a.name}" class="menu-app-icon" />
+          <img src="https://i.postimg.cc/508MnvsH/image.png" alt="${a.name}" class="menu-app-icon" />
           <div class="menu-app-name">${a.name}</div>
         </div>`;
       });
@@ -227,7 +226,7 @@ function renderMenuBooks() {
       <div class="menu-pinned-board">
         <div class="menu-section-label">Top Book of the Week</div>
         <div class="menu-pinned-item menu-book-item" data-id="${pinned.id}">
-          <img src="https://i.postimg.cc/xdrpDW4z/image.png" alt="${pinned.name}" class="menu-pinned-icon" />
+          <img src="https://i.postimg.cc/508MnvsH/image.png" alt="${pinned.name}" class="menu-pinned-icon" />
           <div class="menu-pinned-details">
             <div class="menu-pinned-name">${pinned.name}</div>
             <div class="menu-pinned-desc">${pinned.short}</div>
@@ -259,7 +258,7 @@ function renderMenuBooks() {
       visible.forEach((b) => {
         gridHTML += `
         <div class="menu-book-item" data-id="${b.id}">
-          <img src="https://i.postimg.cc/xdrpDW4z/image.png" alt="${b.name}" class="menu-book-icon" />
+          <img src="https://i.postimg.cc/508MnvsH/image.png" alt="${b.name}" class="menu-book-icon" />
           <div class="menu-book-name">${b.name}</div>
         </div>`;
       });
@@ -350,9 +349,9 @@ function bindAppClicks() {
       document.getElementById("app-topbar-label").textContent = "App";
       document.getElementById("app-topbar-name").textContent = a.name;
       document.getElementById("app-topbar-img").src =
-        "https://i.postimg.cc/xdrpDW4z/image.png";
+        "https://i.postimg.cc/508MnvsH/image.png";
       document.getElementById("app-board-img").src =
-        "https://i.postimg.cc/xdrpDW4z/image.png";
+        "https://i.postimg.cc/508MnvsH/image.png";
       const _abn = document.getElementById("app-board-name");
       const _abnIcon = _abn.querySelector(".app-board-name-icon");
       _abn.textContent = a.name;
@@ -391,7 +390,7 @@ function bindBookClicks() {
       document.getElementById("book-topbar-label").textContent = "Book";
       document.getElementById("book-topbar-name").textContent = b.name;
       document.getElementById("book-topbar-img").src =
-        "https://i.postimg.cc/xdrpDW4z/image.png";
+        "https://i.postimg.cc/508MnvsH/image.png";
       document.getElementById("book-visual-1").src = b.visual;
       document.getElementById("book-visual-2").src = b.visual;
       document.getElementById("book-content-title").textContent = b.name;
