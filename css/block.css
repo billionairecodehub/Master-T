@@ -248,8 +248,8 @@ button {
 
 .block-story-subject {
   color: #fff;
-  font-size: 15px;
-  font-weight: 400;
+  font-size: 12px;
+  font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.6px;
 }
@@ -439,7 +439,7 @@ button {
 
 .block-recommend-subject {
   color: #fff;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 400;
   letter-spacing: -0.3px;
   line-height: 1.3;
