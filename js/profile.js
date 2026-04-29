@@ -29,11 +29,9 @@ if (profileEmailBtn) {
   profileEmailBtn.addEventListener("click", (e) => {
     e.preventDefault();
     const contact = profileEmailBtn.getAttribute("data-contact");
+    const email = contact.replace(/^mailto:/i, "");
     profileEmailBtn.blur();
-    // Delay to allow blur to complete before navigation
-    setTimeout(() => {
-      window.location.href = contact;
-    }, 50);
+    navigator.clipboard.writeText(email).catch(() => {});
   });
 }
 
