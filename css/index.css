@@ -424,12 +424,12 @@ body {
   position: relative;
   display: flex;
   align-items: flex-end;
-  padding-top: 14px;
+  /* padding-top: 14px; */
   cursor: pointer;
 }
 
 /* Rope — thin golden string above the tag */
-.header-profile::before {
+/* .header-profile::before {
   content: "";
   position: absolute;
   top: 0;
@@ -440,10 +440,10 @@ body {
   background: linear-gradient(to bottom, #ff6a6a 0%, #000000 100%);
   border-radius: 1px;
   z-index: 1;
-}
+} */
 
 /* Metal grommet ring at the hole */
-.header-profile::after {
+/* .header-profile::after {
   content: "";
   position: absolute;
   top: 11px;
@@ -460,12 +460,12 @@ body {
   background-origin: border-box;
   background-clip: content-box, border-box;
   z-index: 3;
-}
+} */
 
 .header-profile img {
   position: relative;
-  width: 15px;
-  height: 18px;
+  width: 18px;
+  height: 22px;
   object-fit: cover;
   object-position: center top;
   clip-path: polygon(0% 0%, 100% 0%, 100% 78%, 50% 100%, 0% 78%);
