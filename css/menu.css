@@ -502,39 +502,63 @@
   gap: 20px;
 }
 
-.circle-board-hero {
+.circle-board-hero-row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 6px;
+  gap: 16px;
   padding-bottom: 8px;
 }
 
-.circle-board-img {
-  width: 72px;
-  height: 72px;
+.circle-hero-img {
+  width: 64px;
+  height: 64px;
   object-fit: cover;
-  border-radius: 4px;
-  margin-bottom: 4px;
+  border-radius: 5px;
   transform: rotate(-6deg);
   flex-shrink: 0;
 }
 
+.circle-hero-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  flex: 1;
+}
+
 .circle-board-category {
   font-size: 10px;
-  color: #aaa;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .circle-board-name {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
-  color: #fff;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.7px;
+  line-height: 1.2;
+  background: var(--gradient-primary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.circle-board-platform {
-  font-size: 11px;
-  color: #fff;
+.circle-platform-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 12px;
+  border-radius: 4px;
+  background: rgba(0, 5, 22, 0.75);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  margin-top: 2px;
+  border: 0.5px solid rgba(107, 158, 255, 0.2);
 }
 
 .circle-board-section {
@@ -584,6 +608,76 @@
   font-size: 11px;
   color: #fff;
   line-height: 1.6;
+}
+
+/* ── Circle Heart Counter ── */
+.circle-heart-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 4px;
+}
+
+.circle-heart-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: all 0.2s;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  font-family: var(--font-family-primary);
+}
+
+.circle-heart-icon {
+  font-size: 16px;
+  filter: grayscale(0.6) opacity(0.6);
+  transition:
+    filter 0.2s,
+    transform 0.15s;
+  display: inline-block;
+}
+
+.circle-heart-btn:active {
+  transform: scale(0.93);
+}
+
+.circle-heart-btn.liked .circle-heart-icon {
+  filter: grayscale(0) opacity(1);
+  transform: scale(1.15);
+}
+
+.circle-heart-btn.liked {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ── Circle CTA Link Button ── */
+.circle-panel-cta-link {
+  display: block;
+  width: 100%;
+  background: rgba(0, 5, 22, 0.7);
+  border: none;
+  border-radius: 5px;
+  padding: 20px 16px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  color: rgba(200, 215, 255, 0.85);
+  transition: opacity 0.2s;
+  box-sizing: border-box;
+  font-family: var(--font-family-primary);
+}
+
+.circle-panel-cta-link:active {
+  opacity: 0.7;
 }
 
 /* ── Circle Detail Panel ─── */

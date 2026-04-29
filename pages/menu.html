@@ -335,7 +335,6 @@
                 alt="Back"
               />
             </button>
-
             <div class="circle-panel-topbar-label" id="circle-topbar-label">
               Circle
             </div>
@@ -351,26 +350,33 @@
           />
         </div>
 
-        <!-- White content board -->
+        <!-- Content board -->
         <div class="circle-content-board">
-          <div class="circle-board-hero">
-            <img id="circle-board-img" src="" alt="" class="circle-board-img" />
-            <div class="circle-board-category" id="circle-board-category">
-              Romance
-            </div>
-            <div class="circle-board-name" id="circle-board-name">
-              Female Thoughts
-            </div>
-            <div class="circle-board-platform">
-              On <span id="circle-board-platform">X</span>
+          <!-- Hero: img left, details right -->
+          <div class="circle-board-hero-row">
+            <img id="circle-board-img" src="" alt="" class="circle-hero-img" />
+            <div class="circle-hero-details">
+              <div class="circle-board-category" id="circle-board-category">
+                Romance
+              </div>
+              <div class="circle-board-name" id="circle-board-name">
+                Female Thoughts
+              </div>
+              <div class="circle-platform-badge" id="circle-board-platform">
+                X
+              </div>
             </div>
           </div>
+
+          <!-- About -->
           <div class="circle-board-section">
             <div class="circle-section-label">About</div>
             <div class="circle-section-text" id="circle-board-about">
               The thoughts from female minds.
             </div>
           </div>
+
+          <!-- Description -->
           <div class="circle-board-section">
             <div class="circle-section-label">Description</div>
             <div class="circle-desc-list">
@@ -381,8 +387,7 @@
                   class="circle-desc-icon"
                 />
                 <span
-                  >Learn Clear Insights on Female Thoughts in the Dating
-                  World</span
+                  >Learn Clear Insights on Female Thoughts in Dating World</span
                 >
               </div>
               <div class="circle-desc-item">
@@ -391,18 +396,7 @@
                   alt=""
                   class="circle-desc-icon"
                 />
-                <span
-                  >Gaining Direct Insights into Female Perspectives on
-                  Dating</span
-                >
-              </div>
-              <div class="circle-desc-item">
-                <img
-                  src="https://i.postimg.cc/bYB3Bv49/Mt-Circle-Icon.png"
-                  alt=""
-                  class="circle-desc-icon"
-                />
-                <span>Developing More Effective Communication Strategies</span>
+                <span>Develop More Effective Communication Strategies</span>
               </div>
               <div class="circle-desc-item">
                 <img
@@ -411,17 +405,24 @@
                   class="circle-desc-icon"
                 />
                 <span
-                  >Building Greater Self-Awareness and Emotional
-                  Intelligence</span
+                  >Gain Direct Insights into Female Perspectives on Dating</span
                 >
               </div>
             </div>
           </div>
+
+          <!-- Heart counter -->
+          <div class="circle-heart-row">
+            <button class="circle-heart-btn" id="circle-heart-btn">
+              <span class="circle-heart-icon">❤️</span>
+              <span id="circle-heart-count">+0</span>
+            </button>
+          </div>
         </div>
 
         <!-- CTA -->
-        <button class="panel-cta" id="circle-panel-cta">
-          Check Out <span id="circle-cta-name">Female Thoughts</span> On
+        <button class="circle-panel-cta-link" id="circle-panel-cta">
+          Check Out <span id="circle-cta-name">Female Thoughts</span> on
           <span id="circle-cta-platform">X</span>
         </button>
       </div>
