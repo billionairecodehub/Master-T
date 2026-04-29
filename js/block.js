@@ -1,4 +1,4 @@
-// â”€â”€ Block Page: Stories, Recommends, Polls â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+﻿// â”€â”€ Block Page: Stories, Recommends, Polls â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const _bHeaderName = document.getElementById("block-header-name");
 const _bHeaderIcon = document.getElementById("block-header-icon");
@@ -54,6 +54,8 @@ function _bOpenView(type, id) {
   _bLists.style.display = "none";
   _bFullView.style.display = "block";
   _bHeaderIcon.src = _B_BACK;
+  const main = document.querySelector(".main");
+  if (main) main.scrollTop = 0;
   if (type === "story") _bRenderStory(id);
   else if (type === "recommend") _bRenderRecommend(id);
 }

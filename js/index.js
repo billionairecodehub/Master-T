@@ -65,6 +65,8 @@ function hideAllPages() {
 function showPage(page) {
   hideAllPages();
   page.style.display = "block";
+  const main = document.querySelector(".main");
+  if (main) main.scrollTop = 0;
 }
 
 // Event listeners for header buttons

@@ -130,6 +130,8 @@ function bindQuestExpand() {
       board.style.display = "flex";
       board.classList.add("expanded");
       if (questIcon) questIcon.src = QUEST_BACK_ICON;
+      const main = document.querySelector(".main");
+      if (main) main.scrollTop = 0;
     });
   });
 }

@@ -174,6 +174,8 @@ function bindFeedExpand() {
       post.style.display = "flex";
       post.classList.add("expanded");
       if (feedPostIcon) feedPostIcon.src = BACK_ICON_SRC;
+      const main = document.querySelector(".main");
+      if (main) main.scrollTop = 0;
 
       // Auto-increment impression on open
       const postId = post.getAttribute("data-id");
