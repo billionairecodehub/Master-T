@@ -237,10 +237,10 @@
 /* ── Nav / Feed / Quest dots (shared, unchanged) ─────────── */
 .noti-nav-dot {
   position: absolute;
-  bottom: -1px;
-  right: -3px;
-  width: 7px;
-  height: 7px;
+  top: -2px;
+  right: -2px;
+  width: 9px;
+  height: 9px;
   background: #e53935;
   border-radius: 50%;
   display: none;
@@ -248,10 +248,10 @@
 
 .feed-nav-dot {
   position: absolute;
-  bottom: -1px;
-  right: -3px;
-  width: 7px;
-  height: 7px;
+  top: -2px;
+  right: -2px;
+  width: 9px;
+  height: 9px;
   background: #e53935;
   border-radius: 50%;
   display: none;
@@ -259,10 +259,10 @@
 
 .quest-nav-dot {
   position: absolute;
-  bottom: -1px;
-  right: -3px;
-  width: 7px;
-  height: 7px;
+  top: -2px;
+  right: -2px;
+  width: 9px;
+  height: 9px;
   background: #e53935;
   border-radius: 50%;
   display: none;
