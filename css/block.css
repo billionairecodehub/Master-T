@@ -15,7 +15,6 @@ button {
 .block-wrapper {
   display: flex;
   flex-direction: column;
-  padding-bottom: 80px;
   background: var(--gradient-bg-global);
   min-height: 100%;
 }

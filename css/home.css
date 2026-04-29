@@ -329,9 +329,11 @@
   justify-content: flex-start;
   border-radius: 5px;
   overflow: hidden;
-  /* border: 0.5px solid rgba(180, 30, 30, 0.3); */
   min-height: 540px;
-  background: #000;
+  border: 0.5px solid rgba(107, 158, 255, 0.15);
+  position: relative;
+  background-size: cover;
+  background-position: center;
 }
 
 .block-4-header {
@@ -339,7 +341,8 @@
   flex-direction: column;
   gap: 2px;
   padding: 24px 24px 16px;
-  /* background: rgba(8, 4, 4, 0.7); */
+  position: relative;
+  z-index: 2;
 }
 
 .block-4-title {
@@ -363,17 +366,51 @@
 .block-4-visual {
   flex: 1;
   min-height: 300px;
-  background-size: cover;
-  background-position: center;
   position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* Blue fade edge at top */
+.block-4::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 20, 70, 0.9) 0%,
+    transparent 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Blue fade edge at bottom */
+.block-4::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(
+    to top,
+    rgba(10, 20, 70, 0.9) 0%,
+    transparent 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
 .block-4-visual-overlay {
   position: absolute;
   inset: 0;
+  z-index: 0;
   background: radial-gradient(
     ellipse at center,
     rgba(140, 0, 0, 0.35) 0%,
@@ -414,7 +451,8 @@
   flex-direction: column;
   gap: 2px;
   padding: 18px 24px 26px;
-  /* background: rgba(8, 4, 4, 0.7); */
+  position: relative;
+  z-index: 2;
 }
 
 .block-4-tagline {
