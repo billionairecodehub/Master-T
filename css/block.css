@@ -169,7 +169,6 @@ button {
 /* ── Full view ── */
 .block-full-view {
   display: none;
-  min-height: 100vh;
 }
 
 #block-full-content {

@@ -204,9 +204,8 @@ button {
   font-weight: 500;
 }
 
-/* Expanded quest — solution visible, fills full height */
+/* Expanded quest — solution visible */
 .quest-board.expanded {
-  min-height: 100vh;
 }
 
 .quest-board.expanded .quest-read-label {
