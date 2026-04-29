@@ -1,4 +1,4 @@
-﻿// â”€â”€ Block Page: Stories, Recommends, Polls â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// â”€â”€ Block Page: Stories, Recommends, Polls â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const _bHeaderName = document.getElementById("block-header-name");
 const _bHeaderIcon = document.getElementById("block-header-icon");
@@ -501,6 +501,7 @@ function _bBindPollVotes(container) {
 }
 
 // â”€â”€ Initial render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+_bHeaderName.textContent = _B_TAB_LABELS[_bActiveTab];
 renderBlockStories();
 renderBlockRecommends();
 renderBlockPolls();
