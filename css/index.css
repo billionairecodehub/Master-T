@@ -466,6 +466,7 @@ body {
   clip-path: polygon(0% 0%, 100% 0%, 100% 78%, 50% 100%, 0% 78%);
   display: block;
   z-index: 2;
+  opacity: 0.48;
 }
 
 .header-title {
