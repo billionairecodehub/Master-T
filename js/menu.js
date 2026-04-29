@@ -358,8 +358,10 @@ function bindAppClicks() {
       if (_abnIcon) _abn.insertBefore(_abnIcon, _abn.firstChild);
       document.getElementById("app-board-platform").textContent = a.platform;
       document.getElementById("app-board-version").textContent = a.version;
-      document.getElementById("app-visual-1").src = a.visual;
-      document.getElementById("app-visual-2").src = a.visual;
+      document.getElementById("app-visual-1").src =
+        "https://i.postimg.cc/508MnvsH/image.png";
+      document.getElementById("app-visual-2").src =
+        "https://i.postimg.cc/508MnvsH/image.png";
       document.getElementById("app-short-text").textContent = a.short;
       document.getElementById("app-desc-text").textContent = a.desc;
       const _ars = document.getElementById("app-rating-score");
@@ -369,7 +371,7 @@ function bindAppClicks() {
       const _art = document.getElementById("app-rating-text");
       if (_art) _art.textContent = a.ratingtext;
       document.getElementById("app-cta-board").style.backgroundImage =
-        "url('" + a.ctaimg + "')";
+        "url('https://i.postimg.cc/508MnvsH/image.png')";
       document.getElementById("app-cta-name").textContent = a.name;
 
       menuHome.style.display = "none";
@@ -391,8 +393,10 @@ function bindBookClicks() {
       document.getElementById("book-topbar-name").textContent = b.name;
       document.getElementById("book-topbar-img").src =
         "https://i.postimg.cc/508MnvsH/image.png";
-      document.getElementById("book-visual-1").src = b.visual;
-      document.getElementById("book-visual-2").src = b.visual;
+      document.getElementById("book-visual-1").src =
+        "https://i.postimg.cc/508MnvsH/image.png";
+      document.getElementById("book-visual-2").src =
+        "https://i.postimg.cc/508MnvsH/image.png";
       document.getElementById("book-content-title").textContent = b.name;
       document.getElementById("book-desc-text").textContent = b.desc;
       document.getElementById("book-keypoints-text").textContent = b.keypoints;
@@ -407,7 +411,7 @@ function bindBookClicks() {
       document.getElementById("book-post-review-text").textContent =
         b.ratingtext;
       document.getElementById("book-cta-board").style.backgroundImage =
-        "url('" + b.ctaimg + "')";
+        "url('https://i.postimg.cc/508MnvsH/image.png')";
       document.getElementById("book-cta-name").textContent = b.name;
       document.getElementById("book-cta-price").textContent = b.price;
       document.getElementById("book-overlay-score").textContent = b.rating;
