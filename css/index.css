@@ -436,7 +436,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
-  height: 13px;
+  height: 10px;
   background: linear-gradient(to bottom, #ff6a6a 0%, #000000 100%);
   border-radius: 1px;
   z-index: 1;
@@ -455,6 +455,7 @@ body {
   border: 1.5px solid #ffe9e9;
   background: #070b1e;
   z-index: 3;
+  opacity: 0.8;
 }
 
 .header-profile img {

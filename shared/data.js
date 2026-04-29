@@ -457,6 +457,8 @@ function seedIfEmpty() {
         about:
           "A circle for men building their best selves with discipline and purpose.",
         img: "https://i.postimg.cc/qRJFJjhQ/image.png",
+        url: "#",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
       {
@@ -466,6 +468,8 @@ function seedIfEmpty() {
         platform: "X",
         about: "Mental toughness and masculine virtues in modern life.",
         img: "https://i.postimg.cc/qRJFJjhQ/image.png",
+        url: "#",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
       {
@@ -475,6 +479,8 @@ function seedIfEmpty() {
         platform: "X",
         about: "Live with intention, clear direction and unshakeable focus.",
         img: "https://i.postimg.cc/qRJFJjhQ/image.png",
+        url: "#",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
       {
@@ -484,6 +490,8 @@ function seedIfEmpty() {
         platform: "X",
         about: "Brotherhood of men who embrace the outdoors and challenges.",
         img: "https://i.postimg.cc/qRJFJjhQ/image.png",
+        url: "#",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
       {
@@ -493,6 +501,8 @@ function seedIfEmpty() {
         platform: "X",
         about: "Pushing limits through physical adventure and exploration.",
         img: "https://i.postimg.cc/qRJFJjhQ/image.png",
+        url: "#",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
       {
@@ -502,6 +512,8 @@ function seedIfEmpty() {
         platform: "X",
         about: "Life on your own terms — freedom, travel, and grit.",
         img: "https://i.postimg.cc/QdkJJF6h/image.png",
+        url: "#",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
       {
@@ -511,6 +523,8 @@ function seedIfEmpty() {
         platform: "X",
         about: "The thoughts from female minds on dating and relationships.",
         img: "https://i.postimg.cc/QdkJJF6h/image.png",
+        url: "https://x.com",
+        likes: 280,
         createdAt: new Date().toISOString(),
       },
       {
@@ -521,6 +535,8 @@ function seedIfEmpty() {
         about:
           "Master your inner world to attract and sustain great relationships.",
         img: "https://i.postimg.cc/QdkJJF6h/image.png",
+        url: "#",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
       {
@@ -530,6 +546,8 @@ function seedIfEmpty() {
         platform: "X",
         about: "Understanding people, attraction and social environments.",
         img: "https://i.postimg.cc/QdkJJF6h/image.png",
+        url: "#",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
     ]),

@@ -438,15 +438,47 @@ function bindCircleClicks() {
       document.getElementById("circle-topbar-label").textContent = "Circle";
       document.getElementById("circle-topbar-name").textContent = c.name;
       document.getElementById("circle-topbar-img").src =
-        "https://i.postimg.cc/xdrpDW4z/image.png";
-      document.getElementById("circle-board-img").src =
-        "https://i.postimg.cc/xdrpDW4z/image.png";
-      document.getElementById("circle-board-category").textContent = c.category;
-      document.getElementById("circle-board-name").textContent = c.name;
-      document.getElementById("circle-board-platform").textContent = c.platform;
+        c.img || "https://i.postimg.cc/xdrpDW4z/image.png";
       document.getElementById("circle-board-about").textContent = c.about;
       document.getElementById("circle-cta-name").textContent = c.name;
       document.getElementById("circle-cta-platform").textContent = c.platform;
+
+      // CTA link
+      const _cta = document.getElementById("circle-panel-cta");
+      if (_cta) _cta.href = c.url || "#";
+
+      // Heart counter
+      const _hCount = document.getElementById("circle-heart-count");
+      if (_hCount) _hCount.textContent = "+" + (c.likes || 0);
+
+      const _heartBtn = document.getElementById("circle-heart-btn");
+      if (_heartBtn) {
+        const _likedKey = "mt_liked_circle_" + c.id;
+        const _isLiked = localStorage.getItem(_likedKey) === "1";
+        _heartBtn.classList.toggle("liked", _isLiked);
+        // Replace button to clear old listeners
+        const _newHeart = _heartBtn.cloneNode(true);
+        _heartBtn.parentNode.replaceChild(_newHeart, _heartBtn);
+        _newHeart.addEventListener("click", (ev) => {
+          ev.stopPropagation();
+          const _circle = DataStore.getById("circles", c.id);
+          if (!_circle) return;
+          const _wasLiked = localStorage.getItem(_likedKey) === "1";
+          const _newLikes = _wasLiked
+            ? Math.max(0, (_circle.likes || 0) - 1)
+            : (_circle.likes || 0) + 1;
+          if (_wasLiked) {
+            localStorage.removeItem(_likedKey);
+            _newHeart.classList.remove("liked");
+          } else {
+            localStorage.setItem(_likedKey, "1");
+            _newHeart.classList.add("liked");
+          }
+          DataStore.update("circles", c.id, { likes: _newLikes });
+          const _hc = document.getElementById("circle-heart-count");
+          if (_hc) _hc.textContent = "+" + _newLikes;
+        });
+      }
 
       menuHome.style.display = "none";
       circlePanel.classList.add("open");
