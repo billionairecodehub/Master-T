@@ -495,15 +495,14 @@
   font-size: 8px;
   color: #aaa;
   font-weight: 400;
-  letter-spacing: 0.75px;
-  text-transform: uppercase;
+  letter-spacing: -0.25px;
 }
 
 .circle-panel-topbar-name {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 400;
   color: #fff;
-  letter-spacing: -0.9px;
+  letter-spacing: -1.2px;
 }
 
 .circle-panel-topbar-img {
