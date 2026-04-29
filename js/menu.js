@@ -87,11 +87,12 @@ function openExpandView(type, key) {
     container.appendChild(expandView);
   }
 
+  const _circleImgSrc = "https://i.postimg.cc/508MnvsH/image.png";
   const itemsHTML = items
     .map(
       (item) =>
         `<div class="${itemCls}-item" data-id="${item.id}">
-          <img src="https://i.postimg.cc/xdrpDW4z/image.png" alt="${item.name}" class="${itemCls}-icon" />
+          <img src="${type === "circle" ? _circleImgSrc : "https://i.postimg.cc/xdrpDW4z/image.png"}" alt="${item.name}" class="${itemCls}-icon" />
           <div class="${itemCls}-name">${item.name}</div>
         </div>`,
     )
@@ -302,7 +303,7 @@ function renderMenuCircles() {
     visible.forEach((c) => {
       gridHTML += `
         <div class="menu-circle-item" data-id="${c.id}">
-          <img src="https://i.postimg.cc/xdrpDW4z/image.png" alt="${c.name}" class="menu-circle-icon" />
+          <img src="https://i.postimg.cc/508MnvsH/image.png" alt="${c.name}" class="menu-circle-icon" />
           <div class="menu-circle-name">${c.name}</div>
         </div>`;
     });
@@ -438,9 +439,9 @@ function bindCircleClicks() {
       document.getElementById("circle-topbar-label").textContent = "Circle";
       document.getElementById("circle-topbar-name").textContent = c.name;
       document.getElementById("circle-topbar-img").src =
-        c.img || "https://i.postimg.cc/508MnvsH/image.png";
+        "https://i.postimg.cc/508MnvsH/image.png";
       document.getElementById("circle-board-img").src =
-        c.img || "https://i.postimg.cc/508MnvsH/image.png";
+        "https://i.postimg.cc/508MnvsH/image.png";
       document.getElementById("circle-board-category").textContent = c.category;
       document.getElementById("circle-board-name").textContent = c.name;
       document.getElementById("circle-board-platform").textContent = c.platform;
