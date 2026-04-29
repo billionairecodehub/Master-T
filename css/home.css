@@ -331,6 +331,7 @@
   overflow: hidden;
   /* border: 0.5px solid rgba(180, 30, 30, 0.3); */
   min-height: 540px;
+  background: #000;
 }
 
 .block-4-header {
@@ -338,7 +339,7 @@
   flex-direction: column;
   gap: 2px;
   padding: 24px 24px 16px;
-  background: rgba(8, 4, 4, 0.7);
+  /* background: rgba(8, 4, 4, 0.7); */
 }
 
 .block-4-title {
@@ -413,7 +414,7 @@
   flex-direction: column;
   gap: 2px;
   padding: 18px 24px 26px;
-  background: rgba(8, 4, 4, 0.7);
+  /* background: rgba(8, 4, 4, 0.7); */
 }
 
 .block-4-tagline {
