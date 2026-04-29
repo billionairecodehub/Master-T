@@ -438,9 +438,9 @@ function bindCircleClicks() {
       document.getElementById("circle-topbar-label").textContent = "Circle";
       document.getElementById("circle-topbar-name").textContent = c.name;
       document.getElementById("circle-topbar-img").src =
-        c.img || "https://i.postimg.cc/xdrpDW4z/image.png";
+        c.img || "https://i.postimg.cc/508MnvsH/image.png";
       document.getElementById("circle-board-img").src =
-        c.img || "https://i.postimg.cc/xdrpDW4z/image.png";
+        c.img || "https://i.postimg.cc/508MnvsH/image.png";
       document.getElementById("circle-board-category").textContent = c.category;
       document.getElementById("circle-board-name").textContent = c.name;
       document.getElementById("circle-board-platform").textContent = c.platform;

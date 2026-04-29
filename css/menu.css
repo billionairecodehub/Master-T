@@ -620,8 +620,8 @@
 }
 
 .circle-desc-icon {
-  width: 24px;
-  height: 24px;
+  width: 15px;
+  height: 15px;
   object-fit: cover;
   border-radius: 4px;
   flex-shrink: 0;
@@ -660,12 +660,15 @@
 }
 
 .circle-heart-icon {
-  font-size: 16px;
-  filter: grayscale(0.6) opacity(0.6);
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  opacity: 0.35;
   transition:
-    filter 0.2s,
+    opacity 0.2s,
     transform 0.15s;
   display: inline-block;
+  flex-shrink: 0;
 }
 
 .circle-heart-btn:active {
@@ -673,7 +676,7 @@
 }
 
 .circle-heart-btn.liked .circle-heart-icon {
-  filter: grayscale(0) opacity(1);
+  opacity: 1;
   transform: scale(1.15);
 }
 
