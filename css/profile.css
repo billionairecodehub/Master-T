@@ -729,7 +729,7 @@ button {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  padding: 15px;
+  padding-bottom: 10px;
   margin-bottom: 5px;
 }
 
