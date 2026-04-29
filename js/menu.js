@@ -374,6 +374,37 @@ function bindAppClicks() {
         "url('https://i.postimg.cc/508MnvsH/image.png')";
       document.getElementById("app-cta-name").textContent = a.name;
 
+      // Heart counter
+      const _appHCount = document.getElementById("app-heart-count");
+      if (_appHCount) _appHCount.textContent = "+" + (a.likes || 0);
+      const _appHeartBtn = document.getElementById("app-heart-btn");
+      if (_appHeartBtn) {
+        const _likedKey = "mt_liked_app_" + a.id;
+        const _isLiked = localStorage.getItem(_likedKey) === "1";
+        _appHeartBtn.classList.toggle("liked", _isLiked);
+        const _newHeart = _appHeartBtn.cloneNode(true);
+        _appHeartBtn.parentNode.replaceChild(_newHeart, _appHeartBtn);
+        _newHeart.addEventListener("click", (ev) => {
+          ev.stopPropagation();
+          const _app = DataStore.getById("apps", a.id);
+          if (!_app) return;
+          const _wasLiked = localStorage.getItem(_likedKey) === "1";
+          const _newLikes = _wasLiked
+            ? Math.max(0, (_app.likes || 0) - 1)
+            : (_app.likes || 0) + 1;
+          if (_wasLiked) {
+            localStorage.removeItem(_likedKey);
+            _newHeart.classList.remove("liked");
+          } else {
+            localStorage.setItem(_likedKey, "1");
+            _newHeart.classList.add("liked");
+          }
+          DataStore.update("apps", a.id, { likes: _newLikes });
+          const _hc = document.getElementById("app-heart-count");
+          if (_hc) _hc.textContent = "+" + _newLikes;
+        });
+      }
+
       menuHome.style.display = "none";
       appPanel.classList.add("open");
     });
@@ -423,6 +454,37 @@ function bindBookClicks() {
       document.querySelectorAll(".book-overlay-bn").forEach((el) => {
         el.textContent = b.name;
       });
+
+      // Heart counter
+      const _bookHCount = document.getElementById("book-heart-count");
+      if (_bookHCount) _bookHCount.textContent = "+" + (b.likes || 0);
+      const _bookHeartBtn = document.getElementById("book-heart-btn");
+      if (_bookHeartBtn) {
+        const _likedKey = "mt_liked_book_" + b.id;
+        const _isLiked = localStorage.getItem(_likedKey) === "1";
+        _bookHeartBtn.classList.toggle("liked", _isLiked);
+        const _newHeart = _bookHeartBtn.cloneNode(true);
+        _bookHeartBtn.parentNode.replaceChild(_newHeart, _bookHeartBtn);
+        _newHeart.addEventListener("click", (ev) => {
+          ev.stopPropagation();
+          const _book = DataStore.getById("books", b.id);
+          if (!_book) return;
+          const _wasLiked = localStorage.getItem(_likedKey) === "1";
+          const _newLikes = _wasLiked
+            ? Math.max(0, (_book.likes || 0) - 1)
+            : (_book.likes || 0) + 1;
+          if (_wasLiked) {
+            localStorage.removeItem(_likedKey);
+            _newHeart.classList.remove("liked");
+          } else {
+            localStorage.setItem(_likedKey, "1");
+            _newHeart.classList.add("liked");
+          }
+          DataStore.update("books", b.id, { likes: _newLikes });
+          const _hc = document.getElementById("book-heart-count");
+          if (_hc) _hc.textContent = "+" + _newLikes;
+        });
+      }
 
       menuHome.style.display = "none";
       bookPanel.classList.add("open");

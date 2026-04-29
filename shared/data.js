@@ -296,6 +296,7 @@ function seedIfEmpty() {
         ratingtext:
           "The platform operates on a transparent buyer-seller model that ensures quality, fair pricing, and mutual respect",
         letter: "S",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
       {
@@ -315,6 +316,7 @@ function seedIfEmpty() {
         ratingtext:
           "The platform operates on a transparent buyer-seller model that ensures quality, fair pricing, and mutual respect",
         letter: "M",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
       {
@@ -333,6 +335,7 @@ function seedIfEmpty() {
         ratingtext:
           "Community-driven stories that reflect real dating dynamics and lived experiences.",
         letter: "S",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
     ]),
@@ -360,6 +363,7 @@ function seedIfEmpty() {
         ratingplatforms: "Gumroad, Selar, Payhip",
         ratingtext:
           "The book that started it all. Master Togan's original blueprint for the modern man.",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
       {
@@ -380,6 +384,7 @@ function seedIfEmpty() {
         ratingplatforms: "Gumroad, Selar, Payhip",
         ratingtext:
           "In this guide you will learn exactly how to walk up to any woman and start a conversation that leads somewhere real.",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
       {
@@ -400,6 +405,7 @@ function seedIfEmpty() {
         ratingplatforms: "Gumroad, Selar",
         ratingtext:
           "A concise playbook for understanding the language of flirtation and putting it to work immediately.",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
       {
@@ -420,6 +426,7 @@ function seedIfEmpty() {
         ratingplatforms: "Gumroad, Selar, Payhip",
         ratingtext:
           "Master Togan breaks down the real connection between financial discipline and romantic success.",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
       {
@@ -440,6 +447,7 @@ function seedIfEmpty() {
         ratingplatforms: "Gumroad, Selar, Payhip",
         ratingtext:
           "In this short concise course you will learn how to control the frame and maintain a strong frame.",
+        likes: 0,
         createdAt: new Date().toISOString(),
       },
     ]),
