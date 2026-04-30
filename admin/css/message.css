@@ -1,0 +1,244 @@
+/* ═══════════════════════════════════════════════════════
+   Message Page
+   ═══════════════════════════════════════════════════════ */
+
+.message-page {
+  gap: 0;
+  padding: 0;
+}
+
+/* ── View wrapper ─────────────────────────────────────── */
+.msg-view {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── Page header ──────────────────────────────────────── */
+.msg-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px 24px 16px;
+}
+
+.msg-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.msg-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  background: linear-gradient(135deg, #6b7a9a 0%, #9aa3b8 50%, #c8cdd8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.msg-meta {
+  font-size: 13px;
+  color: rgba(248, 246, 255, 0.45);
+  font-weight: 400;
+  letter-spacing: 0.1px;
+}
+
+.msg-header-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(248, 246, 255, 0.08);
+  border: 0.5px solid rgba(248, 246, 255, 0.12);
+  color: rgba(248, 246, 255, 0.75);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.msg-header-icon:active {
+  background: rgba(107, 158, 255, 0.15);
+}
+
+/* ── Message board ────────────────────────────────────── */
+.msg-board {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 24px 24px;
+}
+
+/* ── Date groups ──────────────────────────────────────── */
+.msg-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.msg-date-header {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(248, 246, 255, 0.38);
+  letter-spacing: 0.2px;
+  margin-bottom: 4px;
+}
+
+.msg-group-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Message card ─────────────────────────────────────── */
+.msg-card {
+  background: rgba(10, 16, 45, 0.85);
+  border: 0.5px solid rgba(107, 158, 255, 0.1);
+  border-radius: 14px;
+  padding: 18px 18px;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.msg-card:active {
+  background: rgba(15, 22, 60, 0.95);
+  border-color: rgba(107, 158, 255, 0.22);
+}
+
+.msg-card.unread {
+  border-color: rgba(107, 158, 255, 0.22);
+  background: rgba(12, 18, 52, 0.9);
+}
+
+.msg-card-subject {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(248, 246, 255, 0.88);
+  letter-spacing: -0.2px;
+  margin-bottom: 5px;
+}
+
+.msg-card-status {
+  font-size: 12px;
+  color: rgba(248, 246, 255, 0.38);
+  font-weight: 400;
+}
+
+/* ── Empty state ──────────────────────────────────────── */
+.msg-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 60px 0;
+  opacity: 0.5;
+}
+
+.msg-empty-icon {
+  font-size: 36px;
+}
+
+.msg-empty-text {
+  font-size: 14px;
+  color: rgba(248, 246, 255, 0.5);
+}
+
+/* ── Detail view body ─────────────────────────────────── */
+.msg-detail-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 24px 32px;
+}
+
+.msg-date-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(248, 246, 255, 0.38);
+  letter-spacing: 0.2px;
+  margin-bottom: 2px;
+}
+
+.msg-detail-sender {
+  cursor: default;
+}
+
+/* ── Message body card ────────────────────────────────── */
+.msg-body-card,
+.msg-response-card {
+  background: rgba(10, 16, 45, 0.85);
+  border: 0.5px solid rgba(107, 158, 255, 0.1);
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.msg-body-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(107, 158, 255, 0.6);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.msg-body-text {
+  font-size: 13.5px;
+  color: rgba(248, 246, 255, 0.75);
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ── Response area ────────────────────────────────────── */
+.msg-response-card {
+  background: rgba(5, 9, 28, 0.9);
+}
+
+.msg-response-input {
+  width: 100%;
+  min-height: 180px;
+  background: none;
+  border: none;
+  outline: none;
+  color: rgba(248, 246, 255, 0.65);
+  font-family: "Gellix", sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: none;
+  padding: 0;
+}
+
+.msg-response-input::placeholder {
+  color: rgba(248, 246, 255, 0.22);
+}
+
+/* ── Reply button ─────────────────────────────────────── */
+.msg-reply-btn {
+  width: 100%;
+  background: rgba(10, 16, 45, 0.95);
+  border: 0.5px solid rgba(107, 158, 255, 0.15);
+  border-radius: 14px;
+  padding: 18px;
+  color: rgba(248, 246, 255, 0.75);
+  font-family: "Gellix", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.msg-reply-btn:active {
+  background: rgba(107, 158, 255, 0.12);
+  color: rgba(248, 246, 255, 0.9);
+}

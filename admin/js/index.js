@@ -78,7 +78,9 @@ function showAdminPage(name) {
   if (name === "content" && typeof refreshContent === "function")
     refreshContent();
   if (name === "stats" && typeof refreshStats === "function") refreshStats();
-  // message + sales pages are placeholder — no refresh needed
+  if (name === "message" && typeof refreshMessage === "function")
+    refreshMessage();
+  if (name === "sales" && typeof refreshSales === "function") refreshSales();
 }
 
 // Nav clicks

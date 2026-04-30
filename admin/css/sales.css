@@ -1,0 +1,180 @@
+/* ═══════════════════════════════════════════════════════
+   Sales Page
+   ═══════════════════════════════════════════════════════ */
+
+.sales-page {
+  gap: 16px;
+}
+
+/* ── Title ────────────────────────────────────────────── */
+.sales-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  background: linear-gradient(135deg, #6b7a9a 0%, #9aa3b8 50%, #c8cdd8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+}
+
+/* ── Overall board ────────────────────────────────────── */
+.sales-overall-board {
+  width: 100%;
+  background: rgba(10, 16, 45, 0.85);
+  border: 0.5px solid rgba(107, 158, 255, 0.12);
+  border-radius: 16px;
+  padding: 22px 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sales-overall-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(248, 246, 255, 0.45);
+  letter-spacing: 0.2px;
+}
+
+.sales-overall-amount {
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  color: rgba(248, 246, 255, 0.88);
+  line-height: 1.05;
+}
+
+.sales-timeframe-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.sales-timeframe-btn {
+  padding: 5px 14px;
+  background: none;
+  border: 1px solid rgba(248, 246, 255, 0.25);
+  border-radius: 6px;
+  color: rgba(248, 246, 255, 0.45);
+  font-family: "Gellix", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    color 0.15s,
+    background 0.15s;
+}
+
+.sales-timeframe-btn.active {
+  border-color: rgba(248, 246, 255, 0.65);
+  color: rgba(248, 246, 255, 0.88);
+  background: rgba(248, 246, 255, 0.06);
+}
+
+.sales-timeframe-btn:active {
+  opacity: 0.7;
+}
+
+/* ── Books + Mentorship row ───────────────────────────── */
+.sales-boards-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.sales-board {
+  background: rgba(10, 16, 45, 0.85);
+  border: 0.5px solid rgba(107, 158, 255, 0.12);
+  border-radius: 16px;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.sales-board-amount {
+  font-size: 13px;
+  color: rgba(248, 246, 255, 0.45);
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  margin-bottom: 2px;
+}
+
+.sales-board-count {
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  color: rgba(248, 246, 255, 0.82);
+  line-height: 1;
+}
+
+.sales-board-label {
+  font-size: 13px;
+  color: rgba(248, 246, 255, 0.45);
+  font-weight: 500;
+  margin-top: 6px;
+  letter-spacing: 0.2px;
+}
+
+/* ── Tabs row ─────────────────────────────────────────── */
+.sales-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+  margin-top: 4px;
+}
+
+.sales-tab {
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(248, 246, 255, 0.38);
+  padding: 8px 0 10px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s;
+}
+
+.sales-tab::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: rgba(248, 246, 255, 0.75);
+  border-radius: 2px;
+  transition: width 0.2s;
+}
+
+.sales-tab.active {
+  color: rgba(248, 246, 255, 0.88);
+  font-weight: 600;
+}
+
+.sales-tab.active::after {
+  width: 70%;
+}
+
+/* ── Tab content areas ────────────────────────────────── */
+.sales-tab-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+}
+
+.sales-coming {
+  font-size: 14px;
+  color: rgba(248, 246, 255, 0.3);
+  font-weight: 400;
+  letter-spacing: 0.2px;
+}

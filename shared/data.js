@@ -26,6 +26,8 @@ const REMOTE_COLLECTION_KEYS = [
   "stories",
   "recommends",
   "polls",
+  "messages",
+  "sales",
 ];
 
 const DATA_KEYS = {
@@ -41,6 +43,8 @@ const DATA_KEYS = {
   stories: "mt_stories",
   recommends: "mt_recommends",
   polls: "mt_polls",
+  messages: "mt_messages",
+  sales: "mt_sales",
 };
 
 // ── Helpers ──────────────────────────────────────────────

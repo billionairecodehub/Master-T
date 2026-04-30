@@ -1,7 +1,51 @@
 <div class="admin-page sales-page" data-admin-page="sales">
-  <div class="admin-page-title">Sales</div>
-  <div class="admin-page-subtitle">Coming soon</div>
-  <div class="admin-empty" style="margin-top: 48px">
-    <div class="admin-empty-text">Sales features are coming soon</div>
+  <div class="sales-title">Sales</div>
+
+  <!-- ── Overall board (full width) ────────────────── -->
+  <div class="sales-overall-board">
+    <div class="sales-overall-label">OverAll</div>
+    <div class="sales-overall-amount" id="sales-overall-amount">$0</div>
+    <div class="sales-timeframe-row">
+      <button class="sales-timeframe-btn active" data-days="7">7D</button>
+      <button class="sales-timeframe-btn" data-days="30">30D</button>
+      <button class="sales-timeframe-btn" data-days="90">90D</button>
+      <button class="sales-timeframe-btn" data-days="365">1Y</button>
+    </div>
+  </div>
+
+  <!-- ── Books + Mentorship boards ─────────────────── -->
+  <div class="sales-boards-row">
+    <div class="sales-board">
+      <div class="sales-board-amount" id="sales-books-amount">$0</div>
+      <div class="sales-board-count" id="sales-books-count">0</div>
+      <div class="sales-board-label">Books</div>
+    </div>
+    <div class="sales-board">
+      <div class="sales-board-amount" id="sales-mentorship-amount">$0</div>
+      <div class="sales-board-count" id="sales-mentorship-count">0</div>
+      <div class="sales-board-label">Mentorship</div>
+    </div>
+  </div>
+
+  <!-- ── Tab nav ────────────────────────────────────── -->
+  <div class="sales-tabs">
+    <div class="sales-tab active" data-sales-tab="recents">Recents</div>
+    <div class="sales-tab" data-sales-tab="active">Active</div>
+    <div class="sales-tab" data-sales-tab="expired">Expired</div>
+    <div class="sales-tab" data-sales-tab="stats">Stats</div>
+  </div>
+
+  <!-- ── Tab contents ───────────────────────────────── -->
+  <div class="sales-tab-content" id="sales-tab-recents">
+    <div class="sales-coming">Coming Soon</div>
+  </div>
+  <div class="sales-tab-content" id="sales-tab-active" style="display: none">
+    <div class="sales-coming">Coming Soon</div>
+  </div>
+  <div class="sales-tab-content" id="sales-tab-expired" style="display: none">
+    <div class="sales-coming">Coming Soon</div>
+  </div>
+  <div class="sales-tab-content" id="sales-tab-stats" style="display: none">
+    <div class="sales-coming">Coming Soon</div>
   </div>
 </div>
