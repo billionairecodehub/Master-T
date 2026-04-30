@@ -128,10 +128,12 @@
 
 .content-section-tab {
   flex-shrink: 0;
+  flex-grow: 1;
   padding: 12px 20px;
   border-radius: 8px;
   font-size: 12px;
   font-weight: 400;
+  text-align: center;
   color: rgba(248, 246, 255, 0.42);
   background: none;
   border: 0.5px solid rgba(248, 246, 255, 0.1);
