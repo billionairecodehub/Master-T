@@ -26,7 +26,7 @@ function closeModal(id) {
 
 document.querySelectorAll("[data-close]").forEach((btn) => {
   btn.addEventListener("click", () =>
-    closeModal(btn.getAttribute("data-close"))
+    closeModal(btn.getAttribute("data-close")),
   );
 });
 
@@ -36,6 +36,11 @@ document.querySelectorAll(".home-board").forEach((board) => {
   board.addEventListener("click", () => {
     const section = board.getAttribute("data-section");
     showAdminPage("content");
+    // Unlock content: hide lock screen, restore tabs
+    const lock = document.getElementById("content-lock-screen");
+    if (lock) lock.classList.remove("visible");
+    const tabs = document.getElementById("content-section-tabs");
+    if (tabs) tabs.style.display = "";
     if (typeof showContentSection === "function") {
       setTimeout(() => showContentSection(section), 50);
     }
@@ -65,13 +70,13 @@ function renderNotiList() {
         <button class="dash-btn-sm" data-noti-edit="${n.id}">Edit</button>
         <button class="dash-btn-sm dash-btn-danger" data-noti-del="${n.id}">Del</button>
       </div>
-    </div>`
+    </div>`,
     )
     .join("");
 
   body.querySelectorAll("[data-noti-edit]").forEach((btn) => {
     btn.addEventListener("click", () =>
-      openNotiEdit(btn.getAttribute("data-noti-edit"))
+      openNotiEdit(btn.getAttribute("data-noti-edit")),
     );
   });
   body.querySelectorAll("[data-noti-del]").forEach((btn) => {
@@ -97,7 +102,8 @@ function openNotiNew() {
   document.getElementById("noti-edit-id").value = "";
   document.getElementById("noti-title").value = "";
   document.getElementById("noti-content").value = "";
-  document.getElementById("noti-modal-title").textContent = "Create Notification";
+  document.getElementById("noti-modal-title").textContent =
+    "Create Notification";
   openModal("modal-notification");
 }
 
@@ -160,7 +166,7 @@ function renderSubsList() {
       <div class="dash-list-actions">
         <button class="dash-btn-sm dash-btn-danger" data-sub-del="${s.id}">Remove</button>
       </div>
-    </div>`
+    </div>`,
     )
     .join("");
 

@@ -40,9 +40,9 @@
 }
 
 .home-section-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
   color: rgba(107, 158, 255, 0.6);
 }
@@ -59,7 +59,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 16px 8px;
+  padding: 20px 12px;
   background: rgba(5, 9, 28, 0.85);
   border: 0.5px solid rgba(107, 158, 255, 0.18);
   border-radius: 12px;
@@ -75,31 +75,34 @@
 }
 
 .home-board-icon {
-  width: 28px;
-  height: 28px;
+  width: 18px;
+  height: 18px;
   object-fit: contain;
   opacity: 0.85;
 }
 
 .home-board-name {
-  font-size: 11px;
-  font-weight: 500;
+  font-size: 10px;
+  font-weight: 400;
   color: rgba(248, 246, 255, 0.75);
   text-align: center;
   letter-spacing: 0.2px;
 }
 
 /* ── Content Page Header & Section Tabs ── */
+.content-page {
+  gap: 0;
+  padding: 0;
+}
+
 .content-header {
-  display: flex;
-  justify-content: flex-start;
-  padding: 8px 0 0;
+  padding: 24px 24px 12px;
 }
 
 .content-title {
-  font-size: 36px;
-  font-weight: 500;
-  letter-spacing: -1.5px;
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -2px;
   line-height: 1;
   background: linear-gradient(135deg, #6b7a9a 0%, #9aa3b8 50%, #c8cdd8 100%);
   -webkit-background-clip: text;
@@ -109,11 +112,13 @@
 
 .content-section-tabs {
   display: flex;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 5px;
   flex-wrap: nowrap;
   overflow-x: auto;
-  padding-bottom: 2px;
+  padding: 0 24px 14px;
   scrollbar-width: none;
+  border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
 }
 
 .content-section-tabs::-webkit-scrollbar {
@@ -122,27 +127,64 @@
 
 .content-section-tab {
   flex-shrink: 0;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
-  color: rgba(248, 246, 255, 0.5);
-  background: rgba(5, 9, 28, 0.6);
-  border: 0.5px solid rgba(107, 158, 255, 0.15);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(248, 246, 255, 0.42);
+  background: none;
+  border: 0.5px solid rgba(248, 246, 255, 0.1);
   cursor: pointer;
   transition:
-    background 0.2s,
-    color 0.2s;
+    background 0.18s,
+    color 0.18s,
+    border-color 0.18s;
+  letter-spacing: -0.7px;
 }
 
 .content-section-tab.active {
-  background: rgba(107, 158, 255, 0.15);
-  color: rgba(107, 158, 255, 0.9);
-  border-color: rgba(107, 158, 255, 0.4);
+  background: rgba(107, 158, 255, 0.1);
+  color: rgba(107, 158, 255, 0.92);
+  border-color: rgba(107, 158, 255, 0.38);
+  font-weight: 700;
+}
+
+.content-section-tab:active {
+  opacity: 0.7;
 }
 
 .content-section-area {
   flex: 1;
+  min-height: 0;
+}
+
+/* ── Lock Screen ────────────────────────────────────── */
+.content-lock-screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex: 1;
+  min-height: 60vh;
+  padding: 40px 24px;
+}
+
+.content-lock-screen.visible {
+  display: flex;
+}
+
+.content-lock-icon {
+  opacity: 0.7;
+}
+
+.content-lock-text {
+  font-size: 14px;
+  color: rgba(248, 246, 255, 0.3);
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.5;
+  max-width: 180px;
 }
 
 .content-placeholder {

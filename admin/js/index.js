@@ -88,5 +88,22 @@ adminNavItems.forEach((nav) => {
   nav.addEventListener("click", () => {
     const target = nav.getAttribute("data-admin-nav");
     showAdminPage(target);
+    // Content nav: show lock screen if no section opened from home
+    if (target === "content") {
+      const lock = document.getElementById("content-lock-screen");
+      const anyOpen = document.querySelector(
+        ".content-section-area[style*='block']",
+      );
+      if (lock) {
+        if (anyOpen) {
+          lock.classList.remove("visible");
+        } else {
+          lock.classList.add("visible");
+          // Hide tabs when locked
+          const tabs = document.getElementById("content-section-tabs");
+          if (tabs) tabs.style.display = "none";
+        }
+      }
+    }
   });
 });

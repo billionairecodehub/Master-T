@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 0;
+  padding: 0 !important; /* header + section areas handle their own padding */
 }
 
 .content-grid {
