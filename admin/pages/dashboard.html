@@ -1,180 +1,114 @@
-<div class="admin-page dashboard-page" data-admin-page="dashboard">
-  <div class="admin-page-title">Dashboard</div>
-  <div class="admin-page-subtitle">Overview of your content</div>
+﻿<div class="admin-page dashboard-page" data-admin-page="dashboard">
 
-  <div class="admin-stat-row">
-    <div class="admin-stat-card">
-      <div class="admin-stat-number" id="stat-apps">0</div>
-      <div class="admin-stat-label">Apps</div>
-    </div>
-    <div class="admin-stat-card">
-      <div class="admin-stat-number" id="stat-books">0</div>
-      <div class="admin-stat-label">Books</div>
-    </div>
-    <div class="admin-stat-card">
-      <div class="admin-stat-number" id="stat-circles">0</div>
-      <div class="admin-stat-label">Circles</div>
-    </div>
-    <div class="admin-stat-card">
-      <div class="admin-stat-number" id="stat-posts">0</div>
-      <div class="admin-stat-label">Posts</div>
-    </div>
-    <div class="admin-stat-card">
-      <div class="admin-stat-number" id="stat-notifications">0</div>
-      <div class="admin-stat-label">Notifications</div>
-    </div>
-    <div class="admin-stat-card">
-      <div class="admin-stat-number" id="stat-subscribers">0</div>
-      <div class="admin-stat-label">Subscribers</div>
-    </div>
+  <div class="home-header">
+    <div class="home-title">Home</div>
   </div>
 
-  <div class="admin-section-header">
-    <div class="admin-section-title">Quick Actions</div>
-  </div>
-  <div class="dashboard-actions">
-    <button class="dashboard-action-btn" data-goto="posts" data-action="new">
-      <div class="dashboard-action-icon">
-        <img
-          src="https://i.postimg.cc/DZknTVzm/Mt-Admin-Bar-Icon-Post.png"
-          alt="New Post"
-          class="dashboard-action-img"
-        />
+  <div class="home-sections">
+
+    <div class="home-section">
+      <div class="home-section-label">Posts</div>
+      <div class="home-boards-grid">
+        <div class="home-board" data-section="feed">
+          <img src="https://i.postimg.cc/DZknTVzm/Mt-Admin-Bar-Icon-Post.png" alt="" class="home-board-icon" />
+          <div class="home-board-name">Feed</div>
+        </div>
+        <div class="home-board" data-section="quest">
+          <img src="https://i.postimg.cc/261CZPjm/Mt-Admin-Bar-Icon-Quest.png" alt="" class="home-board-icon" />
+          <div class="home-board-name">Quest</div>
+        </div>
       </div>
-      <div class="dashboard-action-text">New Post</div>
-      <div class="dashboard-action-arrow">›</div>
-    </button>
-    <button
-      class="dashboard-action-btn"
-      data-goto="content"
-      data-tab="apps"
-      data-action="new"
-    >
-      <div class="dashboard-action-icon">
-        <img
-          src="https://i.postimg.cc/dV3y7CjS/Mt-Admin-Q-Icon-Add.png"
-          alt="Add App"
-          class="dashboard-action-img"
-        />
+    </div>
+
+    <div class="home-section">
+      <div class="home-section-label">Block</div>
+      <div class="home-boards-grid">
+        <div class="home-board" data-section="stories">
+          <img src="https://i.postimg.cc/c1cZVbG0/Mt-Admin-Bar-Icon-Content.png" alt="" class="home-board-icon" />
+          <div class="home-board-name">Stories</div>
+        </div>
+        <div class="home-board" data-section="updates">
+          <img src="https://i.postimg.cc/c1cZVbG0/Mt-Admin-Bar-Icon-Content.png" alt="" class="home-board-icon" />
+          <div class="home-board-name">Updates</div>
+        </div>
+        <div class="home-board" data-section="poll">
+          <img src="https://i.postimg.cc/c1cZVbG0/Mt-Admin-Bar-Icon-Content.png" alt="" class="home-board-icon" />
+          <div class="home-board-name">Poll</div>
+        </div>
       </div>
-      <div class="dashboard-action-text">Add App</div>
-      <div class="dashboard-action-arrow">›</div>
-    </button>
-    <button
-      class="dashboard-action-btn"
-      data-goto="content"
-      data-tab="books"
-      data-action="new"
-    >
-      <div class="dashboard-action-icon">
-        <img
-          src="https://i.postimg.cc/dV3y7CjS/Mt-Admin-Q-Icon-Add.png"
-          alt="Add Book"
-          class="dashboard-action-img"
-        />
+    </div>
+
+    <div class="home-section">
+      <div class="home-section-label">Menu</div>
+      <div class="home-boards-grid">
+        <div class="home-board" data-section="apps">
+          <img src="https://i.postimg.cc/dV3y7CjS/Mt-Admin-Q-Icon-Add.png" alt="" class="home-board-icon" />
+          <div class="home-board-name">Apps</div>
+        </div>
+        <div class="home-board" data-section="books">
+          <img src="https://i.postimg.cc/dV3y7CjS/Mt-Admin-Q-Icon-Add.png" alt="" class="home-board-icon" />
+          <div class="home-board-name">Books</div>
+        </div>
+        <div class="home-board" data-section="circle">
+          <img src="https://i.postimg.cc/T3Bpp4Pz/Mt-Admin-Q-Icon-Circle.png" alt="" class="home-board-icon" />
+          <div class="home-board-name">Circle</div>
+        </div>
       </div>
-      <div class="dashboard-action-text">Add Book</div>
-      <div class="dashboard-action-arrow">›</div>
-    </button>
-    <button
-      class="dashboard-action-btn"
-      data-goto="content"
-      data-tab="circles"
-      data-action="new"
-    >
-      <div class="dashboard-action-icon">
-        <img
-          src="https://i.postimg.cc/T3Bpp4Pz/Mt-Admin-Q-Icon-Circle.png"
-          alt="Add Circle"
-          class="dashboard-action-img"
-        />
+    </div>
+
+    <div class="home-section">
+      <div class="home-section-label">Content</div>
+      <div class="home-boards-grid">
+        <div class="home-board" data-section="editprofile">
+          <img src="https://i.postimg.cc/Hk6F2q5p/Mt-Admin-Q-Icon-Profile.png" alt="" class="home-board-icon" />
+          <div class="home-board-name">Edit Profile</div>
+        </div>
+        <div class="home-board" data-section="subscribers">
+          <img src="https://i.postimg.cc/28hz0S8y/Mt-Admin-Q-Icon-Manage.png" alt="" class="home-board-icon" />
+          <div class="home-board-name">Subscribers</div>
+        </div>
       </div>
-      <div class="dashboard-action-text">Add Circle</div>
-      <div class="dashboard-action-arrow">›</div>
-    </button>
-    <button class="dashboard-action-btn" id="action-new-notification">
-      <div class="dashboard-action-icon">
-        <img
-          src="https://i.postimg.cc/fybwHcLG/Mt-Admin-Q-Icon-Noti.png"
-          alt="Create Notification"
-          class="dashboard-action-img"
-        />
+    </div>
+
+    <div class="home-section">
+      <div class="home-section-label">Notification</div>
+      <div class="home-boards-grid">
+        <div class="home-board" data-section="notifications">
+          <img src="https://i.postimg.cc/fybwHcLG/Mt-Admin-Q-Icon-Noti.png" alt="" class="home-board-icon" />
+          <div class="home-board-name">Notifications</div>
+        </div>
       </div>
-      <div class="dashboard-action-text">Create Notification</div>
-      <div class="dashboard-action-arrow">›</div>
-    </button>
-    <button class="dashboard-action-btn" id="action-edit-profile">
-      <div class="dashboard-action-icon">
-        <img
-          src="https://i.postimg.cc/Hk6F2q5p/Mt-Admin-Q-Icon-Profile.png"
-          alt="Edit Profile"
-          class="dashboard-action-img"
-        />
-      </div>
-      <div class="dashboard-action-text">Edit Profile</div>
-      <div class="dashboard-action-arrow">›</div>
-    </button>
-    <button class="dashboard-action-btn" id="action-manage-subs">
-      <div class="dashboard-action-icon">
-        <img
-          src="https://i.postimg.cc/28hz0S8y/Mt-Admin-Q-Icon-Manage.png"
-          alt="Manage Subscribers"
-          class="dashboard-action-img"
-        />
-      </div>
-      <div class="dashboard-action-text">Manage Subscribers</div>
-      <div class="dashboard-action-arrow">›</div>
-    </button>
+    </div>
+
   </div>
 
-  <div class="admin-section-header" style="margin-top: 8px">
-    <div class="admin-section-title">Recently Added</div>
-  </div>
-  <div class="dashboard-recent" id="dashboard-recent"></div>
-
-  <!-- ── Notification Modal ── -->
+  <!-- Notification Modal -->
   <div class="dash-modal-overlay" id="modal-notification" style="display: none">
     <div class="dash-modal">
       <div class="dash-modal-header">
-        <div class="dash-modal-title" id="noti-modal-title">
-          Create Notification
-        </div>
-        <button class="dash-modal-close" data-close="modal-notification">
-          ✕
-        </button>
+        <div class="dash-modal-title" id="noti-modal-title">Create Notification</div>
+        <button class="dash-modal-close" data-close="modal-notification">x</button>
       </div>
       <div class="dash-modal-body">
         <input type="hidden" id="noti-edit-id" />
         <label class="dash-label">Title</label>
-        <input
-          type="text"
-          class="dash-input"
-          id="noti-title"
-          placeholder="Notification title"
-        />
+        <input type="text" class="dash-input" id="noti-title" placeholder="Notification title" />
         <label class="dash-label">Content</label>
-        <textarea
-          class="dash-textarea"
-          id="noti-content"
-          rows="4"
-          placeholder="Notification message"
-        ></textarea>
+        <textarea class="dash-textarea" id="noti-content" rows="4" placeholder="Notification message"></textarea>
       </div>
       <div class="dash-modal-footer">
-        <button class="dash-btn-secondary" data-close="modal-notification">
-          Cancel
-        </button>
+        <button class="dash-btn-secondary" data-close="modal-notification">Cancel</button>
         <button class="dash-btn-primary" id="noti-save">Save</button>
       </div>
     </div>
   </div>
 
-  <!-- ── Notifications List Modal ── -->
+  <!-- Notifications List Modal -->
   <div class="dash-modal-overlay" id="modal-noti-list" style="display: none">
     <div class="dash-modal dash-modal-tall">
       <div class="dash-modal-header">
         <div class="dash-modal-title">All Notifications</div>
-        <button class="dash-modal-close" data-close="modal-noti-list">✕</button>
+        <button class="dash-modal-close" data-close="modal-noti-list">x</button>
       </div>
       <div class="dash-modal-body" id="noti-list-body"></div>
       <div class="dash-modal-footer">
@@ -183,57 +117,39 @@
     </div>
   </div>
 
-  <!-- ── Edit Profile Modal ── -->
+  <!-- Edit Profile Modal -->
   <div class="dash-modal-overlay" id="modal-profile" style="display: none">
     <div class="dash-modal dash-modal-tall">
       <div class="dash-modal-header">
         <div class="dash-modal-title">Edit Profile</div>
-        <button class="dash-modal-close" data-close="modal-profile">✕</button>
+        <button class="dash-modal-close" data-close="modal-profile">x</button>
       </div>
       <div class="dash-modal-body">
         <label class="dash-label">Mentorship Price</label>
-        <input
-          type="text"
-          class="dash-input"
-          id="profile-price"
-          placeholder="$14.01"
-        />
+        <input type="text" class="dash-input" id="profile-price" placeholder="$14.01" />
         <label class="dash-label">Mentorship Period</label>
-        <input
-          type="text"
-          class="dash-input"
-          id="profile-period"
-          placeholder="/Monthly"
-        />
+        <input type="text" class="dash-input" id="profile-period" placeholder="/Monthly" />
         <label class="dash-label">About Description</label>
-        <textarea
-          class="dash-textarea"
-          id="profile-about"
-          rows="8"
-          placeholder="About text"
-        ></textarea>
+        <textarea class="dash-textarea" id="profile-about" rows="8" placeholder="About text"></textarea>
       </div>
       <div class="dash-modal-footer">
-        <button class="dash-btn-secondary" data-close="modal-profile">
-          Cancel
-        </button>
+        <button class="dash-btn-secondary" data-close="modal-profile">Cancel</button>
         <button class="dash-btn-primary" id="profile-save">Save</button>
       </div>
     </div>
   </div>
 
-  <!-- ── Subscribers Modal ── -->
+  <!-- Subscribers Modal -->
   <div class="dash-modal-overlay" id="modal-subscribers" style="display: none">
     <div class="dash-modal dash-modal-tall">
       <div class="dash-modal-header">
         <div class="dash-modal-title">Subscribers</div>
-        <button class="dash-modal-close" data-close="modal-subscribers">
-          ✕
-        </button>
+        <button class="dash-modal-close" data-close="modal-subscribers">x</button>
       </div>
       <div class="dash-modal-body" id="subs-list-body">
         <div class="dash-empty">No subscribers yet</div>
       </div>
     </div>
   </div>
+
 </div>

@@ -1,27 +1,71 @@
 // admin/js/content.js — Apps / Books / Circles CRUD
 
 let activeContentTab = "apps";
+let activeContentSection = "apps";
 
-// ── Tab switching ────────────────────────────────────
+// ── Section tabs config ──────────────────────────────
 
-document.querySelectorAll("#content-tabs .admin-tab").forEach((tab) => {
-  tab.addEventListener("click", () => {
-    activeContentTab = tab.getAttribute("data-content-tab");
+const CONTENT_SECTION_TABS = {
+  feed: ["View", "Create", "Draft", "Manage"],
+  quest: ["View", "Create", "Draft", "Manage"],
+  stories: ["View", "Create", "Draft", "Manage"],
+  updates: ["View", "Create", "Draft", "Manage"],
+  poll: ["View", "Create", "Draft", "Manage"],
+  apps: ["View", "Create", "Draft", "Manage"],
+  books: ["View", "Create", "Draft", "Manage"],
+  circle: ["View", "Create", "Draft", "Manage"],
+  notifications: ["View", "Create", "Draft", "Manage"],
+  editprofile: ["Details", "CTA", "Message", "About"],
+  subscribers: ["All", "Stats"],
+};
 
-    document
-      .querySelectorAll("#content-tabs .admin-tab")
-      .forEach((t) => t.classList.toggle("active", t === tab));
+// Section to old content-tab mapping (for grids)
+const SECTION_TO_TAB = { apps: "apps", books: "books", circle: "circles" };
 
-    document.getElementById("content-apps").style.display =
-      activeContentTab === "apps" ? "flex" : "none";
-    document.getElementById("content-books").style.display =
-      activeContentTab === "books" ? "flex" : "none";
-    document.getElementById("content-circles").style.display =
-      activeContentTab === "circles" ? "flex" : "none";
+function showContentSection(section) {
+  activeContentSection = section;
 
-    refreshContent();
+  // Hide all section areas
+  document.querySelectorAll(".content-section-area").forEach((el) => {
+    el.style.display = "none";
   });
-});
+
+  // Show target area
+  const area = document.getElementById("content-area-" + section);
+  if (area) area.style.display = "block";
+
+  // For grids that use the old list, trigger a render
+  const tab = SECTION_TO_TAB[section];
+  if (tab) {
+    activeContentTab = tab;
+    document.getElementById("content-apps").style.display =
+      tab === "apps" ? "flex" : "none";
+    document.getElementById("content-books").style.display =
+      tab === "books" ? "flex" : "none";
+    document.getElementById("content-circles").style.display =
+      tab === "circles" ? "flex" : "none";
+    refreshContent();
+  }
+
+  // Build section tabs row
+  const tabs = CONTENT_SECTION_TABS[section] || ["View"];
+  const tabsEl = document.getElementById("content-section-tabs");
+  tabsEl.innerHTML = tabs
+    .map(
+      (t, i) =>
+        `<div class="content-section-tab${i === 0 ? " active" : ""}" data-section-tab="${t}">${t}</div>`,
+    )
+    .join("");
+
+  tabsEl.querySelectorAll(".content-section-tab").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      tabsEl
+        .querySelectorAll(".content-section-tab")
+        .forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+    });
+  });
+}
 
 // ── Refresh lists ────────────────────────────────────
 

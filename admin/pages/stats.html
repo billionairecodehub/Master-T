@@ -1,7 +1,41 @@
 <div class="admin-page stats-page" data-admin-page="stats">
   <div class="admin-page-title">Stats</div>
-  <div class="admin-page-subtitle">Content analytics at a glance</div>
 
+  <!-- Dashboard Overview (moved from Home) -->
+  <div class="admin-section-header">
+    <div class="admin-section-title">Dashboard</div>
+  </div>
+  <div class="admin-stat-row">
+    <div class="admin-stat-card">
+      <div class="admin-stat-number" id="stats-stat-apps">0</div>
+      <div class="admin-stat-label">Apps</div>
+    </div>
+    <div class="admin-stat-card">
+      <div class="admin-stat-number" id="stats-stat-books">0</div>
+      <div class="admin-stat-label">Books</div>
+    </div>
+    <div class="admin-stat-card">
+      <div class="admin-stat-number" id="stats-stat-circles">0</div>
+      <div class="admin-stat-label">Circles</div>
+    </div>
+    <div class="admin-stat-card">
+      <div class="admin-stat-number" id="stats-stat-posts">0</div>
+      <div class="admin-stat-label">Posts</div>
+    </div>
+    <div class="admin-stat-card">
+      <div class="admin-stat-number" id="stats-stat-notis">0</div>
+      <div class="admin-stat-label">Notis</div>
+    </div>
+    <div class="admin-stat-card">
+      <div class="admin-stat-number" id="stats-stat-subs">0</div>
+      <div class="admin-stat-label">Subs</div>
+    </div>
+  </div>
+
+  <!-- Content Analytics -->
+  <div class="admin-section-header">
+    <div class="admin-section-title">Content Analytics</div>
+  </div>
   <div class="stats-breakdown" id="stats-breakdown">
     <div class="stats-breakdown-card">
       <div class="stats-breakdown-number" id="stats-total">0</div>
@@ -13,21 +47,23 @@
     </div>
     <div class="stats-breakdown-card">
       <div class="stats-breakdown-number" id="stats-threads">0</div>
-      <div class="stats-breakdown-label">Thread Sections</div>
+      <div class="stats-breakdown-label">Threads</div>
     </div>
     <div class="stats-breakdown-card">
       <div class="stats-breakdown-number" id="stats-categories">0</div>
-      <div class="stats-breakdown-label">Circle Categories</div>
+      <div class="stats-breakdown-label">Categories</div>
     </div>
   </div>
 
-  <div class="admin-section-header">
+  <!-- Content Distribution -->
+  <div class="admin-section-header" style="margin-top: 8px">
     <div class="admin-section-title">Content Distribution</div>
   </div>
   <div class="stats-overview" id="stats-bars"></div>
 
+  <!-- Recently Added (moved from Home) -->
   <div class="admin-section-header" style="margin-top: 8px">
-    <div class="admin-section-title">Top Rated</div>
+    <div class="admin-section-title">Recently Added</div>
   </div>
-  <div class="admin-list" id="stats-top-rated"></div>
+  <div class="dashboard-recent" id="stats-recent"></div>
 </div>

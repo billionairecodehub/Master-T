@@ -2,6 +2,7 @@
   <div class="admin-page-title">Settings</div>
   <div class="admin-page-subtitle">Admin preferences</div>
 
+  <!-- Security -->
   <div class="settings-group">
     <div class="settings-group-title">Security</div>
     <div class="settings-row" id="settings-change-pin">
@@ -13,6 +14,7 @@
     </div>
   </div>
 
+  <!-- Data -->
   <div class="settings-group">
     <div class="settings-group-title">Data</div>
     <div class="settings-row" id="settings-export">
@@ -29,23 +31,22 @@
       </div>
       <div class="settings-row-arrow">›</div>
     </div>
-    <div class="settings-row" id="settings-import">
+    <div class="settings-row" id="settings-export-polls">
       <div class="settings-row-left">
-        <div class="settings-row-label">Import Data</div>
-        <div class="settings-row-desc">Load content from a JSON file</div>
+        <div class="settings-row-label">Export Poll Results</div>
+        <div class="settings-row-desc">Download poll results as JSON</div>
       </div>
       <div class="settings-row-arrow">›</div>
     </div>
   </div>
 
-  <div class="settings-group settings-danger">
-    <div class="settings-group-title">Danger Zone</div>
-    <div class="settings-row" id="settings-reset">
+  <!-- Account -->
+  <div class="settings-group">
+    <div class="settings-group-title">Account</div>
+    <div class="settings-row" id="settings-logout">
       <div class="settings-row-left">
-        <div class="settings-row-label">Reset All Data</div>
-        <div class="settings-row-desc">
-          Clear everything and re-seed defaults
-        </div>
+        <div class="settings-row-label">Log Out</div>
+        <div class="settings-row-desc">Return to the login screen</div>
       </div>
       <div class="settings-row-arrow">›</div>
     </div>
@@ -89,11 +90,3 @@
     <button class="admin-save-btn" id="save-pin-btn">Update PIN</button>
   </div>
 </div>
-
-<!-- Hidden file input for import -->
-<input
-  type="file"
-  id="import-file-input"
-  accept=".json"
-  style="display: none"
-/>

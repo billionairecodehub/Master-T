@@ -17,23 +17,22 @@
   <body>
     <!-- Login Screen -->
     <div class="admin-login">
-      <img
-        src="https://i.postimg.cc/pdv2ftPx/Master-Togan-Logo.png"
-        alt="Logo"
-        class="login-logo"
-      />
-      <div class="login-title">Admin Panel</div>
-      <div class="login-subtitle">Enter your PIN to continue</div>
-      <input
-        type="password"
-        class="login-input"
-        id="login-pin"
-        placeholder="PIN"
-        maxlength="8"
-        inputmode="numeric"
-      />
-      <div class="login-error" id="login-error"></div>
-      <button class="login-btn" id="login-btn">Enter</button>
+      <div class="login-brand">
+        <div class="login-label">get In With game Admin</div>
+        <div class="login-title">Master<br />Togan</div>
+      </div>
+      <div class="login-form">
+        <input
+          type="password"
+          class="login-input"
+          id="login-pin"
+          placeholder="Enter Your Pin"
+          maxlength="8"
+          inputmode="numeric"
+        />
+        <div class="login-error" id="login-error"></div>
+        <button class="login-btn" id="login-btn">Enter</button>
+      </div>
     </div>
 
     <!-- Admin Layout (hidden until login) -->
@@ -45,10 +44,20 @@
             alt="Logo"
             class="admin-header-logo"
           />
-          <div class="admin-header-title">Master Togan</div>
-          <div class="admin-header-badge">ADMIN</div>
+          <div class="admin-header-info">
+            <div class="admin-header-name">Master Togan</div>
+            <div class="admin-header-label">Admin</div>
+          </div>
         </div>
-        <button class="admin-logout-btn" id="admin-logout">Logout</button>
+        <div class="admin-header-brand">getInWithgame</div>
+        <!-- Keep hidden logout for JS reference -->
+        <button
+          class="admin-logout-btn"
+          id="admin-logout"
+          style="display: none"
+        >
+          Logout
+        </button>
       </header>
 
       <!-- Pages loaded by appindex.js -->
@@ -66,26 +75,6 @@
             </div>
             <div class="admin-nav-label">Home</div>
           </div>
-          <div class="admin-nav-item" data-admin-nav="posts">
-            <div class="admin-nav-icon">
-              <img
-                src="https://i.postimg.cc/DZknTVzm/Mt-Admin-Bar-Icon-Post.png"
-                alt="Posts"
-                class="admin-nav-img"
-              />
-            </div>
-            <div class="admin-nav-label">Posts</div>
-          </div>
-          <div class="admin-nav-item" data-admin-nav="quests">
-            <div class="admin-nav-icon">
-              <img
-                src="https://i.postimg.cc/261CZPjm/Mt-Admin-Bar-Icon-Quest.png"
-                alt="Quests"
-                class="admin-nav-img"
-              />
-            </div>
-            <div class="admin-nav-label">Quests</div>
-          </div>
           <div class="admin-nav-item" data-admin-nav="content">
             <div class="admin-nav-icon">
               <img
@@ -95,6 +84,26 @@
               />
             </div>
             <div class="admin-nav-label">Content</div>
+          </div>
+          <div class="admin-nav-item" data-admin-nav="message">
+            <div class="admin-nav-icon">
+              <img
+                src="https://i.postimg.cc/DZknTVzm/Mt-Admin-Bar-Icon-Post.png"
+                alt="Message"
+                class="admin-nav-img"
+              />
+            </div>
+            <div class="admin-nav-label">Message</div>
+          </div>
+          <div class="admin-nav-item" data-admin-nav="sales">
+            <div class="admin-nav-icon">
+              <img
+                src="https://i.postimg.cc/28hz0S8y/Mt-Admin-Q-Icon-Manage.png"
+                alt="Sales"
+                class="admin-nav-img"
+              />
+            </div>
+            <div class="admin-nav-label">Sales</div>
           </div>
           <div class="admin-nav-item" data-admin-nav="stats">
             <div class="admin-nav-icon">
@@ -115,6 +124,35 @@
               />
             </div>
             <div class="admin-nav-label">Settings</div>
+          </div>
+          <!-- Preserved (hidden): old nav items for posts/quests -->
+          <div
+            class="admin-nav-item"
+            data-admin-nav="posts"
+            style="display: none"
+          >
+            <div class="admin-nav-icon">
+              <img
+                src="https://i.postimg.cc/DZknTVzm/Mt-Admin-Bar-Icon-Post.png"
+                alt="Posts"
+                class="admin-nav-img"
+              />
+            </div>
+            <div class="admin-nav-label">Posts</div>
+          </div>
+          <div
+            class="admin-nav-item"
+            data-admin-nav="quests"
+            style="display: none"
+          >
+            <div class="admin-nav-icon">
+              <img
+                src="https://i.postimg.cc/261CZPjm/Mt-Admin-Bar-Icon-Quest.png"
+                alt="Quests"
+                class="admin-nav-img"
+              />
+            </div>
+            <div class="admin-nav-label">Quests</div>
           </div>
         </div>
       </footer>

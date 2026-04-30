@@ -70,63 +70,28 @@ document
     URL.revokeObjectURL(url);
   });
 
-// ── Import Data ─────────────────────────────────────
+// ── Export Poll Results ──────────────────────────────
 
-const importInput = document.getElementById("import-file-input");
+document
+  .getElementById("settings-export-polls")
+  .addEventListener("click", () => {
+    const data = DataStore.getAll("polls");
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download =
+      "mastertogan-polls-" + new Date().toISOString().slice(0, 10) + ".json";
+    a.click();
+    URL.revokeObjectURL(url);
+  });
 
-document.getElementById("settings-import").addEventListener("click", () => {
-  importInput.click();
-});
+// ── Log Out ──────────────────────────────────────────
 
-importInput.addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = (ev) => {
-    try {
-      const data = JSON.parse(ev.target.result);
-      if (!data.apps || !data.books || !data.circles || !data.posts) {
-        return alert("Invalid backup file — missing data keys");
-      }
-
-      if (!window.confirm("This will replace ALL current data. Continue?"))
-        return;
-
-      localStorage.setItem("mt_apps", JSON.stringify(data.apps));
-      localStorage.setItem("mt_books", JSON.stringify(data.books));
-      localStorage.setItem("mt_circles", JSON.stringify(data.circles));
-      localStorage.setItem("mt_posts", JSON.stringify(data.posts));
-
-      alert("Data imported! Refreshing...");
-      location.reload();
-    } catch {
-      alert("Failed to parse file. Make sure it's a valid JSON backup.");
-    }
-  };
-  reader.readAsText(file);
-  importInput.value = "";
-});
-
-// ── Reset All Data ──────────────────────────────────
-
-document.getElementById("settings-reset").addEventListener("click", () => {
-  if (
-    !window.confirm(
-      "This will delete ALL content and reset to defaults. Are you sure?",
-    )
-  )
-    return;
-  if (!window.confirm("This cannot be undone. Really reset everything?"))
-    return;
-
-  localStorage.removeItem("mt_apps");
-  localStorage.removeItem("mt_books");
-  localStorage.removeItem("mt_circles");
-  localStorage.removeItem("mt_posts");
-
-  // Re-seed
-  seedIfEmpty();
-  alert("Data reset to defaults! Refreshing...");
-  location.reload();
+document.getElementById("settings-logout").addEventListener("click", () => {
+  if (typeof adminLogout === "function") {
+    adminLogout();
+  }
 });

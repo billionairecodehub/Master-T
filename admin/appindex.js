@@ -14,7 +14,7 @@ async function boot() {
   }
 
   // Load all admin page partials in parallel
-  const [dashboard, posts, quests, content, stats, settings] =
+  const [dashboard, posts, quests, content, stats, settings, message, sales] =
     await Promise.all([
       loadPage("pages/dashboard.html"),
       loadPage("pages/posts.html"),
@@ -22,10 +22,13 @@ async function boot() {
       loadPage("pages/content.html"),
       loadPage("pages/stats.html"),
       loadPage("pages/settings.html"),
+      loadPage("pages/message.html"),
+      loadPage("pages/sales.html"),
     ]);
 
   // Inject all pages into admin main container
-  main.innerHTML = dashboard + posts + quests + content + stats + settings;
+  main.innerHTML =
+    dashboard + posts + quests + content + stats + settings + message + sales;
   console.log("[ADMIN] All partials injected into .admin-main");
   // Load shared data layer first, sync from Firebase, then admin scripts
   const dataScript = "../shared/data.js";
@@ -37,6 +40,8 @@ async function boot() {
     "js/content.js",
     "js/stats.js",
     "js/settings.js",
+    "js/message.js",
+    "js/sales.js",
   ];
 
   // Load data.js first

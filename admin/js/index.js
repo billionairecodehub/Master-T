@@ -36,13 +36,17 @@ loginInput.addEventListener("keydown", (e) => {
   loginError.textContent = "";
 });
 
-// Logout
-document.getElementById("admin-logout").addEventListener("click", () => {
+// Logout helper (called from settings page too)
+function adminLogout() {
   adminLayout.style.display = "none";
   adminLogin.style.display = "flex";
   loginInput.value = "";
   loginError.textContent = "";
-});
+}
+
+// Hidden fallback logout in header (preserved for compatibility)
+const legacyLogoutBtn = document.getElementById("admin-logout");
+if (legacyLogoutBtn) legacyLogoutBtn.addEventListener("click", adminLogout);
 
 // ── Page Switching ───────────────────────────────────
 
@@ -74,6 +78,7 @@ function showAdminPage(name) {
   if (name === "content" && typeof refreshContent === "function")
     refreshContent();
   if (name === "stats" && typeof refreshStats === "function") refreshStats();
+  // message + sales pages are placeholder — no refresh needed
 }
 
 // Nav clicks

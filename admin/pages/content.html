@@ -1,19 +1,96 @@
 <div class="admin-page content-page" data-admin-page="content">
-  <div class="admin-page-title">Content</div>
-  <div class="admin-page-subtitle">Manage apps, books &amp; circles</div>
-
-  <div class="admin-tabs" id="content-tabs">
-    <div class="admin-tab active" data-content-tab="apps">Apps</div>
-    <div class="admin-tab" data-content-tab="books">Books</div>
-    <div class="admin-tab" data-content-tab="circles">Circles</div>
+  <!-- Content header: title right + dynamic section tabs -->
+  <div class="content-header">
+    <div class="content-title">Content</div>
+  </div>
+  <div class="content-section-tabs" id="content-section-tabs">
+    <!-- Populated dynamically by content.js -->
   </div>
 
-  <!-- Apps list -->
-  <div class="content-grid" id="content-apps"></div>
-  <!-- Books list -->
-  <div class="content-grid" id="content-books" style="display: none"></div>
-  <!-- Circles list -->
-  <div class="content-grid" id="content-circles" style="display: none"></div>
+  <!-- Section: Apps -->
+  <div class="content-section-area" id="content-area-apps">
+    <div class="content-grid" id="content-apps"></div>
+  </div>
+  <!-- Section: Books -->
+  <div
+    class="content-section-area"
+    id="content-area-books"
+    style="display: none"
+  >
+    <div class="content-grid" id="content-books"></div>
+  </div>
+  <!-- Section: Circles -->
+  <div
+    class="content-section-area"
+    id="content-area-circle"
+    style="display: none"
+  >
+    <div class="content-grid" id="content-circles"></div>
+  </div>
+  <!-- Section: Feed -->
+  <div
+    class="content-section-area"
+    id="content-area-feed"
+    style="display: none"
+  >
+    <div class="content-placeholder">Feed — coming soon</div>
+  </div>
+  <!-- Section: Quest -->
+  <div
+    class="content-section-area"
+    id="content-area-quest"
+    style="display: none"
+  >
+    <div class="content-placeholder">Quest — coming soon</div>
+  </div>
+  <!-- Section: Stories -->
+  <div
+    class="content-section-area"
+    id="content-area-stories"
+    style="display: none"
+  >
+    <div class="content-placeholder">Stories — coming soon</div>
+  </div>
+  <!-- Section: Updates -->
+  <div
+    class="content-section-area"
+    id="content-area-updates"
+    style="display: none"
+  >
+    <div class="content-placeholder">Updates — coming soon</div>
+  </div>
+  <!-- Section: Poll -->
+  <div
+    class="content-section-area"
+    id="content-area-poll"
+    style="display: none"
+  >
+    <div class="content-placeholder">Poll — coming soon</div>
+  </div>
+  <!-- Section: Notifications -->
+  <div
+    class="content-section-area"
+    id="content-area-notifications"
+    style="display: none"
+  >
+    <div class="content-placeholder">Notifications — coming soon</div>
+  </div>
+  <!-- Section: Edit Profile -->
+  <div
+    class="content-section-area"
+    id="content-area-editprofile"
+    style="display: none"
+  >
+    <div class="content-placeholder">Edit Profile — coming soon</div>
+  </div>
+  <!-- Section: Subscribers -->
+  <div
+    class="content-section-area"
+    id="content-area-subscribers"
+    style="display: none"
+  >
+    <div class="content-placeholder">Subscribers — coming soon</div>
+  </div>
 
   <button class="admin-fab" id="fab-content">+</button>
 </div>
