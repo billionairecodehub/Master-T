@@ -45,7 +45,10 @@ function _csRenderList(containerId, items, opts = {}) {
     el.innerHTML = `<div class="cs-empty"><div class="cs-empty-icon">${opts.icon || "📄"}</div><div class="cs-empty-text">Nothing here yet</div></div>`;
     return;
   }
-  el.innerHTML = items
+  const sorted = items
+    .slice()
+    .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+  el.innerHTML = sorted
     .map((item) => {
       const actions = (opts.actions || [])
         .map(
@@ -82,7 +85,10 @@ function _csRenderViewList(containerId, items, opts = {}) {
     el.innerHTML = `<div class="cs-empty"><div class="cs-empty-icon">${opts.icon || "📄"}</div><div class="cs-empty-text">No content yet</div></div>`;
     return;
   }
-  el.innerHTML = items
+  const sorted = items
+    .slice()
+    .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+  el.innerHTML = sorted
     .map(
       (item) => `<div class="cs-view-card">
     <div class="cs-view-card-header">

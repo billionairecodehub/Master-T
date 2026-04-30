@@ -193,7 +193,7 @@ body {
 .admin-header-name {
   font-size: 20px;
   font-weight: 400;
-  letter-spacing: -1.8px;
+  letter-spacing: -0.9px;
   background: linear-gradient(90deg, #5b8fff, #f8f6ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
