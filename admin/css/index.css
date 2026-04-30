@@ -73,16 +73,16 @@ body {
 }
 
 .login-label {
-  font-size: 12px;
+  font-size: 20px;
   color: rgba(255, 255, 255, 0.35);
-  letter-spacing: 0.2px;
+  letter-spacing: -1.2px;
 }
 
 .login-title {
-  font-size: 68px;
-  font-weight: 700;
-  letter-spacing: -4px;
-  line-height: 0.88;
+  font-size: 84px;
+  font-weight: 500;
+  letter-spacing: -7px;
+  line-height: 0.7;
   text-align: center;
   background: linear-gradient(
     135deg,
@@ -94,6 +94,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  padding-bottom: 24px;
 }
 
 .login-form {
@@ -101,17 +102,19 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  gap: 12px;
+  /* gap: 12px; */
 }
 
 .login-input {
   width: 100%;
   background: rgba(255, 255, 255, 0.04);
   border: 0.5px solid rgba(107, 158, 255, 0.2);
-  border-radius: 10px;
+  border-radius: 50px;
   padding: 18px 20px;
   color: #fff;
-  font-size: 16px;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: -0.5px;
   font-family: "Gellix", sans-serif;
   text-align: center;
   letter-spacing: 6px;
@@ -124,20 +127,23 @@ body {
 }
 
 .login-input::placeholder {
-  letter-spacing: 1px;
   color: rgba(255, 255, 255, 0.25);
-  font-size: 13px;
+  font-size: 18px;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: -1px;
 }
 
 .login-btn {
   width: 100%;
   background: rgba(8, 13, 40, 0.9);
-  border: 0.5px solid rgba(107, 158, 255, 0.15);
+  /* border: 0.5px solid rgba(107, 158, 255, 0.15); */
+  border: none;
   color: rgba(200, 215, 255, 0.85);
   border-radius: 10px;
-  padding: 18px;
+  padding: 24px 18px;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 400;
   font-family: "Gellix", sans-serif;
   cursor: pointer;
   transition: opacity 0.2s;
@@ -294,10 +300,14 @@ body {
 }
 
 .admin-page-title {
-  font-size: 22px;
+  font-size: 36px;
   font-weight: 700;
-  letter-spacing: -0.5px;
-  margin-bottom: 6px;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  background: linear-gradient(135deg, #6b7a9a 0%, #9aa3b8 50%, #c8cdd8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .admin-page-subtitle {

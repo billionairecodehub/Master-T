@@ -12,18 +12,19 @@
 /* ── Home Boards Layout ── */
 .home-header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding: 8px 0 0;
 }
 
 .home-title {
-  font-size: 22px;
+  font-size: 36px;
   font-weight: 700;
-  background: linear-gradient(90deg, #5b8fff, #f8f6ff);
+  letter-spacing: -1.5px;
+  line-height: 1;
+  background: linear-gradient(135deg, #6b7a9a 0%, #9aa3b8 50%, #c8cdd8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -0.5px;
 }
 
 .home-sections {
@@ -91,18 +92,19 @@
 /* ── Content Page Header & Section Tabs ── */
 .content-header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding: 8px 0 0;
 }
 
 .content-title {
-  font-size: 22px;
+  font-size: 36px;
   font-weight: 700;
-  background: linear-gradient(90deg, #5b8fff, #f8f6ff);
+  letter-spacing: -1.5px;
+  line-height: 1;
+  background: linear-gradient(135deg, #6b7a9a 0%, #9aa3b8 50%, #c8cdd8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -0.5px;
 }
 
 .content-section-tabs {

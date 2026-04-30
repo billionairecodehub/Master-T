@@ -32,8 +32,14 @@
 }
 
 .stats-bar-name {
-  color: rgba(248, 246, 255, 0.55);
-  font-weight: 500;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  background: linear-gradient(135deg, #6b7a9a 0%, #9aa3b8 50%, #c8cdd8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .stats-bar-value {
