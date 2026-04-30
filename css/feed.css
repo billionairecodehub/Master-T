@@ -235,6 +235,7 @@ button {
   font-size: 11px;
   line-height: 1.7;
   padding: 4px 0 12px;
+  white-space: pre-line;
 }
 
 /* Post top row: image + title/author */
@@ -279,6 +280,7 @@ button {
   color: #ddd;
   font-size: 12px;
   line-height: 1.7;
+  white-space: pre-line;
 }
 
 .post-read-more {

@@ -28,6 +28,12 @@ function _csBindTitleCase(inputId) {
   "cs-poll-question",
 ].forEach(_csBindTitleCase);
 
+// Bind title-case on thread title inputs (feed t1–t10, quest t1–t10)
+for (let i = 1; i <= 10; i++) {
+  _csBindTitleCase(`cs-feed-t${i}-title`);
+  _csBindTitleCase(`cs-quest-t${i}-title`);
+}
+
 function _csDateLabel(iso) {
   if (!iso) return "";
   const d = new Date(iso);
@@ -61,7 +67,7 @@ function _csRenderList(containerId, items, opts = {}) {
         <div class="cs-card-subject">${item.subject || item.question || item.title || item.name || "Untitled"}</div>
         <div class="cs-card-date">${_csDateLabel(item.createdAt)}</div>
       </div>
-      ${item.content || item.body ? `<div class="cs-card-meta">${(item.content || item.body || "").replace(/\n/g, "<br>")}</div>` : ""}
+      ${item.content || item.body ? `<div class="cs-card-meta">${(item.content || item.body || "").replace(/\r/g, "")}</div>` : ""}
       ${actions ? `<div class="cs-card-expand">${actions}</div>` : ""}
     </div>`;
     })
@@ -95,7 +101,7 @@ function _csRenderViewList(containerId, items, opts = {}) {
       <div class="cs-view-card-title">${item.subject || item.question || item.title || item.name || "Untitled"}</div>
       <div class="cs-view-card-time">${_csDateLabel(item.createdAt)}</div>
     </div>
-    ${item.content || item.body ? `<div class="cs-view-card-body">${(item.content || item.body || "").replace(/\n/g, "<br>")}</div>` : ""}
+    ${item.content || item.body ? `<div class="cs-view-card-body">${(item.content || item.body || "").replace(/\r/g, "")}</div>` : ""}
   </div>`,
     )
     .join("");

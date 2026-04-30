@@ -241,6 +241,7 @@ button {
   font-size: 11px;
   line-height: 1.7;
   text-align: justify;
+  white-space: pre-line;
 }
 
 /* Thumbs become votable when expanded */

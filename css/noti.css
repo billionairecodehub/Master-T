@@ -227,6 +227,7 @@
   line-height: 1.75;
   padding: 0 18px 22px;
   letter-spacing: var(--letter-spacing-loose);
+  white-space: pre-line;
 }
 
 .notification-board.open .notification-board-content {
