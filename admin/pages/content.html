@@ -33,7 +33,108 @@
     id="content-area-feed"
     style="display: none"
   >
-    <div class="content-placeholder">Feed — coming soon</div>
+    <div class="cs-page" id="cs-feed-view" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">View</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Feed</span>
+      </div>
+      <div class="cs-view-list" id="cs-feed-view-list"></div>
+    </div>
+    <div class="cs-page" id="cs-feed-create" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Create</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">New Feed</span>
+      </div>
+      <div class="cs-form">
+        <div class="cs-field">
+          <div class="cs-field-label">Subject</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-feed-subject"
+            placeholder="Post subject..."
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Author</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-feed-author"
+            value="Master Togan"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Date Label</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-feed-date"
+            placeholder="e.g. 15 Apr ~ 26"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Content</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-feed-content"
+            placeholder="Post body text..."
+            style="min-height: 120px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Timeframe</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-feed-timeframe"
+            placeholder="e.g. ~24min ago"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">CTA Button (optional)</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-feed-cta"
+            placeholder="e.g. Get Frame Control ~ $29.01"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Thread Sections</div>
+          <div class="thread-list" id="cs-feed-threads"></div>
+          <button type="button" class="add-thread-btn" id="cs-feed-add-thread">
+            + Add Thread
+          </button>
+        </div>
+        <input type="hidden" id="cs-feed-edit-id" />
+        <div class="cs-actions">
+          <button type="button" class="cs-btn-publish" id="cs-feed-publish">
+            Publish Post</button
+          ><button type="button" class="cs-btn-draft" id="cs-feed-save-draft">
+            Save as Draft
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="cs-page" id="cs-feed-draft" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Draft</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Feed</span>
+      </div>
+      <div class="cs-list" id="cs-feed-draft-list"></div>
+    </div>
+    <div class="cs-page" id="cs-feed-manage" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Manage</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Feed</span>
+      </div>
+      <div class="cs-list" id="cs-feed-manage-list"></div>
+    </div>
   </div>
   <!-- Section: Quest -->
   <div
@@ -41,7 +142,72 @@
     id="content-area-quest"
     style="display: none"
   >
-    <div class="content-placeholder">Quest — coming soon</div>
+    <div class="cs-page" id="cs-quest-view" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">View</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Quest</span>
+      </div>
+      <div class="cs-view-list" id="cs-quest-view-list"></div>
+    </div>
+    <div class="cs-page" id="cs-quest-create" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Create</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">New Quest</span>
+      </div>
+      <div class="cs-form">
+        <div class="cs-field">
+          <div class="cs-field-label">Question</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-quest-subject"
+            placeholder="Quest question..."
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Author</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-quest-author"
+            value="Master Togan"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Solution Threads</div>
+          <div class="thread-list" id="cs-quest-threads"></div>
+          <button type="button" class="add-thread-btn" id="cs-quest-add-thread">
+            + Add Thread
+          </button>
+        </div>
+        <input type="hidden" id="cs-quest-edit-id" />
+        <div class="cs-actions">
+          <button type="button" class="cs-btn-publish" id="cs-quest-publish">
+            Publish Quest</button
+          ><button type="button" class="cs-btn-draft" id="cs-quest-save-draft">
+            Save as Draft
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="cs-page" id="cs-quest-draft" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Draft</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Quest</span>
+      </div>
+      <div class="cs-list" id="cs-quest-draft-list"></div>
+    </div>
+    <div class="cs-page" id="cs-quest-manage" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Manage</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Quest</span>
+      </div>
+      <div class="cs-list" id="cs-quest-manage-list"></div>
+    </div>
   </div>
   <!-- Section: Stories -->
   <div
@@ -49,7 +215,98 @@
     id="content-area-stories"
     style="display: none"
   >
-    <div class="content-placeholder">Stories — coming soon</div>
+    <div class="cs-page" id="cs-stories-view" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">View</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Stories</span>
+      </div>
+      <div class="cs-view-list" id="cs-stories-view-list"></div>
+    </div>
+    <div class="cs-page" id="cs-stories-create" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Create</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">New Story</span>
+      </div>
+      <div class="cs-form">
+        <div class="cs-field">
+          <div class="cs-field-label">Subject</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-stories-subject"
+            placeholder="Story title..."
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Author</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-stories-author"
+            value="Master Togan"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Date Label</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-stories-date"
+            placeholder="e.g. 15 Apr ~ 26"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Content</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-stories-content"
+            placeholder="Story body text..."
+            style="min-height: 120px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Thread Sections</div>
+          <div class="thread-list" id="cs-stories-threads"></div>
+          <button
+            type="button"
+            class="add-thread-btn"
+            id="cs-stories-add-thread"
+          >
+            + Add Thread
+          </button>
+        </div>
+        <input type="hidden" id="cs-stories-edit-id" />
+        <div class="cs-actions">
+          <button type="button" class="cs-btn-publish" id="cs-stories-publish">
+            Publish Story</button
+          ><button
+            type="button"
+            class="cs-btn-draft"
+            id="cs-stories-save-draft"
+          >
+            Save as Draft
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="cs-page" id="cs-stories-draft" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Draft</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Stories</span>
+      </div>
+      <div class="cs-list" id="cs-stories-draft-list"></div>
+    </div>
+    <div class="cs-page" id="cs-stories-manage" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Manage</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Stories</span>
+      </div>
+      <div class="cs-list" id="cs-stories-manage-list"></div>
+    </div>
   </div>
   <!-- Section: Updates -->
   <div
@@ -57,7 +314,98 @@
     id="content-area-updates"
     style="display: none"
   >
-    <div class="content-placeholder">Updates — coming soon</div>
+    <div class="cs-page" id="cs-updates-view" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">View</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Updates</span>
+      </div>
+      <div class="cs-view-list" id="cs-updates-view-list"></div>
+    </div>
+    <div class="cs-page" id="cs-updates-create" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Create</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">New Update</span>
+      </div>
+      <div class="cs-form">
+        <div class="cs-field">
+          <div class="cs-field-label">Subject</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-updates-subject"
+            placeholder="Update title..."
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Author</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-updates-author"
+            value="Master Togan"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Date Label</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-updates-date"
+            placeholder="e.g. 15 Apr ~ 26"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Content</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-updates-content"
+            placeholder="Update body text..."
+            style="min-height: 120px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Thread Sections</div>
+          <div class="thread-list" id="cs-updates-threads"></div>
+          <button
+            type="button"
+            class="add-thread-btn"
+            id="cs-updates-add-thread"
+          >
+            + Add Thread
+          </button>
+        </div>
+        <input type="hidden" id="cs-updates-edit-id" />
+        <div class="cs-actions">
+          <button type="button" class="cs-btn-publish" id="cs-updates-publish">
+            Publish Update</button
+          ><button
+            type="button"
+            class="cs-btn-draft"
+            id="cs-updates-save-draft"
+          >
+            Save as Draft
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="cs-page" id="cs-updates-draft" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Draft</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Updates</span>
+      </div>
+      <div class="cs-list" id="cs-updates-draft-list"></div>
+    </div>
+    <div class="cs-page" id="cs-updates-manage" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Manage</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Updates</span>
+      </div>
+      <div class="cs-list" id="cs-updates-manage-list"></div>
+    </div>
   </div>
   <!-- Section: Poll -->
   <div
@@ -65,7 +413,92 @@
     id="content-area-poll"
     style="display: none"
   >
-    <div class="content-placeholder">Poll — coming soon</div>
+    <div class="cs-page" id="cs-poll-view" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">View</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Poll</span>
+      </div>
+      <div class="cs-view-list" id="cs-poll-view-list"></div>
+    </div>
+    <div class="cs-page" id="cs-poll-create" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Create</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">New Poll</span>
+      </div>
+      <div class="cs-form">
+        <div class="cs-field">
+          <div class="cs-field-label">Question</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-poll-question"
+            placeholder="Poll question..."
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Option A</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-poll-a"
+            placeholder="Option A..."
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Option B</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-poll-b"
+            placeholder="Option B..."
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Option C (optional)</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-poll-c"
+            placeholder="Option C..."
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Option D (optional)</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-poll-d"
+            placeholder="Option D..."
+          />
+        </div>
+        <input type="hidden" id="cs-poll-edit-id" />
+        <div class="cs-actions">
+          <button type="button" class="cs-btn-publish" id="cs-poll-publish">
+            Publish Poll</button
+          ><button type="button" class="cs-btn-draft" id="cs-poll-save-draft">
+            Save as Draft
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="cs-page" id="cs-poll-draft" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Draft</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Poll</span>
+      </div>
+      <div class="cs-list" id="cs-poll-draft-list"></div>
+    </div>
+    <div class="cs-page" id="cs-poll-manage" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Manage</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Poll</span>
+      </div>
+      <div class="cs-list" id="cs-poll-manage-list"></div>
+    </div>
   </div>
   <!-- Section: Notifications -->
   <div
@@ -73,7 +506,74 @@
     id="content-area-notifications"
     style="display: none"
   >
-    <div class="content-placeholder">Notifications — coming soon</div>
+    <div class="cs-page" id="cs-notifications-view" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">View</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Notifications</span>
+      </div>
+      <div class="cs-view-list" id="cs-notifications-view-list"></div>
+    </div>
+    <div class="cs-page" id="cs-notifications-create" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Create</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">New Notification</span>
+      </div>
+      <div class="cs-form">
+        <div class="cs-field">
+          <div class="cs-field-label">Title</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-noti-title"
+            placeholder="Notification title..."
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Body</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-noti-body"
+            placeholder="Notification body..."
+            style="min-height: 80px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Link (optional)</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-noti-link"
+            placeholder="https://..."
+          />
+        </div>
+        <input type="hidden" id="cs-noti-edit-id" />
+        <div class="cs-actions">
+          <button type="button" class="cs-btn-publish" id="cs-noti-publish">
+            Send Notification</button
+          ><button type="button" class="cs-btn-draft" id="cs-noti-save-draft">
+            Save as Draft
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="cs-page" id="cs-notifications-draft" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Draft</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Notifications</span>
+      </div>
+      <div class="cs-list" id="cs-notifications-draft-list"></div>
+    </div>
+    <div class="cs-page" id="cs-notifications-manage" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Manage</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Notifications</span>
+      </div>
+      <div class="cs-list" id="cs-notifications-manage-list"></div>
+    </div>
   </div>
   <!-- Section: Edit Profile -->
   <div
@@ -81,7 +581,156 @@
     id="content-area-editprofile"
     style="display: none"
   >
-    <div class="content-placeholder">Edit Profile — coming soon</div>
+    <div class="cs-page" id="cs-editprofile-details" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Details</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Profile</span>
+      </div>
+      <div class="cs-form">
+        <div class="cs-field">
+          <div class="cs-field-label">Display Name</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-profile-name"
+            placeholder="Master Togan"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Profile Image URL</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-profile-img"
+            placeholder="https://..."
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Mentorship Price</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-profile-price"
+            placeholder="e.g. $120/month"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Phone</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-profile-phone"
+            placeholder="+1 234 567 8900"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Email</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-profile-email"
+            placeholder="contact@mastertogan.com"
+          />
+        </div>
+        <div class="cs-actions">
+          <button
+            type="button"
+            class="cs-btn-save"
+            id="cs-profile-details-save"
+          >
+            Save Details
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="cs-page" id="cs-editprofile-cta" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">CTA</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Profile</span>
+      </div>
+      <div class="cs-form">
+        <div class="cs-field">
+          <div class="cs-field-label">Mentorship URL</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-profile-mentorship-url"
+            placeholder="https://..."
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">X (Twitter) URL</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-profile-x-url"
+            placeholder="https://x.com/..."
+          />
+        </div>
+        <div class="cs-actions">
+          <button type="button" class="cs-btn-save" id="cs-profile-cta-save">
+            Save CTA
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="cs-page" id="cs-editprofile-message" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Message</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Profile</span>
+      </div>
+      <div class="cs-form">
+        <div class="cs-field">
+          <div class="cs-field-label">Daily Message Limit</div>
+          <div class="cs-stepper">
+            <button type="button" class="cs-stepper-btn" id="cs-msg-dec">
+              −
+            </button>
+            <div class="cs-stepper-value" id="cs-msg-val">5</div>
+            <button type="button" class="cs-stepper-btn" id="cs-msg-inc">
+              +
+            </button>
+            <div class="cs-stepper-unit">msgs/day</div>
+          </div>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Messaging Status</div>
+          <div class="cs-toggle-row">
+            <div>
+              <div class="cs-toggle-label">Allow Messages</div>
+              <div class="cs-toggle-sublabel">Users can send you messages</div>
+            </div>
+            <div class="cs-toggle" id="cs-msg-toggle"></div>
+          </div>
+        </div>
+        <div class="cs-actions">
+          <button type="button" class="cs-btn-save" id="cs-profile-msg-save">
+            Save Message Settings
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="cs-page" id="cs-editprofile-about" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">About</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Profile</span>
+      </div>
+      <div class="cs-about-list" id="cs-about-list"></div>
+      <div style="padding: 0 24px 12px">
+        <button type="button" class="cs-add-section-btn" id="cs-about-add">
+          + Add Section
+        </button>
+      </div>
+      <div style="padding: 0 24px 24px">
+        <button type="button" class="cs-btn-save" id="cs-profile-about-save">
+          Save About
+        </button>
+      </div>
+    </div>
   </div>
   <!-- Section: Subscribers -->
   <div
@@ -89,7 +738,38 @@
     id="content-area-subscribers"
     style="display: none"
   >
-    <div class="content-placeholder">Subscribers — coming soon</div>
+    <div class="cs-page" id="cs-subscribers-all" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">All</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Subscribers</span>
+      </div>
+      <div class="cs-subs-header">
+        <span></span><span class="cs-subs-count" id="cs-subs-count">0</span>
+      </div>
+      <div class="cs-list" id="cs-subs-all-list"></div>
+    </div>
+    <div class="cs-page" id="cs-subscribers-stats" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Stats</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Subscribers</span>
+      </div>
+      <div class="cs-sub-stats-cards">
+        <div class="cs-sub-stat-card">
+          <div class="cs-sub-stat-number" id="cs-subs-total">0</div>
+          <div class="cs-sub-stat-label">Total</div>
+        </div>
+        <div class="cs-sub-stat-card">
+          <div class="cs-sub-stat-number" id="cs-subs-today">0</div>
+          <div class="cs-sub-stat-label">Today</div>
+        </div>
+      </div>
+      <div class="cs-sub-alpha-section" style="margin-top: 16px">
+        <div class="cs-sub-alpha-header">A – Z Breakdown</div>
+        <div id="cs-subs-alpha"></div>
+      </div>
+    </div>
   </div>
 
   <button class="admin-fab" id="fab-content">+</button>

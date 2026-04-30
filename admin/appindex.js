@@ -38,6 +38,7 @@ async function boot() {
     "js/posts.js",
     "js/quests.js",
     "js/content.js",
+    "js/cs.js",
     "js/stats.js",
     "js/settings.js",
     "js/message.js",

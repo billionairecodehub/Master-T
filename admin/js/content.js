@@ -63,8 +63,18 @@ function showContentSection(section) {
         .querySelectorAll(".content-section-tab")
         .forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
+      const tabName = btn.getAttribute("data-section-tab").toLowerCase();
+      showContentSubTab(section, tabName);
     });
   });
+
+  // Show the first sub-tab by default
+  if (tabs.length > 0) {
+    // showContentSubTab defined in cs.js (loads after this file)
+    if (typeof showContentSubTab === "function") {
+      showContentSubTab(section, tabs[0].toLowerCase());
+    }
+  }
 }
 
 // ── Refresh lists ────────────────────────────────────
@@ -403,4 +413,9 @@ document.getElementById("fab-content").addEventListener("click", () => {
   if (activeContentTab === "apps") openAppModal(null);
   else if (activeContentTab === "books") openBookModal(null);
   else if (activeContentTab === "circles") openCircleModal(null);
+  else {
+    // For all other sections, switch to Create tab
+    if (typeof _csSwitch === "function")
+      _csSwitch(activeContentSection, "create");
+  }
 });
