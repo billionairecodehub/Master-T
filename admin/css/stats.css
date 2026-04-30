@@ -32,8 +32,8 @@
 }
 
 .stats-bar-name {
-  font-size: 28px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 400;
   letter-spacing: -1.5px;
   line-height: 1;
   background: linear-gradient(135deg, #6b7a9a 0%, #9aa3b8 50%, #c8cdd8 100%);
