@@ -100,8 +100,8 @@ function renderFeedPosts() {
       const threadsHTML = (p.threads || [])
         .map(
           (t) =>
-            `<div class="post-thread-title">${t.title} :</div>
-             <p class="post-thread-text">${t.text}</p>`,
+            `<div class="post-thread-title">${t.title || ""} :</div>
+             <p class="post-thread-text">${(t.text || "").replace(/\n/g, "<br>")}</p>`,
         )
         .join("");
 
@@ -130,7 +130,7 @@ function renderFeedPosts() {
               <div class="post-author">${p.author || "Master Togan"}</div>
             </div>
           </div>
-          <div class="post-content">${p.content || ""}</div>
+          <div class="post-content">${(p.content || "").replace(/\n/g, "<br>")}</div>
           ${threadsHTML ? '<div class="post-read-more">Read More...</div>' : ""}
           <div class="post-expanded-content">${threadsHTML}</div>
           <div class="post-footer">

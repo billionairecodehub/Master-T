@@ -147,7 +147,7 @@ function renderNotifications() {
         </div>
         <div class="notification-board-timeframe">${timeDisplay}</div>
       </div>
-      <div class="notification-board-content">${n.content}</div>
+      <div class="notification-board-content">${(n.content || "").replace(/\n/g, "<br>")}</div>
     </div>`;
       })
       .join("");

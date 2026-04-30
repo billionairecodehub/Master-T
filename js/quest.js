@@ -72,7 +72,7 @@ function renderQuests() {
         .map(
           (t) =>
             `<div class="quest-solution-block"><span class="quest-solution-title">${t.title || ""}</span></div>
-             <p class="quest-solution-text">${t.text}</p>`,
+             <p class="quest-solution-text">${(t.text || "").replace(/\n/g, "<br>")}</p>`,
         )
         .join("");
 

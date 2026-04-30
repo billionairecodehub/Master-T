@@ -61,7 +61,7 @@ function _csRenderList(containerId, items, opts = {}) {
         <div class="cs-card-subject">${item.subject || item.question || item.title || item.name || "Untitled"}</div>
         <div class="cs-card-date">${_csDateLabel(item.createdAt)}</div>
       </div>
-      ${item.content || item.body ? `<div class="cs-card-meta">${item.content || item.body || ""}</div>` : ""}
+      ${item.content || item.body ? `<div class="cs-card-meta">${(item.content || item.body || "").replace(/\n/g, "<br>")}</div>` : ""}
       ${actions ? `<div class="cs-card-expand">${actions}</div>` : ""}
     </div>`;
     })
@@ -95,7 +95,7 @@ function _csRenderViewList(containerId, items, opts = {}) {
       <div class="cs-view-card-title">${item.subject || item.question || item.title || item.name || "Untitled"}</div>
       <div class="cs-view-card-time">${_csDateLabel(item.createdAt)}</div>
     </div>
-    ${item.content || item.body ? `<div class="cs-view-card-body">${item.content || item.body || ""}</div>` : ""}
+    ${item.content || item.body ? `<div class="cs-view-card-body">${(item.content || item.body || "").replace(/\n/g, "<br>")}</div>` : ""}
   </div>`,
     )
     .join("");
