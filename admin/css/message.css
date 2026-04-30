@@ -67,6 +67,13 @@
   background: rgba(107, 158, 255, 0.15);
 }
 
+.msg-header-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  opacity: 0.8;
+}
+
 /* ── Message board ────────────────────────────────────── */
 .msg-board {
   display: flex;
