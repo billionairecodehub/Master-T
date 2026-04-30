@@ -101,8 +101,8 @@
 
 .content-title {
   font-size: 42px;
-  font-weight: 700;
-  letter-spacing: -2px;
+  font-weight: 500;
+  letter-spacing: -7px;
   line-height: 1;
   background: linear-gradient(135deg, #6b7a9a 0%, #9aa3b8 50%, #c8cdd8 100%);
   -webkit-background-clip: text;

@@ -3,6 +3,31 @@
 
 // ── Shared helpers ────────────────────────────────────
 
+// Auto title-case: capitalises first letter of each word
+function _csTitleCase(str) {
+  return str.replace(/(^\s*\S|\s\S)/g, (c) => c.toUpperCase());
+}
+
+function _csBindTitleCase(inputId) {
+  const el = document.getElementById(inputId);
+  if (!el) return;
+  el.addEventListener("input", () => {
+    const pos = el.selectionStart;
+    el.value = _csTitleCase(el.value);
+    el.setSelectionRange(pos, pos);
+  });
+}
+
+// Bind title-case on all subject / title / question inputs
+[
+  "cs-feed-subject",
+  "cs-quest-subject",
+  "cs-stories-subject",
+  "cs-updates-subject",
+  "cs-noti-title",
+  "cs-poll-question",
+].forEach(_csBindTitleCase);
+
 function _csDateLabel(iso) {
   if (!iso) return "";
   const d = new Date(iso);
@@ -179,7 +204,7 @@ function _csFeedLoadEdit(post) {
   document.getElementById("cs-feed-edit-id").value = post.id;
   document.getElementById("cs-feed-subject").value = post.subject || "";
   document.getElementById("cs-feed-body").value =
-    post.body || post.content || "";
+    post.content || post.body || "";
   const threads = post.threads || [];
   for (let i = 1; i <= 10; i++) {
     const t = threads[i - 1] || {};
@@ -360,10 +385,10 @@ function _csQuestGetThreads() {
     const title = (
       document.getElementById(`cs-quest-t${i}-title`)?.value || ""
     ).trim();
-    const body = (
+    const text = (
       document.getElementById(`cs-quest-t${i}-body`)?.value || ""
     ).trim();
-    if (title || body) threads.push({ title, body });
+    if (title || text) threads.push({ title, text });
   }
   return threads;
 }
@@ -388,7 +413,7 @@ function _csQuestLoadEdit(quest) {
     const titleEl = document.getElementById(`cs-quest-t${i}-title`);
     const bodyEl = document.getElementById(`cs-quest-t${i}-body`);
     if (titleEl) titleEl.value = t.title || "";
-    if (bodyEl) bodyEl.value = t.body || "";
+    if (bodyEl) bodyEl.value = t.text || "";
   }
   _csSwitch("quest", "create");
 }
@@ -528,7 +553,7 @@ function _csStoriesLoadEdit(story) {
     const p = document.getElementById(`cs-stories-para-${i}`);
     if (p) p.value = paras[i - 1] || "";
   }
-  const lessons = story.lessons || [];
+  const lessons = story.takeaways || story.lessons || [];
   for (let i = 1; i <= 5; i++) {
     const l = document.getElementById(`cs-stories-lesson-${i}`);
     if (l) l.value = lessons[i - 1] || "";
@@ -544,7 +569,7 @@ function _csStoriesSave(isDraft) {
     subject: document.getElementById("cs-stories-subject").value.trim(),
     body: document.getElementById("cs-stories-body").value.trim(),
     paragraphs: _csStoriesGetParagraphs(),
-    lessons: _csStoriesGetLessons(),
+    takeaways: _csStoriesGetLessons(),
     draft: isDraft,
   };
   if (!data.subject) {
@@ -656,14 +681,14 @@ function _csUpdatesResetForm() {
 function _csUpdatesLoadEdit(item) {
   document.getElementById("cs-updates-edit-id").value = item.id;
   document.getElementById("cs-updates-subject").value = item.subject || "";
-  const contents = item.contents || [item.content || ""];
+  const contents = item.items || item.contents || [item.content || ""];
   for (let i = 1; i <= 5; i++) {
     const c = document.getElementById(`cs-updates-content-${i}`);
     if (c) c.value = contents[i - 1] || "";
   }
   const ctaTitle = document.getElementById("cs-updates-cta-title");
   const ctaUrl = document.getElementById("cs-updates-cta-url");
-  if (ctaTitle) ctaTitle.value = item.ctaTitle || "";
+  if (ctaTitle) ctaTitle.value = item.ctaLabel || item.ctaTitle || "";
   if (ctaUrl) ctaUrl.value = item.ctaUrl || "";
   _csSwitch("updates", "create");
 }
@@ -674,8 +699,8 @@ function _csUpdatesSave(isDraft) {
   const id = document.getElementById("cs-updates-edit-id").value;
   const data = {
     subject: document.getElementById("cs-updates-subject").value.trim(),
-    contents: _csUpdatesGetContents(),
-    ctaTitle:
+    items: _csUpdatesGetContents(),
+    ctaLabel:
       document.getElementById("cs-updates-cta-title")?.value.trim() || "",
     ctaUrl: document.getElementById("cs-updates-cta-url")?.value.trim() || "",
     draft: isDraft,
@@ -914,7 +939,8 @@ function _csNotiResetForm() {
 function _csNotiLoadEdit(noti) {
   document.getElementById("cs-noti-edit-id").value = noti.id;
   document.getElementById("cs-noti-title").value = noti.title || "";
-  document.getElementById("cs-noti-body").value = noti.body || "";
+  document.getElementById("cs-noti-body").value =
+    noti.content || noti.body || "";
   _csSwitch("notifications", "create");
 }
 
@@ -926,7 +952,7 @@ function _csNotiSave(isDraft) {
   const id = document.getElementById("cs-noti-edit-id").value;
   const data = {
     title: document.getElementById("cs-noti-title").value.trim(),
-    body: document.getElementById("cs-noti-body").value.trim(),
+    content: document.getElementById("cs-noti-body").value.trim(),
     draft: isDraft,
   };
   if (!data.title) {

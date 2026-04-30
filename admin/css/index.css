@@ -191,8 +191,8 @@ body {
 }
 
 .admin-header-name {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 400;
   letter-spacing: -1.8px;
   background: linear-gradient(90deg, #5b8fff, #f8f6ff);
   -webkit-background-clip: text;
@@ -201,7 +201,7 @@ body {
 }
 
 .admin-header-label {
-  font-size: 9px;
+  font-size: 7px;
   color: rgba(255, 255, 255, 0.35);
   letter-spacing: 0.5px;
   font-weight: 400;
