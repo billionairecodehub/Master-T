@@ -645,6 +645,8 @@
   justify-content: flex-end;
   align-items: center;
   padding-top: 4px;
+  padding: 20px;
+  border: 0.5px solid rgba(107, 158, 255, 0.3);
 }
 
 .circle-heart-btn {
