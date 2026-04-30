@@ -9,7 +9,133 @@
 
   <!-- Section: Apps -->
   <div class="content-section-area" id="content-area-apps">
-    <div class="content-grid" id="content-apps"></div>
+    <div class="cs-page" id="cs-apps-view" style="display: none">
+      <div class="content-grid" id="content-apps"></div>
+    </div>
+    <div class="cs-page" id="cs-apps-create" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Create</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Apps</span>
+      </div>
+      <div class="cs-form">
+        <div class="cs-field">
+          <div class="cs-field-label">App Name</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-apps-name"
+            placeholder="App Name"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">App Platform</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-apps-platform"
+            placeholder="Web App"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">App Version</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-apps-version"
+            placeholder="App Version"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">App Icon Url</div>
+          <div class="cs-upload-row">
+            <input
+              type="text"
+              class="cs-field-input"
+              id="cs-apps-icon"
+              placeholder="Upload App Icon [512 x 512 Only]"
+            />
+            <span class="cs-upload-icon">&#9729;</span>
+          </div>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">App Visual Url</div>
+          <div class="cs-upload-row">
+            <input
+              type="text"
+              class="cs-field-input"
+              id="cs-apps-visual1"
+              placeholder="Upload App Graphics Image"
+            />
+            <span class="cs-upload-icon">&#9729;</span>
+          </div>
+          <div class="cs-upload-row">
+            <input
+              type="text"
+              class="cs-field-input"
+              id="cs-apps-visual2"
+              placeholder="Upload App Graphics Image"
+            />
+            <span class="cs-upload-icon">&#9729;</span>
+          </div>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">App About</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-apps-about"
+            placeholder="About App"
+            style="min-height: 80px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">App Description</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-apps-desc"
+            placeholder="App Description"
+            style="min-height: 100px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">App Notes</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-apps-notes"
+            placeholder="App Notes"
+            style="min-height: 80px"
+          ></textarea>
+        </div>
+        <input type="hidden" id="cs-apps-edit-id" />
+        <div class="cs-actions">
+          <button type="button" class="cs-btn-publish" id="cs-apps-send">
+            Publish App
+          </button>
+          <button type="button" class="cs-btn-draft" id="cs-apps-draft-btn">
+            Draft App
+          </button>
+          <button type="button" class="cs-btn-cancel" id="cs-apps-cancel">
+            Cancel App
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="cs-page" id="cs-apps-draft" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Draft</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Apps</span>
+      </div>
+      <div class="cs-list" id="cs-apps-draft-list"></div>
+    </div>
+    <div class="cs-page" id="cs-apps-manage" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Manage</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Apps</span>
+      </div>
+      <div class="cs-list" id="cs-apps-manage-list"></div>
+    </div>
   </div>
   <!-- Section: Books -->
   <div
@@ -17,7 +143,190 @@
     id="content-area-books"
     style="display: none"
   >
-    <div class="content-grid" id="content-books"></div>
+    <div class="cs-page" id="cs-books-view" style="display: none">
+      <div class="content-grid" id="content-books"></div>
+    </div>
+    <div class="cs-page" id="cs-books-create" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Create</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Books</span>
+      </div>
+      <div class="cs-form">
+        <div class="cs-field">
+          <div class="cs-field-label">Book Name</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-books-name"
+            placeholder="Book Title"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Book Description</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-books-desc"
+            placeholder="Book Description"
+            style="min-height: 100px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Book Key Points</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-books-kp-1"
+            placeholder="Book Key points ~ 1"
+          />
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-books-kp-2"
+            placeholder="Book Key points ~ 2"
+            style="margin-top: 6px"
+          />
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-books-kp-3"
+            placeholder="Book Key points ~ 3"
+            style="margin-top: 6px"
+          />
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-books-kp-4"
+            placeholder="Book Key points ~ 4"
+            style="margin-top: 6px"
+          />
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-books-kp-5"
+            placeholder="Book Key points ~ 5"
+            style="margin-top: 6px"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Book Merit</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-books-merit"
+            placeholder="Book Merit"
+            style="min-height: 80px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Book Key Points</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-books-detail-1"
+            placeholder="Book Detail ~ 1 [e.g Available on Selar]"
+          />
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-books-detail-2"
+            placeholder="Book Detail ~ 2 [e.g Available on Gumroad]"
+            style="margin-top: 6px"
+          />
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-books-detail-3"
+            placeholder="Book Detail ~ 3 [e.g Available on Payhip]"
+            style="margin-top: 6px"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Book Notes</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-books-notes"
+            placeholder="Book Notes"
+            style="min-height: 80px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Book Pricing</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-books-price"
+            placeholder="Book Pricing [e.g. $12.99]"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Book Visual Images</div>
+          <div class="cs-upload-row">
+            <input
+              type="text"
+              class="cs-field-input"
+              id="cs-books-icon"
+              placeholder="Upload Book Icon"
+            />
+            <span class="cs-upload-icon">&#9729;</span>
+          </div>
+          <div class="cs-upload-row">
+            <input
+              type="text"
+              class="cs-field-input"
+              id="cs-books-visual1"
+              placeholder="Upload Book Visual Image"
+            />
+            <span class="cs-upload-icon">&#9729;</span>
+          </div>
+          <div class="cs-upload-row">
+            <input
+              type="text"
+              class="cs-field-input"
+              id="cs-books-visual2"
+              placeholder="Upload Book Visual Image"
+            />
+            <span class="cs-upload-icon">&#9729;</span>
+          </div>
+          <div class="cs-upload-row">
+            <input
+              type="text"
+              class="cs-field-input"
+              id="cs-books-ctacover"
+              placeholder="Upload Book CTA Cover"
+            />
+            <span class="cs-upload-icon">&#9729;</span>
+          </div>
+        </div>
+        <input type="hidden" id="cs-books-edit-id" />
+        <div class="cs-actions">
+          <button type="button" class="cs-btn-publish" id="cs-books-send">
+            Publish Book
+          </button>
+          <button type="button" class="cs-btn-draft" id="cs-books-draft-btn">
+            Draft Book
+          </button>
+          <button type="button" class="cs-btn-cancel" id="cs-books-cancel">
+            Cancel Book
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="cs-page" id="cs-books-draft" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Draft</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Books</span>
+      </div>
+      <div class="cs-list" id="cs-books-draft-list"></div>
+    </div>
+    <div class="cs-page" id="cs-books-manage" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Manage</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Books</span>
+      </div>
+      <div class="cs-list" id="cs-books-manage-list"></div>
+    </div>
   </div>
   <!-- Section: Circles -->
   <div
@@ -25,7 +334,125 @@
     id="content-area-circle"
     style="display: none"
   >
-    <div class="content-grid" id="content-circles"></div>
+    <div class="cs-page" id="cs-circle-view" style="display: none">
+      <div class="content-grid" id="content-circles"></div>
+    </div>
+    <div class="cs-page" id="cs-circle-create" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Create</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Circle</span>
+      </div>
+      <div class="cs-form">
+        <div class="cs-field">
+          <div class="cs-field-label">Circle Name</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-circle-name"
+            placeholder="Circle Name"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Circle Category</div>
+          <select class="cs-field-select" id="cs-circle-category">
+            <option value="">Select A Category</option>
+          </select>
+          <div
+            id="cs-circle-new-cat-row"
+            style="display: none; margin-top: 6px"
+          >
+            <input
+              type="text"
+              class="cs-field-input"
+              id="cs-circle-new-cat"
+              placeholder="Create A New Category"
+            />
+          </div>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Circle Platform</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-circle-platform"
+            placeholder="e.g. X"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Circle About</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-circle-about"
+            placeholder="About this Circle"
+            style="min-height: 90px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Circle Features</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-circle-feat-1"
+            placeholder="Circle Features ~ 1"
+          />
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-circle-feat-2"
+            placeholder="Circle Features ~ 2"
+            style="margin-top: 6px"
+          />
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-circle-feat-3"
+            placeholder="Circle Features ~ 3"
+            style="margin-top: 6px"
+          />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Circle Image</div>
+          <div class="cs-upload-row">
+            <input
+              type="text"
+              class="cs-field-input"
+              id="cs-circle-icon"
+              placeholder="Upload Profile Icon"
+            />
+            <span class="cs-upload-icon">&#9729;</span>
+          </div>
+        </div>
+        <input type="hidden" id="cs-circle-edit-id" />
+        <div class="cs-actions">
+          <button type="button" class="cs-btn-publish" id="cs-circle-send">
+            Add Circle
+          </button>
+          <button type="button" class="cs-btn-draft" id="cs-circle-draft-btn">
+            Draft Circle
+          </button>
+          <button type="button" class="cs-btn-cancel" id="cs-circle-cancel">
+            Cancel Circle
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="cs-page" id="cs-circle-draft" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Draft</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Circle</span>
+      </div>
+      <div class="cs-list" id="cs-circle-draft-list"></div>
+    </div>
+    <div class="cs-page" id="cs-circle-manage" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Manage</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Circle</span>
+      </div>
+      <div class="cs-list" id="cs-circle-manage-list"></div>
+    </div>
   </div>
   <!-- Section: Feed -->
   <div
@@ -54,67 +481,201 @@
             type="text"
             class="cs-field-input"
             id="cs-feed-subject"
-            placeholder="Post subject..."
+            placeholder="Post Subject"
           />
         </div>
         <div class="cs-field">
-          <div class="cs-field-label">Author</div>
-          <input
-            type="text"
-            class="cs-field-input"
-            id="cs-feed-author"
-            value="Master Togan"
-          />
-        </div>
-        <div class="cs-field">
-          <div class="cs-field-label">Date Label</div>
-          <input
-            type="text"
-            class="cs-field-input"
-            id="cs-feed-date"
-            placeholder="e.g. 15 Apr ~ 26"
-          />
-        </div>
-        <div class="cs-field">
-          <div class="cs-field-label">Content</div>
+          <div class="cs-field-label">Body</div>
           <textarea
             class="cs-field-textarea"
-            id="cs-feed-content"
-            placeholder="Post body text..."
+            id="cs-feed-body"
+            placeholder="Post Content"
             style="min-height: 120px"
           ></textarea>
         </div>
         <div class="cs-field">
-          <div class="cs-field-label">Timeframe</div>
+          <div class="cs-field-label">Thread ~ 1</div>
           <input
             type="text"
             class="cs-field-input"
-            id="cs-feed-timeframe"
-            placeholder="e.g. ~24min ago"
-          />
+            id="cs-feed-t1-title"
+            placeholder="Thread Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-feed-t1-body"
+            placeholder="Thread Subtitle"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
         </div>
         <div class="cs-field">
-          <div class="cs-field-label">CTA Button (optional)</div>
+          <div class="cs-field-label">Thread ~ 2</div>
           <input
             type="text"
             class="cs-field-input"
-            id="cs-feed-cta"
-            placeholder="e.g. Get Frame Control ~ $29.01"
-          />
+            id="cs-feed-t2-title"
+            placeholder="Thread Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-feed-t2-body"
+            placeholder="Thread Subtitle"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
         </div>
         <div class="cs-field">
-          <div class="cs-field-label">Thread Sections</div>
-          <div class="thread-list" id="cs-feed-threads"></div>
-          <button type="button" class="add-thread-btn" id="cs-feed-add-thread">
-            + Add Thread
-          </button>
+          <div class="cs-field-label">Thread ~ 3</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-feed-t3-title"
+            placeholder="Thread Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-feed-t3-body"
+            placeholder="Thread Subtitle"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Thread ~ 4</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-feed-t4-title"
+            placeholder="Thread Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-feed-t4-body"
+            placeholder="Thread Subtitle"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Thread ~ 5</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-feed-t5-title"
+            placeholder="Thread Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-feed-t5-body"
+            placeholder="Thread Subtitle"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Thread ~ 6</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-feed-t6-title"
+            placeholder="Thread Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-feed-t6-body"
+            placeholder="Thread Subtitle"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Thread ~ 7</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-feed-t7-title"
+            placeholder="Thread Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-feed-t7-body"
+            placeholder="Thread Subtitle"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Thread ~ 8</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-feed-t8-title"
+            placeholder="Thread Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-feed-t8-body"
+            placeholder="Thread Subtitle"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Thread ~ 9</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-feed-t9-title"
+            placeholder="Thread Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-feed-t9-body"
+            placeholder="Thread Subtitle"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Thread ~ 10</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-feed-t10-title"
+            placeholder="Thread Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-feed-t10-body"
+            placeholder="Thread Subtitle"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Cta Button</div>
+          <div class="cs-cta-type-row" id="cs-feed-cta-type-row">
+            <button type="button" class="cs-cta-type-btn" data-cta-type="apps">
+              Apps
+            </button>
+            <button type="button" class="cs-cta-type-btn" data-cta-type="books">
+              Books
+            </button>
+            <button
+              type="button"
+              class="cs-cta-type-btn"
+              data-cta-type="circle"
+            >
+              Circle
+            </button>
+          </div>
+          <select
+            class="cs-field-select"
+            id="cs-feed-cta-select"
+            style="display: none; margin-top: 8px"
+          ></select>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-feed-cta-display"
+            readonly
+            placeholder="Get Frame Control ~ $14.45"
+            style="margin-top: 6px"
+          />
         </div>
         <input type="hidden" id="cs-feed-edit-id" />
+        <input type="hidden" id="cs-feed-cta-type-val" />
+        <input type="hidden" id="cs-feed-cta-item-id" />
         <div class="cs-actions">
-          <button type="button" class="cs-btn-publish" id="cs-feed-publish">
-            Publish Post</button
-          ><button type="button" class="cs-btn-draft" id="cs-feed-save-draft">
-            Save as Draft
+          <button type="button" class="cs-btn-publish" id="cs-feed-send">
+            Send Feed
+          </button>
+          <button type="button" class="cs-btn-draft" id="cs-feed-draft-btn">
+            Draft Feed
+          </button>
+          <button type="button" class="cs-btn-cancel" id="cs-feed-cancel">
+            Cancel Feed
           </button>
         </div>
       </div>
@@ -158,36 +719,164 @@
       </div>
       <div class="cs-form">
         <div class="cs-field">
-          <div class="cs-field-label">Question</div>
+          <div class="cs-field-label">Subject</div>
           <input
             type="text"
             class="cs-field-input"
             id="cs-quest-subject"
-            placeholder="Quest question..."
+            placeholder="Question Subject ?"
           />
         </div>
         <div class="cs-field">
-          <div class="cs-field-label">Author</div>
+          <div class="cs-field-label">Solution Thread ~ 1</div>
           <input
             type="text"
             class="cs-field-input"
-            id="cs-quest-author"
-            value="Master Togan"
-          />
+            id="cs-quest-t1-title"
+            placeholder="Thread Notes Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-quest-t1-body"
+            placeholder="Thread Notes"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
         </div>
         <div class="cs-field">
-          <div class="cs-field-label">Solution Threads</div>
-          <div class="thread-list" id="cs-quest-threads"></div>
-          <button type="button" class="add-thread-btn" id="cs-quest-add-thread">
-            + Add Thread
-          </button>
+          <div class="cs-field-label">Solution Thread ~ 2</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-quest-t2-title"
+            placeholder="Thread Notes Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-quest-t2-body"
+            placeholder="Thread Notes"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Solution Thread ~ 3</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-quest-t3-title"
+            placeholder="Thread Notes Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-quest-t3-body"
+            placeholder="Thread Notes"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Solution Thread ~ 4</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-quest-t4-title"
+            placeholder="Thread Notes Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-quest-t4-body"
+            placeholder="Thread Notes"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Solution Thread ~ 5</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-quest-t5-title"
+            placeholder="Thread Notes Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-quest-t5-body"
+            placeholder="Thread Notes"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Solution Thread ~ 6</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-quest-t6-title"
+            placeholder="Thread Notes Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-quest-t6-body"
+            placeholder="Thread Notes"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Solution Thread ~ 7</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-quest-t7-title"
+            placeholder="Thread Notes Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-quest-t7-body"
+            placeholder="Thread Notes"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Solution Thread ~ 8</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-quest-t8-title"
+            placeholder="Thread Notes Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-quest-t8-body"
+            placeholder="Thread Notes"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Solution Thread ~ 9</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-quest-t9-title"
+            placeholder="Thread Notes Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-quest-t9-body"
+            placeholder="Thread Notes"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Solution Thread ~ 10</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-quest-t10-title"
+            placeholder="Thread Notes Title"
+          /><textarea
+            class="cs-field-textarea"
+            id="cs-quest-t10-body"
+            placeholder="Thread Notes"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
         </div>
         <input type="hidden" id="cs-quest-edit-id" />
         <div class="cs-actions">
-          <button type="button" class="cs-btn-publish" id="cs-quest-publish">
-            Publish Quest</button
-          ><button type="button" class="cs-btn-draft" id="cs-quest-save-draft">
-            Save as Draft
+          <button type="button" class="cs-btn-publish" id="cs-quest-send">
+            Send Quest
+          </button>
+          <button type="button" class="cs-btn-draft" id="cs-quest-draft-btn">
+            Draft Quest
+          </button>
+          <button type="button" class="cs-btn-cancel" id="cs-quest-cancel">
+            Cancel Quest
           </button>
         </div>
       </div>
@@ -227,7 +916,7 @@
       <div class="cs-title">
         <span class="cs-title-action">Create</span
         ><span class="cs-title-sep">|</span
-        ><span class="cs-title-name">New Story</span>
+        ><span class="cs-title-name">Stories</span>
       </div>
       <div class="cs-form">
         <div class="cs-field">
@@ -236,57 +925,110 @@
             type="text"
             class="cs-field-input"
             id="cs-stories-subject"
-            placeholder="Story title..."
+            placeholder="Story Title"
           />
         </div>
         <div class="cs-field">
-          <div class="cs-field-label">Author</div>
-          <input
-            type="text"
-            class="cs-field-input"
-            id="cs-stories-author"
-            value="Master Togan"
-          />
-        </div>
-        <div class="cs-field">
-          <div class="cs-field-label">Date Label</div>
-          <input
-            type="text"
-            class="cs-field-input"
-            id="cs-stories-date"
-            placeholder="e.g. 15 Apr ~ 26"
-          />
-        </div>
-        <div class="cs-field">
-          <div class="cs-field-label">Content</div>
+          <div class="cs-field-label">Story Content</div>
           <textarea
             class="cs-field-textarea"
-            id="cs-stories-content"
-            placeholder="Story body text..."
+            id="cs-stories-body"
+            placeholder="Start Story Content"
             style="min-height: 120px"
           ></textarea>
         </div>
         <div class="cs-field">
-          <div class="cs-field-label">Thread Sections</div>
-          <div class="thread-list" id="cs-stories-threads"></div>
-          <button
-            type="button"
-            class="add-thread-btn"
-            id="cs-stories-add-thread"
-          >
-            + Add Thread
-          </button>
+          <div class="cs-field-label">Add Paragraph ~ 1</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-stories-para-1"
+            placeholder="Start a New Paragraph"
+            style="min-height: 80px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Add Paragraph ~ 2</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-stories-para-2"
+            placeholder="Start a New Paragraph"
+            style="min-height: 80px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Add Paragraph ~ 3</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-stories-para-3"
+            placeholder="Start a New Paragraph"
+            style="min-height: 80px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Add Paragraph ~ 4</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-stories-para-4"
+            placeholder="Start a New Paragraph"
+            style="min-height: 80px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Add Paragraph ~ 5</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-stories-para-5"
+            placeholder="Start a New Paragraph"
+            style="min-height: 80px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Lessons &amp; Takeaways</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-stories-lesson-1"
+            placeholder="Lessons &amp; Takeaways ~ 1"
+          />
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-stories-lesson-2"
+            placeholder="Lessons &amp; Takeaways ~ 2"
+            style="margin-top: 6px"
+          />
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-stories-lesson-3"
+            placeholder="Lessons &amp; Takeaways ~ 3"
+            style="margin-top: 6px"
+          />
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-stories-lesson-4"
+            placeholder="Lessons &amp; Takeaways ~ 4"
+            style="margin-top: 6px"
+          />
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-stories-lesson-5"
+            placeholder="Lessons &amp; Takeaways ~ 5"
+            style="margin-top: 6px"
+          />
         </div>
         <input type="hidden" id="cs-stories-edit-id" />
         <div class="cs-actions">
-          <button type="button" class="cs-btn-publish" id="cs-stories-publish">
-            Publish Story</button
-          ><button
-            type="button"
-            class="cs-btn-draft"
-            id="cs-stories-save-draft"
-          >
-            Save as Draft
+          <button type="button" class="cs-btn-publish" id="cs-stories-send">
+            Send Story
+          </button>
+          <button type="button" class="cs-btn-draft" id="cs-stories-draft-btn">
+            Draft Story
+          </button>
+          <button type="button" class="cs-btn-cancel" id="cs-stories-cancel">
+            Cancel Story
           </button>
         </div>
       </div>
@@ -326,7 +1068,7 @@
       <div class="cs-title">
         <span class="cs-title-action">Create</span
         ><span class="cs-title-sep">|</span
-        ><span class="cs-title-name">New Update</span>
+        ><span class="cs-title-name">Updates</span>
       </div>
       <div class="cs-form">
         <div class="cs-field">
@@ -335,57 +1077,80 @@
             type="text"
             class="cs-field-input"
             id="cs-updates-subject"
-            placeholder="Update title..."
+            placeholder="Updates Title"
           />
         </div>
         <div class="cs-field">
-          <div class="cs-field-label">Author</div>
-          <input
-            type="text"
-            class="cs-field-input"
-            id="cs-updates-author"
-            value="Master Togan"
-          />
-        </div>
-        <div class="cs-field">
-          <div class="cs-field-label">Date Label</div>
-          <input
-            type="text"
-            class="cs-field-input"
-            id="cs-updates-date"
-            placeholder="e.g. 15 Apr ~ 26"
-          />
-        </div>
-        <div class="cs-field">
-          <div class="cs-field-label">Content</div>
+          <div class="cs-field-label">Updates Content</div>
           <textarea
             class="cs-field-textarea"
-            id="cs-updates-content"
-            placeholder="Update body text..."
-            style="min-height: 120px"
+            id="cs-updates-content-1"
+            placeholder="Update Contents"
+            style="min-height: 100px"
           ></textarea>
         </div>
         <div class="cs-field">
-          <div class="cs-field-label">Thread Sections</div>
-          <div class="thread-list" id="cs-updates-threads"></div>
-          <button
-            type="button"
-            class="add-thread-btn"
-            id="cs-updates-add-thread"
-          >
-            + Add Thread
-          </button>
+          <div class="cs-field-label">Updates Content</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-updates-content-2"
+            placeholder="Update Contents"
+            style="min-height: 100px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Updates Content</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-updates-content-3"
+            placeholder="Update Contents"
+            style="min-height: 100px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Updates Content</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-updates-content-4"
+            placeholder="Update Contents"
+            style="min-height: 100px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Updates Content</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-updates-content-5"
+            placeholder="Update Contents"
+            style="min-height: 100px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">CTA</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-updates-cta-title"
+            placeholder="Enter Btn Text Title"
+          />
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-updates-cta-url"
+            placeholder="Enter Link Destination URL"
+            style="margin-top: 6px"
+          />
         </div>
         <input type="hidden" id="cs-updates-edit-id" />
         <div class="cs-actions">
-          <button type="button" class="cs-btn-publish" id="cs-updates-publish">
-            Publish Update</button
-          ><button
-            type="button"
-            class="cs-btn-draft"
-            id="cs-updates-save-draft"
-          >
-            Save as Draft
+          <button type="button" class="cs-btn-publish" id="cs-updates-send">
+            Send Updates
+          </button>
+          <button type="button" class="cs-btn-draft" id="cs-updates-draft-btn">
+            Draft Updates
+          </button>
+          <button type="button" class="cs-btn-cancel" id="cs-updates-cancel">
+            Cancel Updates
           </button>
         </div>
       </div>
@@ -425,60 +1190,51 @@
       <div class="cs-title">
         <span class="cs-title-action">Create</span
         ><span class="cs-title-sep">|</span
-        ><span class="cs-title-name">New Poll</span>
+        ><span class="cs-title-name">Poll</span>
       </div>
       <div class="cs-form">
         <div class="cs-field">
-          <div class="cs-field-label">Question</div>
+          <div class="cs-field-label">Subject</div>
           <input
             type="text"
             class="cs-field-input"
             id="cs-poll-question"
-            placeholder="Poll question..."
+            placeholder="Poll Question Title"
           />
         </div>
         <div class="cs-field">
-          <div class="cs-field-label">Option A</div>
+          <div class="cs-field-label">Poll Content</div>
           <input
             type="text"
             class="cs-field-input"
-            id="cs-poll-a"
-            placeholder="Option A..."
+            id="cs-poll-answer-1"
+            placeholder="Poll Answer ~ 1"
           />
-        </div>
-        <div class="cs-field">
-          <div class="cs-field-label">Option B</div>
           <input
             type="text"
             class="cs-field-input"
-            id="cs-poll-b"
-            placeholder="Option B..."
+            id="cs-poll-answer-2"
+            placeholder="Poll Answer ~ 2"
+            style="margin-top: 6px"
           />
-        </div>
-        <div class="cs-field">
-          <div class="cs-field-label">Option C (optional)</div>
           <input
             type="text"
             class="cs-field-input"
-            id="cs-poll-c"
-            placeholder="Option C..."
-          />
-        </div>
-        <div class="cs-field">
-          <div class="cs-field-label">Option D (optional)</div>
-          <input
-            type="text"
-            class="cs-field-input"
-            id="cs-poll-d"
-            placeholder="Option D..."
+            id="cs-poll-answer-3"
+            placeholder="Poll Answer ~ 3"
+            style="margin-top: 6px"
           />
         </div>
         <input type="hidden" id="cs-poll-edit-id" />
         <div class="cs-actions">
-          <button type="button" class="cs-btn-publish" id="cs-poll-publish">
-            Publish Poll</button
-          ><button type="button" class="cs-btn-draft" id="cs-poll-save-draft">
-            Save as Draft
+          <button type="button" class="cs-btn-publish" id="cs-poll-send">
+            Create Poll
+          </button>
+          <button type="button" class="cs-btn-draft" id="cs-poll-draft-btn">
+            Draft Poll
+          </button>
+          <button type="button" class="cs-btn-cancel" id="cs-poll-cancel">
+            Cancel Poll
           </button>
         </div>
       </div>
@@ -518,42 +1274,37 @@
       <div class="cs-title">
         <span class="cs-title-action">Create</span
         ><span class="cs-title-sep">|</span
-        ><span class="cs-title-name">New Notification</span>
+        ><span class="cs-title-name">Notification</span>
       </div>
       <div class="cs-form">
         <div class="cs-field">
-          <div class="cs-field-label">Title</div>
+          <div class="cs-field-label">Notification Title</div>
           <input
             type="text"
             class="cs-field-input"
             id="cs-noti-title"
-            placeholder="Notification title..."
+            placeholder="Notification Title"
           />
         </div>
         <div class="cs-field">
-          <div class="cs-field-label">Body</div>
+          <div class="cs-field-label">Notification Content</div>
           <textarea
             class="cs-field-textarea"
             id="cs-noti-body"
-            placeholder="Notification body..."
-            style="min-height: 80px"
+            placeholder="Notification Message"
+            style="min-height: 180px"
           ></textarea>
-        </div>
-        <div class="cs-field">
-          <div class="cs-field-label">Link (optional)</div>
-          <input
-            type="text"
-            class="cs-field-input"
-            id="cs-noti-link"
-            placeholder="https://..."
-          />
         </div>
         <input type="hidden" id="cs-noti-edit-id" />
         <div class="cs-actions">
-          <button type="button" class="cs-btn-publish" id="cs-noti-publish">
-            Send Notification</button
-          ><button type="button" class="cs-btn-draft" id="cs-noti-save-draft">
-            Save as Draft
+          <button type="button" class="cs-btn-publish" id="cs-noti-send">
+            Send Notification
+          </button>
+          <button type="button" class="cs-btn-draft" id="cs-noti-draft-btn">
+            Draft Notification
+          </button>
+          <button type="button" class="cs-btn-cancel" id="cs-noti-cancel">
+            Cancel Notification
           </button>
         </div>
       </div>
