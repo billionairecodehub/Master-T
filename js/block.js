@@ -340,7 +340,7 @@ function renderBlockRecommends() {
     .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
 
   const hdr = `<div class="block-recommend-header-row">
-    <div class="block-recommend-header-label">Master Togan ~ Updates</div>
+    <div class="block-recommend-header-label">Master Togan ~ Recommendations</div>
     <div class="block-recommend-header-count">All ~ ${list.length}</div>
   </div>`;
 
