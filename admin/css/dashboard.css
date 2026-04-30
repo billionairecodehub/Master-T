@@ -17,14 +17,15 @@
 }
 
 .home-title {
-  font-size: 36px;
+  font-size: 20px;
   font-weight: 500;
-  letter-spacing: -1.5px;
+  letter-spacing: -1.2px;
   line-height: 1;
   background: linear-gradient(135deg, #6b7a9a 0%, #9aa3b8 50%, #c8cdd8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  margin-bottom: 50px;
 }
 
 .home-sections {
@@ -61,7 +62,7 @@
   gap: 8px;
   padding: 20px 12px;
   background: rgba(5, 9, 28, 0.85);
-  border: 0.5px solid rgba(107, 158, 255, 0.18);
+  /* border: 0.5px solid rgba(107, 158, 255, 0.18); */
   border-radius: 12px;
   cursor: pointer;
   transition:

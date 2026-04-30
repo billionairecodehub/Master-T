@@ -191,28 +191,28 @@ body {
 }
 
 .admin-header-name {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
   letter-spacing: -0.9px;
-  background: linear-gradient(90deg, #5b8fff, #f8f6ff);
+  background: linear-gradient(90deg, #aec8ff, #f8f6ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .admin-header-label {
-  font-size: 7px;
+  font-size: 10px;
   color: rgba(255, 255, 255, 0.35);
   letter-spacing: 0.5px;
   font-weight: 400;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .admin-header-brand {
-  border: 0.5px solid rgba(107, 158, 255, 0.2);
-  border-radius: 2px;
+  /* border: 0.5px solid rgba(107, 158, 255, 0.2); */
+  /* border-radius: 2px; */
   padding: 7px 12px;
-  font-size: 15px;
+  font-size: 10px;
   color: rgba(160, 190, 255, 0.7);
   letter-spacing: -0.5px;
 }
@@ -278,10 +278,11 @@ body {
 }
 
 .admin-nav-label {
-  font-size: 10px;
+  font-size: 12px;
   color: #555;
-  font-weight: 500;
+  font-weight: 400;
   transition: color 0.2s;
+  letter-spacing: -0.25px;
 }
 
 .admin-nav-item.active .admin-nav-icon {
