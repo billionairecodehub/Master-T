@@ -79,8 +79,8 @@
 }
 
 .cs-title-action {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 400;
   letter-spacing: -0.5px;
   background: linear-gradient(90deg, #5b8fff, #f8f6ff);
   -webkit-background-clip: text;
@@ -96,8 +96,8 @@
 }
 
 .cs-title-name {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 400;
   letter-spacing: -0.5px;
   color: rgba(248, 246, 255, 0.75);
   -webkit-text-fill-color: rgba(248, 246, 255, 0.75);

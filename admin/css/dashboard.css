@@ -101,9 +101,9 @@
 }
 
 .content-title {
-  font-size: 42px;
+  font-size: 20px;
   font-weight: 500;
-  letter-spacing: -2px;
+  letter-spacing: -1.2px;
   line-height: 1;
   background: linear-gradient(135deg, #6b7a9a 0%, #9aa3b8 50%, #c8cdd8 100%);
   -webkit-background-clip: text;
@@ -113,8 +113,8 @@
 
 .content-section-tabs {
   display: flex;
-  justify-content: space-between;
-  gap: 5px;
+  justify-content: flex-start;
+  gap: 10px;
   flex-wrap: nowrap;
   overflow-x: auto;
   padding: 0 24px 14px;
@@ -130,7 +130,7 @@
   flex-shrink: 0;
   padding: 12px 20px;
   border-radius: 8px;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 400;
   color: rgba(248, 246, 255, 0.42);
   background: none;
@@ -147,7 +147,7 @@
   background: rgba(107, 158, 255, 0.1);
   color: rgba(107, 158, 255, 0.92);
   border-color: rgba(107, 158, 255, 0.38);
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .content-section-tab:active {
@@ -180,7 +180,7 @@
 }
 
 .content-lock-text {
-  font-size: 14px;
+  font-size: 10px;
   color: rgba(248, 246, 255, 0.3);
   font-weight: 400;
   text-align: center;
