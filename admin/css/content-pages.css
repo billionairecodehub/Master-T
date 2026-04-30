@@ -1,0 +1,737 @@
+﻿/* ═══════════════════════════════════════════════════════
+   Content Section Pages — all 10 page types
+   (View, Create, Draft, Manage, Details, CTA,
+    Message, About, All, Stats)
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Section page wrapper ──────────────────────────── */
+.cs-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 24px;
+  min-height: 100%;
+}
+
+/* ── Section title  "Create | New Feed" ──────────────── */
+.cs-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.cs-title-action {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  background: linear-gradient(90deg, #5b8fff, #f8f6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cs-title-sep {
+  font-size: 18px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.15);
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.15);
+}
+
+.cs-title-name {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: rgba(248, 246, 255, 0.75);
+  -webkit-text-fill-color: rgba(248, 246, 255, 0.75);
+}
+
+/* ── Form ────────────────────────────────────────────── */
+.cs-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cs-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cs-field-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(107, 158, 255, 0.6);
+}
+
+.cs-field-input,
+.cs-field-textarea,
+.cs-field-select {
+  background: rgba(5, 9, 28, 0.7);
+  border: 0.5px solid rgba(107, 158, 255, 0.2);
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: rgba(248, 246, 255, 0.85);
+  font-size: 14px;
+  font-family: "Gellix", sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cs-field-input::placeholder,
+.cs-field-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.18);
+}
+
+.cs-field-input:focus,
+.cs-field-textarea:focus,
+.cs-field-select:focus {
+  border-color: rgba(107, 158, 255, 0.5);
+}
+
+.cs-field-textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.55;
+}
+
+.cs-field-select {
+  appearance: none;
+  cursor: pointer;
+}
+
+/* Toggle / switch row */
+.cs-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(5, 9, 28, 0.7);
+  border: 0.5px solid rgba(107, 158, 255, 0.15);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.cs-toggle-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(248, 246, 255, 0.8);
+}
+
+.cs-toggle-sublabel {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.28);
+  margin-top: 2px;
+}
+
+.cs-toggle {
+  width: 44px;
+  height: 24px;
+  background: rgba(107, 158, 255, 0.15);
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.25s;
+  flex-shrink: 0;
+}
+
+.cs-toggle.on {
+  background: linear-gradient(90deg, #4a7fff, #6b9eff);
+}
+
+.cs-toggle::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(248, 246, 255, 0.6);
+  top: 3px;
+  left: 3px;
+  transition: transform 0.25s, background 0.25s;
+}
+
+.cs-toggle.on::after {
+  transform: translateX(20px);
+  background: #fff;
+}
+
+/* Number stepper */
+.cs-stepper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(5, 9, 28, 0.7);
+  border: 0.5px solid rgba(107, 158, 255, 0.15);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.cs-stepper-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 0.5px solid rgba(107, 158, 255, 0.25);
+  background: rgba(107, 158, 255, 0.08);
+  color: rgba(107, 158, 255, 0.8);
+  font-size: 18px;
+  font-family: "Gellix", sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.cs-stepper-btn:active {
+  background: rgba(107, 158, 255, 0.18);
+}
+
+.cs-stepper-value {
+  flex: 1;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #5b8fff, #f8f6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cs-stepper-unit {
+  font-size: 11px;
+  color: rgba(107, 158, 255, 0.4);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ── Action buttons ──────────────────────────────────── */
+.cs-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.cs-btn-publish {
+  width: 100%;
+  background: linear-gradient(135deg, #2d6aff, #5b8fff);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: "Gellix", sans-serif;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  letter-spacing: -0.2px;
+}
+
+.cs-btn-publish:active {
+  opacity: 0.8;
+}
+
+.cs-btn-draft {
+  width: 100%;
+  background: rgba(248, 246, 255, 0.06);
+  color: rgba(248, 246, 255, 0.6);
+  border: 0.5px solid rgba(248, 246, 255, 0.12);
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Gellix", sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cs-btn-draft:active {
+  background: rgba(248, 246, 255, 0.1);
+}
+
+.cs-btn-cancel {
+  width: 100%;
+  background: none;
+  color: rgba(231, 76, 60, 0.7);
+  border: 0.5px solid rgba(231, 76, 60, 0.3);
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Gellix", sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cs-btn-cancel:active {
+  background: rgba(231, 76, 60, 0.07);
+}
+
+.cs-btn-save {
+  width: 100%;
+  background: linear-gradient(135deg, #2d6aff, #5b8fff);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: "Gellix", sans-serif;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.cs-btn-save:active {
+  opacity: 0.8;
+}
+
+/* ── Draft / Manage list cards ───────────────────────── */
+.cs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs-date-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cs-date-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(107, 158, 255, 0.5);
+  padding: 0 2px;
+}
+
+.cs-card {
+  background: rgba(10, 16, 45, 0.8);
+  border: 0.5px solid rgba(107, 158, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.cs-card:active {
+  border-color: rgba(107, 158, 255, 0.3);
+}
+
+.cs-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+}
+
+.cs-card-subject {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(248, 246, 255, 0.9);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cs-card-date {
+  font-size: 10px;
+  color: rgba(107, 158, 255, 0.45);
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+.cs-card-meta {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.28);
+  padding: 0 16px 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cs-card-expand {
+  border-top: 0.5px solid rgba(107, 158, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.cs-card-action {
+  background: none;
+  border: none;
+  border-top: 0.5px solid rgba(107, 158, 255, 0.05);
+  padding: 13px 16px;
+  text-align: left;
+  font-size: 13px;
+  font-family: "Gellix", sans-serif;
+  font-weight: 500;
+  color: rgba(248, 246, 255, 0.7);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cs-card-action:first-child {
+  border-top: none;
+}
+
+.cs-card-action:active {
+  background: rgba(107, 158, 255, 0.07);
+}
+
+.cs-card-action.danger {
+  color: rgba(231, 76, 60, 0.8);
+}
+
+.cs-card-action.pin {
+  color: rgba(255, 204, 0, 0.8);
+}
+
+/* ── Image upload field ──────────────────────────────── */
+.cs-image-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: rgba(5, 9, 28, 0.7);
+  border: 0.5px dashed rgba(107, 158, 255, 0.2);
+  border-radius: 10px;
+  padding: 24px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.cs-image-upload:active {
+  border-color: rgba(107, 158, 255, 0.45);
+}
+
+.cs-image-preview {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: rgba(107, 158, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: rgba(107, 158, 255, 0.3);
+}
+
+.cs-image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.cs-image-hint {
+  font-size: 12px;
+  color: rgba(107, 158, 255, 0.45);
+  text-align: center;
+}
+
+/* ── About sections (up to 10 items) ────────────────── */
+.cs-about-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cs-about-item {
+  background: rgba(5, 9, 28, 0.8);
+  border: 0.5px solid rgba(107, 158, 255, 0.12);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cs-about-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.cs-about-item-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(248, 246, 255, 0.85);
+}
+
+.cs-about-item-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.cs-about-reorder {
+  background: none;
+  border: none;
+  color: rgba(107, 158, 255, 0.4);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.cs-about-remove {
+  background: none;
+  border: none;
+  color: rgba(231, 76, 60, 0.45);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.cs-about-item-body {
+  padding: 0 16px 14px;
+}
+
+.cs-about-item.locked .cs-about-remove {
+  display: none;
+}
+
+.cs-add-section-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(5, 9, 28, 0.6);
+  border: 0.5px dashed rgba(107, 158, 255, 0.2);
+  border-radius: 10px;
+  padding: 14px;
+  color: rgba(107, 158, 255, 0.5);
+  font-size: 13px;
+  font-family: "Gellix", sans-serif;
+  cursor: pointer;
+  width: 100%;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.cs-add-section-btn:active {
+  border-color: rgba(107, 158, 255, 0.4);
+  color: rgba(107, 158, 255, 0.85);
+}
+
+/* ── Subscribers — All ───────────────────────────────── */
+.cs-subs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.cs-subs-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(107, 158, 255, 0.55);
+  background: rgba(107, 158, 255, 0.08);
+  border: 0.5px solid rgba(107, 158, 255, 0.15);
+  border-radius: 20px;
+  padding: 4px 12px;
+}
+
+.cs-sub-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(10, 16, 45, 0.7);
+  border: 0.5px solid rgba(107, 158, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.cs-sub-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(107, 158, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(107, 158, 255, 0.7);
+  flex-shrink: 0;
+}
+
+.cs-sub-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cs-sub-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(248, 246, 255, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cs-sub-date {
+  font-size: 11px;
+  color: rgba(107, 158, 255, 0.4);
+  margin-top: 1px;
+}
+
+/* ── Subscribers — Stats ─────────────────────────────── */
+.cs-sub-stats-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.cs-sub-stat-card {
+  background: rgba(10, 16, 45, 0.8);
+  border: 0.5px solid rgba(107, 158, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cs-sub-stat-number {
+  font-size: 30px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #5b8fff, #f8f6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.cs-sub-stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(107, 158, 255, 0.5);
+}
+
+.cs-sub-alpha-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cs-sub-alpha-header {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(107, 158, 255, 0.4);
+  padding: 0 2px;
+}
+
+.cs-sub-alpha-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(10, 16, 45, 0.6);
+  border: 0.5px solid rgba(107, 158, 255, 0.07);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.cs-sub-alpha-letter {
+  font-size: 16px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #5b8fff, #f8f6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  width: 24px;
+  flex-shrink: 0;
+}
+
+.cs-sub-alpha-count {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(248, 246, 255, 0.7);
+}
+
+.cs-sub-alpha-bar {
+  flex: 1;
+  height: 3px;
+  background: rgba(10, 16, 45, 0.9);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.cs-sub-alpha-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #4a7fff, #6b9eff);
+  transition: width 0.4s ease;
+}
+
+/* ── View page — cards layout ────────────────────────── */
+.cs-view-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cs-view-card {
+  background: rgba(10, 16, 45, 0.7);
+  border: 0.5px solid rgba(107, 158, 255, 0.1);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs-view-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cs-view-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(248, 246, 255, 0.9);
+}
+
+.cs-view-card-time {
+  font-size: 10px;
+  color: rgba(107, 158, 255, 0.4);
+}
+
+.cs-view-card-body {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.55;
+}
+
+/* ── Empty state ─────────────────────────────────────── */
+.cs-empty {
+  text-align: center;
+  padding: 48px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.cs-empty-icon {
+  font-size: 36px;
+  opacity: 0.25;
+}
+
+.cs-empty-text {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.2);
+}

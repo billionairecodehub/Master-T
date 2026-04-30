@@ -1,6 +1,8 @@
-﻿/* Content Management Page (Apps, Books, Circles) */
-.content-page .admin-tabs {
-  margin-bottom: 12px;
+﻿/* ── Content Page (Apps, Books, Circles) ── */
+.content-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .content-grid {
@@ -11,27 +13,28 @@
 
 /* Pinned badge */
 .pinned-badge {
-  font-size: 10px;
-  background: #2a2a00;
-  color: #cc0;
-  padding: 2px 8px;
-  border-radius: 5px;
+  font-size: 9px;
+  background: rgba(255, 204, 0, 0.12);
+  color: rgba(255, 204, 0, 0.85);
+  padding: 2px 7px;
+  border-radius: 4px;
   font-weight: 600;
-  margin-left: 6px;
+  margin-left: 8px;
+  letter-spacing: 0.3px;
+  vertical-align: middle;
 }
 
-/* App / Book / Circle specific list tweaks */
 .content-list-rating {
   font-size: 11px;
-  color: #555;
+  color: rgba(107, 158, 255, 0.4);
 }
 
 .content-list-rating span {
-  color: #cc0;
+  color: rgba(255, 204, 0, 0.7);
 }
 
 .content-list-price {
   font-size: 12px;
-  color: #4a9;
+  color: rgba(107, 158, 255, 0.6);
   font-weight: 600;
 }

@@ -1,27 +1,52 @@
-/* Posts Management Page */
-.posts-page .post-list {
+﻿/* ── Posts / Quests Page ── */
+.posts-page,
+.quests-page {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
+}
+
+/* Date group header */
+.post-date-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.post-date-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(107, 158, 255, 0.5);
+  padding: 0 2px;
+}
+
+/* Post card */
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .post-list-card {
-  background: #111;
-  border-radius: 4px;
-  padding: 16px;
+  background: rgba(10, 16, 45, 0.8);
+  border: 0.5px solid rgba(107, 158, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: border-color 0.2s;
 }
 
 .post-list-card:active {
-  background: #0a0a0a;
+  border-color: rgba(107, 158, 255, 0.3);
 }
 
 .post-list-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  padding: 14px 16px;
 }
 
 .post-list-subject {
@@ -31,32 +56,74 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: rgba(248, 246, 255, 0.9);
 }
 
 .post-list-date {
-  font-size: 11px;
-  color: #555;
+  font-size: 10px;
+  color: rgba(107, 158, 255, 0.45);
   flex-shrink: 0;
   margin-left: 10px;
 }
 
 .post-list-preview {
   font-size: 12px;
-  color: #666;
+  color: rgba(255, 255, 255, 0.3);
+  padding: 0 16px 14px;
   display: -webkit-box;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
+/* Dropdown actions */
+.post-list-actions {
+  border-top: 0.5px solid rgba(107, 158, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.post-action-btn {
+  background: none;
+  border: none;
+  padding: 13px 16px;
+  text-align: left;
+  font-size: 13px;
+  font-family: "Gellix", sans-serif;
+  font-weight: 500;
+  color: rgba(248, 246, 255, 0.75);
+  cursor: pointer;
+  border-top: 0.5px solid rgba(107, 158, 255, 0.06);
+  transition: background 0.15s;
+}
+
+.post-action-btn:first-child {
+  border-top: none;
+}
+
+.post-action-btn:active {
+  background: rgba(107, 158, 255, 0.07);
+}
+
+.post-action-btn.danger {
+  color: rgba(231, 76, 60, 0.8);
+}
+
+.post-action-btn.pin {
+  color: rgba(255, 204, 0, 0.8);
+}
+
 .post-color-dot {
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
   border-radius: 2px;
   flex-shrink: 0;
   margin-right: 8px;
+  display: inline-block;
 }
 
-/* Post form extras */
+/* Thread sections */
 .thread-list {
   display: flex;
   flex-direction: column;
@@ -64,51 +131,81 @@
 }
 
 .thread-item {
-  background: #0a0a0a;
-  border-radius: 5px;
-  padding: 12px;
+  background: rgba(5, 9, 28, 0.9);
+  border: 0.5px solid rgba(107, 158, 255, 0.12);
+  border-radius: 8px;
+  padding: 14px;
   position: relative;
+}
+
+.thread-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.thread-item-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(107, 158, 255, 0.5);
+}
+
+.thread-item-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.thread-reorder-btn {
+  background: none;
+  border: none;
+  color: rgba(107, 158, 255, 0.4);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.thread-remove-btn {
+  background: none;
+  border: none;
+  color: rgba(231, 76, 60, 0.5);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px;
 }
 
 .thread-item-title {
   font-size: 13px;
   font-weight: 600;
-  margin-bottom: 6px;
-  color: #ccc;
+  margin-bottom: 4px;
+  color: rgba(248, 246, 255, 0.9);
 }
 
 .thread-item-text {
   font-size: 12px;
-  color: #666;
-}
-
-.thread-remove-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: none;
-  border: none;
-  color: #555;
-  font-size: 16px;
-  cursor: pointer;
+  color: rgba(255, 255, 255, 0.35);
+  line-height: 1.5;
 }
 
 .add-thread-btn {
-  background: #0a0a0a;
-  border: 1px dashed #333;
-  border-radius: 5px;
-  padding: 12px;
-  color: #555;
+  background: rgba(5, 9, 28, 0.6);
+  border: 0.5px dashed rgba(107, 158, 255, 0.2);
+  border-radius: 8px;
+  padding: 14px;
+  color: rgba(107, 158, 255, 0.5);
   font-size: 13px;
   font-family: "Gellix", sans-serif;
   cursor: pointer;
   text-align: center;
   width: 100%;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, color 0.2s;
 }
 
 .add-thread-btn:active {
-  border-color: #555;
+  border-color: rgba(107, 158, 255, 0.4);
+  color: rgba(107, 158, 255, 0.8);
 }
 
 /* Color picker row */
@@ -119,20 +216,24 @@
 }
 
 .color-swatch {
-  width: 36px;
-  height: 36px;
-  border-radius: 2px;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
   border: 2px solid transparent;
   cursor: pointer;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, transform 0.15s;
+}
+
+.color-swatch:active {
+  transform: scale(0.9);
 }
 
 .color-swatch.selected {
-  border-color: #fff;
+  border-color: rgba(107, 158, 255, 0.8);
 }
 
 .swatch-none {
-  background: #111;
+  background: rgba(10, 16, 45, 0.8);
   position: relative;
   overflow: hidden;
 }
@@ -143,8 +244,8 @@
   top: 0;
   left: 50%;
   width: 2px;
-  height: 100%;
-  background: #555;
-  transform: rotate(45deg);
-  transform-origin: center;
+  height: 141%;
+  background: rgba(107, 158, 255, 0.3);
+  transform: rotate(45deg) translateX(-50%);
+  transform-origin: top center;
 }
