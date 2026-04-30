@@ -120,10 +120,10 @@ function _csFeedGetThreads() {
     const title = (
       document.getElementById(`cs-feed-t${i}-title`)?.value || ""
     ).trim();
-    const body = (
+    const text = (
       document.getElementById(`cs-feed-t${i}-body`)?.value || ""
     ).trim();
-    if (title || body) threads.push({ title, body });
+    if (title || text) threads.push({ title, text });
   }
   return threads;
 }
@@ -186,7 +186,7 @@ function _csFeedLoadEdit(post) {
     const titleEl = document.getElementById(`cs-feed-t${i}-title`);
     const bodyEl = document.getElementById(`cs-feed-t${i}-body`);
     if (titleEl) titleEl.value = t.title || "";
-    if (bodyEl) bodyEl.value = t.body || "";
+    if (bodyEl) bodyEl.value = t.text || "";
   }
   if (post.ctaType) {
     const btn = document.querySelector(
@@ -221,7 +221,7 @@ function _csFeedSave(isDraft) {
   const id = document.getElementById("cs-feed-edit-id").value;
   const data = {
     subject: document.getElementById("cs-feed-subject").value.trim(),
-    body: document.getElementById("cs-feed-body").value.trim(),
+    content: document.getElementById("cs-feed-body").value.trim(),
     threads: _csFeedGetThreads(),
     ctaType: document.getElementById("cs-feed-cta-type-val")?.value || "",
     ctaItemId: document.getElementById("cs-feed-cta-item-id")?.value || "",

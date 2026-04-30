@@ -178,9 +178,9 @@ body {
 }
 
 .admin-header-logo {
-  width: 30px;
-  height: 30px;
-  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  border-radius: 3px;
   object-fit: contain;
 }
 
@@ -191,9 +191,9 @@ body {
 }
 
 .admin-header-name {
-  font-size: 14px;
+  font-size: 28px;
   font-weight: 600;
-  letter-spacing: -0.4px;
+  letter-spacing: -1.8px;
   background: linear-gradient(90deg, #5b8fff, #f8f6ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -204,16 +204,17 @@ body {
   font-size: 9px;
   color: rgba(255, 255, 255, 0.35);
   letter-spacing: 0.5px;
+  font-weight: 400;
   text-transform: uppercase;
 }
 
 .admin-header-brand {
   border: 0.5px solid rgba(107, 158, 255, 0.2);
-  border-radius: 6px;
+  border-radius: 2px;
   padding: 7px 12px;
-  font-size: 11px;
+  font-size: 15px;
   color: rgba(160, 190, 255, 0.7);
-  letter-spacing: -0.2px;
+  letter-spacing: -0.5px;
 }
 
 /* Keep old classes hidden (not deleted) */
