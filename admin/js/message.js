@@ -113,7 +113,8 @@ function _msgOpenMessage(id) {
   if (senderEl) {
     senderEl.innerHTML = `
       <div class="msg-card-subject">${_msgSenderName(msg)} Sent You A Message</div>
-      <div class="msg-card-status">${_msgStatusLabel(updated.status)}</div>`;
+      <div class="msg-card-status">${_msgStatusLabel(updated.status)}</div>
+      ${msg.email ? `<div class="msg-card-email">${msg.email}</div>` : ""}`;
   }
 
   const bodyEl = document.getElementById("msg-body-text");

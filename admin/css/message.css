@@ -140,6 +140,13 @@
   font-weight: 400;
 }
 
+.msg-card-email {
+  font-size: 11px;
+  color: rgba(107, 158, 255, 0.55);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
 /* ── Empty state ──────────────────────────────────────── */
 .msg-empty {
   display: flex;

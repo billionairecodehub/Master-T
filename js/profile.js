@@ -163,3 +163,72 @@ function refreshProfileData() {
   renderProfileLikes();
 }
 refreshProfileData();
+
+// ── Send message → DataStore.messages ──────────────────────────────────────
+
+const msgSendBtn = document.getElementById("msg-send-btn");
+const msgSendNote = document.getElementById("msg-send-note");
+
+function _profileMsgReset() {
+  const n = document.getElementById("msg-sender-name");
+  const b = document.getElementById("msg-sender-body");
+  const e = document.getElementById("msg-sender-email");
+  if (n) n.value = "";
+  if (b) b.value = "";
+  if (e) e.value = "";
+}
+
+function _profileMsgSetNote(text, color) {
+  if (!msgSendNote) return;
+  msgSendNote.textContent = text;
+  msgSendNote.style.color = color || "";
+}
+
+if (msgSendBtn) {
+  msgSendBtn.addEventListener("click", () => {
+    const name = (
+      document.getElementById("msg-sender-name")?.value || ""
+    ).trim();
+    const body = (
+      document.getElementById("msg-sender-body")?.value || ""
+    ).trim();
+    const email = (
+      document.getElementById("msg-sender-email")?.value || ""
+    ).trim();
+
+    if (!name) {
+      _profileMsgSetNote("Please enter your name", "rgba(231,76,60,0.9)");
+      return;
+    }
+    if (!body) {
+      _profileMsgSetNote("Please write your message", "rgba(231,76,60,0.9)");
+      return;
+    }
+    if (!email || !email.includes("@")) {
+      _profileMsgSetNote("Please enter a valid email", "rgba(231,76,60,0.9)");
+      return;
+    }
+
+    msgSendBtn.disabled = true;
+    msgSendBtn.textContent = "Sending...";
+
+    DataStore.add("messages", {
+      from: name,
+      email,
+      body,
+      status: "unopened",
+      reply: "",
+    });
+
+    msgSendBtn.textContent = "Send a Message";
+    msgSendBtn.disabled = false;
+    _profileMsgSetNote(
+      "Message sent! Response may take a while",
+      "rgba(107,200,107,0.9)",
+    );
+    _profileMsgReset();
+
+    // Reset note after 4 s
+    setTimeout(() => _profileMsgSetNote("Response may take a while"), 4000);
+  });
+}

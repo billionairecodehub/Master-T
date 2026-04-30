@@ -170,20 +170,27 @@
         <div class="message-form">
           <input
             type="text"
+            id="msg-sender-name"
             class="message-input"
             placeholder="Enter your Name"
           />
           <textarea
+            id="msg-sender-body"
             class="message-input message-textarea"
             placeholder="Write Your Message"
           ></textarea>
           <input
             type="email"
+            id="msg-sender-email"
             class="message-input"
             placeholder="Enter your Email Address"
           />
-          <button class="profile-view-cta message-cta">Send a Message</button>
-          <div class="message-cta-note">Response may take a while</div>
+          <button class="profile-view-cta message-cta" id="msg-send-btn">
+            Send a Message
+          </button>
+          <div class="message-cta-note" id="msg-send-note">
+            Response may take a while
+          </div>
         </div>
       </div>
     </div>
