@@ -36,11 +36,13 @@ document.querySelectorAll(".home-board").forEach((board) => {
   board.addEventListener("click", () => {
     const section = board.getAttribute("data-section");
     showAdminPage("content");
-    // Unlock content: hide lock screen, restore tabs
+    // Unlock content: hide lock screen, restore tabs, show FAB
     const lock = document.getElementById("content-lock-screen");
     if (lock) lock.classList.remove("visible");
     const tabs = document.getElementById("content-section-tabs");
     if (tabs) tabs.style.display = "";
+    const fab = document.getElementById("fab-content");
+    if (fab) fab.style.display = "";
     if (typeof showContentSection === "function") {
       setTimeout(() => showContentSection(section), 50);
     }

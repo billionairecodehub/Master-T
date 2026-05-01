@@ -353,6 +353,39 @@
   opacity: 0.8;
 }
 
+/* ── Poll duration toggle ────────────────────────────── */
+.cs-poll-duration-row {
+  display: flex;
+  gap: 8px;
+}
+
+.cs-poll-dur-btn {
+  flex: 1;
+  padding: 12px 0;
+  background: rgba(10, 16, 45, 0.8);
+  border: 0.5px solid rgba(107, 158, 255, 0.2);
+  border-radius: 10px;
+  color: rgba(248, 246, 255, 0.5);
+  font-family: "Gellix", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.cs-poll-dur-btn.active {
+  background: rgba(107, 158, 255, 0.14);
+  border-color: rgba(107, 158, 255, 0.5);
+  color: rgba(248, 246, 255, 0.95);
+}
+
+.cs-poll-dur-btn:active {
+  background: rgba(107, 158, 255, 0.1);
+}
+
 /* ── Draft / Manage list cards ───────────────────────── */
 .cs-list {
   display: flex;

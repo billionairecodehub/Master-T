@@ -1290,11 +1290,18 @@
         </div>
         <div class="cs-field">
           <div class="cs-field-label">End Date</div>
-          <input
-            type="datetime-local"
-            class="cs-field-input"
-            id="cs-poll-ends-at"
-          />
+          <div class="cs-poll-duration-row" id="cs-poll-duration-row">
+            <button type="button" class="cs-poll-dur-btn active" data-dur="24">
+              24hr
+            </button>
+            <button type="button" class="cs-poll-dur-btn" data-dur="48">
+              48hr
+            </button>
+            <button type="button" class="cs-poll-dur-btn" data-dur="72">
+              72hr
+            </button>
+          </div>
+          <input type="hidden" id="cs-poll-ends-at" value="24" />
         </div>
         <input type="hidden" id="cs-poll-edit-id" />
         <div class="cs-actions">

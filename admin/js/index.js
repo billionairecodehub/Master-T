@@ -91,17 +91,23 @@ adminNavItems.forEach((nav) => {
     // Content nav: show lock screen if no section opened from home
     if (target === "content") {
       const lock = document.getElementById("content-lock-screen");
+      const fab = document.getElementById("fab-content");
       const anyOpen = document.querySelector(
         ".content-section-area[style*='block']",
       );
       if (lock) {
         if (anyOpen) {
           lock.classList.remove("visible");
+          if (fab) fab.style.display = "";
         } else {
           lock.classList.add("visible");
-          // Hide tabs when locked
+          // Hide tabs and FAB when locked; hide all section areas
           const tabs = document.getElementById("content-section-tabs");
           if (tabs) tabs.style.display = "none";
+          if (fab) fab.style.display = "none";
+          document.querySelectorAll(".content-section-area").forEach((el) => {
+            el.style.display = "none";
+          });
         }
       }
     }

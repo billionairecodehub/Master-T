@@ -814,13 +814,18 @@ function _csPollResetForm() {
   [
     "cs-poll-edit-id",
     "cs-poll-question",
-    "cs-poll-ends-at",
     "cs-poll-answer-1",
     "cs-poll-answer-2",
     "cs-poll-answer-3",
   ].forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.value = "";
+  });
+  // Reset duration to 24hr default
+  const durInput = document.getElementById("cs-poll-ends-at");
+  if (durInput) durInput.value = "24";
+  document.querySelectorAll(".cs-poll-dur-btn").forEach((b) => {
+    b.classList.toggle("active", b.getAttribute("data-dur") === "24");
   });
 }
 
@@ -830,8 +835,14 @@ function _csPollLoadEdit(poll) {
     poll.subject || poll.question || "";
   const endsAtEl = document.getElementById("cs-poll-ends-at");
   if (endsAtEl && poll.endsAt) {
-    const d = new Date(poll.endsAt);
-    endsAtEl.value = d.toISOString().slice(0, 16);
+    // Compute remaining hours from stored ISO date
+    const msLeft = new Date(poll.endsAt).getTime() - Date.now();
+    const hrsLeft = Math.round(msLeft / 3600000);
+    const dur = hrsLeft <= 24 ? "24" : hrsLeft <= 48 ? "48" : "72";
+    endsAtEl.value = dur;
+    document.querySelectorAll(".cs-poll-dur-btn").forEach((b) => {
+      b.classList.toggle("active", b.getAttribute("data-dur") === dur);
+    });
   }
   const answers = poll.answers ||
     (poll.options || []).map((o) => o.text || "") || [
@@ -857,8 +868,10 @@ function _csPollSave(isDraft) {
     );
   }
   const subject = document.getElementById("cs-poll-question").value.trim();
-  const endsAtRaw = document.getElementById("cs-poll-ends-at")?.value || "";
-  const endsAt = endsAtRaw ? new Date(endsAtRaw).toISOString() : "";
+  const durHrs = parseInt(
+    document.getElementById("cs-poll-ends-at")?.value || "24",
+  );
+  const endsAt = new Date(Date.now() + durHrs * 3600000).toISOString();
 
   // Preserve existing vote counts when editing
   let existingOptions = [];
@@ -969,6 +982,18 @@ document
 document.getElementById("cs-poll-cancel").addEventListener("click", () => {
   if (!confirm("Cancel and clear the poll form?")) return;
   _csPollResetForm();
+});
+
+// Duration toggle buttons
+document.querySelectorAll(".cs-poll-dur-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document
+      .querySelectorAll(".cs-poll-dur-btn")
+      .forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+    const durInput = document.getElementById("cs-poll-ends-at");
+    if (durInput) durInput.value = btn.getAttribute("data-dur");
+  });
 });
 
 // ══════════════════════════════════════════════════════
