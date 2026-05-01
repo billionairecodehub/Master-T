@@ -1207,6 +1207,8 @@ function _csBooksResetForm() {
   for (let i = 1; i <= 3; i++) {
     const d = document.getElementById(`cs-books-detail-${i}`);
     if (d) d.value = "";
+    const u = document.getElementById(`cs-books-detail-url-${i}`);
+    if (u) u.value = "";
   }
 }
 
@@ -1233,9 +1235,12 @@ function _csBooksLoadEdit(book) {
     if (el) el.value = kps[i - 1] || "";
   }
   const details = book.details || book.platforms || [];
+  const platformUrls = book.platformUrls || [];
   for (let i = 1; i <= 3; i++) {
     const el = document.getElementById(`cs-books-detail-${i}`);
     if (el) el.value = details[i - 1] || "";
+    const ul = document.getElementById(`cs-books-detail-url-${i}`);
+    if (ul) ul.value = platformUrls[i - 1] || "";
   }
   _csSwitch("books", "create");
 }
@@ -1250,9 +1255,13 @@ function _csBooksSave(isDraft) {
     if (v) keyPoints.push(v);
   }
   const details = [];
+  const platformUrls = [];
   for (let i = 1; i <= 3; i++) {
     details.push(
       (document.getElementById(`cs-books-detail-${i}`)?.value || "").trim(),
+    );
+    platformUrls.push(
+      (document.getElementById(`cs-books-detail-url-${i}`)?.value || "").trim(),
     );
   }
   const v1 = document.getElementById("cs-books-visual1")?.value.trim() || "";
@@ -1268,6 +1277,7 @@ function _csBooksSave(isDraft) {
     ctaCover: document.getElementById("cs-books-ctacover")?.value.trim() || "",
     keyPoints,
     details,
+    platformUrls,
     draft: isDraft,
   };
   if (!data.name) {

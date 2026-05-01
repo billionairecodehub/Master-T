@@ -702,8 +702,7 @@ button {
   width: 100%;
   display: flex;
   align-items: flex-end;
-  justify-content: flex-start;
-  /* margin-bottom: 20px; */
+  justify-content: center;
   overflow: hidden;
 }
 
@@ -721,7 +720,7 @@ button {
 .message-hero-title {
   position: relative;
   z-index: 1;
-  font-size: clamp(56px, 17vw, 32px);
+  font-size: 44px;
   font-weight: 500;
   line-height: 0.7;
   letter-spacing: -4px;
@@ -729,7 +728,8 @@ button {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
+  padding-right: 5px;
   margin-bottom: 5px;
 }
 
