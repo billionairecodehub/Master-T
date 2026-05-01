@@ -408,6 +408,8 @@ function _csQuestGetThreads() {
 function _csQuestResetForm() {
   document.getElementById("cs-quest-edit-id").value = "";
   document.getElementById("cs-quest-subject").value = "";
+  const tk = document.getElementById("cs-quest-takeaway");
+  if (tk) tk.value = "";
   for (let i = 1; i <= 10; i++) {
     const t = document.getElementById(`cs-quest-t${i}-title`);
     const b = document.getElementById(`cs-quest-t${i}-body`);
@@ -419,6 +421,8 @@ function _csQuestResetForm() {
 function _csQuestLoadEdit(quest) {
   document.getElementById("cs-quest-edit-id").value = quest.id;
   document.getElementById("cs-quest-subject").value = quest.subject || "";
+  const tk = document.getElementById("cs-quest-takeaway");
+  if (tk) tk.value = quest.keyTakeaway || "";
   const threads = quest.threads || [];
   for (let i = 1; i <= 10; i++) {
     const t = threads[i - 1] || {};
@@ -437,6 +441,9 @@ function _csQuestSave(isDraft) {
   const data = {
     subject: document.getElementById("cs-quest-subject").value.trim(),
     threads: _csQuestGetThreads(),
+    keyTakeaway: (
+      document.getElementById("cs-quest-takeaway")?.value || ""
+    ).trim(),
     draft: isDraft,
   };
   if (!data.subject) {
@@ -807,6 +814,7 @@ function _csPollResetForm() {
   [
     "cs-poll-edit-id",
     "cs-poll-question",
+    "cs-poll-ends-at",
     "cs-poll-answer-1",
     "cs-poll-answer-2",
     "cs-poll-answer-3",
@@ -818,12 +826,19 @@ function _csPollResetForm() {
 
 function _csPollLoadEdit(poll) {
   document.getElementById("cs-poll-edit-id").value = poll.id;
-  document.getElementById("cs-poll-question").value = poll.question || "";
-  const answers = poll.answers || [
-    poll.optionA || "",
-    poll.optionB || "",
-    poll.optionC || "",
-  ];
+  document.getElementById("cs-poll-question").value =
+    poll.subject || poll.question || "";
+  const endsAtEl = document.getElementById("cs-poll-ends-at");
+  if (endsAtEl && poll.endsAt) {
+    const d = new Date(poll.endsAt);
+    endsAtEl.value = d.toISOString().slice(0, 16);
+  }
+  const answers = poll.answers ||
+    (poll.options || []).map((o) => o.text || "") || [
+      poll.optionA || "",
+      poll.optionB || "",
+      poll.optionC || "",
+    ];
   for (let i = 1; i <= 3; i++) {
     const el = document.getElementById(`cs-poll-answer-${i}`);
     if (el) el.value = answers[i - 1] || "";
@@ -841,20 +856,39 @@ function _csPollSave(isDraft) {
       (document.getElementById(`cs-poll-answer-${i}`)?.value || "").trim(),
     );
   }
+  const subject = document.getElementById("cs-poll-question").value.trim();
+  const endsAtRaw = document.getElementById("cs-poll-ends-at")?.value || "";
+  const endsAt = endsAtRaw ? new Date(endsAtRaw).toISOString() : "";
+
+  // Preserve existing vote counts when editing
+  let existingOptions = [];
+  if (id) {
+    const existing = DataStore.getById("polls", id);
+    existingOptions = existing?.options || [];
+  }
+  const options = answers
+    .filter(Boolean)
+    .map((text, i) => ({ text, votes: existingOptions[i]?.votes || 0 }));
+
   const data = {
-    question: document.getElementById("cs-poll-question").value.trim(),
+    subject,
+    question: subject,
     answers,
-    optionA: answers[0],
-    optionB: answers[1],
-    optionC: answers[2],
+    options,
+    endsAt,
     draft: isDraft,
   };
-  if (!data.question || !data.optionA || !data.optionB) {
+  if (!data.subject || options.length < 2) {
     alert("Question and at least 2 answers are required");
     return;
   }
   if (id) DataStore.update("polls", id, data);
-  else DataStore.add("polls", { ...data, createdAt: new Date().toISOString() });
+  else
+    DataStore.add("polls", {
+      ...data,
+      createdAt: new Date().toISOString(),
+      totalVotes: 0,
+    });
   _csPollResetForm();
   _csSwitch("poll", isDraft ? "draft" : "manage");
 }

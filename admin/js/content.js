@@ -410,12 +410,6 @@ document.getElementById("modal-circle-close").addEventListener("click", () => {
 // ── FAB routes to correct modal ──────────────────────
 
 document.getElementById("fab-content").addEventListener("click", () => {
-  if (activeContentTab === "apps") openAppModal(null);
-  else if (activeContentTab === "books") openBookModal(null);
-  else if (activeContentTab === "circles") openCircleModal(null);
-  else {
-    // For all other sections, switch to Create tab
-    if (typeof _csSwitch === "function")
-      _csSwitch(activeContentSection, "create");
-  }
+  if (typeof _csSwitch === "function")
+    _csSwitch(activeContentSection, "create");
 });

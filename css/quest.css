@@ -244,6 +244,32 @@ button {
   white-space: pre-line;
 }
 
+/* Key Takeaway block */
+.quest-takeaway-block {
+  margin-top: 20px;
+  padding: 16px 18px;
+  background: rgba(107, 158, 255, 0.06);
+  border: 0.5px solid rgba(107, 158, 255, 0.2);
+  border-radius: 10px;
+}
+
+.quest-takeaway-title {
+  font-size: 13px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #5b8fff, #f8f6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.quest-takeaway-text {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  line-height: 1.75;
+  white-space: pre-line;
+}
+
 /* Thumbs become votable when expanded */
 .quest-board.expanded .quest-thumb {
   opacity: 1;

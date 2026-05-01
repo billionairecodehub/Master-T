@@ -80,6 +80,14 @@ function renderQuests() {
       const thumbsUp = p.thumbsUp || 0;
       const thumbsDown = p.thumbsDown || 0;
 
+      // Key Takeaway block (hardcoded title, content from admin)
+      const takeawayHTML = p.keyTakeaway
+        ? `<div class="quest-takeaway-block">
+             <div class="quest-takeaway-title">Key Takeaway</div>
+             <div class="quest-takeaway-text">${p.keyTakeaway.replace(/\r/g, "")}</div>
+           </div>`
+        : "";
+
       // Check existing vote
       const voteKey = "mt_quest_vote_" + p.id;
       const existingVote = localStorage.getItem(voteKey);
@@ -106,6 +114,7 @@ function renderQuests() {
             </div>
           </div>
           ${hasThreads ? `<div class="quest-solution">${solutionHTML}</div>` : ""}
+          ${takeawayHTML}
         </div>`;
     })
     .join("");
