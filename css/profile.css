@@ -724,8 +724,8 @@ button {
   font-size: clamp(56px, 17vw, 32px);
   font-weight: 500;
   line-height: 0.7;
-  letter-spacing: -2px;
-  background: linear-gradient(160deg, #5ecfff 0%, #1a8fff 50%, #0055cc 100%);
+  letter-spacing: -4px;
+  background: linear-gradient(160deg, #5ecfff 0%, #1a8fff 50%, #5da0ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
