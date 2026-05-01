@@ -551,6 +551,8 @@ function _csStoriesGetLessons() {
 
 function _csStoriesResetForm() {
   document.getElementById("cs-stories-edit-id").value = "";
+  const lbl = document.getElementById("cs-stories-label");
+  if (lbl) lbl.value = "";
   document.getElementById("cs-stories-subject").value = "";
   document.getElementById("cs-stories-body").value = "";
   for (let i = 1; i <= 5; i++) {
@@ -563,6 +565,8 @@ function _csStoriesResetForm() {
 
 function _csStoriesLoadEdit(story) {
   document.getElementById("cs-stories-edit-id").value = story.id;
+  const lbl = document.getElementById("cs-stories-label");
+  if (lbl) lbl.value = story.label || "";
   document.getElementById("cs-stories-subject").value =
     story.subject || story.title || "";
   document.getElementById("cs-stories-body").value =
@@ -585,6 +589,7 @@ function _csStoriesSave(isDraft) {
   if (!confirm(msg)) return;
   const id = document.getElementById("cs-stories-edit-id").value;
   const data = {
+    label: (document.getElementById("cs-stories-label")?.value || "").trim(),
     subject: document.getElementById("cs-stories-subject").value.trim(),
     body: document.getElementById("cs-stories-body").value.trim(),
     paragraphs: _csStoriesGetParagraphs(),

@@ -221,8 +221,11 @@ function _bRenderStory(id) {
   _bHeaderName.textContent = "Block | Stories";
 
   const hasLiked = !!localStorage.getItem("mt_story_like_" + id);
-  const paras = (s.body || "").split(/\n\n+/).filter(Boolean);
-  const parasHTML = paras
+  // Combine body (split by double newlines) + extra paragraphs array
+  const bodyParas = (s.body || "").split(/\n\n+/).filter(Boolean);
+  const extraParas = (s.paragraphs || []).filter(Boolean);
+  const allParas = [...bodyParas, ...extraParas];
+  const parasHTML = allParas
     .map(
       (p) => `<p class="block-story-full-para">${p.replace(/\n/g, "<br>")}</p>`,
     )
