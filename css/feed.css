@@ -226,7 +226,7 @@ button {
 .post-thread-title {
   color: #fff;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 400;
   padding: 4px 0 2px;
 }
 
@@ -264,7 +264,7 @@ button {
 .post-subject {
   color: #ddd;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.2;
   letter-spacing: -0.6px;
 }
