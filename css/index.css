@@ -478,8 +478,8 @@ body {
 
 .header-title {
   font-size: 15px;
-  font-weight: 700;
-  letter-spacing: -0.75px;
+  font-weight: 500;
+  letter-spacing: -0.9px;
   background: var(--gradient-secondary-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -490,14 +490,23 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 14px;
 }
 
-.header-menu img {
+.header-menu-icon {
   width: 18px;
   height: 18px;
   object-fit: contain;
   opacity: 0.75;
+  display: block;
+}
+
+.header-noti-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .footer-wrapper {

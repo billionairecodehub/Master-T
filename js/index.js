@@ -74,9 +74,24 @@ headerProfile.addEventListener("click", () => {
   showPage(profilePage);
 });
 
-headerMenu.addEventListener("click", () => {
-  showPage(menuPage);
-});
+// Header notification button → show notifications page
+const headerNotiBtnEl = document.getElementById("header-noti-btn");
+if (headerNotiBtnEl) {
+  headerNotiBtnEl.addEventListener("click", () => {
+    if (notificationsPage) {
+      showPage(notificationsPage);
+      if (typeof markNotiSeen === "function") markNotiSeen();
+    }
+  });
+}
+
+// Header menu icon → show menu page
+const headerMenuIconEl = document.getElementById("header-menu-icon");
+if (headerMenuIconEl) {
+  headerMenuIconEl.addEventListener("click", () => {
+    showPage(menuPage);
+  });
+}
 
 // Navigation bar clicks
 navItems.forEach((navItem) => {
