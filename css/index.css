@@ -480,7 +480,7 @@ body {
   font-size: 7px;
   font-weight: 500;
   letter-spacing: 4px;
-  /* background: var(--gradient-secondary-text); */
+  background: rgba(255, 255, 255, 0.8);
   color: rgba(255, 255, 255, 0.8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
