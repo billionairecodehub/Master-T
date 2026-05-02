@@ -567,10 +567,10 @@ button {
 }
 
 .mentorship-price {
-  font-size: clamp(72px, 22vw, 104px);
+  font-size: clamp(56px, 22vw, 72px);
   font-weight: 500;
   line-height: 1;
-  letter-spacing: -10px;
+  letter-spacing: -7px;
   background: linear-gradient(160deg, #5ecfff 0%, #1a8fff 45%, #0055cc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
