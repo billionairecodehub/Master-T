@@ -423,7 +423,8 @@ body {
 .header-profile {
   position: relative;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: flex-start;
   /* padding-top: 14px; */
   cursor: pointer;
 }
