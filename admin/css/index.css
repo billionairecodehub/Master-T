@@ -1,5 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Gellix:wght@400;500;600;700&display=swap");
 
+:root {
+  --gradient-bg-global: linear-gradient(
+    135deg,
+    #0a0e27 0%,
+    #1a1f3a 50%,
+    #0f1428 100%
+  );
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -37,7 +46,7 @@ body {
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  background: #070b1e;
+  background: var(--gradient-bg-global);
 }
 
 /* -- Login Screen ----------------------------------- */
@@ -167,7 +176,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(5, 9, 28, 0.95);
+  background: rgba(10, 14, 39, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-bottom: 0.5px solid rgba(107, 158, 255, 0.12);
 }
 
@@ -178,9 +189,9 @@ body {
 }
 
 .admin-header-logo {
-  width: 32px;
-  height: 32px;
-  border-radius: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 2px;
   object-fit: cover;
 }
 
@@ -191,30 +202,26 @@ body {
 }
 
 .admin-header-name {
-  font-size: 15px;
-  font-weight: 400;
-  letter-spacing: -0.9px;
-  background: linear-gradient(90deg, #aec8ff, #f8f6ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 7px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .admin-header-label {
   font-size: 10px;
   color: rgba(255, 255, 255, 0.35);
-  letter-spacing: 0.5px;
+  letter-spacing: -0.25px;
   font-weight: 400;
-  /* text-transform: uppercase; */
 }
 
 .admin-header-brand {
-  /* border: 0.5px solid rgba(107, 158, 255, 0.2); */
-  /* border-radius: 2px; */
-  padding: 7px 12px;
-  font-size: 10px;
-  color: rgba(160, 190, 255, 0.7);
-  letter-spacing: -0.5px;
+  padding: 0;
+  font-size: 7px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
 }
 
 /* Keep old classes hidden (not deleted) */
@@ -234,7 +241,7 @@ body {
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  background: #070b1e;
+  background: var(--gradient-bg-global);
 }
 
 /* -- Footer Nav ------------------------------------- */
@@ -242,14 +249,14 @@ body {
   flex: 0 0 auto;
   border-top: 0.5px solid rgba(107, 158, 255, 0.1);
   padding: 10px 0;
-  background: rgba(5, 9, 28, 0.95);
+  background: rgba(10, 14, 39, 0.92);
 }
 
 .admin-footer-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 0 8px;
+  padding: 0 10px;
 }
 
 .admin-nav-item {
@@ -272,25 +279,36 @@ body {
 }
 
 .admin-nav-img {
-  width: 15px;
-  height: 15px;
+  width: 17px;
+  height: 17px;
   object-fit: contain;
+  opacity: 0.45;
+  filter: brightness(1.1) saturate(0.7);
+  transition:
+    opacity 0.2s,
+    filter 0.2s;
 }
 
 .admin-nav-label {
-  font-size: 12px;
-  color: #555;
+  font-size: 7px;
+  color: #ccc;
   font-weight: 400;
   transition: color 0.2s;
-  letter-spacing: -0.25px;
+  letter-spacing: 0.5px;
 }
 
 .admin-nav-item.active .admin-nav-icon {
   opacity: 1;
 }
 
+.admin-nav-item.active .admin-nav-img {
+  opacity: 1;
+  filter: brightness(1.3) saturate(1.2);
+}
+
 .admin-nav-item.active .admin-nav-label {
   color: #fff;
+  font-weight: 500;
 }
 
 /* -- Shared Admin Components ------------------------ */

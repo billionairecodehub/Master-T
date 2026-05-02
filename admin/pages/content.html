@@ -1,43 +1,180 @@
 <div class="admin-page content-page" data-admin-page="content">
-  <!-- Content header: title right + dynamic section tabs -->
+  <!-- Content header: title + back to section board -->
   <div class="content-header">
-    <div class="content-title">Content</div>
+    <div class="content-title-row">
+      <div class="content-title" id="content-title">Content</div>
+      <button
+        type="button"
+        class="content-sections-back"
+        id="content-sections-back"
+        style="display: none"
+        aria-label="Back to sections"
+      >
+        <img
+          src="https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png"
+          alt="Back"
+        />
+      </button>
+    </div>
   </div>
-  <div class="content-section-tabs" id="content-section-tabs">
-    <!-- Populated dynamically by content.js -->
+  <div class="content-sections-board" id="content-sections-board">
+    <div class="content-sections-group">
+      <div class="content-sections-label">Posts</div>
+      <div class="content-sections-grid">
+        <button type="button" class="content-section-board" data-section="feed">
+          <img
+            src="https://i.postimg.cc/DZknTVzm/Mt-Admin-Bar-Icon-Post.png"
+            alt=""
+            class="content-section-board-icon"
+          />
+          <div class="content-section-board-name">Feed</div>
+        </button>
+        <button
+          type="button"
+          class="content-section-board"
+          data-section="quest"
+        >
+          <img
+            src="https://i.postimg.cc/261CZPjm/Mt-Admin-Bar-Icon-Quest.png"
+            alt=""
+            class="content-section-board-icon"
+          />
+          <div class="content-section-board-name">Quest</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="content-sections-group">
+      <div class="content-sections-label">Block</div>
+      <div class="content-sections-grid">
+        <button
+          type="button"
+          class="content-section-board"
+          data-section="stories"
+        >
+          <img
+            src="https://i.postimg.cc/Pq8kZmsT/MT-Admin-Home-Stories-Icon.png"
+            alt=""
+            class="content-section-board-icon"
+          />
+          <div class="content-section-board-name">Stories</div>
+        </button>
+        <button
+          type="button"
+          class="content-section-board"
+          data-section="updates"
+        >
+          <img
+            src="https://i.postimg.cc/nz4bSphy/MT-Admin-Home-Updates-Icon.png"
+            alt=""
+            class="content-section-board-icon"
+          />
+          <div class="content-section-board-name">Updates</div>
+        </button>
+        <button type="button" class="content-section-board" data-section="poll">
+          <img
+            src="https://i.postimg.cc/Vs9mDBSv/MT-Admin-Home-Poll-Icon.png"
+            alt=""
+            class="content-section-board-icon"
+          />
+          <div class="content-section-board-name">Poll</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="content-sections-group">
+      <div class="content-sections-label">Menu</div>
+      <div class="content-sections-grid">
+        <button type="button" class="content-section-board" data-section="apps">
+          <img
+            src="https://i.postimg.cc/dVVs7kVR/MT-Admin-Home-Apps-Icon.png"
+            alt=""
+            class="content-section-board-icon"
+          />
+          <div class="content-section-board-name">Apps</div>
+        </button>
+        <button
+          type="button"
+          class="content-section-board"
+          data-section="books"
+        >
+          <img
+            src="https://i.postimg.cc/SsCk0cDV/MT-Admin-Home-Books-Icon.png"
+            alt=""
+            class="content-section-board-icon"
+          />
+          <div class="content-section-board-name">Books</div>
+        </button>
+        <button
+          type="button"
+          class="content-section-board"
+          data-section="circle"
+        >
+          <img
+            src="https://i.postimg.cc/T3Bpp4Pz/Mt-Admin-Q-Icon-Circle.png"
+            alt=""
+            class="content-section-board-icon"
+          />
+          <div class="content-section-board-name">Circle</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="content-sections-group">
+      <div class="content-sections-label">Content</div>
+      <div class="content-sections-grid">
+        <button
+          type="button"
+          class="content-section-board"
+          data-section="editprofile"
+        >
+          <img
+            src="https://i.postimg.cc/Hk6F2q5p/Mt-Admin-Q-Icon-Profile.png"
+            alt=""
+            class="content-section-board-icon"
+          />
+          <div class="content-section-board-name">Edit Profile</div>
+        </button>
+        <button
+          type="button"
+          class="content-section-board"
+          data-section="subscribers"
+        >
+          <img
+            src="https://i.postimg.cc/28hz0S8y/Mt-Admin-Q-Icon-Manage.png"
+            alt=""
+            class="content-section-board-icon"
+          />
+          <div class="content-section-board-name">Subscribers</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="content-sections-group">
+      <div class="content-sections-label">Notification</div>
+      <div class="content-sections-grid">
+        <button
+          type="button"
+          class="content-section-board"
+          data-section="notifications"
+        >
+          <img
+            src="https://i.postimg.cc/fybwHcLG/Mt-Admin-Q-Icon-Noti.png"
+            alt=""
+            class="content-section-board-icon"
+          />
+          <div class="content-section-board-name">Notifications</div>
+        </button>
+      </div>
+    </div>
   </div>
 
-  <!-- Lock screen: shown when navigating directly (not from home boards) -->
-  <div class="content-lock-screen" id="content-lock-screen">
-    <div class="content-lock-icon">
-      <svg
-        width="48"
-        height="48"
-        viewBox="0 0 48 48"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          x="10"
-          y="22"
-          width="28"
-          height="20"
-          rx="5"
-          stroke="rgba(248,246,255,0.35)"
-          stroke-width="1.8"
-          fill="none"
-        />
-        <path
-          d="M16 22V16a8 8 0 0 1 16 0v6"
-          stroke="rgba(248,246,255,0.35)"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          fill="none"
-        />
-        <circle cx="24" cy="33" r="2.5" fill="rgba(248,246,255,0.35)" />
-      </svg>
-    </div>
-    <div class="content-lock-text">Open Content from Home Page</div>
+  <div
+    class="content-section-tabs"
+    id="content-section-tabs"
+    style="display: none"
+  >
+    <!-- Populated dynamically by content.js -->
   </div>
 
   <!-- Section: Apps -->

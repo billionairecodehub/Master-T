@@ -2,6 +2,7 @@
 
 let activeContentTab = "apps";
 let activeContentSection = "apps";
+let isContentSectionOpen = false;
 
 // ── Section tabs config ──────────────────────────────
 
@@ -22,8 +23,65 @@ const CONTENT_SECTION_TABS = {
 // Section to old content-tab mapping (for grids)
 const SECTION_TO_TAB = { apps: "apps", books: "books", circle: "circles" };
 
+const CONTENT_SECTION_LABELS = {
+  feed: "Feed",
+  quest: "Quest",
+  stories: "Stories",
+  updates: "Updates",
+  poll: "Poll",
+  apps: "Apps",
+  books: "Books",
+  circle: "Circle",
+  notifications: "Notifications",
+  editprofile: "Edit Profile",
+  subscribers: "Subscribers",
+};
+
+function showContentSectionBoard() {
+  isContentSectionOpen = false;
+  const titleEl = document.getElementById("content-title");
+  if (titleEl) titleEl.textContent = "Content";
+
+  const board = document.getElementById("content-sections-board");
+  if (board) board.style.display = "flex";
+
+  const backBtn = document.getElementById("content-sections-back");
+  if (backBtn) backBtn.style.display = "none";
+
+  const tabs = document.getElementById("content-section-tabs");
+  if (tabs) {
+    tabs.style.display = "none";
+    tabs.innerHTML = "";
+  }
+
+  document.querySelectorAll(".content-section-area").forEach((el) => {
+    el.style.display = "none";
+  });
+
+  const fab = document.getElementById("fab-content");
+  if (fab) fab.style.display = "none";
+}
+
+function openContentSection(section) {
+  showContentSection(section);
+}
+
 function showContentSection(section) {
+  isContentSectionOpen = true;
   activeContentSection = section;
+
+  const board = document.getElementById("content-sections-board");
+  if (board) board.style.display = "none";
+
+  const backBtn = document.getElementById("content-sections-back");
+  if (backBtn) backBtn.style.display = "inline-flex";
+
+  const titleEl = document.getElementById("content-title");
+  if (titleEl)
+    titleEl.textContent = CONTENT_SECTION_LABELS[section] || "Content";
+
+  const tabsRowEl = document.getElementById("content-section-tabs");
+  if (tabsRowEl) tabsRowEl.style.display = "flex";
 
   // Hide all section areas
   document.querySelectorAll(".content-section-area").forEach((el) => {
@@ -75,7 +133,28 @@ function showContentSection(section) {
       showContentSubTab(section, tabs[0].toLowerCase());
     }
   }
+
+  const fab = document.getElementById("fab-content");
+  if (fab) fab.style.display = "";
 }
+
+document.querySelectorAll(".content-section-board").forEach((board) => {
+  board.addEventListener("click", () => {
+    const section = board.getAttribute("data-section");
+    if (!section) return;
+    showContentSection(section);
+  });
+});
+
+const _contentBackBtn = document.getElementById("content-sections-back");
+if (_contentBackBtn) {
+  _contentBackBtn.addEventListener("click", () => {
+    showContentSectionBoard();
+  });
+}
+
+// Default state when content page is opened directly
+showContentSectionBoard();
 
 // ── Refresh lists ────────────────────────────────────
 

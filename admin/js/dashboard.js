@@ -30,21 +30,15 @@ document.querySelectorAll("[data-close]").forEach((btn) => {
   );
 });
 
-// ── Home Board Click Handlers ──
+// ── Dashboard board shortcuts ──
 
-document.querySelectorAll(".home-board").forEach((board) => {
-  board.addEventListener("click", () => {
-    const section = board.getAttribute("data-section");
+document.querySelectorAll("[data-open-content-section]").forEach((el) => {
+  el.addEventListener("click", () => {
+    const section = el.getAttribute("data-open-content-section");
+    if (!section) return;
     showAdminPage("content");
-    // Unlock content: hide lock screen, restore tabs, show FAB
-    const lock = document.getElementById("content-lock-screen");
-    if (lock) lock.classList.remove("visible");
-    const tabs = document.getElementById("content-section-tabs");
-    if (tabs) tabs.style.display = "";
-    const fab = document.getElementById("fab-content");
-    if (fab) fab.style.display = "";
-    if (typeof showContentSection === "function") {
-      setTimeout(() => showContentSection(section), 50);
+    if (typeof openContentSection === "function") {
+      openContentSection(section);
     }
   });
 });
