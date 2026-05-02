@@ -464,11 +464,11 @@ body {
 
 .header-profile img {
   position: relative;
-  width: 15px;
+  width: 22px;
   height: 22px;
   object-fit: cover;
-  object-position: center top;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 78%, 50% 100%, 0% 78%);
+  /* object-position: center top; */
+  /* clip-path: polygon(0% 0%, 100% 0%, 100% 78%, 50% 100%, 0% 78%); */
   display: block;
   z-index: 2;
 }
@@ -489,8 +489,8 @@ body {
 }
 
 .header-menu img {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   object-fit: contain;
 }
 
