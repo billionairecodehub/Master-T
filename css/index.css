@@ -547,6 +547,7 @@ body {
   font-size: 7px;
   color: #ccc;
   font-weight: 400;
+  letter-spacing: 0.5px;
   transition: color 0.2s;
 }
 
