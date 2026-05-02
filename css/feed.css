@@ -224,9 +224,9 @@ button {
 
 /* Thread title — bold text with colon */
 .post-thread-title {
-  color: #fff;
+  color: #aaa;
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 700;
   padding: 4px 0 2px;
 }
 
@@ -262,9 +262,9 @@ button {
 }
 
 .post-subject {
-  color: #ddd;
+  color: #aaa;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.6px;
 }
