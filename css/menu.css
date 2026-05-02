@@ -250,7 +250,7 @@
   width: 80px;
   height: 80px;
   object-fit: cover;
-  border-radius: var(--radius-2xl);
+  border-radius: 4px;
   background: rgba(0, 9, 26, 0.5);
   /* border: var(--border-width) solid var(--border-color-light); */
   border: 0.5px solid var(--border-color-light);
@@ -281,7 +281,7 @@
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
-  border-radius: var(--radius-lg);
+  border-radius: 4px;
   background: rgba(0, 9, 26, 0.5);
   border: 0.5px solid var(--border-color-light);
 }
@@ -317,7 +317,7 @@
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
-  border-radius: var(--radius-lg);
+  border-radius: 4px;
   background: rgba(0, 9, 26, 0.5);
   border: 0.5px solid var(--border-color-light);
 }
