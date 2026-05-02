@@ -269,6 +269,17 @@
   display: none;
 }
 
+.block-nav-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 9px;
+  height: 9px;
+  background: #e53935;
+  border-radius: 50%;
+  display: none;
+}
+
 .feed-unread-dot,
 .quest-unread-dot {
   width: 12px;

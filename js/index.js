@@ -103,7 +103,10 @@ navItems.forEach((navItem) => {
         if (typeof markQuestSeen === "function") markQuestSeen();
       }
     } else if (navType === "Block") {
-      if (blockPage) showPage(blockPage);
+      if (blockPage) {
+        showPage(blockPage);
+        if (typeof markBlockSeen === "function") markBlockSeen();
+      }
     } else if (navType === "Notif") {
       if (notificationsPage) showPage(notificationsPage);
     } else if (navType === "about") {
@@ -167,12 +170,15 @@ function _applyRemoteChanges(changed) {
   }
   if (!changed || changed === "stories") {
     if (typeof renderBlockStories === "function") renderBlockStories();
+    if (typeof updateBlockDot === "function") updateBlockDot();
   }
   if (!changed || changed === "recommends") {
     if (typeof renderBlockRecommends === "function") renderBlockRecommends();
+    if (typeof updateBlockDot === "function") updateBlockDot();
   }
   if (!changed || changed === "polls") {
     if (typeof renderBlockPolls === "function") renderBlockPolls();
+    if (typeof updateBlockDot === "function") updateBlockDot();
   }
 }
 

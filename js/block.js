@@ -127,6 +127,39 @@ function _bStoryRating(s) {
   return "~" + Math.round((s.totalRatingScore || 0) / count) + "|5";
 }
 
+// ── Block unread dot ─────────────────────────────────────
+const BLOCK_SEEN_KEY = "mt_block_seen";
+
+function getBlockSeenIds() {
+  try {
+    return JSON.parse(localStorage.getItem(BLOCK_SEEN_KEY)) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function updateBlockDot() {
+  const allItems = [
+    ...DataStore.getAll("stories"),
+    ...DataStore.getAll("recommends"),
+    ...DataStore.getAll("polls"),
+  ].filter((i) => !i.draft);
+  const seen = getBlockSeenIds();
+  const hasUnread = allItems.some((i) => !seen.includes(i.id));
+  const navDot = document.getElementById("block-nav-dot");
+  if (navDot) navDot.style.display = hasUnread ? "block" : "none";
+}
+
+function markBlockSeen() {
+  const allIds = [
+    ...DataStore.getAll("stories"),
+    ...DataStore.getAll("recommends"),
+    ...DataStore.getAll("polls"),
+  ].filter((i) => !i.draft).map((i) => i.id);
+  localStorage.setItem(BLOCK_SEEN_KEY, JSON.stringify(allIds));
+  updateBlockDot();
+}
+
 //
 // STORIES
 //
@@ -510,3 +543,4 @@ _bHeaderName.textContent = _B_TAB_LABELS[_bActiveTab];
 renderBlockStories();
 renderBlockRecommends();
 renderBlockPolls();
+updateBlockDot();
