@@ -106,12 +106,6 @@ function renderAppsList() {
       </div>`,
     )
     .join("");
-
-  container.querySelectorAll("[data-app-id]").forEach((el) => {
-    el.addEventListener("click", () => {
-      openAppModal(DataStore.getById("apps", el.getAttribute("data-app-id")));
-    });
-  });
 }
 
 function renderBooksList() {
@@ -135,14 +129,6 @@ function renderBooksList() {
       </div>`,
     )
     .join("");
-
-  container.querySelectorAll("[data-book-id]").forEach((el) => {
-    el.addEventListener("click", () => {
-      openBookModal(
-        DataStore.getById("books", el.getAttribute("data-book-id")),
-      );
-    });
-  });
 }
 
 function renderCirclesList() {
@@ -166,14 +152,6 @@ function renderCirclesList() {
       </div>`,
     )
     .join("");
-
-  container.querySelectorAll("[data-circle-id]").forEach((el) => {
-    el.addEventListener("click", () => {
-      openCircleModal(
-        DataStore.getById("circles", el.getAttribute("data-circle-id")),
-      );
-    });
-  });
 }
 
 // ── App Modal ────────────────────────────────────────

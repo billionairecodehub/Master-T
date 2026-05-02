@@ -90,6 +90,7 @@ const headerMenuIconEl = document.getElementById("header-menu-icon");
 if (headerMenuIconEl) {
   headerMenuIconEl.addEventListener("click", () => {
     showPage(menuPage);
+    markStoreSeen();
   });
 }
 
@@ -131,6 +132,7 @@ navItems.forEach((navItem) => {
       }
     } else if (navType === "menu") {
       showPage(menuPage);
+      markStoreSeen();
     }
   });
 });
@@ -173,12 +175,15 @@ function _applyRemoteChanges(changed) {
   }
   if (!changed || changed === "apps") {
     if (typeof renderMenuApps === "function") renderMenuApps();
+    updateStoreDot();
   }
   if (!changed || changed === "books") {
     if (typeof renderMenuBooks === "function") renderMenuBooks();
+    updateStoreDot();
   }
   if (!changed || changed === "circles") {
     if (typeof renderMenuCircles === "function") renderMenuCircles();
+    updateStoreDot();
   }
   if (!changed || changed === "profile") {
     if (typeof refreshProfileData === "function") refreshProfileData();
@@ -207,3 +212,30 @@ window.addEventListener("storage", (e) => {
   if (!e.key || !e.key.startsWith("mt_")) return;
   _applyRemoteChanges(null);
 });
+
+// ── Store dot: gold alert when new apps/books/circles are added ──
+function updateStoreDot() {
+  const total =
+    DataStore.getAll("apps").filter((a) => !a.draft).length +
+    DataStore.getAll("books").filter((b) => !b.draft).length +
+    DataStore.getAll("circles").filter((c) => !c.draft).length;
+  const seen = parseInt(localStorage.getItem("mt_store_seen") || "0");
+  const dot = document.getElementById("store-nav-dot");
+  if (dot) dot.style.display = total > seen ? "block" : "none";
+}
+
+function markStoreSeen() {
+  const total =
+    DataStore.getAll("apps").filter((a) => !a.draft).length +
+    DataStore.getAll("books").filter((b) => !b.draft).length +
+    DataStore.getAll("circles").filter((c) => !c.draft).length;
+  localStorage.setItem("mt_store_seen", String(total));
+  const dot = document.getElementById("store-nav-dot");
+  if (dot) dot.style.display = "none";
+}
+
+// ── 3-minute inner refresh ──
+setInterval(() => _applyRemoteChanges(null), 3 * 60 * 1000);
+
+// Initialise dot state on load
+updateStoreDot();

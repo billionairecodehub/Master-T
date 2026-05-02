@@ -408,7 +408,7 @@ body {
   bottom: 0;
   z-index: 10;
   border-top: 1.5px solid rgba(107, 158, 255, 0.2);
-  padding: 10px 0;
+  padding: 5px 0;
 }
 
 .header-wrapper {
@@ -511,6 +511,19 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.store-nav-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffd700;
+  border: 1.5px solid #070b1e;
+  display: none;
+  pointer-events: none;
 }
 
 .footer-wrapper {

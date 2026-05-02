@@ -1128,6 +1128,7 @@ function _csAppsResetForm() {
     "cs-apps-about",
     "cs-apps-desc",
     "cs-apps-notes",
+    "cs-apps-cta-url",
   ].forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.value = "";
@@ -1148,6 +1149,8 @@ function _csAppsLoadEdit(app) {
   document.getElementById("cs-apps-about").value = app.short || app.about || "";
   document.getElementById("cs-apps-desc").value = app.desc || "";
   document.getElementById("cs-apps-notes").value = app.notes || "";
+  const ctaUrl = document.getElementById("cs-apps-cta-url");
+  if (ctaUrl) ctaUrl.value = app.ctaUrl || "";
   _csSwitch("apps", "create");
 }
 
@@ -1168,6 +1171,7 @@ function _csAppsSave(isDraft) {
     about: document.getElementById("cs-apps-about").value.trim(),
     desc: document.getElementById("cs-apps-desc").value.trim(),
     notes: document.getElementById("cs-apps-notes").value.trim(),
+    ctaUrl: document.getElementById("cs-apps-cta-url")?.value.trim() || "",
     draft: isDraft,
   };
   if (!data.name) {
@@ -1216,12 +1220,19 @@ function _csAppsRefresh(tab) {
         icon: "📱",
         actions: [
           { id: "edit", label: "Edit" },
+          { id: "pin", label: "Pin" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
         onAction: (a, id) => {
           if (a === "delete") {
             if (!confirm("Delete app?")) return;
             DataStore.remove("apps", id);
+            _csAppsRefresh("manage");
+          } else if (a === "pin") {
+            const allApps = DataStore.getAll("apps");
+            allApps.forEach((ap) =>
+              DataStore.update("apps", ap.id, { pinned: ap.id === id }),
+            );
             _csAppsRefresh("manage");
           } else {
             const app = DataStore.getById("apps", id);
@@ -1390,12 +1401,19 @@ function _csBooksRefresh(tab) {
         icon: "📚",
         actions: [
           { id: "edit", label: "Edit" },
+          { id: "pin", label: "Pin" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
         onAction: (a, id) => {
           if (a === "delete") {
             if (!confirm("Delete book?")) return;
             DataStore.remove("books", id);
+            _csBooksRefresh("manage");
+          } else if (a === "pin") {
+            const allBooks = DataStore.getAll("books");
+            allBooks.forEach((b) =>
+              DataStore.update("books", b.id, { pinned: b.id === id }),
+            );
             _csBooksRefresh("manage");
           } else {
             const b = DataStore.getById("books", id);
@@ -1430,6 +1448,7 @@ function _csCircleResetForm() {
     "cs-circle-about",
     "cs-circle-icon",
     "cs-circle-new-cat",
+    "cs-circle-url",
   ].forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.value = "";
@@ -1461,6 +1480,8 @@ function _csCircleLoadEdit(circle) {
   document.getElementById("cs-circle-platform").value = circle.platform || "";
   document.getElementById("cs-circle-about").value = circle.about || "";
   document.getElementById("cs-circle-icon").value = circle.img || "";
+  const circleUrl = document.getElementById("cs-circle-url");
+  if (circleUrl) circleUrl.value = circle.url || "";
   const feats = circle.features || [];
   for (let i = 1; i <= 3; i++) {
     const f = document.getElementById(`cs-circle-feat-${i}`);
@@ -1499,6 +1520,7 @@ function _csCircleSave(isDraft) {
     about: document.getElementById("cs-circle-about").value.trim(),
     features,
     img: document.getElementById("cs-circle-icon").value.trim(),
+    url: document.getElementById("cs-circle-url")?.value.trim() || "",
     draft: isDraft,
   };
   if (!data.name) {
@@ -1744,9 +1766,10 @@ function _csSubsRefresh(tab) {
       .map(
         (s) => `
       <div class="cs-sub-item">
-        <div class="cs-sub-avatar">${(s.email || s.name || "?")[0].toUpperCase()}</div>
+        <div class="cs-sub-avatar">${(s.name || s.email || "?")[0].toUpperCase()}</div>
         <div class="cs-sub-info">
-          <div class="cs-sub-name">${s.email || s.name || "Unknown"}</div>
+          <div class="cs-sub-name">${s.name || "Unknown"}</div>
+          <div class="cs-sub-email">${s.email || ""}</div>
           <div class="cs-sub-date">${_csDateLabel(s.createdAt)}</div>
         </div>
       </div>`,
@@ -1779,3 +1802,41 @@ function _csSubsRefresh(tab) {
       .join("");
   }
 }
+
+// ── Image Upload from Device ──────────────────────────
+// Converts each .cs-upload-icon span into a file-picker button.
+// When a file is selected, reads it as a data URL and sets
+// the sibling text input value so it flows into save as normal.
+(function _initImageUploads() {
+  document.querySelectorAll(".cs-upload-row").forEach((row) => {
+    const iconSpan = row.querySelector(".cs-upload-icon");
+    const textInput = row.querySelector(".cs-field-input");
+    if (!iconSpan || !textInput) return;
+
+    // Create hidden file input
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "image/*";
+    fileInput.style.display = "none";
+    row.appendChild(fileInput);
+
+    // Cloud icon click → trigger file picker
+    iconSpan.style.cursor = "pointer";
+    iconSpan.addEventListener("click", (e) => {
+      e.preventDefault();
+      fileInput.value = "";
+      fileInput.click();
+    });
+
+    // File selected → read as data URL → set text input
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        textInput.value = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+})();

@@ -153,12 +153,22 @@ renderProfileLikes();
 // ── Load profile data from DataStore ──
 function refreshProfileData() {
   const p = DataStore.getProfile();
+  // Profile hero image
+  const heroImg = document.getElementById("profile-hero-img");
+  if (heroImg && p.img) heroImg.src = p.img;
+  // Mentorship price
   const priceEl = document.getElementById("mentorship-price");
   const periodEl = document.getElementById("mentorship-period");
-  if (priceEl && p.mentorshipPrice) priceEl.textContent = p.mentorshipPrice;
+  if (priceEl && p.price) priceEl.textContent = p.price;
   if (periodEl && p.mentorshipPeriod) periodEl.textContent = p.mentorshipPeriod;
+  // X link
   if (profileXLink && p.xUrl) profileXLink.href = p.xUrl;
   if (profileXIcon && p.xIcon) profileXIcon.src = p.xIcon;
+  // Contact buttons
+  if (profileCallBtn && p.phone)
+    profileCallBtn.setAttribute("data-contact", "tel:" + p.phone);
+  if (profileEmailBtn && p.email)
+    profileEmailBtn.setAttribute("data-contact", "mailto:" + p.email);
   // Re-render like count so all devices see the latest global count
   renderProfileLikes();
 }
