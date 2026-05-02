@@ -383,7 +383,7 @@
   width: 56px;
   height: 56px;
   object-fit: cover;
-  border-radius: var(--radius-lg);
+  border-radius: 4px;
   flex-shrink: 0;
   background: rgba(0, 9, 26, 0.5);
 }
