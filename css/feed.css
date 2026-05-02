@@ -84,7 +84,7 @@ button {
   overflow: hidden;
   width: 44px;
   height: 44px;
-  border-radius: 4px;
+  border-radius: 2px;
   flex-shrink: 0;
 }
 
