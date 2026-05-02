@@ -157,7 +157,7 @@ if (menuFilterIcon) {
 function renderMenuApps() {
   const container = document.getElementById("apps-panel");
   if (!container) return;
-  const apps = DataStore.getAll("apps");
+  const apps = DataStore.getAll("apps").filter((a) => !a.draft);
 
   // Pinned app
   const pinned = apps.find((a) => a.pinned);
@@ -216,7 +216,7 @@ function renderMenuApps() {
 function renderMenuBooks() {
   const container = document.getElementById("books-panel");
   if (!container) return;
-  const books = DataStore.getAll("books");
+  const books = DataStore.getAll("books").filter((b) => !b.draft);
 
   // Pinned book
   const pinned = books.find((b) => b.pinned);
@@ -229,7 +229,7 @@ function renderMenuBooks() {
           <img src="https://i.postimg.cc/508MnvsH/image.png" alt="${pinned.name}" class="menu-pinned-icon" />
           <div class="menu-pinned-details">
             <div class="menu-pinned-name">${pinned.name}</div>
-            <div class="menu-pinned-desc">${pinned.short}</div>
+            <div class="menu-pinned-desc">${pinned.merit || pinned.short || ""}</div>
             <div class="menu-pinned-cta">View &gt;&gt;</div>
           </div>
         </div>
@@ -275,7 +275,7 @@ function renderMenuBooks() {
 function renderMenuCircles() {
   const container = document.getElementById("circle-panel");
   if (!container) return;
-  const circles = DataStore.getAll("circles");
+  const circles = DataStore.getAll("circles").filter((c) => !c.draft);
 
   let pinnedHTML = `
     <div class="menu-pinned-board">
@@ -430,8 +430,10 @@ function bindBookClicks() {
         "https://i.postimg.cc/508MnvsH/image.png";
       document.getElementById("book-content-title").textContent = b.name;
       document.getElementById("book-desc-text").textContent = b.desc;
-      document.getElementById("book-keypoints-text").textContent = b.keypoints;
-      document.getElementById("book-short-text").textContent = b.short;
+      document.getElementById("book-keypoints-text").textContent =
+        (b.keyPoints || []).join(" • ") || b.keypoints || "";
+      document.getElementById("book-short-text").textContent =
+        b.merit || b.short || "";
       const _brs = document.getElementById("book-rating-score");
       if (_brs) _brs.textContent = "~" + b.rating;
       const _brc = document.getElementById("book-rating-count");

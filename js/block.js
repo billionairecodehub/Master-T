@@ -155,7 +155,9 @@ function markBlockSeen() {
     ...DataStore.getAll("stories"),
     ...DataStore.getAll("recommends"),
     ...DataStore.getAll("polls"),
-  ].filter((i) => !i.draft).map((i) => i.id);
+  ]
+    .filter((i) => !i.draft)
+    .map((i) => i.id);
   localStorage.setItem(BLOCK_SEEN_KEY, JSON.stringify(allIds));
   updateBlockDot();
 }
@@ -475,7 +477,8 @@ function renderBlockPolls() {
 
 function _bBuildPollCard(p) {
   const total = p.totalVotes || 0;
-  const isEnded = p.status === "ended";
+  const isEnded =
+    p.status === "ended" || (p.endsAt && new Date(p.endsAt) <= new Date());
   const vKey = "mt_poll_voted_" + p.id;
   const userVote = localStorage.getItem(vKey);
   const hasVoted = userVote !== null;
