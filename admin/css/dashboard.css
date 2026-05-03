@@ -29,7 +29,7 @@
   flex: 1;
   min-height: 0;
   height: 100%;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   background: linear-gradient(145deg, #06091e 0%, #0d1535 55%, #080d28 100%);
   border: 0.5px solid rgba(107, 158, 255, 0.15);
 }
