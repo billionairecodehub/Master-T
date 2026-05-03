@@ -4,6 +4,8 @@
   flex-direction: column;
   gap: 0;
   padding: 0 !important;
+  height: 100%;
+  overflow: hidden;
 }
 
 .dashboard-page .admin-stat-row {
@@ -15,7 +17,8 @@
   display: flex;
   flex-direction: column;
   padding: 0;
-  min-height: 100%;
+  flex: 1;
+  min-height: 0;
 }
 
 .admin-home-block-1 {
@@ -23,8 +26,9 @@
   flex-direction: column;
   justify-content: flex-start;
   padding: 24px 24px 28px;
-  /* height: 100vh; */
-  min-height: 634px;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
   border-radius: 5px;
   background: linear-gradient(145deg, #06091e 0%, #0d1535 55%, #080d28 100%);
   border: 0.5px solid rgba(107, 158, 255, 0.15);
@@ -59,8 +63,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  flex: 1;
   gap: 4px;
-  margin-top: 96px;
+  margin-top: 0;
 }
 
 .admin-home-block-1-tagline {
@@ -122,6 +127,35 @@
   text-align: left;
   cursor: pointer;
   transition: background 0.2s;
+}
+
+.admin-home-boards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.admin-home-quick-board,
+.admin-home-notification-board {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: 0.5px solid rgba(107, 158, 255, 0.2);
+  border-radius: 5px;
+  padding: 12px;
+  background: rgba(10, 16, 45, 0.85);
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.admin-home-quick-board:active,
+.admin-home-notification-board:active {
+  background: rgba(107, 158, 255, 0.12);
 }
 
 .admin-home-notification-board:active {

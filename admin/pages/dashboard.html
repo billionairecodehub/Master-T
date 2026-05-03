@@ -35,26 +35,75 @@
         </div>
       </div>
 
-      <button
-        class="admin-home-notification-board"
-        type="button"
-        data-open-content-section="notifications"
-      >
-        <div class="admin-home-notification-left">
-          <img
-            src="https://i.postimg.cc/fybwHcLG/Mt-Admin-Q-Icon-Noti.png"
-            alt="Notifications"
-            class="admin-home-notification-icon"
-          />
-          <div class="admin-home-notification-texts">
-            <div class="admin-home-notification-title">Notification Board</div>
-            <div class="admin-home-notification-sub">
-              Open and manage your alerts
+      <div class="admin-home-boards-stack">
+        <button
+          class="admin-home-quick-board"
+          type="button"
+          data-open-content-section="feed"
+        >
+          <div class="admin-home-notification-left">
+            <img
+              src="https://i.postimg.cc/DZknTVzm/Mt-Admin-Bar-Icon-Post.png"
+              alt="Feed"
+              class="admin-home-notification-icon"
+            />
+            <div class="admin-home-notification-texts">
+              <div class="admin-home-notification-title">Feed Board</div>
+              <div class="admin-home-notification-sub">
+                Open feed posts and manage content
+              </div>
             </div>
           </div>
-        </div>
-        <div class="admin-home-notification-arrow">&gt;</div>
-      </button>
+          <div class="admin-home-notification-arrow">&gt;</div>
+        </button>
+
+        <button
+          class="admin-home-quick-board"
+          type="button"
+          data-open-admin-page="message"
+        >
+          <div class="admin-home-notification-left">
+            <img
+              src="https://i.postimg.cc/FR05xMFd/Mt-Admin-Bar-Message-Icon-Quest.png"
+              alt="Message"
+              class="admin-home-notification-icon"
+            />
+            <div class="admin-home-notification-texts">
+              <div class="admin-home-notification-title">Message Board</div>
+              <div
+                class="admin-home-notification-sub"
+                id="admin-home-msg-count"
+              >
+                0 unread messages
+              </div>
+            </div>
+          </div>
+          <div class="admin-home-notification-arrow">&gt;</div>
+        </button>
+
+        <button
+          class="admin-home-quick-board"
+          type="button"
+          data-open-content-section="notifications"
+        >
+          <div class="admin-home-notification-left">
+            <img
+              src="https://i.postimg.cc/fybwHcLG/Mt-Admin-Q-Icon-Noti.png"
+              alt="Notifications"
+              class="admin-home-notification-icon"
+            />
+            <div class="admin-home-notification-texts">
+              <div class="admin-home-notification-title">
+                Notification Board
+              </div>
+              <div class="admin-home-notification-sub">
+                Open and manage your alerts
+              </div>
+            </div>
+          </div>
+          <div class="admin-home-notification-arrow">&gt;</div>
+        </button>
+      </div>
     </div>
   </div>
 

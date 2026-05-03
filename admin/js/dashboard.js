@@ -1,7 +1,15 @@
 ﻿// admin/js/dashboard.js — Dashboard page logic
 
 function refreshDashboard() {
-  // Stats overview moved to Stats page
+  const msgs = DataStore.getAll("messages");
+  const unread = msgs.filter((m) => m.status === "unopened").length;
+  const countEl = document.getElementById("admin-home-msg-count");
+  if (countEl) {
+    countEl.textContent =
+      unread > 0
+        ? `${unread} unread message${unread === 1 ? "" : "s"}`
+        : "No unread messages";
+  }
 }
 
 function _timeAgo(iso) {
@@ -40,6 +48,14 @@ document.querySelectorAll("[data-open-content-section]").forEach((el) => {
     if (typeof openContentSection === "function") {
       openContentSection(section);
     }
+  });
+});
+
+document.querySelectorAll("[data-open-admin-page]").forEach((el) => {
+  el.addEventListener("click", () => {
+    const page = el.getAttribute("data-open-admin-page");
+    if (!page) return;
+    showAdminPage(page);
   });
 });
 
