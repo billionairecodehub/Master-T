@@ -4,6 +4,7 @@
   flex-direction: column;
   gap: 0;
   padding: 0 !important; /* header + section areas handle their own padding */
+  background: linear-gradient(145deg, #06091e 0%, #0d1535 55%, #080d28 100%);
 }
 
 .content-grid {
