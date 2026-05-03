@@ -5,6 +5,10 @@ function refreshStats() {
   const books = DataStore.getAll("books");
   const circles = DataStore.getAll("circles");
   const posts = DataStore.getAll("posts");
+  const quests = DataStore.getAll("quests");
+  const stories = DataStore.getAll("stories");
+  const updates = DataStore.getAll("recommends");
+  const polls = DataStore.getAll("polls");
   const notis = DataStore.getAll("notifications");
   const subs = DataStore.getAll("subscribers");
 
@@ -15,38 +19,51 @@ function refreshStats() {
   document.getElementById("stats-stat-posts").textContent = posts.length;
   document.getElementById("stats-stat-notis").textContent = notis.length;
   document.getElementById("stats-stat-subs").textContent = subs.length;
+  document.getElementById("stats-stat-polls").textContent = polls.length;
+  document.getElementById("stats-stat-stories").textContent = stories.length;
+  document.getElementById("stats-stat-updates").textContent = updates.length;
 
-  // ── Content Analytics ──
-  const total = apps.length + books.length + circles.length + posts.length;
-  const pinned =
-    apps.filter((a) => a.pinned).length + books.filter((b) => b.pinned).length;
-  const threads = posts.reduce(
-    (sum, p) => sum + (p.threads ? p.threads.length : 0),
-    0,
-  );
-  const categories = [
-    ...new Set(circles.map((c) => c.category).filter(Boolean)),
-  ].length;
+  // ── App Analytics ──
+  const now = Date.now();
+  const cutoff24h = now - 24 * 60 * 60 * 1000;
+  const visitors24h = posts
+    .filter((p) => {
+      const stamp = new Date(p.updatedAt || p.createdAt || 0).getTime();
+      return stamp >= cutoff24h;
+    })
+    .reduce((sum, p) => sum + (p.impressions || 0), 0);
 
-  document.getElementById("stats-total").textContent = total;
-  document.getElementById("stats-pinned").textContent = pinned;
-  document.getElementById("stats-threads").textContent = threads;
-  document.getElementById("stats-categories").textContent = categories;
+  const postLikes = posts.reduce((sum, p) => sum + (p.likes || 0), 0);
+  const outboundClicks =
+    apps.reduce((sum, a) => sum + (a.ctaClicks || 0), 0) +
+    books.reduce((sum, b) => sum + (b.ctaClicks || 0), 0) +
+    circles.reduce((sum, c) => sum + (c.ctaClicks || 0), 0) +
+    posts.reduce((sum, p) => sum + (p.ctaClicks || 0), 0) +
+    updates.reduce((sum, u) => sum + (u.ctaClicks || 0), 0);
+
+  const engagementPct =
+    visitors24h > 0 ? Math.min(999, (postLikes / visitors24h) * 100) : 0;
+
+  document.getElementById("stats-visitors").textContent = visitors24h;
+  document.getElementById("stats-engagement").textContent =
+    engagementPct.toFixed(1) + "%";
+  document.getElementById("stats-conversion").textContent = outboundClicks;
+  document.getElementById("stats-likes").textContent = postLikes;
 
   // ── Distribution Bars ──
-  const maxCount = Math.max(
-    apps.length,
-    books.length,
-    circles.length,
-    posts.length,
-    1,
-  );
   const barsData = [
     { name: "Apps", count: apps.length },
     { name: "Books", count: books.length },
     { name: "Circles", count: circles.length },
     { name: "Posts", count: posts.length },
+    { name: "Poll", count: polls.length },
+    { name: "Stories", count: stories.length },
+    { name: "Notification", count: notis.length },
+    { name: "Subscribers", count: subs.length },
+    { name: "Updates", count: updates.length },
+    { name: "Quests", count: quests.length },
   ];
+  const maxCount = Math.max(...barsData.map((b) => b.count), 1);
 
   document.getElementById("stats-bars").innerHTML = barsData
     .map(
@@ -77,8 +94,27 @@ function refreshStats() {
   posts.forEach((i) =>
     all.push({ type: "Post", name: i.subject, time: i.createdAt }),
   );
+  quests.forEach((i) =>
+    all.push({ type: "Quest", name: i.subject, time: i.createdAt }),
+  );
+  stories.forEach((i) =>
+    all.push({ type: "Story", name: i.title, time: i.createdAt }),
+  );
+  polls.forEach((i) =>
+    all.push({ type: "Poll", name: i.question, time: i.createdAt }),
+  );
+  updates.forEach((i) =>
+    all.push({ type: "Update", name: i.title, time: i.createdAt }),
+  );
   notis.forEach((i) =>
     all.push({ type: "Notification", name: i.title, time: i.createdAt }),
+  );
+  subs.forEach((i) =>
+    all.push({
+      type: "Subscriber",
+      name: i.name || i.email,
+      time: i.createdAt,
+    }),
   );
   all.sort((a, b) => new Date(b.time) - new Date(a.time));
 

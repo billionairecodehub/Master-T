@@ -381,7 +381,14 @@ function bindAppClicks() {
         const _newAppCta = _appCta.cloneNode(true);
         _appCta.parentNode.replaceChild(_newAppCta, _appCta);
         _newAppCta.addEventListener("click", () => {
-          if (a.ctaUrl) window.open(a.ctaUrl, "_blank", "noopener,noreferrer");
+          if (a.ctaUrl) {
+            const _app = DataStore.getById("apps", a.id);
+            if (_app)
+              DataStore.update("apps", a.id, {
+                ctaClicks: (_app.ctaClicks || 0) + 1,
+              });
+            window.open(a.ctaUrl, "_blank", "noopener,noreferrer");
+          }
         });
       }
 
@@ -468,7 +475,14 @@ function bindBookClicks() {
         _bookCta.parentNode.replaceChild(_newBookCta, _bookCta);
         _newBookCta.addEventListener("click", () => {
           const _url = (b.platformUrls && b.platformUrls[0]) || b.ctaUrl || "";
-          if (_url) window.open(_url, "_blank", "noopener,noreferrer");
+          if (_url) {
+            const _book = DataStore.getById("books", b.id);
+            if (_book)
+              DataStore.update("books", b.id, {
+                ctaClicks: (_book.ctaClicks || 0) + 1,
+              });
+            window.open(_url, "_blank", "noopener,noreferrer");
+          }
         });
       }
 
@@ -562,7 +576,18 @@ function bindCircleClicks() {
 
       // CTA link
       const _cta = document.getElementById("circle-panel-cta");
-      if (_cta) _cta.href = c.url || "#";
+      if (_cta) {
+        _cta.href = c.url || "#";
+        const _newCta = _cta.cloneNode(true);
+        _cta.parentNode.replaceChild(_newCta, _cta);
+        _newCta.addEventListener("click", () => {
+          const _circle = DataStore.getById("circles", c.id);
+          if (_circle)
+            DataStore.update("circles", c.id, {
+              ctaClicks: (_circle.ctaClicks || 0) + 1,
+            });
+        });
+      }
 
       // Heart counter
       const _hCount = document.getElementById("circle-heart-count");
