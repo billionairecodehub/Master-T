@@ -63,6 +63,10 @@ function refreshStats() {
     { name: "Updates", count: updates.length },
     { name: "Quests", count: quests.length },
   ];
+  barsData.sort((a, b) => {
+    if (b.count !== a.count) return b.count - a.count;
+    return a.name.localeCompare(b.name);
+  });
   const maxCount = Math.max(...barsData.map((b) => b.count), 1);
 
   document.getElementById("stats-bars").innerHTML = barsData

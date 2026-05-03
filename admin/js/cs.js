@@ -119,71 +119,387 @@ function _csRenderViewList(containerId, items, opts = {}) {
     .join("");
 }
 
-function _csNavigatePreviewFrame(frame, section, tries = 0) {
-  const doc = frame.contentDocument;
-  if (!doc) return;
+const _CS_VIEW_OPEN = {
+  feed: null,
+  quest: null,
+  stories: null,
+  updates: null,
+  poll: null,
+  notifications: null,
+};
 
-  const click = (sel) => {
-    const node = doc.querySelector(sel);
-    if (!node) return false;
-    node.click();
-    return true;
-  };
+const _CS_BACK_ICON = "https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png";
 
-  if (section === "feed") {
-    if (!click('.nav-item[data-nav="feed"]') && tries < 25) {
-      setTimeout(() => _csNavigatePreviewFrame(frame, section, tries + 1), 140);
-    }
-    return;
+function _csEscHtml(v) {
+  return String(v || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function _csShortText(v, max = 190) {
+  const t = String(v || "")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (t.length <= max) return t;
+  return t.slice(0, max - 1) + "...";
+}
+
+function _csSortNewest(items) {
+  return (items || [])
+    .slice()
+    .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+}
+
+function _csSetTitleBack(section, onBack) {
+  const page = document.getElementById(`cs-${section}-view`);
+  const title = page ? page.querySelector(".cs-title") : null;
+  if (!title) return;
+  let btn = title.querySelector(".cs-title-back");
+  if (!btn) {
+    btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "cs-title-back";
+    btn.setAttribute("aria-label", "Back");
+    btn.innerHTML = `<img src="${_CS_BACK_ICON}" alt="Back" />`;
+    title.appendChild(btn);
   }
-
-  if (section === "quest") {
-    if (!click('.nav-item[data-nav="Quest"]') && tries < 25) {
-      setTimeout(() => _csNavigatePreviewFrame(frame, section, tries + 1), 140);
-    }
-    return;
-  }
-
-  if (section === "notifications") {
-    if (
-      !click("#header-noti-btn") &&
-      !click('.nav-item[data-nav="Notif"]') &&
-      tries < 25
-    ) {
-      setTimeout(() => _csNavigatePreviewFrame(frame, section, tries + 1), 140);
-    }
-    return;
-  }
-
-  if (section === "stories" || section === "updates" || section === "poll") {
-    const tabMap = {
-      stories: "stories",
-      updates: "recommends",
-      poll: "polls",
-    };
-    click('.nav-item[data-nav="Block"]');
-    const tabSel = `.block-tab[data-tab="${tabMap[section]}"]`;
-    const tab = doc.querySelector(tabSel);
-    if (!tab && tries < 25) {
-      setTimeout(() => _csNavigatePreviewFrame(frame, section, tries + 1), 160);
-      return;
-    }
-    if (tab) tab.click();
+  if (typeof onBack === "function") {
+    btn.style.display = "inline-flex";
+    btn.onclick = onBack;
+  } else {
+    btn.style.display = "none";
+    btn.onclick = null;
   }
 }
 
-function _csRenderUserSitePreview(containerId, section) {
-  const el = document.getElementById(containerId);
+function _csRenderFeedView() {
+  const el = document.getElementById("cs-feed-view-list");
   if (!el) return;
-  el.innerHTML = `
-    <div class="cs-user-preview-wrap">
-      <iframe class="cs-user-preview-frame" src="../index.html" title="User ${section} preview"></iframe>
-    </div>`;
-  const frame = el.querySelector(".cs-user-preview-frame");
-  if (!frame) return;
-  frame.addEventListener("load", () => {
-    setTimeout(() => _csNavigatePreviewFrame(frame, section), 220);
+  const posts = _csSortNewest(
+    DataStore.getAll("posts").filter((p) => !p.draft),
+  );
+  const openId = _CS_VIEW_OPEN.feed;
+  if (!posts.length) {
+    _csSetTitleBack("feed", null);
+    el.innerHTML =
+      '<div class="cs-empty"><div class="cs-empty-icon">✏️</div><div class="cs-empty-text">No feed posts yet</div></div>';
+    return;
+  }
+  if (!openId) {
+    _csSetTitleBack("feed", null);
+    el.innerHTML = posts
+      .map(
+        (p) => `<article class="cs-user-feed-card" data-open-id="${p.id}">
+      <div class="cs-user-feed-title">${_csEscHtml(p.subject || "Untitled")}</div>
+      <div class="cs-user-feed-preview">${_csEscHtml(_csShortText(p.content || p.body || ""))}</div>
+      <div class="cs-user-feed-meta">${_csEscHtml(_csDateLabel(p.createdAt) || "")} · ${p.threads?.length || 0} thread${(p.threads?.length || 0) === 1 ? "" : "s"}</div>
+    </article>`,
+      )
+      .join("");
+    el.querySelectorAll("[data-open-id]").forEach((card) => {
+      card.addEventListener("click", () => {
+        _CS_VIEW_OPEN.feed = card.getAttribute("data-open-id");
+        _csRenderFeedView();
+      });
+    });
+    return;
+  }
+  const p = posts.find((x) => x.id === openId);
+  if (!p) {
+    _CS_VIEW_OPEN.feed = null;
+    _csRenderFeedView();
+    return;
+  }
+  _csSetTitleBack("feed", () => {
+    _CS_VIEW_OPEN.feed = null;
+    _csRenderFeedView();
   });
+  const threads = (p.threads || [])
+    .map(
+      (t) =>
+        `<div class="cs-user-thread-title">${_csEscHtml(t.title || "")}</div><div class="cs-user-thread-text">${_csEscHtml(t.text || "")}</div>`,
+    )
+    .join("");
+  el.innerHTML = `<article class="cs-user-detail-card">
+    <div class="cs-user-detail-title">${_csEscHtml(p.subject || "Untitled")}</div>
+    <div class="cs-user-detail-body">${_csEscHtml(p.content || p.body || "")}</div>
+    ${threads ? `<div class="cs-user-thread-wrap">${threads}</div>` : ""}
+  </article>`;
+}
+
+function _csRenderQuestView() {
+  const el = document.getElementById("cs-quest-view-list");
+  if (!el) return;
+  const quests = _csSortNewest(
+    DataStore.getAll("quests").filter((q) => !q.draft),
+  );
+  const openId = _CS_VIEW_OPEN.quest;
+  if (!quests.length) {
+    _csSetTitleBack("quest", null);
+    el.innerHTML =
+      '<div class="cs-empty"><div class="cs-empty-icon">❓</div><div class="cs-empty-text">No quests yet</div></div>';
+    return;
+  }
+  if (!openId) {
+    _csSetTitleBack("quest", null);
+    el.innerHTML = quests
+      .map(
+        (q) => `<article class="cs-user-feed-card" data-open-id="${q.id}">
+      <div class="cs-user-feed-title">${_csEscHtml(q.subject || "Untitled")}${
+        String(q.subject || "")
+          .trim()
+          .endsWith("?")
+          ? ""
+          : "?"
+      }</div>
+      <div class="cs-user-feed-preview">Open to read solution</div>
+      <div class="cs-user-feed-meta">${_csEscHtml(_csDateLabel(q.createdAt) || "")} · ${q.threads?.length || 0} thread${(q.threads?.length || 0) === 1 ? "" : "s"}</div>
+    </article>`,
+      )
+      .join("");
+    el.querySelectorAll("[data-open-id]").forEach((card) => {
+      card.addEventListener("click", () => {
+        _CS_VIEW_OPEN.quest = card.getAttribute("data-open-id");
+        _csRenderQuestView();
+      });
+    });
+    return;
+  }
+  const q = quests.find((x) => x.id === openId);
+  if (!q) {
+    _CS_VIEW_OPEN.quest = null;
+    _csRenderQuestView();
+    return;
+  }
+  _csSetTitleBack("quest", () => {
+    _CS_VIEW_OPEN.quest = null;
+    _csRenderQuestView();
+  });
+  const threads = (q.threads || [])
+    .map(
+      (t) =>
+        `<div class="cs-user-thread-title">${_csEscHtml(t.title || "")}</div><div class="cs-user-thread-text">${_csEscHtml(t.text || "")}</div>`,
+    )
+    .join("");
+  el.innerHTML = `<article class="cs-user-detail-card">
+    <div class="cs-user-detail-title">${_csEscHtml(q.subject || "Untitled")}${
+      String(q.subject || "")
+        .trim()
+        .endsWith("?")
+        ? ""
+        : "?"
+    }</div>
+    ${threads ? `<div class="cs-user-thread-wrap">${threads}</div>` : ""}
+    ${q.keyTakeaway ? `<div class="cs-user-takeaway">${_csEscHtml(q.keyTakeaway)}</div>` : ""}
+  </article>`;
+}
+
+function _csRenderStoriesView() {
+  const el = document.getElementById("cs-stories-view-list");
+  if (!el) return;
+  const stories = _csSortNewest(
+    DataStore.getAll("stories").filter((s) => !s.draft),
+  );
+  const openId = _CS_VIEW_OPEN.stories;
+  if (!stories.length) {
+    _csSetTitleBack("stories", null);
+    el.innerHTML =
+      '<div class="cs-empty"><div class="cs-empty-icon">📖</div><div class="cs-empty-text">No stories yet</div></div>';
+    return;
+  }
+  if (!openId) {
+    _csSetTitleBack("stories", null);
+    el.innerHTML = stories
+      .map(
+        (s) => `<article class="cs-user-feed-card" data-open-id="${s.id}">
+      <div class="cs-user-feed-title">${_csEscHtml(s.subject || s.title || "Untitled")}</div>
+      <div class="cs-user-feed-preview">${_csEscHtml(_csShortText(s.body || s.content || ""))}</div>
+      <div class="cs-user-feed-meta">${_csEscHtml(_csDateLabel(s.createdAt) || "")} · ${_csEscHtml(s.label || "Story")}</div>
+    </article>`,
+      )
+      .join("");
+    el.querySelectorAll("[data-open-id]").forEach((card) => {
+      card.addEventListener("click", () => {
+        _CS_VIEW_OPEN.stories = card.getAttribute("data-open-id");
+        _csRenderStoriesView();
+      });
+    });
+    return;
+  }
+  const s = stories.find((x) => x.id === openId);
+  if (!s) {
+    _CS_VIEW_OPEN.stories = null;
+    _csRenderStoriesView();
+    return;
+  }
+  _csSetTitleBack("stories", () => {
+    _CS_VIEW_OPEN.stories = null;
+    _csRenderStoriesView();
+  });
+  const paras = (s.paragraphs || []).filter(Boolean);
+  const paraHtml = paras
+    .map((p) => `<div class="cs-user-story-para">${_csEscHtml(p)}</div>`)
+    .join("");
+  const takes = (s.takeaways || []).filter(Boolean);
+  const takeHtml = takes
+    .map((t) => `<div class="cs-user-take-chip">${_csEscHtml(t)}</div>`)
+    .join("");
+  el.innerHTML = `<article class="cs-user-detail-card">
+    <div class="cs-user-detail-title">${_csEscHtml(s.subject || s.title || "Untitled")}</div>
+    <div class="cs-user-detail-body">${_csEscHtml(s.body || s.content || "")}</div>
+    ${paraHtml ? `<div class="cs-user-story-wrap">${paraHtml}</div>` : ""}
+    ${takeHtml ? `<div class="cs-user-take-wrap">${takeHtml}</div>` : ""}
+  </article>`;
+}
+
+function _csRenderUpdatesView() {
+  const el = document.getElementById("cs-updates-view-list");
+  if (!el) return;
+  const updates = _csSortNewest(
+    DataStore.getAll("recommends").filter((u) => !u.draft),
+  );
+  const openId = _CS_VIEW_OPEN.updates;
+  if (!updates.length) {
+    _csSetTitleBack("updates", null);
+    el.innerHTML =
+      '<div class="cs-empty"><div class="cs-empty-icon">🔄</div><div class="cs-empty-text">No updates yet</div></div>';
+    return;
+  }
+  if (!openId) {
+    _csSetTitleBack("updates", null);
+    el.innerHTML = updates
+      .map((u) => {
+        const items = (u.items || u.contents || []).filter(Boolean);
+        const preview = items.length ? items[0] : u.content || "";
+        return `<article class="cs-user-feed-card" data-open-id="${u.id}">
+      <div class="cs-user-feed-title">${_csEscHtml(u.subject || u.title || "Untitled")}</div>
+      <div class="cs-user-feed-preview">${_csEscHtml(_csShortText(preview))}</div>
+      <div class="cs-user-feed-meta">${_csEscHtml(_csDateLabel(u.createdAt) || "")}</div>
+    </article>`;
+      })
+      .join("");
+    el.querySelectorAll("[data-open-id]").forEach((card) => {
+      card.addEventListener("click", () => {
+        _CS_VIEW_OPEN.updates = card.getAttribute("data-open-id");
+        _csRenderUpdatesView();
+      });
+    });
+    return;
+  }
+  const u = updates.find((x) => x.id === openId);
+  if (!u) {
+    _CS_VIEW_OPEN.updates = null;
+    _csRenderUpdatesView();
+    return;
+  }
+  _csSetTitleBack("updates", () => {
+    _CS_VIEW_OPEN.updates = null;
+    _csRenderUpdatesView();
+  });
+  const items = (u.items || u.contents || []).filter(Boolean);
+  const itemsHtml = items
+    .map((it) => `<div class="cs-user-update-item">${_csEscHtml(it)}</div>`)
+    .join("");
+  el.innerHTML = `<article class="cs-user-detail-card">
+    <div class="cs-user-detail-title">${_csEscHtml(u.subject || u.title || "Untitled")}</div>
+    ${itemsHtml ? `<div class="cs-user-update-wrap">${itemsHtml}</div>` : `<div class="cs-user-detail-body">${_csEscHtml(u.content || "")}</div>`}
+    ${u.ctaLabel ? `<a class="cs-user-cta-btn" href="${_csEscHtml(u.ctaUrl || "#")}" target="_blank" rel="noopener noreferrer">${_csEscHtml(u.ctaLabel)}</a>` : ""}
+  </article>`;
+}
+
+function _csRenderPollView() {
+  const el = document.getElementById("cs-poll-view-list");
+  if (!el) return;
+  const polls = _csSortNewest(
+    DataStore.getAll("polls").filter((p) => !p.draft),
+  );
+  _csSetTitleBack("poll", null);
+  if (!polls.length) {
+    el.innerHTML =
+      '<div class="cs-empty"><div class="cs-empty-icon">📊</div><div class="cs-empty-text">No polls yet</div></div>';
+    return;
+  }
+  el.innerHTML = polls
+    .map((p) => {
+      const total =
+        p.totalVotes ||
+        (p.options || []).reduce((s, o) => s + (o.votes || 0), 0);
+      const options = (p.options || [])
+        .slice(0, 3)
+        .map((o) => {
+          const pct =
+            total > 0 ? Math.round(((o.votes || 0) / total) * 100) : 0;
+          return `<div class="cs-user-poll-opt"><span>${_csEscHtml(o.text || "")}</span><span>${pct}%</span></div>`;
+        })
+        .join("");
+      return `<article class="cs-user-feed-card cs-user-poll-card">
+        <div class="cs-user-feed-title">${_csEscHtml(p.subject || p.question || "Untitled")}</div>
+        <div class="cs-user-poll-wrap">${options}</div>
+        <div class="cs-user-feed-meta">${total} vote${total === 1 ? "" : "s"}</div>
+      </article>`;
+    })
+    .join("");
+}
+
+function _csRenderNotificationsView() {
+  const el = document.getElementById("cs-notifications-view-list");
+  if (!el) return;
+  const notis = _csSortNewest(
+    DataStore.getAll("notifications").filter((n) => !n.draft),
+  );
+  _csSetTitleBack("notifications", null);
+  if (!notis.length) {
+    el.innerHTML =
+      '<div class="cs-empty"><div class="cs-empty-icon">🔔</div><div class="cs-empty-text">No notifications yet</div></div>';
+    return;
+  }
+  el.innerHTML = notis
+    .map(
+      (n) => `<article class="cs-user-noti-card" data-toggle-id="${n.id}">
+      <div class="cs-user-noti-top">
+        <div class="cs-user-noti-title">${_csEscHtml(n.title || "Untitled")}</div>
+        <div class="cs-user-noti-time">${_csEscHtml(_csDateLabel(n.createdAt) || "")}</div>
+      </div>
+      <div class="cs-user-noti-body">${_csEscHtml(n.content || n.body || "")}</div>
+    </article>`,
+    )
+    .join("");
+  el.querySelectorAll("[data-toggle-id]").forEach((card) => {
+    card.addEventListener("click", () => {
+      card.classList.toggle("open");
+    });
+  });
+}
+
+function _csRenderUserSitePreview(containerId, section) {
+  if (section === "feed") {
+    _csRenderFeedView();
+    return;
+  }
+  if (section === "quest") {
+    _csRenderQuestView();
+    return;
+  }
+  if (section === "stories") {
+    _csRenderStoriesView();
+    return;
+  }
+  if (section === "updates") {
+    _csRenderUpdatesView();
+    return;
+  }
+  if (section === "poll") {
+    _csRenderPollView();
+    return;
+  }
+  if (section === "notifications") {
+    _csRenderNotificationsView();
+    return;
+  }
+  _csRenderViewList(containerId, [], { icon: "📄" });
 }
 
 // ── Tab routing ───────────────────────────────────────
