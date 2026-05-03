@@ -43,7 +43,7 @@
       )
       border-box;
   border: 0.5px solid transparent;
-  border-radius: 10px;
+  border-radius: 4px;
   padding: 12px 10px;
   backdrop-filter: blur(7px);
 }
@@ -72,7 +72,7 @@
   grid-template-columns: 1fr;
   gap: 8px;
   padding: 12px;
-  border-radius: 12px;
+  border-radius: 4px;
   background: rgba(8, 13, 37, 0.62);
   border: 0.5px solid rgba(107, 158, 255, 0.14);
 }
@@ -136,7 +136,7 @@
     linear-gradient(145deg, rgba(107, 158, 255, 0.2), rgba(248, 246, 255, 0.08))
       border-box;
   border: 0.5px solid transparent;
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 14px 12px;
   display: flex;
   flex-direction: column;
@@ -174,7 +174,7 @@
   gap: 12px;
   background: rgba(10, 16, 45, 0.64);
   border: 0.5px solid rgba(107, 158, 255, 0.12);
-  border-radius: 10px;
+  border-radius: 4px;
   padding: 12px 14px;
 }
 

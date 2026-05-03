@@ -32,7 +32,7 @@
 .post-list-card {
   background: rgba(10, 16, 45, 0.8);
   border: 0.5px solid rgba(107, 158, 255, 0.1);
-  border-radius: 8px;
+  border-radius: 2px;
   overflow: hidden;
   cursor: pointer;
   transition: border-color 0.2s;
@@ -133,7 +133,7 @@
 .thread-item {
   background: rgba(5, 9, 28, 0.9);
   border: 0.5px solid rgba(107, 158, 255, 0.12);
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 14px;
   position: relative;
 }
@@ -192,7 +192,7 @@
 .add-thread-btn {
   background: rgba(5, 9, 28, 0.6);
   border: 0.5px dashed rgba(107, 158, 255, 0.2);
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 14px;
   color: rgba(107, 158, 255, 0.5);
   font-size: 13px;
@@ -218,7 +218,7 @@
 .color-swatch {
   width: 32px;
   height: 32px;
-  border-radius: 6px;
+  border-radius: 2px;
   border: 2px solid transparent;
   cursor: pointer;
   transition: border-color 0.2s, transform 0.15s;

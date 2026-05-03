@@ -82,6 +82,18 @@ function _csRenderList(containerId, items, opts = {}) {
         );
     });
   });
+
+  // Toggle board behavior: actions are revealed only after tapping a card.
+  el.querySelectorAll(".cs-card").forEach((card) => {
+    if (!card.querySelector(".cs-card-expand")) return;
+    card.addEventListener("click", () => {
+      const wasOpen = card.classList.contains("open");
+      el.querySelectorAll(".cs-card.open").forEach((c) =>
+        c.classList.remove("open"),
+      );
+      if (!wasOpen) card.classList.add("open");
+    });
+  });
 }
 
 function _csRenderViewList(containerId, items, opts = {}) {
@@ -105,6 +117,73 @@ function _csRenderViewList(containerId, items, opts = {}) {
   </div>`,
     )
     .join("");
+}
+
+function _csNavigatePreviewFrame(frame, section, tries = 0) {
+  const doc = frame.contentDocument;
+  if (!doc) return;
+
+  const click = (sel) => {
+    const node = doc.querySelector(sel);
+    if (!node) return false;
+    node.click();
+    return true;
+  };
+
+  if (section === "feed") {
+    if (!click('.nav-item[data-nav="feed"]') && tries < 25) {
+      setTimeout(() => _csNavigatePreviewFrame(frame, section, tries + 1), 140);
+    }
+    return;
+  }
+
+  if (section === "quest") {
+    if (!click('.nav-item[data-nav="Quest"]') && tries < 25) {
+      setTimeout(() => _csNavigatePreviewFrame(frame, section, tries + 1), 140);
+    }
+    return;
+  }
+
+  if (section === "notifications") {
+    if (
+      !click("#header-noti-btn") &&
+      !click('.nav-item[data-nav="Notif"]') &&
+      tries < 25
+    ) {
+      setTimeout(() => _csNavigatePreviewFrame(frame, section, tries + 1), 140);
+    }
+    return;
+  }
+
+  if (section === "stories" || section === "updates" || section === "poll") {
+    const tabMap = {
+      stories: "stories",
+      updates: "recommends",
+      poll: "polls",
+    };
+    click('.nav-item[data-nav="Block"]');
+    const tabSel = `.block-tab[data-tab="${tabMap[section]}"]`;
+    const tab = doc.querySelector(tabSel);
+    if (!tab && tries < 25) {
+      setTimeout(() => _csNavigatePreviewFrame(frame, section, tries + 1), 160);
+      return;
+    }
+    if (tab) tab.click();
+  }
+}
+
+function _csRenderUserSitePreview(containerId, section) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = `
+    <div class="cs-user-preview-wrap">
+      <iframe class="cs-user-preview-frame" src="../index.html" title="User ${section} preview"></iframe>
+    </div>`;
+  const frame = el.querySelector(".cs-user-preview-frame");
+  if (!frame) return;
+  frame.addEventListener("load", () => {
+    setTimeout(() => _csNavigatePreviewFrame(frame, section), 220);
+  });
 }
 
 // ── Tab routing ───────────────────────────────────────
@@ -278,11 +357,7 @@ function _csFeedSave(isDraft) {
 
 function _csFeedRefresh(tab) {
   if (tab === "view") {
-    _csRenderViewList(
-      "cs-feed-view-list",
-      DataStore.getAll("posts").filter((p) => !p.draft),
-      { icon: "✏️" },
-    );
+    _csRenderUserSitePreview("cs-feed-view-list", "feed");
   } else if (tab === "create") {
     if (!document.getElementById("cs-feed-edit-id").value) _csFeedResetForm();
   } else if (tab === "draft") {
@@ -459,11 +534,7 @@ function _csQuestSave(isDraft) {
 
 function _csQuestRefresh(tab) {
   if (tab === "view") {
-    _csRenderViewList(
-      "cs-quest-view-list",
-      DataStore.getAll("quests").filter((q) => !q.draft),
-      { icon: "❓" },
-    );
+    _csRenderUserSitePreview("cs-quest-view-list", "quest");
   } else if (tab === "create") {
     if (!document.getElementById("cs-quest-edit-id").value) _csQuestResetForm();
   } else if (tab === "draft") {
@@ -609,11 +680,7 @@ function _csStoriesSave(isDraft) {
 
 function _csStoriesRefresh(tab) {
   if (tab === "view") {
-    _csRenderViewList(
-      "cs-stories-view-list",
-      DataStore.getAll("stories").filter((s) => !s.draft),
-      { icon: "📖" },
-    );
+    _csRenderUserSitePreview("cs-stories-view-list", "stories");
   } else if (tab === "create") {
     if (!document.getElementById("cs-stories-edit-id").value)
       _csStoriesResetForm();
@@ -745,11 +812,7 @@ function _csUpdatesSave(isDraft) {
 
 function _csUpdatesRefresh(tab) {
   if (tab === "view") {
-    _csRenderViewList(
-      "cs-updates-view-list",
-      DataStore.getAll("recommends").filter((r) => !r.draft),
-      { icon: "🔄" },
-    );
+    _csRenderUserSitePreview("cs-updates-view-list", "updates");
   } else if (tab === "create") {
     if (!document.getElementById("cs-updates-edit-id").value)
       _csUpdatesResetForm();
@@ -913,22 +976,7 @@ function _csPollSave(isDraft) {
 
 function _csPollRefresh(tab) {
   if (tab === "view") {
-    const polls = DataStore.getAll("polls").filter((p) => !p.draft);
-    const el = document.getElementById("cs-poll-view-list");
-    if (!el) return;
-    if (!polls.length) {
-      el.innerHTML =
-        '<div class="cs-empty"><div class="cs-empty-icon">📊</div><div class="cs-empty-text">No polls yet</div></div>';
-      return;
-    }
-    el.innerHTML = polls
-      .map(
-        (p) => `<div class="cs-view-card">
-      <div class="cs-view-card-header"><div class="cs-view-card-title">${p.question || "Untitled"}</div><div class="cs-view-card-time">${_csDateLabel(p.createdAt)}</div></div>
-      <div class="cs-view-card-body">${(p.answers || [p.optionA, p.optionB, p.optionC]).filter(Boolean).join(" · ")}</div>
-    </div>`,
-      )
-      .join("");
+    _csRenderUserSitePreview("cs-poll-view-list", "poll");
   } else if (tab === "create") {
     if (!document.getElementById("cs-poll-edit-id").value) _csPollResetForm();
   } else if (tab === "draft") {
@@ -1047,11 +1095,7 @@ function _csNotiSave(isDraft) {
 
 function _csNotiRefresh(tab) {
   if (tab === "view") {
-    _csRenderViewList(
-      "cs-notifications-view-list",
-      DataStore.getAll("notifications").filter((n) => !n.draft),
-      { icon: "🔔" },
-    );
+    _csRenderUserSitePreview("cs-notifications-view-list", "notifications");
   } else if (tab === "create") {
     if (!document.getElementById("cs-noti-edit-id").value) _csNotiResetForm();
   } else if (tab === "draft") {
