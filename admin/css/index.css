@@ -241,7 +241,7 @@ body {
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  background: var(--gradient-bg-global);
+  background: linear-gradient(145deg, #06091e 0%, #0d1535 55%, #080d28 100%);
 }
 
 /* -- Footer Nav ------------------------------------- */
