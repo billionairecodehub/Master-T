@@ -2,7 +2,8 @@
 .dashboard-page {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
+  padding: 0 !important;
 }
 
 .dashboard-page .admin-stat-row {
@@ -14,6 +15,7 @@
   display: flex;
   flex-direction: column;
   padding: 0;
+  min-height: 100%;
 }
 
 .admin-home-block-1 {
@@ -254,6 +256,7 @@
   font-size: 10px;
   color: rgba(248, 246, 255, 0.75);
   letter-spacing: 0.2px;
+  font-family: "Gellix", sans-serif;
 }
 
 .content-section-tabs {
