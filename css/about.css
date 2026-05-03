@@ -188,3 +188,49 @@
   line-height: 1.75;
   letter-spacing: var(--letter-spacing-loose);
 }
+
+/* ── Responsive — Tablet (768px+) ── */
+@media (min-width: 768px) {
+  .about-page {
+    padding: 10px 32px;
+  }
+
+  .app-hero {
+    padding: 48px 40px 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .app-hero-main {
+    font-size: 120px;
+    letter-spacing: -10px;
+  }
+
+  .app-search-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 12px 40px 24px;
+  }
+}
+
+/* ── Responsive — Desktop (1024px+) ── */
+@media (min-width: 1024px) {
+  .about-page {
+    padding: 10px 48px;
+  }
+
+  .app-hero {
+    max-width: 1000px;
+    padding: 56px 48px 28px;
+  }
+
+  .app-hero-main {
+    font-size: 144px;
+    letter-spacing: -12px;
+  }
+
+  .app-search-wrap {
+    max-width: 1000px;
+    padding: 12px 48px 24px;
+  }
+}

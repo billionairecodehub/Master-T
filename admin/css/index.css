@@ -670,39 +670,145 @@ body {
   font-size: 14px;
 }
 
-/* -- Tablet & Desktop redirect ---------------------- */
+/* ── Tablet (768px+) ── */
 @media (min-width: 768px) {
-  .admin-layout,
-  .admin-login {
-    display: none;
-  }
-
+  /* Show the admin app on all sizes — no redirect */
   .redirect-page {
-    display: flex;
+    display: none !important;
+  }
+
+  /* Login: cap width and center */
+  .admin-login {
+    padding: 0 80px 72px;
+  }
+
+  .login-brand {
+    margin-bottom: 56px;
+  }
+
+  .login-form {
+    max-width: 400px;
+    align-self: center;
     width: 100%;
+  }
+
+  /* Slightly more spacious admin page */
+  .admin-page {
+    padding: 24px 36px;
+  }
+
+  .admin-stat-row {
+    gap: 14px;
+  }
+
+  .admin-stat-number {
+    font-size: 24px;
+  }
+}
+
+/* ── Desktop (1024px+) ── */
+@media (min-width: 1024px) {
+  /* Move footer nav to left sidebar */
+  .admin-footer {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 200px;
     height: 100vh;
-    background-color: #0a0a0a;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .redirect-container {
-    display: flex;
+    height: 100dvh;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-top: none;
+    border-right: 0.5px solid rgba(107, 158, 255, 0.1);
+    border-bottom: none;
+    padding: 60px 0 24px;
+    background: rgba(10, 14, 39, 0.98);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 20;
+  }
+
+  .admin-footer-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 2px;
+    padding: 0;
+    width: 100%;
+  }
+
+  .admin-nav-item {
+    width: 100%;
+    flex-direction: row;
+    gap: 14px;
+    padding: 13px 20px;
+    justify-content: flex-start;
+  }
+
+  .admin-nav-icon {
+    font-size: 18px;
+    display: flex;
     align-items: center;
-    text-align: center;
-    color: #fff;
   }
 
-  .redirect-title {
-    font-size: 48px;
-    font-weight: 700;
-    margin-bottom: 12px;
+  .admin-nav-img {
+    width: 18px;
+    height: 18px;
   }
 
-  .redirect-text {
-    font-size: 16px;
-    color: #666;
+  .admin-nav-label {
+    font-size: 12px;
+    letter-spacing: 0;
+  }
+
+  /* Push admin layout content to the right of the sidebar */
+  .admin-layout {
+    padding-left: 200px;
+  }
+
+  /* Header full width within padded area */
+  .admin-header {
+    padding: 14px 36px;
+  }
+
+  .admin-header-logo {
+    width: 24px;
+    height: 24px;
+  }
+
+  .admin-header-name {
+    font-size: 9px;
+    letter-spacing: 5px;
+  }
+
+  /* Content pages get more breathing room */
+  .admin-page {
+    padding: 28px 48px;
+  }
+
+  /* Stat row adapts to wider canvas */
+  .admin-stat-row {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  /* Login screen centers with max-width */
+  .admin-login {
+    padding: 0 0 72px;
+    justify-content: center;
+    gap: 60px;
+  }
+
+  .login-form {
+    max-width: 380px;
+    width: 100%;
+    align-self: center;
+  }
+
+  /* FAB no longer needs to clear the bottom nav bar */
+  .admin-fab {
+    bottom: 40px;
   }
 }

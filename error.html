@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Master Togan | Error</title>
+    <link rel="stylesheet" href="font.css" />
+    <link rel="stylesheet" href="css/error.css" />
+  </head>
+  <body>
+    <main class="error-page">
+      <section class="error-wrap" aria-label="Unified Error View">
+        <header class="error-head">
+          <h1 class="error-title">Looks like something went wrong!</h1>
+          <p class="error-label" id="error-label">Page Not Found</p>
+        </header>
+
+        <section class="result-region" aria-live="polite">
+          <button class="result-tab" id="result-tab" type="button" hidden>
+            <img
+              class="result-icon"
+              src="https://i.postimg.cc/261CZPjm/Mt-Admin-Bar-Icon-Quest.png"
+              alt="Result Icon"
+            />
+            <span class="result-name" id="result-name">Quest</span>
+          </button>
+        </section>
+
+        <section class="search-card" aria-label="Search page">
+          <label class="search-field" for="error-search-input">
+            <img
+              class="search-icon"
+              src="https://i.postimg.cc/3RSGM7KX/Mtogan-search-Icon.png"
+              alt="Search"
+            />
+            <input
+              id="error-search-input"
+              type="search"
+              placeholder="Search for page"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </label>
+        </section>
+
+        <button class="home-tab" id="home-tab" type="button">
+          <img
+            class="home-icon"
+            src="https://i.postimg.cc/j58dnVkD/Mtogan-header-pro-Icon.png"
+            alt="Master's Hut"
+          />
+          <span class="home-text">MASTER'S HUT</span>
+        </button>
+
+        <p class="fallback-msg" id="fallback-msg">Click Tab to Go Back Home</p>
+      </section>
+    </main>
+
+    <script src="js/error.js"></script>
+  </body>
+</html>

@@ -612,60 +612,119 @@ body {
   object-fit: contain;
 }
 
-/* Tablet & Desktop */
+/* ── Tablet (768px+) ── */
 @media (min-width: 768px) {
-  .mobile-layout {
-    display: none;
-  }
-
+  /* Show the app — no more redirect */
   .redirect-page {
-    display: flex;
-    width: 100%;
+    display: none !important;
+  }
+
+  .header-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .footer-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .header-menu-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .header-profile img {
+    width: 26px;
+    height: 26px;
+  }
+
+  .header-title {
+    font-size: 8px;
+  }
+
+  .nav-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .nav-label {
+    font-size: 8px;
+  }
+}
+
+/* ── Desktop (1024px+) ── */
+@media (min-width: 1024px) {
+  /* Sidebar navigation — footer moves to left rail */
+  .footer {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 220px;
     height: 100vh;
-    background-color: #0a0a0a;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .redirect-container {
-    display: flex;
+    height: 100dvh;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-top: none;
+    border-right: 0.5px solid rgba(107, 158, 255, 0.15);
+    border-bottom: none;
+    padding: 80px 0 24px;
+    z-index: 5;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
-  .redirect-title {
-    font-size: 128px;
-    color: #555;
-    font-weight: 600;
-    letter-spacing: -15px;
-  }
-
-  .redirect-img {
-    width: 280px;
-    height: auto;
-  }
-
-  .redirect-text {
-    display: flex;
+  .footer-wrapper {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 2px;
+    padding: 0;
+    max-width: none;
+    margin: 0;
+    width: 100%;
   }
 
-  .redirect-subtext {
-    color: #999;
-    font-size: 15px;
-    font-weight: 400;
-    margin-bottom: 20px;
+  .nav-item {
+    width: 100%;
+    flex-direction: row;
+    gap: 14px;
+    padding: 13px 24px;
+    justify-content: flex-start;
+    border-radius: 0;
   }
 
-  .redirect-cta {
-    color: #d4a574;
-    text-decoration: underline;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 15px;
-    letter-spacing: -0.7px;
+  .nav-icon {
+    width: 18px;
+    height: 18px;
+    opacity: 0.5;
+  }
+
+  .nav-item.active .nav-icon {
+    opacity: 1;
+  }
+
+  .nav-label {
+    font-size: 13px;
+    letter-spacing: -0.3px;
+  }
+
+  /* Push all content to the right of the sidebar */
+  .mobile-layout {
+    padding-left: 220px;
+  }
+
+  .header-wrapper {
+    max-width: none;
+    padding: 0 40px;
+    margin: 0;
+  }
+
+  .header-title {
+    font-size: 9px;
+    letter-spacing: 5px;
   }
 }

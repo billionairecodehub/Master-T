@@ -1233,3 +1233,31 @@
 .panel-cta:active {
   opacity: 0.7;
 }
+
+/* ── Responsive — Tablet (768px+) ── */
+@media (min-width: 768px) {
+  /* Notification panel */
+  .noti-panel {
+    max-width: 600px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  /* Store overlay */
+  .store-overlay {
+    max-width: 600px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+/* ── Responsive — Desktop (1024px+) ── */
+@media (min-width: 1024px) {
+  .noti-panel {
+    max-width: 560px;
+  }
+
+  .store-overlay {
+    max-width: 560px;
+  }
+}

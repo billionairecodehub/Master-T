@@ -69,6 +69,69 @@ function showPage(page) {
   if (main) main.scrollTop = 0;
 }
 
+function _setActiveNav(navType) {
+  navItems.forEach((n) => n.classList.remove("active"));
+  const target = document.querySelector(`.nav-item[data-nav="${navType}"]`);
+  if (target) target.classList.add("active");
+}
+
+function _openPageByQueryParam() {
+  const params = new URLSearchParams(window.location.search);
+  const requested = (params.get("page") || "").trim().toLowerCase();
+  if (!requested) return false;
+
+  if (requested === "home") {
+    showPage(homePage);
+    _setActiveNav("home");
+    return true;
+  }
+
+  if (requested === "feed" && feedPage) {
+    showPage(feedPage);
+    _setActiveNav("feed");
+    if (typeof markFeedSeen === "function") markFeedSeen();
+    return true;
+  }
+
+  if (requested === "quest" && questPage) {
+    showPage(questPage);
+    _setActiveNav("Quest");
+    if (typeof markQuestSeen === "function") markQuestSeen();
+    return true;
+  }
+
+  if (requested === "block" && blockPage) {
+    showPage(blockPage);
+    _setActiveNav("Block");
+    if (typeof markBlockSeen === "function") markBlockSeen();
+    return true;
+  }
+
+  if (
+    (requested === "notif" || requested === "notifications") &&
+    notificationsPage
+  ) {
+    showPage(notificationsPage);
+    if (typeof markNotiSeen === "function") markNotiSeen();
+    return true;
+  }
+
+  if (requested === "menu") {
+    showPage(menuPage);
+    markStoreSeen();
+    return true;
+  }
+
+  if (requested === "about" && aboutPage) {
+    hideAllPages();
+    aboutPage.style.display = "flex";
+    _setActiveNav("about");
+    return true;
+  }
+
+  return false;
+}
+
 // Event listeners for header buttons
 headerProfile.addEventListener("click", () => {
   showPage(profilePage);
@@ -138,10 +201,13 @@ navItems.forEach((navItem) => {
 });
 
 // Initialize by showing the home page
-showPage(homePage);
-// Set home nav as active by default
-const homeNav = document.querySelector('.nav-item[data-nav="home"]');
-if (homeNav) homeNav.classList.add("active");
+const openedFromQuery = _openPageByQueryParam();
+if (!openedFromQuery) {
+  showPage(homePage);
+  // Set home nav as active by default
+  const homeNav = document.querySelector('.nav-item[data-nav="home"]');
+  if (homeNav) homeNav.classList.add("active");
+}
 
 // ── Real-time global update handler (Firebase SSE → mt:remote-update) ──
 // Also handles cross-tab admin changes via the storage event.

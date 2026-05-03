@@ -1,0 +1,242 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  min-height: 100%;
+  font-family: "Gellix", Arial, sans-serif;
+}
+
+body {
+  background:
+    radial-gradient(
+      circle at 10% 15%,
+      rgba(0, 133, 255, 0.16),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 90% 85%,
+      rgba(110, 56, 255, 0.22),
+      transparent 46%
+    ),
+    linear-gradient(145deg, #02061a 0%, #08133d 54%, #1b0b52 100%);
+  color: #e9f0ff;
+}
+
+.error-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 22px;
+}
+
+.error-wrap {
+  width: 100%;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.error-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.error-title {
+  font-size: clamp(44px, 13vw, 124px);
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: -2px;
+  max-width: 12ch;
+  background: linear-gradient(180deg, #39b8ff 0%, #0075c7 84%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.error-label {
+  font-size: clamp(20px, 3.7vw, 32px);
+  color: rgba(240, 246, 255, 0.92);
+  letter-spacing: -0.5px;
+}
+
+.result-region {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.result-tab {
+  width: min(100%, 320px);
+  border: 1px solid rgba(143, 180, 255, 0.34);
+  border-radius: 24px;
+  background: rgba(4, 10, 34, 0.82);
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.result-tab:active {
+  transform: scale(0.98);
+}
+
+.result-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.result-name {
+  font-size: 38px;
+  line-height: 1;
+  letter-spacing: -1.8px;
+  color: #edf4ff;
+}
+
+.search-card {
+  width: 100%;
+}
+
+.search-field {
+  width: 100%;
+  min-height: 72px;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 24px;
+  background: rgba(2, 7, 29, 0.92);
+  border: 1px solid rgba(143, 180, 255, 0.16);
+}
+
+.search-icon {
+  width: 28px;
+  height: 28px;
+  opacity: 0.64;
+  object-fit: contain;
+}
+
+.search-field input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #f4f8ff;
+  font-size: clamp(20px, 4.2vw, 32px);
+  font-family: inherit;
+  letter-spacing: -0.4px;
+}
+
+.search-field input::placeholder {
+  color: rgba(194, 206, 241, 0.52);
+}
+
+.home-tab {
+  width: 100%;
+  border: none;
+  border-radius: 30px;
+  background: rgba(2, 7, 29, 0.92);
+  border: 1px solid rgba(143, 180, 255, 0.14);
+  min-height: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.home-tab:active {
+  transform: scale(0.99);
+}
+
+.home-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.home-text {
+  font-size: clamp(13px, 2.3vw, 20px);
+  letter-spacing: 6px;
+  color: rgba(248, 252, 255, 0.86);
+}
+
+.fallback-msg {
+  text-align: center;
+  color: rgba(201, 212, 245, 0.58);
+  font-size: clamp(18px, 3.6vw, 28px);
+  letter-spacing: -0.6px;
+}
+
+.not-found .fallback-msg {
+  color: rgba(218, 230, 255, 0.84);
+}
+
+@media (min-width: 768px) {
+  .error-page {
+    padding: 52px 40px;
+  }
+
+  .error-wrap {
+    gap: 26px;
+    max-width: 860px;
+  }
+
+  .result-tab {
+    width: 360px;
+  }
+
+  .search-field {
+    min-height: 76px;
+  }
+
+  .home-tab {
+    min-height: 250px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .error-page {
+    padding: 70px 56px;
+  }
+
+  .error-wrap {
+    max-width: 920px;
+    gap: 30px;
+  }
+
+  .error-title {
+    letter-spacing: -3px;
+  }
+
+  .search-field {
+    min-height: 82px;
+    padding: 0 28px;
+  }
+
+  .result-tab {
+    width: 390px;
+    min-height: 190px;
+  }
+
+  .home-tab {
+    min-height: 280px;
+  }
+}

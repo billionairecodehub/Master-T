@@ -201,3 +201,30 @@
   color: rgba(129, 174, 255, 0.66);
   flex-shrink: 0;
 }
+
+/* ── Responsive — Tablet (768px+) ── */
+@media (min-width: 768px) {
+  .stats-page {
+    padding: 24px 36px;
+  }
+
+  .stats-counters-row {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+}
+
+/* ── Responsive — Desktop (1024px+) ── */
+@media (min-width: 1024px) {
+  .stats-page {
+    padding: 28px 48px;
+  }
+
+  .stats-counters-row {
+    gap: 18px;
+  }
+
+  .stats-distribution-bars {
+    max-width: 800px;
+  }
+}

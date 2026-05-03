@@ -74,3 +74,14 @@
 .settings-row.danger .settings-row-arrow {
   color: rgba(231, 76, 60, 0.3);
 }
+
+/* ── Responsive — Desktop (1024px+) ── */
+@media (min-width: 1024px) {
+  .settings-page {
+    max-width: 600px;
+  }
+
+  .settings-group {
+    border-radius: 10px;
+  }
+}

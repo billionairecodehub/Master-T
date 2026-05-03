@@ -642,3 +642,50 @@
   font-size: 13px;
   padding: 30px 0;
 }
+
+/* ── Responsive — Tablet (768px+) ── */
+@media (min-width: 768px) {
+  .admin-home-block-1 {
+    padding: 32px 36px 36px;
+  }
+
+  .admin-home-block-1-name {
+    font-size: clamp(72px, 14vw, 120px);
+  }
+
+  .admin-home-boards-stack {
+    max-width: 600px;
+    align-self: center;
+    width: 100%;
+  }
+}
+
+/* ── Responsive — Desktop (1024px+) ── */
+@media (min-width: 1024px) {
+  .admin-home-block-1 {
+    padding: 40px 48px 44px;
+  }
+
+  .admin-home-block-1-name {
+    font-size: clamp(80px, 10vw, 140px);
+    letter-spacing: -10px;
+  }
+
+  .admin-home-boards-stack {
+    max-width: 720px;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .admin-home-quick-board,
+  .admin-home-notification-board {
+    flex: 1;
+    min-width: 260px;
+  }
+
+  .admin-home-content-board {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}

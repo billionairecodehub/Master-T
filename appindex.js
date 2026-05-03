@@ -1,8 +1,45 @@
 // appindex.js — Loads all HTML partials into <main>, then loads page scripts
 
+function _getErrorCodeFromStatus(status) {
+  if (status === 404) return 404;
+  if (status === 503 || status === 504) return status;
+  if (status >= 500) return 500;
+  return 500;
+}
+
+function _buildErrorUrl(code) {
+  const safeCode = Number.isFinite(code) ? String(code) : "500";
+  return `error.html?code=${encodeURIComponent(safeCode)}`;
+}
+
+function _redirectToError(code) {
+  const target = _buildErrorUrl(code);
+  window.location.replace(target);
+}
+
 async function loadPage(url) {
-  const response = await fetch(url);
-  return response.text();
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 12000);
+
+  try {
+    const response = await fetch(url, { signal: controller.signal });
+    if (!response.ok) {
+      const statusCode = _getErrorCodeFromStatus(response.status);
+      const err = new Error(`Failed to load ${url} (${response.status})`);
+      err.code = statusCode;
+      throw err;
+    }
+    return response.text();
+  } catch (error) {
+    if (error && error.name === "AbortError") {
+      const timeoutError = new Error(`Request timed out for ${url}`);
+      timeoutError.code = 504;
+      throw timeoutError;
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 async function boot() {
@@ -67,4 +104,18 @@ async function boot() {
   DataStore.startSync();
 }
 
-boot();
+boot().catch((error) => {
+  // Single fallback target for all runtime/bootstrap failures.
+  if (!navigator.onLine) {
+    _redirectToError(0);
+    return;
+  }
+
+  const code = Number(error && error.code);
+  if (code === 404 || code === 500 || code === 503 || code === 504) {
+    _redirectToError(code);
+    return;
+  }
+
+  _redirectToError(500);
+});

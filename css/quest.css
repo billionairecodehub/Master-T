@@ -283,3 +283,37 @@ button {
 .quest-thumb.voted .quest-thumb-count {
   color: #fff;
 }
+
+/* ── Responsive — Tablet (768px+) ── */
+@media (min-width: 768px) {
+  .quest-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .quest-header {
+    max-width: 900px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+  }
+
+  .quest-list {
+    padding: 16px 32px;
+  }
+}
+
+/* ── Responsive — Desktop (1024px+) ── */
+@media (min-width: 1024px) {
+  .quest-wrapper {
+    max-width: 860px;
+  }
+
+  .quest-header {
+    max-width: 860px;
+  }
+
+  .quest-list {
+    padding: 16px 48px;
+  }
+}

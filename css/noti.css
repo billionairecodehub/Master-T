@@ -319,3 +319,29 @@
   font-size: 11px;
   padding: 12px 0 4px;
 }
+
+/* ── Responsive — Tablet (768px+) ── */
+@media (min-width: 768px) {
+  .notifications-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 32px;
+  }
+
+  .noti-hero-title {
+    font-size: 80px;
+  }
+}
+
+/* ── Responsive — Desktop (1024px+) ── */
+@media (min-width: 1024px) {
+  .notifications-wrapper {
+    max-width: 860px;
+    padding: 48px 48px;
+  }
+
+  .noti-hero-title {
+    font-size: 96px;
+    letter-spacing: -9px;
+  }
+}

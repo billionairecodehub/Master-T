@@ -1061,3 +1061,33 @@
   font-size: 14px;
   color: rgba(255, 255, 255, 0.2);
 }
+
+/* ── Responsive — Tablet (768px+) ── */
+@media (min-width: 768px) {
+  .cs-section {
+    padding: 20px 36px;
+  }
+
+  .cs-user-feed-card,
+  .cs-user-detail-card {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ── Responsive — Desktop (1024px+) ── */
+@media (min-width: 1024px) {
+  .cs-section {
+    padding: 24px 48px;
+  }
+
+  .cs-user-feed-card,
+  .cs-user-detail-card {
+    max-width: 720px;
+  }
+
+  .cs-card {
+    border-radius: 10px;
+  }
+}

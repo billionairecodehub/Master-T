@@ -811,3 +811,20 @@ button {
   height: 28px;
   object-fit: contain;
 }
+
+/* ── Responsive — Tablet (768px+) ── */
+@media (min-width: 768px) {
+  .profile-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px 32px;
+  }
+}
+
+/* ── Responsive — Desktop (1024px+) ── */
+@media (min-width: 1024px) {
+  .profile-page {
+    max-width: 860px;
+    padding: 10px 48px;
+  }
+}

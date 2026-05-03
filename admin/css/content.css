@@ -39,3 +39,14 @@
   color: rgba(107, 158, 255, 0.6);
   font-weight: 600;
 }
+
+/* ── Responsive — Desktop (1024px+) ── */
+@media (min-width: 1024px) {
+  .content-page {
+    padding: 0;
+  }
+
+  .content-grid {
+    gap: 12px;
+  }
+}
