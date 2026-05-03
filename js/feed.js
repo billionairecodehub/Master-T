@@ -3,7 +3,7 @@
 const feedPostIcon = document.querySelector(".feed-icon");
 const FEED_ICON_DEFAULT = feedPostIcon ? feedPostIcon.getAttribute("src") : "";
 const BACK_ICON_SRC = "https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png";
-const LOGO_SRC = "https://i.postimg.cc/xTkDwLCx/image.png";
+const LOGO_SRC = "https://i.postimg.cc/90TCfRmy/image.png";
 
 // ── Feed unread dot ──────────────────────────────────────
 const FEED_SEEN_KEY = "mt_feed_seen";
