@@ -23,7 +23,8 @@
   flex-direction: column;
   justify-content: flex-start;
   padding: 24px 24px 28px;
-  min-height: 540px;
+  /* height: 100vh; */
+  min-height: 634px;
   border-radius: 5px;
   background: linear-gradient(145deg, #06091e 0%, #0d1535 55%, #080d28 100%);
   border: 0.5px solid rgba(107, 158, 255, 0.15);
