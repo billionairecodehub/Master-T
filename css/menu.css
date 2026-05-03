@@ -264,9 +264,9 @@
 
 /* ── Book grid & icons ── */
 .menu-book-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
 }
 
 .menu-book-item {
@@ -274,12 +274,13 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 6px;
+  width: 80px;
   cursor: pointer;
 }
 
 .menu-book-icon {
-  width: 100%;
-  aspect-ratio: 1;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
   border-radius: 4px;
   background: rgba(0, 9, 26, 0.5);
@@ -300,9 +301,9 @@
 }
 
 .menu-circle-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
 }
 
 .menu-circle-item {
@@ -310,12 +311,13 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 6px;
+  width: 80px;
   cursor: pointer;
 }
 
 .menu-circle-icon {
-  width: 100%;
-  aspect-ratio: 1;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
   border-radius: 4px;
   background: rgba(0, 9, 26, 0.5);
