@@ -1,5 +1,21 @@
 // admin/js/message.js — Message page logic
 
+// ── EmailJS Config ────────────────────────────────────
+// 1. Sign up free at https://emailjs.com
+// 2. Create an Email Service (Gmail, Outlook, etc.) → copy Service ID
+// 3. Create an Email Template with these variables:
+//    {{to_name}}, {{to_email}}, {{subject}}, {{reply}}
+//    Set "To Email" field to: {{to_email}}
+// 4. Copy Template ID and Public Key (Account → API Keys)
+const EMAILJS_SERVICE_ID = "service_kvnx2dg"; // e.g. "service_abc123"
+const EMAILJS_TEMPLATE_ID = "template_oieyfu5"; // e.g. "template_xyz789"
+const EMAILJS_PUBLIC_KEY = "uGXNHp4u77kyRTD6O"; // e.g. "aBcDeFgHiJkLmNoP"
+
+// Initialise once
+try {
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+} catch (e) {}
+
 let _msgOpenId = null;
 
 // ── Called by showAdminPage("message") in index.js ───────────────
@@ -164,10 +180,62 @@ document.getElementById("msg-reply-btn").addEventListener("click", async () => {
     return;
   }
   if (!_msgOpenId) return;
+
+  const msg = DataStore.getById("messages", _msgOpenId);
+  if (!msg) return;
+
+  const toEmail = msg.email || "";
+  if (!toEmail) {
+    await window.UMessageModal.error(
+      "This message has no email address to reply to.",
+      "Cannot Send",
+    );
+    return;
+  }
+
   if (!(await window.UMessageModal.confirm("Send this reply?", "Confirmation")))
     return;
 
-  DataStore.update("messages", _msgOpenId, { reply, status: "replied" });
-  await window.UMessageModal.success("Reply sent", "Success");
-  _msgCloseDetail();
+  // Check credentials are configured
+  if (
+    EMAILJS_SERVICE_ID === "YOUR_SERVICE_ID" ||
+    EMAILJS_TEMPLATE_ID === "YOUR_TEMPLATE_ID" ||
+    EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY"
+  ) {
+    await window.UMessageModal.error(
+      "EmailJS is not configured yet. Open admin/js/message.js and fill in your Service ID, Template ID, and Public Key.",
+      "Setup Required",
+    );
+    return;
+  }
+
+  const replyBtn = document.getElementById("msg-reply-btn");
+  if (replyBtn) {
+    replyBtn.disabled = true;
+    replyBtn.textContent = "Sending...";
+  }
+
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      to_name: msg.from || msg.name || "there",
+      to_email: toEmail,
+      subject: msg.title ? `Re: ${msg.title}` : "Re: Your Message",
+      reply: reply,
+    });
+
+    DataStore.update("messages", _msgOpenId, { reply, status: "replied" });
+    await window.UMessageModal.success("Reply sent to " + toEmail, "Sent");
+    _msgCloseDetail();
+  } catch (err) {
+    console.error("EmailJS error:", err);
+    await window.UMessageModal.error(
+      "Failed to send email. Check your EmailJS credentials and template.",
+      "Send Failed",
+    );
+  } finally {
+    if (replyBtn) {
+      replyBtn.disabled = false;
+      replyBtn.textContent = "Reply";
+    }
+  }
 });
