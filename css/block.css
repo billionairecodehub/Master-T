@@ -479,13 +479,13 @@ button {
   border: none;
   border-radius: 5px;
   background: rgba(0, 5, 22, 0.7) !important;
-  color: #fff;
+  color: #ddd;
   font-size: 15px;
   font-weight: 400;
   cursor: pointer;
   font-family: "Gellix", sans-serif;
   text-decoration: none;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.5px;
 }
 
 .block-recommend-cta-faded:active {
@@ -562,13 +562,13 @@ button {
   border: none;
   border-radius: 5px;
   background: rgba(0, 5, 22, 0.7) !important;
-  color: #fff;
+  color: #ddd;
   font-size: 15px;
   font-weight: 400;
   cursor: pointer;
   font-family: "Gellix", sans-serif;
   text-decoration: none;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.5px;
   margin-bottom: 10px;
 }
 
