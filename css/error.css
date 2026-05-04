@@ -4,6 +4,11 @@
   padding: 0;
 }
 
+:root {
+  --error-title-line-height: 0.55;
+  --error-title-letter-spacing: -4.2px;
+}
+
 html,
 body {
   min-height: 100%;
@@ -54,35 +59,39 @@ body {
 }
 
 .error-title {
-  font-size: clamp(44px, 13vw, 124px);
-  font-weight: 700;
-  line-height: 0.88;
-  letter-spacing: -2px;
+  font-size: clamp(72px, 13vw, 124px);
+  font-weight: 600;
+  line-height: var(--error-title-line-height);
+  letter-spacing: var(--error-title-letter-spacing);
+  padding-bottom: 40px;
   max-width: 12ch;
-  background: linear-gradient(180deg, #39b8ff 0%, #0075c7 84%);
+  background: linear-gradient(180deg, #39b8ff 0%, #003b65 84%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-wrap: balance;
 }
 
 .error-label {
-  font-size: clamp(20px, 3.7vw, 32px);
-  color: rgba(240, 246, 255, 0.92);
-  letter-spacing: -0.5px;
+  font-size: clamp(15px, 3.7vw, 24px);
+  background: linear-gradient(160deg, #c8d8ff 0%, #ddeaff 45%, #4a8dff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.9px;
 }
 
 .result-region {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .result-tab {
-  width: min(100%, 320px);
-  border: 1px solid rgba(143, 180, 255, 0.34);
-  border-radius: 24px;
+  border: none;
+  border-radius: 7px;
   background: rgba(4, 10, 34, 0.82);
-  min-height: 170px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,21 +101,27 @@ body {
   transition: transform 0.2s ease;
 }
 
+.result-tab[hidden] {
+  display: none !important;
+}
+
 .result-tab:active {
   transform: scale(0.98);
 }
 
 .result-icon {
-  width: 36px;
-  height: 36px;
+  width: 15px;
+  height: 15px;
   object-fit: contain;
 }
 
 .result-name {
-  font-size: 38px;
+  font-size: 13px;
+  font-weight: 400;
   line-height: 1;
-  letter-spacing: -1.8px;
+  letter-spacing: -0.5px;
   color: #edf4ff;
+  font-family: "Gellix", Arial, sans-serif;
 }
 
 .search-card {
@@ -122,12 +137,11 @@ body {
   gap: 14px;
   padding: 0 24px;
   background: rgba(2, 7, 29, 0.92);
-  border: 1px solid rgba(143, 180, 255, 0.16);
 }
 
 .search-icon {
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   opacity: 0.64;
   object-fit: contain;
 }
@@ -137,8 +151,8 @@ body {
   background: transparent;
   border: none;
   outline: none;
-  color: #f4f8ff;
-  font-size: clamp(20px, 4.2vw, 32px);
+  color: #aaa;
+  font-size: clamp(15px, 2.2vw, 18px);
   font-family: inherit;
   letter-spacing: -0.4px;
 }
@@ -152,7 +166,6 @@ body {
   border: none;
   border-radius: 30px;
   background: rgba(2, 7, 29, 0.92);
-  border: 1px solid rgba(143, 180, 255, 0.14);
   min-height: 230px;
   display: flex;
   align-items: center;
@@ -160,6 +173,7 @@ body {
   gap: 14px;
   cursor: pointer;
   transition: transform 0.2s ease;
+  
 }
 
 .home-tab:active {
@@ -167,21 +181,21 @@ body {
 }
 
 .home-icon {
-  width: 26px;
-  height: 26px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
 }
 
 .home-text {
-  font-size: clamp(13px, 2.3vw, 20px);
-  letter-spacing: 6px;
+  font-size: clamp(7px, 1.7vw, 10px);
+  letter-spacing: 8px;
   color: rgba(248, 252, 255, 0.86);
 }
 
 .fallback-msg {
   text-align: center;
   color: rgba(201, 212, 245, 0.58);
-  font-size: clamp(18px, 3.6vw, 28px);
+  font-size: clamp(10px, 3.6vw, 15px);
   letter-spacing: -0.6px;
 }
 
@@ -190,6 +204,10 @@ body {
 }
 
 @media (min-width: 768px) {
+  :root {
+    --error-title-letter-spacing: -7px;
+  }
+
   .error-page {
     padding: 52px 40px;
   }
@@ -213,6 +231,10 @@ body {
 }
 
 @media (min-width: 1024px) {
+  :root {
+    --error-title-letter-spacing: -10px;
+  }
+
   .error-page {
     padding: 70px 56px;
   }
@@ -220,10 +242,6 @@ body {
   .error-wrap {
     max-width: 920px;
     gap: 30px;
-  }
-
-  .error-title {
-    letter-spacing: -3px;
   }
 
   .search-field {
