@@ -118,42 +118,55 @@ document
   });
 
 // Save quest
-document.getElementById("save-quest-btn").addEventListener("click", () => {
-  const id = document.getElementById("quest-edit-id").value;
-  let subject = questToTitleCase(
-    document.getElementById("quest-subject").value.trim(),
-  );
+document
+  .getElementById("save-quest-btn")
+  .addEventListener("click", async () => {
+    const id = document.getElementById("quest-edit-id").value;
+    let subject = questToTitleCase(
+      document.getElementById("quest-subject").value.trim(),
+    );
 
-  // Auto append question mark
-  if (subject && !subject.endsWith("?")) subject += "?";
+    // Auto append question mark
+    if (subject && !subject.endsWith("?")) subject += "?";
 
-  const data = {
-    subject: subject,
-    author: document.getElementById("quest-author").value.trim(),
-    threads: [...questThreads],
-  };
+    const data = {
+      subject: subject,
+      author: document.getElementById("quest-author").value.trim(),
+      threads: [...questThreads],
+    };
 
-  if (!data.subject) return alert("Subject is required");
+    if (!data.subject) {
+      await window.UMessageModal.error("Subject is required", "Validation");
+      return;
+    }
 
-  if (id) {
-    DataStore.update("quests", id, data);
-  } else {
-    DataStore.add("quests", data);
-  }
+    if (id) {
+      DataStore.update("quests", id, data);
+    } else {
+      DataStore.add("quests", data);
+    }
 
-  document.getElementById("modal-quest").classList.remove("open");
-  refreshQuests();
-});
+    document.getElementById("modal-quest").classList.remove("open");
+    refreshQuests();
+  });
 
 // Delete quest
-document.getElementById("delete-quest-btn").addEventListener("click", () => {
-  const id = document.getElementById("quest-edit-id").value;
-  if (!id) return;
-  if (!confirm("Delete this quest?")) return;
-  DataStore.remove("quests", id);
-  document.getElementById("modal-quest").classList.remove("open");
-  refreshQuests();
-});
+document
+  .getElementById("delete-quest-btn")
+  .addEventListener("click", async () => {
+    const id = document.getElementById("quest-edit-id").value;
+    if (!id) return;
+    if (
+      !(await window.UMessageModal.confirm(
+        "Delete this quest?",
+        "Confirm Delete",
+      ))
+    )
+      return;
+    DataStore.remove("quests", id);
+    document.getElementById("modal-quest").classList.remove("open");
+    refreshQuests();
+  });
 
 // Close modal
 document.getElementById("modal-quest-close").addEventListener("click", () => {

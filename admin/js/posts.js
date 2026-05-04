@@ -120,7 +120,7 @@ function toTitleCase(str) {
 }
 
 // Save
-document.getElementById("save-post-btn").addEventListener("click", () => {
+document.getElementById("save-post-btn").addEventListener("click", async () => {
   const id = document.getElementById("post-edit-id").value;
   const data = {
     subject: toTitleCase(document.getElementById("post-subject").value.trim()),
@@ -132,7 +132,10 @@ document.getElementById("save-post-btn").addEventListener("click", () => {
     threads: [...postThreads],
   };
 
-  if (!data.subject) return alert("Subject is required");
+  if (!data.subject) {
+    await window.UMessageModal.error("Subject is required", "Validation");
+    return;
+  }
 
   console.log("[POSTS] Saving post...", { id, data });
 
@@ -153,14 +156,22 @@ document.getElementById("save-post-btn").addEventListener("click", () => {
 });
 
 // Delete
-document.getElementById("delete-post-btn").addEventListener("click", () => {
-  const id = document.getElementById("post-edit-id").value;
-  if (!id) return;
-  if (!confirm("Delete this post?")) return;
-  DataStore.remove("posts", id);
-  document.getElementById("modal-post").classList.remove("open");
-  refreshPosts();
-});
+document
+  .getElementById("delete-post-btn")
+  .addEventListener("click", async () => {
+    const id = document.getElementById("post-edit-id").value;
+    if (!id) return;
+    if (
+      !(await window.UMessageModal.confirm(
+        "Delete this post?",
+        "Confirm Delete",
+      ))
+    )
+      return;
+    DataStore.remove("posts", id);
+    document.getElementById("modal-post").classList.remove("open");
+    refreshPosts();
+  });
 
 // Close modal
 document.getElementById("modal-post-close").addEventListener("click", () => {

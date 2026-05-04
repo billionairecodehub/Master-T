@@ -271,7 +271,7 @@ function openAppModal(app) {
   modal.classList.add("open");
 }
 
-document.getElementById("save-app-btn").addEventListener("click", () => {
+document.getElementById("save-app-btn").addEventListener("click", async () => {
   const id = document.getElementById("app-edit-id").value;
   const data = {
     name: document.getElementById("app-name").value.trim(),
@@ -289,7 +289,10 @@ document.getElementById("save-app-btn").addEventListener("click", () => {
     pinned: document.getElementById("app-pinned").checked,
   };
 
-  if (!data.name) return alert("Name is required");
+  if (!data.name) {
+    await window.UMessageModal.error("Name is required", "Validation");
+    return;
+  }
 
   if (data.pinned) {
     DataStore.getAll("apps").forEach((a) => {
@@ -305,13 +308,22 @@ document.getElementById("save-app-btn").addEventListener("click", () => {
   refreshContent();
 });
 
-document.getElementById("delete-app-btn").addEventListener("click", () => {
-  const id = document.getElementById("app-edit-id").value;
-  if (!id || !confirm("Delete this app?")) return;
-  DataStore.remove("apps", id);
-  document.getElementById("modal-app").classList.remove("open");
-  refreshContent();
-});
+document
+  .getElementById("delete-app-btn")
+  .addEventListener("click", async () => {
+    const id = document.getElementById("app-edit-id").value;
+    if (!id) return;
+    if (
+      !(await window.UMessageModal.confirm(
+        "Delete this app?",
+        "Confirm Delete",
+      ))
+    )
+      return;
+    DataStore.remove("apps", id);
+    document.getElementById("modal-app").classList.remove("open");
+    refreshContent();
+  });
 
 document.getElementById("modal-app-close").addEventListener("click", () => {
   document.getElementById("modal-app").classList.remove("open");
@@ -356,7 +368,7 @@ function openBookModal(book) {
   modal.classList.add("open");
 }
 
-document.getElementById("save-book-btn").addEventListener("click", () => {
+document.getElementById("save-book-btn").addEventListener("click", async () => {
   const id = document.getElementById("book-edit-id").value;
   const data = {
     name: document.getElementById("book-name").value.trim(),
@@ -376,7 +388,10 @@ document.getElementById("save-book-btn").addEventListener("click", () => {
     pinned: document.getElementById("book-pinned").checked,
   };
 
-  if (!data.name) return alert("Title is required");
+  if (!data.name) {
+    await window.UMessageModal.error("Title is required", "Validation");
+    return;
+  }
 
   if (data.pinned) {
     DataStore.getAll("books").forEach((b) => {
@@ -392,13 +407,22 @@ document.getElementById("save-book-btn").addEventListener("click", () => {
   refreshContent();
 });
 
-document.getElementById("delete-book-btn").addEventListener("click", () => {
-  const id = document.getElementById("book-edit-id").value;
-  if (!id || !confirm("Delete this book?")) return;
-  DataStore.remove("books", id);
-  document.getElementById("modal-book").classList.remove("open");
-  refreshContent();
-});
+document
+  .getElementById("delete-book-btn")
+  .addEventListener("click", async () => {
+    const id = document.getElementById("book-edit-id").value;
+    if (!id) return;
+    if (
+      !(await window.UMessageModal.confirm(
+        "Delete this book?",
+        "Confirm Delete",
+      ))
+    )
+      return;
+    DataStore.remove("books", id);
+    document.getElementById("modal-book").classList.remove("open");
+    refreshContent();
+  });
 
 document.getElementById("modal-book-close").addEventListener("click", () => {
   document.getElementById("modal-book").classList.remove("open");
@@ -433,32 +457,46 @@ function openCircleModal(circle) {
   modal.classList.add("open");
 }
 
-document.getElementById("save-circle-btn").addEventListener("click", () => {
-  const id = document.getElementById("circle-edit-id").value;
-  const data = {
-    name: document.getElementById("circle-name").value.trim(),
-    category: document.getElementById("circle-category").value.trim(),
-    platform: document.getElementById("circle-platform").value.trim(),
-    about: document.getElementById("circle-about").value.trim(),
-    img: document.getElementById("circle-img").value.trim(),
-  };
+document
+  .getElementById("save-circle-btn")
+  .addEventListener("click", async () => {
+    const id = document.getElementById("circle-edit-id").value;
+    const data = {
+      name: document.getElementById("circle-name").value.trim(),
+      category: document.getElementById("circle-category").value.trim(),
+      platform: document.getElementById("circle-platform").value.trim(),
+      about: document.getElementById("circle-about").value.trim(),
+      img: document.getElementById("circle-img").value.trim(),
+    };
 
-  if (!data.name) return alert("Name is required");
+    if (!data.name) {
+      await window.UMessageModal.error("Name is required", "Validation");
+      return;
+    }
 
-  if (id) DataStore.update("circles", id, data);
-  else DataStore.add("circles", data);
+    if (id) DataStore.update("circles", id, data);
+    else DataStore.add("circles", data);
 
-  document.getElementById("modal-circle").classList.remove("open");
-  refreshContent();
-});
+    document.getElementById("modal-circle").classList.remove("open");
+    refreshContent();
+  });
 
-document.getElementById("delete-circle-btn").addEventListener("click", () => {
-  const id = document.getElementById("circle-edit-id").value;
-  if (!id || !confirm("Delete this circle?")) return;
-  DataStore.remove("circles", id);
-  document.getElementById("modal-circle").classList.remove("open");
-  refreshContent();
-});
+document
+  .getElementById("delete-circle-btn")
+  .addEventListener("click", async () => {
+    const id = document.getElementById("circle-edit-id").value;
+    if (!id) return;
+    if (
+      !(await window.UMessageModal.confirm(
+        "Delete this circle?",
+        "Confirm Delete",
+      ))
+    )
+      return;
+    DataStore.remove("circles", id);
+    document.getElementById("modal-circle").classList.remove("open");
+    refreshContent();
+  });
 
 document.getElementById("modal-circle-close").addEventListener("click", () => {
   document.getElementById("modal-circle").classList.remove("open");

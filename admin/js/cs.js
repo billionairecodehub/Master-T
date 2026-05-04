@@ -645,11 +645,9 @@ function _csFeedLoadEdit(post) {
   _csSwitch("feed", "create");
 }
 
-function _csFeedSave(isDraft) {
-  const msg = isDraft
-    ? "Save this feed as draft?"
-    : "Send this feed to all subscribers?";
-  if (!confirm(msg)) return;
+async function _csFeedSave(isDraft) {
+  const msg = isDraft ? "Save this feed as draft?" : "Send this feed?";
+  if (!(await window.UMessageModal.confirm(msg, "Confirmation"))) return;
   const id = document.getElementById("cs-feed-edit-id").value;
   const data = {
     subject: document.getElementById("cs-feed-subject").value.trim(),
@@ -662,7 +660,7 @@ function _csFeedSave(isDraft) {
     draft: isDraft,
   };
   if (!data.subject) {
-    alert("Subject is required");
+    await window.UMessageModal.error("Subject is required", "Validation");
     return;
   }
   if (id) DataStore.update("posts", id, data);
@@ -686,9 +684,15 @@ function _csFeedRefresh(tab) {
           { id: "edit", label: "Edit Draft" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete draft?")) return;
+            if (
+              !(await window.UMessageModal.confirm(
+                "Delete draft?",
+                "Confirm Delete",
+              ))
+            )
+              return;
             DataStore.remove("posts", id);
             _csFeedRefresh("draft");
           } else {
@@ -708,9 +712,15 @@ function _csFeedRefresh(tab) {
           { id: "edit", label: "Edit" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete post?")) return;
+            if (
+              !(await window.UMessageModal.confirm(
+                "Delete post?",
+                "Confirm Delete",
+              ))
+            )
+              return;
             DataStore.remove("posts", id);
             _csFeedRefresh("manage");
           } else {
@@ -776,12 +786,10 @@ document
 document
   .getElementById("cs-feed-cancel")
   .addEventListener("click", async () => {
-    const ok = window.UMessageModal
-      ? await window.UMessageModal.confirm(
-          "Cancel and clear the feed form?",
-          "Confirmation",
-        )
-      : confirm("Cancel and clear the feed form?");
+    const ok = await window.UMessageModal.confirm(
+      "Cancel and clear the feed form?",
+      "Confirmation",
+    );
     if (!ok) return;
     _csFeedResetForm();
   });
@@ -833,9 +841,9 @@ function _csQuestLoadEdit(quest) {
   _csSwitch("quest", "create");
 }
 
-function _csQuestSave(isDraft) {
+async function _csQuestSave(isDraft) {
   const msg = isDraft ? "Save this quest as draft?" : "Send this quest?";
-  if (!confirm(msg)) return;
+  if (!(await window.UMessageModal.confirm(msg, "Confirmation"))) return;
   const id = document.getElementById("cs-quest-edit-id").value;
   const data = {
     subject: document.getElementById("cs-quest-subject").value.trim(),
@@ -846,7 +854,10 @@ function _csQuestSave(isDraft) {
     draft: isDraft,
   };
   if (!data.subject) {
-    alert("Question subject is required");
+    await window.UMessageModal.error(
+      "Question subject is required",
+      "Validation",
+    );
     return;
   }
   if (id) DataStore.update("quests", id, data);
@@ -871,9 +882,12 @@ function _csQuestRefresh(tab) {
           { id: "edit", label: "Edit Draft" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete?")) return;
+            if (
+              !(await window.UMessageModal.confirm("Delete?", "Confirm Delete"))
+            )
+              return;
             DataStore.remove("quests", id);
             _csQuestRefresh("draft");
           } else {
@@ -893,9 +907,15 @@ function _csQuestRefresh(tab) {
           { id: "edit", label: "Edit" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete quest?")) return;
+            if (
+              !(await window.UMessageModal.confirm(
+                "Delete quest?",
+                "Confirm Delete",
+              ))
+            )
+              return;
             DataStore.remove("quests", id);
             _csQuestRefresh("manage");
           } else {
@@ -917,12 +937,10 @@ document
 document
   .getElementById("cs-quest-cancel")
   .addEventListener("click", async () => {
-    const ok = window.UMessageModal
-      ? await window.UMessageModal.confirm(
-          "Cancel and clear the quest form?",
-          "Confirmation",
-        )
-      : confirm("Cancel and clear the quest form?");
+    const ok = await window.UMessageModal.confirm(
+      "Cancel and clear the quest form?",
+      "Confirmation",
+    );
     if (!ok) return;
     _csQuestResetForm();
   });
@@ -987,9 +1005,9 @@ function _csStoriesLoadEdit(story) {
   _csSwitch("stories", "create");
 }
 
-function _csStoriesSave(isDraft) {
+async function _csStoriesSave(isDraft) {
   const msg = isDraft ? "Save this story as draft?" : "Send this story?";
-  if (!confirm(msg)) return;
+  if (!(await window.UMessageModal.confirm(msg, "Confirmation"))) return;
   const id = document.getElementById("cs-stories-edit-id").value;
   const data = {
     label: (document.getElementById("cs-stories-label")?.value || "").trim(),
@@ -1000,7 +1018,7 @@ function _csStoriesSave(isDraft) {
     draft: isDraft,
   };
   if (!data.subject) {
-    alert("Story title is required");
+    await window.UMessageModal.error("Story title is required", "Validation");
     return;
   }
   if (id) DataStore.update("stories", id, data);
@@ -1026,9 +1044,12 @@ function _csStoriesRefresh(tab) {
           { id: "edit", label: "Edit Draft" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete?")) return;
+            if (
+              !(await window.UMessageModal.confirm("Delete?", "Confirm Delete"))
+            )
+              return;
             DataStore.remove("stories", id);
             _csStoriesRefresh("draft");
           } else {
@@ -1048,9 +1069,15 @@ function _csStoriesRefresh(tab) {
           { id: "edit", label: "Edit" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete story?")) return;
+            if (
+              !(await window.UMessageModal.confirm(
+                "Delete story?",
+                "Confirm Delete",
+              ))
+            )
+              return;
             DataStore.remove("stories", id);
             _csStoriesRefresh("manage");
           } else {
@@ -1072,12 +1099,10 @@ document
 document
   .getElementById("cs-stories-cancel")
   .addEventListener("click", async () => {
-    const ok = window.UMessageModal
-      ? await window.UMessageModal.confirm(
-          "Cancel and clear the story form?",
-          "Confirmation",
-        )
-      : confirm("Cancel and clear the story form?");
+    const ok = await window.UMessageModal.confirm(
+      "Cancel and clear the story form?",
+      "Confirmation",
+    );
     if (!ok) return;
     _csStoriesResetForm();
   });
@@ -1124,9 +1149,9 @@ function _csUpdatesLoadEdit(item) {
   _csSwitch("updates", "create");
 }
 
-function _csUpdatesSave(isDraft) {
+async function _csUpdatesSave(isDraft) {
   const msg = isDraft ? "Save this update as draft?" : "Send this update?";
-  if (!confirm(msg)) return;
+  if (!(await window.UMessageModal.confirm(msg, "Confirmation"))) return;
   const id = document.getElementById("cs-updates-edit-id").value;
   const data = {
     subject: document.getElementById("cs-updates-subject").value.trim(),
@@ -1137,7 +1162,7 @@ function _csUpdatesSave(isDraft) {
     draft: isDraft,
   };
   if (!data.subject) {
-    alert("Updates title is required");
+    await window.UMessageModal.error("Updates title is required", "Validation");
     return;
   }
   if (id) DataStore.update("recommends", id, data);
@@ -1166,9 +1191,12 @@ function _csUpdatesRefresh(tab) {
           { id: "edit", label: "Edit Draft" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete?")) return;
+            if (
+              !(await window.UMessageModal.confirm("Delete?", "Confirm Delete"))
+            )
+              return;
             DataStore.remove("recommends", id);
             _csUpdatesRefresh("draft");
           } else {
@@ -1188,9 +1216,15 @@ function _csUpdatesRefresh(tab) {
           { id: "edit", label: "Edit" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete update?")) return;
+            if (
+              !(await window.UMessageModal.confirm(
+                "Delete update?",
+                "Confirm Delete",
+              ))
+            )
+              return;
             DataStore.remove("recommends", id);
             _csUpdatesRefresh("manage");
           } else {
@@ -1212,12 +1246,10 @@ document
 document
   .getElementById("cs-updates-cancel")
   .addEventListener("click", async () => {
-    const ok = window.UMessageModal
-      ? await window.UMessageModal.confirm(
-          "Cancel and clear the updates form?",
-          "Confirmation",
-        )
-      : confirm("Cancel and clear the updates form?");
+    const ok = await window.UMessageModal.confirm(
+      "Cancel and clear the updates form?",
+      "Confirmation",
+    );
     if (!ok) return;
     _csUpdatesResetForm();
   });
@@ -1273,9 +1305,9 @@ function _csPollLoadEdit(poll) {
   _csSwitch("poll", "create");
 }
 
-function _csPollSave(isDraft) {
+async function _csPollSave(isDraft) {
   const msg = isDraft ? "Save this poll as draft?" : "Create this poll?";
-  if (!confirm(msg)) return;
+  if (!(await window.UMessageModal.confirm(msg, "Confirmation"))) return;
   const id = document.getElementById("cs-poll-edit-id").value;
   const answers = [];
   for (let i = 1; i <= 3; i++) {
@@ -1308,7 +1340,10 @@ function _csPollSave(isDraft) {
     draft: isDraft,
   };
   if (!data.subject || options.length < 2) {
-    alert("Question and at least 2 answers are required");
+    await window.UMessageModal.error(
+      "Question and at least 2 answers are required",
+      "Validation",
+    );
     return;
   }
   if (id) DataStore.update("polls", id, data);
@@ -1337,9 +1372,12 @@ function _csPollRefresh(tab) {
           { id: "edit", label: "Edit Draft" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete?")) return;
+            if (
+              !(await window.UMessageModal.confirm("Delete?", "Confirm Delete"))
+            )
+              return;
             DataStore.remove("polls", id);
             _csPollRefresh("draft");
           } else {
@@ -1359,9 +1397,15 @@ function _csPollRefresh(tab) {
           { id: "edit", label: "Edit" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete poll?")) return;
+            if (
+              !(await window.UMessageModal.confirm(
+                "Delete poll?",
+                "Confirm Delete",
+              ))
+            )
+              return;
             DataStore.remove("polls", id);
             _csPollRefresh("manage");
           } else {
@@ -1383,12 +1427,10 @@ document
 document
   .getElementById("cs-poll-cancel")
   .addEventListener("click", async () => {
-    const ok = window.UMessageModal
-      ? await window.UMessageModal.confirm(
-          "Cancel and clear the poll form?",
-          "Confirmation",
-        )
-      : confirm("Cancel and clear the poll form?");
+    const ok = await window.UMessageModal.confirm(
+      "Cancel and clear the poll form?",
+      "Confirmation",
+    );
     if (!ok) return;
     _csPollResetForm();
   });
@@ -1424,11 +1466,11 @@ function _csNotiLoadEdit(noti) {
   _csSwitch("notifications", "create");
 }
 
-function _csNotiSave(isDraft) {
+async function _csNotiSave(isDraft) {
   const msg = isDraft
     ? "Save this notification as draft?"
     : "Send this notification?";
-  if (!confirm(msg)) return;
+  if (!(await window.UMessageModal.confirm(msg, "Confirmation"))) return;
   const id = document.getElementById("cs-noti-edit-id").value;
   const data = {
     title: document.getElementById("cs-noti-title").value.trim(),
@@ -1436,7 +1478,7 @@ function _csNotiSave(isDraft) {
     draft: isDraft,
   };
   if (!data.title) {
-    alert("Title is required");
+    await window.UMessageModal.error("Title is required", "Validation");
     return;
   }
   if (id) DataStore.update("notifications", id, data);
@@ -1464,9 +1506,12 @@ function _csNotiRefresh(tab) {
           { id: "edit", label: "Edit Draft" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete?")) return;
+            if (
+              !(await window.UMessageModal.confirm("Delete?", "Confirm Delete"))
+            )
+              return;
             DataStore.remove("notifications", id);
             _csNotiRefresh("draft");
           } else {
@@ -1486,9 +1531,15 @@ function _csNotiRefresh(tab) {
           { id: "edit", label: "Edit" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete notification?")) return;
+            if (
+              !(await window.UMessageModal.confirm(
+                "Delete notification?",
+                "Confirm Delete",
+              ))
+            )
+              return;
             DataStore.remove("notifications", id);
             _csNotiRefresh("manage");
           } else {
@@ -1510,12 +1561,10 @@ document
 document
   .getElementById("cs-noti-cancel")
   .addEventListener("click", async () => {
-    const ok = window.UMessageModal
-      ? await window.UMessageModal.confirm(
-          "Cancel and clear the notification form?",
-          "Confirmation",
-        )
-      : confirm("Cancel and clear the notification form?");
+    const ok = await window.UMessageModal.confirm(
+      "Cancel and clear the notification form?",
+      "Confirmation",
+    );
     if (!ok) return;
     _csNotiResetForm();
   });
@@ -1562,9 +1611,9 @@ function _csAppsLoadEdit(app) {
   _csSwitch("apps", "create");
 }
 
-function _csAppsSave(isDraft) {
+async function _csAppsSave(isDraft) {
   const msg = isDraft ? "Save this app as draft?" : "Publish this app?";
-  if (!confirm(msg)) return;
+  if (!(await window.UMessageModal.confirm(msg, "Confirmation"))) return;
   const id = document.getElementById("cs-apps-edit-id").value;
   const v1 = document.getElementById("cs-apps-visual1")?.value.trim() || "";
   const v2 = document.getElementById("cs-apps-visual2")?.value.trim() || "";
@@ -1583,7 +1632,7 @@ function _csAppsSave(isDraft) {
     draft: isDraft,
   };
   if (!data.name) {
-    alert("App name is required");
+    await window.UMessageModal.error("App name is required", "Validation");
     return;
   }
   if (id) DataStore.update("apps", id, data);
@@ -1608,9 +1657,15 @@ function _csAppsRefresh(tab) {
           { id: "edit", label: "Edit Draft" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete draft?")) return;
+            if (
+              !(await window.UMessageModal.confirm(
+                "Delete draft?",
+                "Confirm Delete",
+              ))
+            )
+              return;
             DataStore.remove("apps", id);
             _csAppsRefresh("draft");
           } else {
@@ -1631,9 +1686,15 @@ function _csAppsRefresh(tab) {
           { id: "pin", label: "Pin" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete app?")) return;
+            if (
+              !(await window.UMessageModal.confirm(
+                "Delete app?",
+                "Confirm Delete",
+              ))
+            )
+              return;
             DataStore.remove("apps", id);
             _csAppsRefresh("manage");
           } else if (a === "pin") {
@@ -1661,12 +1722,10 @@ document
 document
   .getElementById("cs-apps-cancel")
   .addEventListener("click", async () => {
-    const ok = window.UMessageModal
-      ? await window.UMessageModal.confirm(
-          "Cancel and clear the app form?",
-          "Confirmation",
-        )
-      : confirm("Cancel and clear the app form?");
+    const ok = await window.UMessageModal.confirm(
+      "Cancel and clear the app form?",
+      "Confirmation",
+    );
     if (!ok) return;
     _csAppsResetForm();
   });
@@ -1736,9 +1795,9 @@ function _csBooksLoadEdit(book) {
   _csSwitch("books", "create");
 }
 
-function _csBooksSave(isDraft) {
+async function _csBooksSave(isDraft) {
   const msg = isDraft ? "Save this book as draft?" : "Publish this book?";
-  if (!confirm(msg)) return;
+  if (!(await window.UMessageModal.confirm(msg, "Confirmation"))) return;
   const id = document.getElementById("cs-books-edit-id").value;
   const keyPoints = [];
   for (let i = 1; i <= 5; i++) {
@@ -1772,7 +1831,7 @@ function _csBooksSave(isDraft) {
     draft: isDraft,
   };
   if (!data.name) {
-    alert("Book name is required");
+    await window.UMessageModal.error("Book name is required", "Validation");
     return;
   }
   if (id) DataStore.update("books", id, data);
@@ -1797,9 +1856,15 @@ function _csBooksRefresh(tab) {
           { id: "edit", label: "Edit Draft" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete draft?")) return;
+            if (
+              !(await window.UMessageModal.confirm(
+                "Delete draft?",
+                "Confirm Delete",
+              ))
+            )
+              return;
             DataStore.remove("books", id);
             _csBooksRefresh("draft");
           } else {
@@ -1820,9 +1885,15 @@ function _csBooksRefresh(tab) {
           { id: "pin", label: "Pin" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete book?")) return;
+            if (
+              !(await window.UMessageModal.confirm(
+                "Delete book?",
+                "Confirm Delete",
+              ))
+            )
+              return;
             DataStore.remove("books", id);
             _csBooksRefresh("manage");
           } else if (a === "pin") {
@@ -1850,12 +1921,10 @@ document
 document
   .getElementById("cs-books-cancel")
   .addEventListener("click", async () => {
-    const ok = window.UMessageModal
-      ? await window.UMessageModal.confirm(
-          "Cancel and clear the book form?",
-          "Confirmation",
-        )
-      : confirm("Cancel and clear the book form?");
+    const ok = await window.UMessageModal.confirm(
+      "Cancel and clear the book form?",
+      "Confirmation",
+    );
     if (!ok) return;
     _csBooksResetForm();
   });
@@ -1917,9 +1986,9 @@ function _csCircleLoadEdit(circle) {
   _csSwitch("circle", "create");
 }
 
-function _csCircleSave(isDraft) {
+async function _csCircleSave(isDraft) {
   const msg = isDraft ? "Save this circle as draft?" : "Add this circle?";
-  if (!confirm(msg)) return;
+  if (!(await window.UMessageModal.confirm(msg, "Confirmation"))) return;
   const id = document.getElementById("cs-circle-edit-id").value;
   let category = document.getElementById("cs-circle-category")?.value || "";
   if (category === "__new__") {
@@ -1927,7 +1996,10 @@ function _csCircleSave(isDraft) {
       document.getElementById("cs-circle-new-cat")?.value || ""
     ).trim();
     if (!category) {
-      alert("Please enter a category name");
+      await window.UMessageModal.error(
+        "Please enter a category name",
+        "Validation",
+      );
       return;
     }
   }
@@ -1948,7 +2020,7 @@ function _csCircleSave(isDraft) {
     draft: isDraft,
   };
   if (!data.name) {
-    alert("Circle name is required");
+    await window.UMessageModal.error("Circle name is required", "Validation");
     return;
   }
   if (id) DataStore.update("circles", id, data);
@@ -1977,9 +2049,15 @@ function _csCircleRefresh(tab) {
           { id: "edit", label: "Edit Draft" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete draft?")) return;
+            if (
+              !(await window.UMessageModal.confirm(
+                "Delete draft?",
+                "Confirm Delete",
+              ))
+            )
+              return;
             DataStore.remove("circles", id);
             _csCircleRefresh("draft");
           } else {
@@ -1999,9 +2077,15 @@ function _csCircleRefresh(tab) {
           { id: "edit", label: "Edit" },
           { id: "delete", label: "Delete", cls: "danger" },
         ],
-        onAction: (a, id) => {
+        onAction: async (a, id) => {
           if (a === "delete") {
-            if (!confirm("Delete circle?")) return;
+            if (
+              !(await window.UMessageModal.confirm(
+                "Delete circle?",
+                "Confirm Delete",
+              ))
+            )
+              return;
             DataStore.remove("circles", id);
             _csCircleRefresh("manage");
           } else {
@@ -2032,12 +2116,10 @@ document
 document
   .getElementById("cs-circle-cancel")
   .addEventListener("click", async () => {
-    const ok = window.UMessageModal
-      ? await window.UMessageModal.confirm(
-          "Cancel and clear the circle form?",
-          "Confirmation",
-        )
-      : confirm("Cancel and clear the circle form?");
+    const ok = await window.UMessageModal.confirm(
+      "Cancel and clear the circle form?",
+      "Confirmation",
+    );
     if (!ok) return;
     _csCircleResetForm();
   });
@@ -2140,17 +2222,13 @@ document.getElementById("cs-msg-toggle").addEventListener("click", () => {
 document.getElementById("cs-about-add").addEventListener("click", async () => {
   if (_csAboutSections.filter((s) => !s.locked).length >= 6) return;
   let title = null;
-  if (window.UMessageModal) {
-    title = await window.UMessageModal.prompt({
-      title: "Create Section",
-      label: "Enter a title for this about section.",
-      placeholder: "Section title",
-      primaryText: "Proceed",
-      secondaryText: "Cancel",
-    });
-  } else {
-    title = prompt("Section title:");
-  }
+  title = await window.UMessageModal.prompt({
+    title: "Create Section",
+    label: "Enter a title for this about section.",
+    placeholder: "Section title",
+    primaryText: "Proceed",
+    secondaryText: "Cancel",
+  });
 
   if (!title) return;
   _csAboutSections.push({ title: title.trim(), body: "", locked: false });
@@ -2167,11 +2245,7 @@ document
       phone: document.getElementById("cs-profile-phone").value.trim(),
       email: document.getElementById("cs-profile-email").value.trim(),
     });
-    if (window.UMessageModal) {
-      await window.UMessageModal.notify("Details saved", "Notification");
-    } else {
-      alert("Details saved");
-    }
+    await window.UMessageModal.notify("Details saved", "Notification");
   });
 document
   .getElementById("cs-profile-cta-save")
@@ -2182,34 +2256,19 @@ document
         .value.trim(),
       xUrl: document.getElementById("cs-profile-x-url").value.trim(),
     });
-    if (window.UMessageModal) {
-      await window.UMessageModal.notify("CTA saved", "Notification");
-    } else {
-      alert("CTA saved");
-    }
+    await window.UMessageModal.notify("CTA saved", "Notification");
   });
 document
   .getElementById("cs-profile-msg-save")
   .addEventListener("click", async () => {
     DataStore.setProfile({ msgLimit: _csMsgLimit, msgOn: _csMsgOn });
-    if (window.UMessageModal) {
-      await window.UMessageModal.notify(
-        "Message settings saved",
-        "Notification",
-      );
-    } else {
-      alert("Message settings saved");
-    }
+    await window.UMessageModal.notify("Message settings saved", "Notification");
   });
 document
   .getElementById("cs-profile-about-save")
   .addEventListener("click", async () => {
     DataStore.setProfile({ about: _csAboutSections });
-    if (window.UMessageModal) {
-      await window.UMessageModal.notify("About saved", "Notification");
-    } else {
-      alert("About saved");
-    }
+    await window.UMessageModal.notify("About saved", "Notification");
   });
 
 // ══════════════════════════════════════════════════════

@@ -146,18 +146,22 @@ document
   .getElementById("msg-back-btn")
   .addEventListener("click", _msgCloseDetail);
 
-document.getElementById("msg-reply-btn").addEventListener("click", () => {
+document.getElementById("msg-reply-btn").addEventListener("click", async () => {
   const reply = (
     document.getElementById("msg-response-input")?.value || ""
   ).trim();
   if (!reply) {
-    alert("Please write a response first");
+    await window.UMessageModal.error(
+      "Please write a response first",
+      "Validation",
+    );
     return;
   }
   if (!_msgOpenId) return;
-  if (!confirm("Send this reply?")) return;
+  if (!(await window.UMessageModal.confirm("Send this reply?", "Confirmation")))
+    return;
 
   DataStore.update("messages", _msgOpenId, { reply, status: "replied" });
-  alert("Reply sent");
+  await window.UMessageModal.success("Reply sent", "Success");
   _msgCloseDetail();
 });
