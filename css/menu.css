@@ -253,8 +253,8 @@
   border-radius: 4px;
   background: rgba(0, 9, 26, 0.5);
   /* border: var(--border-width) solid var(--border-color-light); */
-  border: 0.5px solid var(--border-color-light);
-  filter: brightness(0.72) saturate(0.7) hue-rotate(195deg);
+  /* border: 0.5px solid var(--border-color-light); */
+  /* filter: brightness(0.9) saturate(0.2) hue-rotate(195deg); */
 }
 
 .menu-app-name {
@@ -286,8 +286,8 @@
   object-fit: cover;
   border-radius: 4px;
   background: rgba(0, 9, 26, 0.5);
-  border: 0.5px solid var(--border-color-light);
-  filter: brightness(0.72) saturate(0.7) hue-rotate(195deg);
+  /* border: 0.5px solid var(--border-color-light); */
+  /* filter: brightness(0.72) saturate(0.7) hue-rotate(195deg); */
 }
 
 .menu-book-name {
@@ -325,8 +325,8 @@
   object-fit: cover;
   border-radius: 4px;
   background: rgba(0, 9, 26, 0.5);
-  border: 0.5px solid var(--border-color-light);
-  filter: brightness(0.72) saturate(0.7) hue-rotate(195deg);
+  /* border: 0.5px solid var(--border-color-light); */
+  /* filter: brightness(0.72) saturate(0.7) hue-rotate(195deg); */
 }
 
 .menu-circle-name {
@@ -394,7 +394,7 @@
   border-radius: 4px;
   flex-shrink: 0;
   background: rgba(0, 9, 26, 0.5);
-  filter: brightness(0.72) saturate(0.7) hue-rotate(195deg);
+  /* filter: brightness(0.72) saturate(0.7) hue-rotate(195deg); */
 }
 
 .menu-pinned-details {
@@ -654,33 +654,39 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding-top: 4px;
-  padding: 10px;
-  border: 0.5px solid rgba(107, 158, 255, 0.3);
+  padding: 10px 0 0;
 }
 
 .circle-heart-btn {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  background: none;
+  background: rgba(0, 9, 26, 0.45);
   border: none;
+  border-radius: 3px;
+  padding: 13px 16px;
   cursor: pointer;
-  padding: 6px 12px;
-  border-radius: 20px;
-  transition: all 0.2s;
+  transition: var(--transition-fast);
   color: rgba(255, 255, 255, 0.5);
-  font-size: 10px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 400;
   letter-spacing: -0.3px;
   font-family: "Gellix", sans-serif;
+  backdrop-filter: var(--glass-blur-md);
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .circle-heart-icon {
-  width: 13px;
-  height: 13px;
+  width: 16px;
+  height: 16px;
   object-fit: contain;
-  opacity: 0.35;
+  opacity: 0.8;
   transition:
     opacity 0.2s,
     transform 0.15s;
@@ -689,7 +695,7 @@
 }
 
 .circle-heart-btn:active {
-  transform: scale(0.93);
+  transform: scale(0.96);
 }
 
 .circle-heart-btn.liked .circle-heart-icon {

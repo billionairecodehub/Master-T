@@ -202,7 +202,7 @@ button {
   flex-direction: column;
   gap: 0;
   position: relative;
-  padding-left: 24px;
+  padding-left: 0;
   border-bottom: none;
 }
 
