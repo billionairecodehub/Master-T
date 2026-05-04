@@ -218,35 +218,56 @@
         </div>
         <div class="cs-field">
           <div class="cs-field-label">App Icon Url</div>
-          <div class="cs-upload-row">
+          <div class="cs-img-widget">
+            <input type="text" id="cs-apps-icon" style="display: none" />
             <input
-              type="text"
-              class="cs-field-input"
-              id="cs-apps-icon"
-              placeholder="Upload App Icon [512 x 512 Only]"
+              type="file"
+              accept="image/*"
+              class="cs-img-file-input"
+              style="display: none"
             />
-            <span class="cs-upload-icon">&#9729;</span>
+            <div class="cs-image-upload" role="button" tabindex="0">
+              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-hint">
+                Click to upload &middot; Max 3MB &middot; 512&times;512
+              </div>
+            </div>
+            <div class="cs-upload-status"></div>
           </div>
         </div>
         <div class="cs-field">
           <div class="cs-field-label">App Visual Url</div>
-          <div class="cs-upload-row">
+          <div class="cs-img-widget">
+            <input type="text" id="cs-apps-visual1" style="display: none" />
             <input
-              type="text"
-              class="cs-field-input"
-              id="cs-apps-visual1"
-              placeholder="Upload App Graphics Image"
+              type="file"
+              accept="image/*"
+              class="cs-img-file-input"
+              style="display: none"
             />
-            <span class="cs-upload-icon">&#9729;</span>
+            <div class="cs-image-upload" role="button" tabindex="0">
+              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-hint">
+                Visual 1 &middot; Click to upload &middot; Max 3MB
+              </div>
+            </div>
+            <div class="cs-upload-status"></div>
           </div>
-          <div class="cs-upload-row">
+          <div class="cs-img-widget">
+            <input type="text" id="cs-apps-visual2" style="display: none" />
             <input
-              type="text"
-              class="cs-field-input"
-              id="cs-apps-visual2"
-              placeholder="Upload App Graphics Image"
+              type="file"
+              accept="image/*"
+              class="cs-img-file-input"
+              style="display: none"
             />
-            <span class="cs-upload-icon">&#9729;</span>
+            <div class="cs-image-upload" role="button" tabindex="0">
+              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-hint">
+                Visual 2 &middot; Click to upload &middot; Max 3MB
+              </div>
+            </div>
+            <div class="cs-upload-status"></div>
           </div>
         </div>
         <div class="cs-field">
@@ -460,41 +481,69 @@
         </div>
         <div class="cs-field">
           <div class="cs-field-label">Book Visual Images</div>
-          <div class="cs-upload-row">
+          <div class="cs-img-widget">
+            <input type="text" id="cs-books-icon" style="display: none" />
             <input
-              type="text"
-              class="cs-field-input"
-              id="cs-books-icon"
-              placeholder="Upload Book Icon"
+              type="file"
+              accept="image/*"
+              class="cs-img-file-input"
+              style="display: none"
             />
-            <span class="cs-upload-icon">&#9729;</span>
+            <div class="cs-image-upload" role="button" tabindex="0">
+              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-hint">
+                Book Icon &middot; Click to upload &middot; Max 3MB
+              </div>
+            </div>
+            <div class="cs-upload-status"></div>
           </div>
-          <div class="cs-upload-row">
+          <div class="cs-img-widget">
+            <input type="text" id="cs-books-visual1" style="display: none" />
             <input
-              type="text"
-              class="cs-field-input"
-              id="cs-books-visual1"
-              placeholder="Upload Book Visual Image"
+              type="file"
+              accept="image/*"
+              class="cs-img-file-input"
+              style="display: none"
             />
-            <span class="cs-upload-icon">&#9729;</span>
+            <div class="cs-image-upload" role="button" tabindex="0">
+              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-hint">
+                Visual 1 &middot; Click to upload &middot; Max 3MB
+              </div>
+            </div>
+            <div class="cs-upload-status"></div>
           </div>
-          <div class="cs-upload-row">
+          <div class="cs-img-widget">
+            <input type="text" id="cs-books-visual2" style="display: none" />
             <input
-              type="text"
-              class="cs-field-input"
-              id="cs-books-visual2"
-              placeholder="Upload Book Visual Image"
+              type="file"
+              accept="image/*"
+              class="cs-img-file-input"
+              style="display: none"
             />
-            <span class="cs-upload-icon">&#9729;</span>
+            <div class="cs-image-upload" role="button" tabindex="0">
+              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-hint">
+                Visual 2 &middot; Click to upload &middot; Max 3MB
+              </div>
+            </div>
+            <div class="cs-upload-status"></div>
           </div>
-          <div class="cs-upload-row">
+          <div class="cs-img-widget">
+            <input type="text" id="cs-books-ctacover" style="display: none" />
             <input
-              type="text"
-              class="cs-field-input"
-              id="cs-books-ctacover"
-              placeholder="Upload Book CTA Cover"
+              type="file"
+              accept="image/*"
+              class="cs-img-file-input"
+              style="display: none"
             />
-            <span class="cs-upload-icon">&#9729;</span>
+            <div class="cs-image-upload" role="button" tabindex="0">
+              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-hint">
+                CTA Cover &middot; Click to upload &middot; Max 3MB
+              </div>
+            </div>
+            <div class="cs-upload-status"></div>
           </div>
           <div class="cs-upload-row">
             <input
@@ -621,14 +670,19 @@
         </div>
         <div class="cs-field">
           <div class="cs-field-label">Circle Image</div>
-          <div class="cs-upload-row">
+          <div class="cs-img-widget">
+            <input type="text" id="cs-circle-icon" style="display: none" />
             <input
-              type="text"
-              class="cs-field-input"
-              id="cs-circle-icon"
-              placeholder="Upload Profile Icon"
+              type="file"
+              accept="image/*"
+              class="cs-img-file-input"
+              style="display: none"
             />
-            <span class="cs-upload-icon">&#9729;</span>
+            <div class="cs-image-upload" role="button" tabindex="0">
+              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-hint">Click to upload &middot; Max 3MB</div>
+            </div>
+            <div class="cs-upload-status"></div>
           </div>
         </div>
         <input type="hidden" id="cs-circle-edit-id" />

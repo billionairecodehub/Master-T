@@ -1595,6 +1595,7 @@ function _csAppsResetForm() {
     const el = document.getElementById(id);
     if (el) el.value = "";
   });
+  _csSyncImgPreviews(["cs-apps-icon", "cs-apps-visual1", "cs-apps-visual2"]);
 }
 
 function _csAppsLoadEdit(app) {
@@ -1613,6 +1614,7 @@ function _csAppsLoadEdit(app) {
   document.getElementById("cs-apps-notes").value = app.notes || "";
   const ctaUrl = document.getElementById("cs-apps-cta-url");
   if (ctaUrl) ctaUrl.value = app.ctaUrl || "";
+  _csSyncImgPreviews(["cs-apps-icon", "cs-apps-visual1", "cs-apps-visual2"]);
   _csSwitch("apps", "create");
 }
 
@@ -1766,6 +1768,12 @@ function _csBooksResetForm() {
     const u = document.getElementById(`cs-books-detail-url-${i}`);
     if (u) u.value = "";
   }
+  _csSyncImgPreviews([
+    "cs-books-icon",
+    "cs-books-visual1",
+    "cs-books-visual2",
+    "cs-books-ctacover",
+  ]);
 }
 
 function _csBooksLoadEdit(book) {
@@ -1800,6 +1808,12 @@ function _csBooksLoadEdit(book) {
     const ul = document.getElementById(`cs-books-detail-url-${i}`);
     if (ul) ul.value = platformUrls[i - 1] || "";
   }
+  _csSyncImgPreviews([
+    "cs-books-icon",
+    "cs-books-visual1",
+    "cs-books-visual2",
+    "cs-books-ctacover",
+  ]);
   _csSwitch("books", "create");
 }
 
@@ -1963,6 +1977,7 @@ function _csCircleResetForm() {
   if (sel) sel.value = "";
   const newCatRow = document.getElementById("cs-circle-new-cat-row");
   if (newCatRow) newCatRow.style.display = "none";
+  _csSyncImgPreviews(["cs-circle-icon"]);
 }
 
 function _csCirclePopulateCategories() {
@@ -1992,6 +2007,7 @@ function _csCircleLoadEdit(circle) {
   _csCirclePopulateCategories();
   const sel = document.getElementById("cs-circle-category");
   if (sel && circle.category) sel.value = circle.category;
+  _csSyncImgPreviews(["cs-circle-icon"]);
   _csSwitch("circle", "create");
 }
 

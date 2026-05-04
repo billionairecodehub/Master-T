@@ -182,9 +182,17 @@
 }
 
 /* Thread and story body textareas — borderless */
-#cs-feed-t1-body, #cs-feed-t2-body, #cs-feed-t3-body, #cs-feed-t4-body,
-#cs-feed-t5-body, #cs-feed-t6-body, #cs-feed-t7-body, #cs-feed-t8-body,
-#cs-feed-t9-body, #cs-feed-t10-body, #cs-stories-body {
+#cs-feed-t1-body,
+#cs-feed-t2-body,
+#cs-feed-t3-body,
+#cs-feed-t4-body,
+#cs-feed-t5-body,
+#cs-feed-t6-body,
+#cs-feed-t7-body,
+#cs-feed-t8-body,
+#cs-feed-t9-body,
+#cs-feed-t10-body,
+#cs-stories-body {
   border-color: transparent;
   background: rgba(5, 9, 28, 0.35);
 }
@@ -324,7 +332,9 @@
   font-weight: 600;
   font-family: "Gellix", sans-serif;
   cursor: pointer;
-  transition: opacity 0.2s, filter 0.2s;
+  transition:
+    opacity 0.2s,
+    filter 0.2s;
   letter-spacing: -0.2px;
 }
 
@@ -372,7 +382,10 @@
   font-weight: 500;
   font-family: "Gellix", sans-serif;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
 }
 
 .cs-btn-cancel:hover {
@@ -396,7 +409,9 @@
   font-weight: 600;
   font-family: "Gellix", sans-serif;
   cursor: pointer;
-  transition: opacity 0.2s, filter 0.2s;
+  transition:
+    opacity 0.2s,
+    filter 0.2s;
 }
 
 .cs-btn-save:hover {
@@ -538,7 +553,10 @@
   font-weight: 500;
   color: rgba(107, 158, 255, 0.8);
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
 }
 
 .cs-card-action:first-child {
@@ -597,6 +615,10 @@
 }
 
 /* ── Image upload field ──────────────────────────────── */
+.cs-img-widget {
+  margin-bottom: 8px;
+}
+
 .cs-image-upload {
   display: flex;
   flex-direction: column;
@@ -607,11 +629,49 @@
   border-radius: 10px;
   padding: 24px;
   cursor: pointer;
-  transition: border-color 0.2s;
+  transition:
+    border-color 0.2s,
+    opacity 0.2s;
+}
+
+.cs-image-upload:hover {
+  border-color: rgba(107, 158, 255, 0.45);
 }
 
 .cs-image-upload:active {
-  border-color: rgba(107, 158, 255, 0.45);
+  border-color: rgba(107, 158, 255, 0.65);
+}
+
+.cs-image-upload.cs-upload-loading {
+  opacity: 0.6;
+  cursor: wait;
+  pointer-events: none;
+}
+
+.cs-image-upload.cs-upload-done {
+  border-color: rgba(107, 158, 255, 0.4);
+}
+
+.cs-image-upload.cs-upload-error {
+  border-color: rgba(255, 90, 90, 0.5);
+}
+
+.cs-upload-status {
+  font-size: 11px;
+  color: rgba(107, 158, 255, 0.55);
+  text-align: center;
+  min-height: 16px;
+  margin-top: 4px;
+  padding: 0 4px;
+}
+
+.cs-image-upload.cs-upload-error + .cs-upload-status,
+.cs-img-widget:has(.cs-upload-error) .cs-upload-status {
+  color: rgba(255, 110, 110, 0.8);
+}
+
+.cs-img-widget:has(.cs-upload-done) .cs-upload-status {
+  color: rgba(100, 200, 130, 0.8);
 }
 
 .cs-image-preview {

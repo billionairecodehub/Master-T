@@ -7,7 +7,7 @@
 //    {{to_name}}, {{to_email}}, {{subject}}, {{reply}}
 //    Set "To Email" field to: {{to_email}}
 // 4. Copy Template ID and Public Key (Account → API Keys)
-const EMAILJS_SERVICE_ID = "service_kvnx2dg"; // e.g. "service_abc123"
+const EMAILJS_SERVICE_ID = "service_m2mepgf"; // e.g. "service_abc123"
 const EMAILJS_TEMPLATE_ID = "template_oieyfu5"; // e.g. "template_xyz789"
 const EMAILJS_PUBLIC_KEY = "uGXNHp4u77kyRTD6O"; // e.g. "aBcDeFgHiJkLmNoP"
 
