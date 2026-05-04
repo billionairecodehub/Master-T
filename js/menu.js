@@ -17,10 +17,8 @@ const searchPlaceholders = {
 
 const FILTER_ICON_SRC = menuFilterIcon ? menuFilterIcon.src : "";
 const BACK_CIRCLE_SRC = "https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png";
-const DEFAULT_ICON_IMG =
-  "https://i.postimg.cc/PrKTpGGD/Default-Image-App-Icon.png";
-const DEFAULT_VISUAL_IMG =
-  "https://i.postimg.cc/k4yh1mvN/Deafult-Image-Visual-Board.png";
+const DEFAULT_ICON_IMG = "https://i.postimg.cc/VNY8Ymks/image.png";
+const DEFAULT_VISUAL_IMG = "https://i.postimg.cc/VNY8Ymks/image.png";
 
 // Expand state tracking
 let _expandState = null; // { type: 'apps'|'books'|'circle', key: 'M'|'Romance' }
