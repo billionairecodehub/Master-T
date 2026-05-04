@@ -708,5 +708,7 @@ button {
 
   .block-header {
     max-width: 860px;
+    left: auto;
+    transform: none;
   }
 }

@@ -387,6 +387,8 @@ button {
 
   .feed-header {
     max-width: 860px;
+    left: auto;
+    transform: none;
   }
 
   .posts-list {

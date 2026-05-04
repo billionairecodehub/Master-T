@@ -311,6 +311,8 @@ button {
 
   .quest-header {
     max-width: 860px;
+    left: auto;
+    transform: none;
   }
 
   .quest-list {
