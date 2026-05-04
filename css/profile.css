@@ -701,10 +701,10 @@ button {
 .message-hero-title {
   position: relative;
   z-index: 1;
-  font-size: 44px;
+  font-size: 36px;
   font-weight: 500;
   line-height: 0.7;
-  letter-spacing: -4px;
+  letter-spacing: -3px;
   background: linear-gradient(160deg, #5ecfff 0%, #1a8fff 50%, #5da0ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -729,7 +729,7 @@ button {
   /* border: 0.5px solid rgba(231, 239, 255, 0.3); */
   border: none;
   outline: none;
-  border-radius: 30px;
+  border-radius: 10px;
   background: rgba(0, 5, 22, 0.7) !important;
   color: rgba(200, 215, 255, 0.75);
   font-family: var(--font-family-primary);
@@ -741,7 +741,7 @@ button {
 }
 
 .message-textarea {
-  min-height: 200px;
+  min-height: 160px;
   line-height: 1.6;
 }
 
