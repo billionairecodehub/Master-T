@@ -108,12 +108,12 @@ function renderFeedPosts() {
       const tagColor = CTA_TAG_COLORS[idx % CTA_TAG_COLORS.length];
       let ctaUrl = "";
       if (p.ctaLabel && p.ctaType && p.ctaItemId) {
-        const storeKey = p.ctaType === "app" ? "apps" : p.ctaType === "book" ? "books" : "circles";
+        const storeKey = p.ctaType === "apps" ? "apps" : p.ctaType === "books" ? "books" : "circles";
         const items = DataStore.getAll(storeKey);
         const item = items.find((i) => i.id === p.ctaItemId);
         if (item) {
-          if (p.ctaType === "app") ctaUrl = item.ctaUrl || "";
-          else if (p.ctaType === "book") ctaUrl = (item.platformUrls && item.platformUrls[0]) || item.ctaUrl || "";
+          if (p.ctaType === "apps") ctaUrl = item.ctaUrl || "";
+          else if (p.ctaType === "books") ctaUrl = (item.platformUrls && item.platformUrls[0]) || item.ctaUrl || "";
           else if (p.ctaType === "circle") ctaUrl = item.url || "";
         }
       }
