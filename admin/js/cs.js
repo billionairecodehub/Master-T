@@ -773,10 +773,18 @@ document
 document
   .getElementById("cs-feed-draft-btn")
   .addEventListener("click", () => _csFeedSave(true));
-document.getElementById("cs-feed-cancel").addEventListener("click", () => {
-  if (!confirm("Cancel and clear the feed form?")) return;
-  _csFeedResetForm();
-});
+document
+  .getElementById("cs-feed-cancel")
+  .addEventListener("click", async () => {
+    const ok = window.UMessageModal
+      ? await window.UMessageModal.confirm(
+          "Cancel and clear the feed form?",
+          "Confirmation",
+        )
+      : confirm("Cancel and clear the feed form?");
+    if (!ok) return;
+    _csFeedResetForm();
+  });
 
 // ══════════════════════════════════════════════════════
 //  QUEST
@@ -906,10 +914,18 @@ document
 document
   .getElementById("cs-quest-draft-btn")
   .addEventListener("click", () => _csQuestSave(true));
-document.getElementById("cs-quest-cancel").addEventListener("click", () => {
-  if (!confirm("Cancel and clear the quest form?")) return;
-  _csQuestResetForm();
-});
+document
+  .getElementById("cs-quest-cancel")
+  .addEventListener("click", async () => {
+    const ok = window.UMessageModal
+      ? await window.UMessageModal.confirm(
+          "Cancel and clear the quest form?",
+          "Confirmation",
+        )
+      : confirm("Cancel and clear the quest form?");
+    if (!ok) return;
+    _csQuestResetForm();
+  });
 
 // ══════════════════════════════════════════════════════
 //  STORIES
@@ -1053,10 +1069,18 @@ document
 document
   .getElementById("cs-stories-draft-btn")
   .addEventListener("click", () => _csStoriesSave(true));
-document.getElementById("cs-stories-cancel").addEventListener("click", () => {
-  if (!confirm("Cancel and clear the story form?")) return;
-  _csStoriesResetForm();
-});
+document
+  .getElementById("cs-stories-cancel")
+  .addEventListener("click", async () => {
+    const ok = window.UMessageModal
+      ? await window.UMessageModal.confirm(
+          "Cancel and clear the story form?",
+          "Confirmation",
+        )
+      : confirm("Cancel and clear the story form?");
+    if (!ok) return;
+    _csStoriesResetForm();
+  });
 
 // ══════════════════════════════════════════════════════
 //  UPDATES — uses "recommends" collection
@@ -1185,10 +1209,18 @@ document
 document
   .getElementById("cs-updates-draft-btn")
   .addEventListener("click", () => _csUpdatesSave(true));
-document.getElementById("cs-updates-cancel").addEventListener("click", () => {
-  if (!confirm("Cancel and clear the updates form?")) return;
-  _csUpdatesResetForm();
-});
+document
+  .getElementById("cs-updates-cancel")
+  .addEventListener("click", async () => {
+    const ok = window.UMessageModal
+      ? await window.UMessageModal.confirm(
+          "Cancel and clear the updates form?",
+          "Confirmation",
+        )
+      : confirm("Cancel and clear the updates form?");
+    if (!ok) return;
+    _csUpdatesResetForm();
+  });
 
 // ══════════════════════════════════════════════════════
 //  POLL
@@ -1348,10 +1380,18 @@ document
 document
   .getElementById("cs-poll-draft-btn")
   .addEventListener("click", () => _csPollSave(true));
-document.getElementById("cs-poll-cancel").addEventListener("click", () => {
-  if (!confirm("Cancel and clear the poll form?")) return;
-  _csPollResetForm();
-});
+document
+  .getElementById("cs-poll-cancel")
+  .addEventListener("click", async () => {
+    const ok = window.UMessageModal
+      ? await window.UMessageModal.confirm(
+          "Cancel and clear the poll form?",
+          "Confirmation",
+        )
+      : confirm("Cancel and clear the poll form?");
+    if (!ok) return;
+    _csPollResetForm();
+  });
 
 // Duration toggle buttons
 document.querySelectorAll(".cs-poll-dur-btn").forEach((btn) => {
@@ -1467,10 +1507,18 @@ document
 document
   .getElementById("cs-noti-draft-btn")
   .addEventListener("click", () => _csNotiSave(true));
-document.getElementById("cs-noti-cancel").addEventListener("click", () => {
-  if (!confirm("Cancel and clear the notification form?")) return;
-  _csNotiResetForm();
-});
+document
+  .getElementById("cs-noti-cancel")
+  .addEventListener("click", async () => {
+    const ok = window.UMessageModal
+      ? await window.UMessageModal.confirm(
+          "Cancel and clear the notification form?",
+          "Confirmation",
+        )
+      : confirm("Cancel and clear the notification form?");
+    if (!ok) return;
+    _csNotiResetForm();
+  });
 
 // ══════════════════════════════════════════════════════
 //  APPS — inline Create tab
@@ -1610,10 +1658,18 @@ document
 document
   .getElementById("cs-apps-draft-btn")
   .addEventListener("click", () => _csAppsSave(true));
-document.getElementById("cs-apps-cancel").addEventListener("click", () => {
-  if (!confirm("Cancel and clear the app form?")) return;
-  _csAppsResetForm();
-});
+document
+  .getElementById("cs-apps-cancel")
+  .addEventListener("click", async () => {
+    const ok = window.UMessageModal
+      ? await window.UMessageModal.confirm(
+          "Cancel and clear the app form?",
+          "Confirmation",
+        )
+      : confirm("Cancel and clear the app form?");
+    if (!ok) return;
+    _csAppsResetForm();
+  });
 
 // ══════════════════════════════════════════════════════
 //  BOOKS — inline Create tab
@@ -1791,10 +1847,18 @@ document
 document
   .getElementById("cs-books-draft-btn")
   .addEventListener("click", () => _csBooksSave(true));
-document.getElementById("cs-books-cancel").addEventListener("click", () => {
-  if (!confirm("Cancel and clear the book form?")) return;
-  _csBooksResetForm();
-});
+document
+  .getElementById("cs-books-cancel")
+  .addEventListener("click", async () => {
+    const ok = window.UMessageModal
+      ? await window.UMessageModal.confirm(
+          "Cancel and clear the book form?",
+          "Confirmation",
+        )
+      : confirm("Cancel and clear the book form?");
+    if (!ok) return;
+    _csBooksResetForm();
+  });
 
 // ══════════════════════════════════════════════════════
 //  CIRCLE — inline Create tab
@@ -1965,10 +2029,18 @@ document
 document
   .getElementById("cs-circle-draft-btn")
   .addEventListener("click", () => _csCircleSave(true));
-document.getElementById("cs-circle-cancel").addEventListener("click", () => {
-  if (!confirm("Cancel and clear the circle form?")) return;
-  _csCircleResetForm();
-});
+document
+  .getElementById("cs-circle-cancel")
+  .addEventListener("click", async () => {
+    const ok = window.UMessageModal
+      ? await window.UMessageModal.confirm(
+          "Cancel and clear the circle form?",
+          "Confirmation",
+        )
+      : confirm("Cancel and clear the circle form?");
+    if (!ok) return;
+    _csCircleResetForm();
+  });
 
 // ══════════════════════════════════════════════════════
 //  EDIT PROFILE

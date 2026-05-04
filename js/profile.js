@@ -26,12 +26,35 @@ if (profileCallBtn) {
 }
 
 if (profileEmailBtn) {
-  profileEmailBtn.addEventListener("click", (e) => {
+  profileEmailBtn.addEventListener("click", async (e) => {
     e.preventDefault();
     const contact = profileEmailBtn.getAttribute("data-contact");
-    const email = contact.replace(/^mailto:/i, "");
+    const email = (contact || "").replace(/^mailto:/i, "");
     profileEmailBtn.blur();
-    navigator.clipboard.writeText(email).catch(() => {});
+
+    if (!email) {
+      if (window.UMessageModal) {
+        await window.UMessageModal.error("Email is not available", "Error");
+      }
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(email);
+      if (window.UMessageModal) {
+        await window.UMessageModal.success(
+          "Email copied to clipboard.",
+          "Notification",
+        );
+      }
+    } catch {
+      if (window.UMessageModal) {
+        await window.UMessageModal.error(
+          "Unable to copy email. Please try again.",
+          "Error",
+        );
+      }
+    }
   });
 }
 
