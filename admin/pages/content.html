@@ -227,7 +227,13 @@
               style="display: none"
             />
             <div class="cs-image-upload" role="button" tabindex="0">
-              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-preview">
+                <img
+                  src="https://i.postimg.cc/d0Cmsk4W/Mt-Admin-Image-Upload-Icon.png"
+                  alt="Upload"
+                  class="cs-upload-placeholder-icon"
+                />
+              </div>
               <div class="cs-image-hint">
                 Click to upload &middot; Max 3MB &middot; 512&times;512
               </div>
@@ -246,7 +252,13 @@
               style="display: none"
             />
             <div class="cs-image-upload" role="button" tabindex="0">
-              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-preview">
+                <img
+                  src="https://i.postimg.cc/d0Cmsk4W/Mt-Admin-Image-Upload-Icon.png"
+                  alt="Upload"
+                  class="cs-upload-placeholder-icon"
+                />
+              </div>
               <div class="cs-image-hint">
                 Visual 1 &middot; Click to upload &middot; Max 3MB
               </div>
@@ -262,7 +274,13 @@
               style="display: none"
             />
             <div class="cs-image-upload" role="button" tabindex="0">
-              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-preview">
+                <img
+                  src="https://i.postimg.cc/d0Cmsk4W/Mt-Admin-Image-Upload-Icon.png"
+                  alt="Upload"
+                  class="cs-upload-placeholder-icon"
+                />
+              </div>
               <div class="cs-image-hint">
                 Visual 2 &middot; Click to upload &middot; Max 3MB
               </div>
@@ -490,7 +508,13 @@
               style="display: none"
             />
             <div class="cs-image-upload" role="button" tabindex="0">
-              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-preview">
+                <img
+                  src="https://i.postimg.cc/d0Cmsk4W/Mt-Admin-Image-Upload-Icon.png"
+                  alt="Upload"
+                  class="cs-upload-placeholder-icon"
+                />
+              </div>
               <div class="cs-image-hint">
                 Book Icon &middot; Click to upload &middot; Max 3MB
               </div>
@@ -506,7 +530,13 @@
               style="display: none"
             />
             <div class="cs-image-upload" role="button" tabindex="0">
-              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-preview">
+                <img
+                  src="https://i.postimg.cc/d0Cmsk4W/Mt-Admin-Image-Upload-Icon.png"
+                  alt="Upload"
+                  class="cs-upload-placeholder-icon"
+                />
+              </div>
               <div class="cs-image-hint">
                 Visual 1 &middot; Click to upload &middot; Max 3MB
               </div>
@@ -522,7 +552,13 @@
               style="display: none"
             />
             <div class="cs-image-upload" role="button" tabindex="0">
-              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-preview">
+                <img
+                  src="https://i.postimg.cc/d0Cmsk4W/Mt-Admin-Image-Upload-Icon.png"
+                  alt="Upload"
+                  class="cs-upload-placeholder-icon"
+                />
+              </div>
               <div class="cs-image-hint">
                 Visual 2 &middot; Click to upload &middot; Max 3MB
               </div>
@@ -538,7 +574,13 @@
               style="display: none"
             />
             <div class="cs-image-upload" role="button" tabindex="0">
-              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-preview">
+                <img
+                  src="https://i.postimg.cc/d0Cmsk4W/Mt-Admin-Image-Upload-Icon.png"
+                  alt="Upload"
+                  class="cs-upload-placeholder-icon"
+                />
+              </div>
               <div class="cs-image-hint">
                 CTA Cover &middot; Click to upload &middot; Max 3MB
               </div>
@@ -679,7 +721,13 @@
               style="display: none"
             />
             <div class="cs-image-upload" role="button" tabindex="0">
-              <div class="cs-image-preview">&#128444;</div>
+              <div class="cs-image-preview">
+                <img
+                  src="https://i.postimg.cc/d0Cmsk4W/Mt-Admin-Image-Upload-Icon.png"
+                  alt="Upload"
+                  class="cs-upload-placeholder-icon"
+                />
+              </div>
               <div class="cs-image-hint">Click to upload &middot; Max 3MB</div>
             </div>
             <div class="cs-upload-status"></div>
@@ -1608,13 +1656,30 @@
           />
         </div>
         <div class="cs-field">
-          <div class="cs-field-label">Profile Image URL</div>
-          <input
-            type="text"
-            class="cs-field-input"
-            id="cs-profile-img"
-            placeholder="https://..."
-          />
+          <div class="cs-field-label">Profile Image</div>
+          <div class="cs-img-widget">
+            <input type="text" id="cs-profile-img" style="display: none" />
+            <input
+              type="file"
+              accept="image/*"
+              class="cs-img-file-input"
+              style="display: none"
+            />
+            <div class="cs-image-upload" role="button" tabindex="0">
+              <div class="cs-image-preview">
+                <img
+                  src="https://i.postimg.cc/d0Cmsk4W/Mt-Admin-Image-Upload-Icon.png"
+                  alt="Upload"
+                  class="cs-upload-placeholder-icon"
+                />
+              </div>
+              <div class="cs-image-hint">
+                Profile &amp; Feed image &middot; Click to upload &middot; Max
+                3MB
+              </div>
+            </div>
+            <div class="cs-upload-status"></div>
+          </div>
         </div>
         <div class="cs-field">
           <div class="cs-field-label">Mentorship Price</div>
@@ -1730,12 +1795,12 @@
         ><span class="cs-title-name">Profile</span>
       </div>
       <div class="cs-about-list" id="cs-about-list"></div>
-      <div style="padding: 0 24px 12px">
+      <div style="padding: 12px 24px 8px">
         <button type="button" class="cs-add-section-btn" id="cs-about-add">
           + Add Section
         </button>
       </div>
-      <div style="padding: 0 24px 24px">
+      <div style="padding: 8px 24px 28px">
         <button type="button" class="cs-btn-save" id="cs-profile-about-save">
           Save About
         </button>

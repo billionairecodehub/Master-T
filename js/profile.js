@@ -222,6 +222,68 @@ if (mentorshipCtaBtn) {
 const msgSendBtn = document.getElementById("msg-send-btn");
 const msgSendNote = document.getElementById("msg-send-note");
 
+// ── Daily message limit helpers ──
+const MSG_DAY_KEY = "mt_msg_day";
+
+function _getTodayKey() {
+  return new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+}
+
+function _getMsgTodayCount() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(MSG_DAY_KEY) || "{}");
+    if (stored.day !== _getTodayKey()) return 0;
+    return stored.count || 0;
+  } catch (e) {
+    return 0;
+  }
+}
+
+function _incrementMsgCount() {
+  const today = _getTodayKey();
+  const count = _getMsgTodayCount() + 1;
+  localStorage.setItem(MSG_DAY_KEY, JSON.stringify({ day: today, count }));
+}
+
+// ── Apply message gate (called on load and can be re-checked) ──
+function _applyMsgGate() {
+  if (!msgSendBtn) return;
+  const p = DataStore.getProfile();
+  const msgOn = p.msgOn !== false; // default on if not set
+  const msgLimit = p.msgLimit || 5;
+
+  if (!msgOn) {
+    msgSendBtn.disabled = true;
+    msgSendBtn.textContent = "Message Not Yet Available";
+    msgSendBtn.style.opacity = "0.55";
+    msgSendBtn.style.cursor = "not-allowed";
+    _profileMsgSetNote(
+      "Messaging is currently disabled",
+      "rgba(200,120,60,0.85)",
+    );
+    return;
+  }
+
+  const todayCount = _getMsgTodayCount();
+  if (todayCount >= msgLimit) {
+    msgSendBtn.disabled = true;
+    msgSendBtn.textContent = "Daily Limit Reached";
+    msgSendBtn.style.opacity = "0.55";
+    msgSendBtn.style.cursor = "not-allowed";
+    _profileMsgSetNote(
+      "You've reached today's message limit. Try again tomorrow.",
+      "rgba(200,120,60,0.85)",
+    );
+    return;
+  }
+
+  // Available — reset any gate state
+  msgSendBtn.disabled = false;
+  msgSendBtn.textContent = "Send a Message";
+  msgSendBtn.style.opacity = "";
+  msgSendBtn.style.cursor = "";
+}
+
 function _profileMsgReset() {
   const n = document.getElementById("msg-sender-name");
   const t = document.getElementById("msg-sender-title");
@@ -241,6 +303,25 @@ function _profileMsgSetNote(text, color) {
 
 if (msgSendBtn) {
   msgSendBtn.addEventListener("click", () => {
+    // Re-check gate before each send
+    const p = DataStore.getProfile();
+    const msgOn = p.msgOn !== false;
+    const msgLimit = p.msgLimit || 5;
+    if (!msgOn) {
+      _profileMsgSetNote(
+        "Messaging is currently disabled",
+        "rgba(200,120,60,0.85)",
+      );
+      return;
+    }
+    if (_getMsgTodayCount() >= msgLimit) {
+      _profileMsgSetNote(
+        "You've reached today's message limit. Try again tomorrow.",
+        "rgba(200,120,60,0.85)",
+      );
+      return;
+    }
+
     const name = (
       document.getElementById("msg-sender-name")?.value || ""
     ).trim();
@@ -279,15 +360,26 @@ if (msgSendBtn) {
       reply: "",
     });
 
-    msgSendBtn.textContent = "Send a Message";
-    msgSendBtn.disabled = false;
+    _incrementMsgCount();
+
     _profileMsgSetNote(
       "Message sent! Response may take a while",
       "rgba(107,200,107,0.9)",
     );
     _profileMsgReset();
 
-    // Reset note after 4 s
-    setTimeout(() => _profileMsgSetNote("Response may take a while"), 4000);
+    // Re-evaluate gate (may hit limit after this send)
+    _applyMsgGate();
+
+    // Reset note after 4 s (only if still available)
+    setTimeout(() => {
+      const p2 = DataStore.getProfile();
+      if (p2.msgOn !== false) {
+        _profileMsgSetNote("Response may take a while");
+      }
+    }, 4000);
   });
 }
+
+// Apply gate on load
+_applyMsgGate();

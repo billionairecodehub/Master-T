@@ -82,6 +82,7 @@ function getRelativeTime(dateStr) {
 
 function renderFeedPosts() {
   const container = document.getElementById("feed-main");
+  const _profileImg = DataStore.getProfile().img || LOGO_SRC;
   const posts = DataStore.getAll("posts")
     .slice()
     .sort((a, b) => {
@@ -145,7 +146,7 @@ function renderFeedPosts() {
         <div class="feed-post" data-id="${p.id}">
           <div class="post-top">
             <div class="post-image-wrap">
-              <img src="${LOGO_SRC}" alt="Post" class="post-image" />
+              <img src="${_profileImg}" alt="Post" class="post-image" />
             </div>
             <div class="post-title-block">
               <div class="post-subject">${p.subject || ""}</div>

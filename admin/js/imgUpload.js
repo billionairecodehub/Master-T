@@ -43,13 +43,16 @@ function _csSetWidgetState(widget, state, msg) {
   box.classList.toggle("cs-upload-done", state === "done");
 }
 
+const CS_UPLOAD_PLACEHOLDER_ICON =
+  "https://i.postimg.cc/d0Cmsk4W/Mt-Admin-Image-Upload-Icon.png";
+
 function _csSetWidgetPreview(widget, url) {
   const preview = widget.querySelector(".cs-image-preview");
   if (!preview) return;
   if (url) {
     preview.innerHTML = `<img src="${url}" alt="Preview" />`;
   } else {
-    preview.innerHTML = "&#128444;";
+    preview.innerHTML = `<img src="${CS_UPLOAD_PLACEHOLDER_ICON}" alt="Upload" class="cs-upload-placeholder-icon" />`;
   }
 }
 

@@ -694,6 +694,14 @@
   border-radius: 10px;
 }
 
+.cs-image-preview img.cs-upload-placeholder-icon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  border-radius: 0;
+  opacity: 0.6;
+}
+
 .cs-image-hint {
   font-size: 12px;
   color: rgba(107, 158, 255, 0.45);
@@ -704,60 +712,158 @@
 .cs-about-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  padding: 0 0 4px;
 }
 
 .cs-about-item {
-  background: rgba(5, 9, 28, 0.8);
-  border: 0.5px solid rgba(107, 158, 255, 0.12);
-  border-radius: 10px;
+  position: relative;
+  background: rgba(7, 12, 32, 0.85);
+  border: 0.5px solid rgba(107, 158, 255, 0.14);
+  border-radius: 14px;
   overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.cs-about-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    180deg,
+    rgba(107, 158, 255, 0.6) 0%,
+    rgba(107, 158, 255, 0.15) 100%
+  );
+  border-radius: 0 2px 2px 0;
+}
+
+.cs-about-item.locked::before {
+  background: linear-gradient(
+    180deg,
+    rgba(180, 140, 255, 0.65) 0%,
+    rgba(107, 158, 255, 0.2) 100%
+  );
+}
+
+.cs-about-item:focus-within {
+  border-color: rgba(107, 158, 255, 0.3);
 }
 
 .cs-about-item-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
-  cursor: pointer;
+  padding: 13px 16px 13px 20px;
+  gap: 10px;
+}
+
+.cs-about-item-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.cs-about-item-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: rgba(107, 158, 255, 0.1);
+  border: 0.5px solid rgba(107, 158, 255, 0.2);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.cs-about-item.locked .cs-about-item-badge {
+  background: rgba(180, 140, 255, 0.1);
+  border-color: rgba(180, 140, 255, 0.25);
 }
 
 .cs-about-item-title {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  color: rgba(248, 246, 255, 0.85);
+  color: rgba(248, 246, 255, 0.88);
+  letter-spacing: 0.01em;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cs-about-item-lock-tag {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(180, 140, 255, 0.55);
+  background: rgba(180, 140, 255, 0.07);
+  border: 0.5px solid rgba(180, 140, 255, 0.18);
+  border-radius: 4px;
+  padding: 2px 6px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  flex-shrink: 0;
 }
 
 .cs-about-item-controls {
   display: flex;
-  gap: 10px;
+  gap: 6px;
   align-items: center;
-}
-
-.cs-about-reorder {
-  background: none;
-  border: none;
-  color: rgba(107, 158, 255, 0.4);
-  font-size: 14px;
-  cursor: pointer;
-  padding: 2px 4px;
+  flex-shrink: 0;
 }
 
 .cs-about-remove {
-  background: none;
-  border: none;
-  color: rgba(231, 76, 60, 0.45);
-  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: rgba(231, 76, 60, 0.08);
+  border: 0.5px solid rgba(231, 76, 60, 0.2);
+  border-radius: 7px;
+  color: rgba(231, 76, 60, 0.6);
+  font-size: 13px;
   cursor: pointer;
-  padding: 2px 4px;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.cs-about-remove:active {
+  background: rgba(231, 76, 60, 0.18);
+  color: rgba(231, 76, 60, 0.9);
 }
 
 .cs-about-item-body {
-  padding: 0 16px 14px;
+  padding: 0 16px 14px 20px;
+}
+
+.cs-about-item-body .cs-field-textarea {
+  background: rgba(107, 158, 255, 0.04);
+  border: 0.5px solid rgba(107, 158, 255, 0.12);
+  border-radius: 9px;
+}
+
+.cs-about-item-body .cs-field-textarea:focus {
+  border-color: rgba(107, 158, 255, 0.3);
+  outline: none;
 }
 
 .cs-about-item.locked .cs-about-remove {
   display: none;
+}
+
+.cs-about-page-wrap {
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .cs-add-section-btn {
@@ -765,10 +871,10 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: rgba(5, 9, 28, 0.6);
-  border: 0.5px dashed rgba(107, 158, 255, 0.2);
-  border-radius: 10px;
-  padding: 14px;
+  background: rgba(5, 9, 28, 0.5);
+  border: 0.5px dashed rgba(107, 158, 255, 0.22);
+  border-radius: 12px;
+  padding: 15px;
   color: rgba(107, 158, 255, 0.5);
   font-size: 13px;
   font-family: "Gellix", sans-serif;
@@ -776,12 +882,20 @@
   width: 100%;
   transition:
     border-color 0.2s,
-    color 0.2s;
+    color 0.2s,
+    background 0.2s;
+  letter-spacing: 0.02em;
+}
+
+.cs-add-section-btn:hover {
+  border-color: rgba(107, 158, 255, 0.38);
+  color: rgba(107, 158, 255, 0.75);
 }
 
 .cs-add-section-btn:active {
-  border-color: rgba(107, 158, 255, 0.4);
-  color: rgba(107, 158, 255, 0.85);
+  border-color: rgba(107, 158, 255, 0.5);
+  color: rgba(107, 158, 255, 0.9);
+  background: rgba(107, 158, 255, 0.05);
 }
 
 /* ── Subscribers — All ───────────────────────────────── */

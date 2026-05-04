@@ -2172,6 +2172,7 @@ function _csProfileRefresh(tab) {
     document.getElementById("cs-profile-price").value = profile.price || "";
     document.getElementById("cs-profile-phone").value = profile.phone || "";
     document.getElementById("cs-profile-email").value = profile.email || "";
+    _csSyncImgPreviews(["cs-profile-img"]);
   } else if (tab === "cta") {
     document.getElementById("cs-profile-mentorship-url").value =
       profile.mentorshipUrl || "";
@@ -2201,13 +2202,17 @@ function _csRenderAbout() {
       (s, i) => `
     <div class="cs-about-item ${s.locked ? "locked" : ""}" data-idx="${i}">
       <div class="cs-about-item-header">
-        <div class="cs-about-item-title">${s.title}</div>
+        <div class="cs-about-item-title-row">
+          <div class="cs-about-item-badge">${s.locked ? "🔒" : "✎"}</div>
+          <div class="cs-about-item-title">${s.title}</div>
+          ${s.locked ? '<span class="cs-about-item-lock-tag">Core</span>' : ""}
+        </div>
         <div class="cs-about-item-controls">
           ${!s.locked ? `<button type="button" class="cs-about-remove" data-idx="${i}">✕</button>` : ""}
         </div>
       </div>
       <div class="cs-about-item-body">
-        <textarea class="cs-field-textarea" style="min-height:70px" data-about-idx="${i}" placeholder="Write about ${s.title}...">${s.body || ""}</textarea>
+        <textarea class="cs-field-textarea" style="min-height:80px" data-about-idx="${i}" placeholder="Write about ${s.title}...">${s.body || ""}</textarea>
       </div>
     </div>`,
     )
