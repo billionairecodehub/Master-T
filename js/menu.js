@@ -17,6 +17,10 @@ const searchPlaceholders = {
 
 const FILTER_ICON_SRC = menuFilterIcon ? menuFilterIcon.src : "";
 const BACK_CIRCLE_SRC = "https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png";
+const DEFAULT_ICON_IMG =
+  "https://i.postimg.cc/PrKTpGGD/Default-Image-App-Icon.png";
+const DEFAULT_VISUAL_IMG =
+  "https://i.postimg.cc/k4yh1mvN/Deafult-Image-Visual-Board.png";
 
 // Expand state tracking
 let _expandState = null; // { type: 'apps'|'books'|'circle', key: 'M'|'Romance' }
@@ -91,7 +95,7 @@ function openExpandView(type, key) {
     .map(
       (item) =>
         `<div class="${itemCls}-item" data-id="${item.id}">
-          <img src="${item.img || "https://i.postimg.cc/508MnvsH/image.png"}" alt="${item.name}" class="${itemCls}-icon" />
+          <img src="${item.img || DEFAULT_ICON_IMG}" alt="${item.name}" class="${itemCls}-icon" />
           <div class="${itemCls}-name">${item.name}</div>
         </div>`,
     )
@@ -167,7 +171,7 @@ function renderMenuApps() {
       <div class="menu-pinned-board">
         <div class="menu-section-label">Top Recommended For Creators</div>
         <div class="menu-pinned-item menu-app-item" data-id="${pinned.id}">
-          <img src="${pinned.img || "https://i.postimg.cc/508MnvsH/image.png"}" alt="${pinned.name}" class="menu-pinned-icon" />
+          <img src="${pinned.img || DEFAULT_ICON_IMG}" alt="${pinned.name}" class="menu-pinned-icon" />
           <div class="menu-pinned-details">
             <div class="menu-pinned-name">${pinned.name}</div>
             <div class="menu-pinned-desc">${pinned.short}</div>
@@ -199,7 +203,7 @@ function renderMenuApps() {
       visible.forEach((a) => {
         gridHTML += `
         <div class="menu-app-item" data-id="${a.id}">
-          <img src="${a.img || "https://i.postimg.cc/508MnvsH/image.png"}" alt="${a.name}" class="menu-app-icon" />
+          <img src="${a.img || DEFAULT_ICON_IMG}" alt="${a.name}" class="menu-app-icon" />
           <div class="menu-app-name">${a.name}</div>
         </div>`;
       });
@@ -226,7 +230,7 @@ function renderMenuBooks() {
       <div class="menu-pinned-board">
         <div class="menu-section-label">Top Book of the Week</div>
         <div class="menu-pinned-item menu-book-item" data-id="${pinned.id}">
-          <img src="${pinned.img || "https://i.postimg.cc/508MnvsH/image.png"}" alt="${pinned.name}" class="menu-pinned-icon" />
+          <img src="${pinned.img || DEFAULT_ICON_IMG}" alt="${pinned.name}" class="menu-pinned-icon" />
           <div class="menu-pinned-details">
             <div class="menu-pinned-name">${pinned.name}</div>
             <div class="menu-pinned-desc">${pinned.merit || pinned.short || ""}</div>
@@ -258,7 +262,7 @@ function renderMenuBooks() {
       visible.forEach((b) => {
         gridHTML += `
         <div class="menu-book-item" data-id="${b.id}">
-          <img src="${b.img || "https://i.postimg.cc/508MnvsH/image.png"}" alt="${b.name}" class="menu-book-icon" />
+          <img src="${b.img || DEFAULT_ICON_IMG}" alt="${b.name}" class="menu-book-icon" />
           <div class="menu-book-name">${b.name}</div>
         </div>`;
       });
@@ -302,7 +306,7 @@ function renderMenuCircles() {
     visible.forEach((c) => {
       gridHTML += `
         <div class="menu-circle-item" data-id="${c.id}">
-          <img src="${c.img || "https://i.postimg.cc/508MnvsH/image.png"}" alt="${c.name}" class="menu-circle-icon" />
+          <img src="${c.img || DEFAULT_ICON_IMG}" alt="${c.name}" class="menu-circle-icon" />
           <div class="menu-circle-name">${c.name}</div>
         </div>`;
     });
@@ -348,10 +352,8 @@ function bindAppClicks() {
 
       document.getElementById("app-topbar-label").textContent = "App";
       document.getElementById("app-topbar-name").textContent = a.name;
-      document.getElementById("app-topbar-img").src =
-        a.img || "https://i.postimg.cc/508MnvsH/image.png";
-      document.getElementById("app-board-img").src =
-        a.img || "https://i.postimg.cc/508MnvsH/image.png";
+      document.getElementById("app-topbar-img").src = a.img || DEFAULT_ICON_IMG;
+      document.getElementById("app-board-img").src = a.img || DEFAULT_ICON_IMG;
       const _abn = document.getElementById("app-board-name");
       const _abnIcon = _abn.querySelector(".app-board-name-icon");
       _abn.textContent = a.name;
@@ -359,9 +361,9 @@ function bindAppClicks() {
       document.getElementById("app-board-platform").textContent = a.platform;
       document.getElementById("app-board-version").textContent = a.version;
       document.getElementById("app-visual-1").src =
-        a.visual1 || "https://i.postimg.cc/508MnvsH/image.png";
+        a.visual1 || DEFAULT_VISUAL_IMG;
       document.getElementById("app-visual-2").src =
-        a.visual2 || "https://i.postimg.cc/508MnvsH/image.png";
+        a.visual2 || DEFAULT_VISUAL_IMG;
       document.getElementById("app-short-text").textContent = a.short;
       document.getElementById("app-desc-text").textContent = a.desc;
       const _ars = document.getElementById("app-rating-score");
@@ -372,7 +374,7 @@ function bindAppClicks() {
       if (_art) _art.textContent = a.ratingtext;
       document.getElementById("app-cta-board").style.backgroundImage = a.visual1
         ? `url('${a.visual1}')`
-        : "url('https://i.postimg.cc/508MnvsH/image.png')";
+        : `url('${DEFAULT_VISUAL_IMG}')`;
       document.getElementById("app-cta-name").textContent = a.name;
 
       // CTA button — open ctaUrl in new tab
@@ -443,11 +445,11 @@ function bindBookClicks() {
       document.getElementById("book-topbar-label").textContent = "Book";
       document.getElementById("book-topbar-name").textContent = b.name;
       document.getElementById("book-topbar-img").src =
-        b.img || "https://i.postimg.cc/508MnvsH/image.png";
+        b.img || DEFAULT_ICON_IMG;
       document.getElementById("book-visual-1").src =
-        b.visual1 || "https://i.postimg.cc/508MnvsH/image.png";
+        b.visual1 || DEFAULT_VISUAL_IMG;
       document.getElementById("book-visual-2").src =
-        b.visual2 || "https://i.postimg.cc/508MnvsH/image.png";
+        b.visual2 || DEFAULT_VISUAL_IMG;
       document.getElementById("book-content-title").textContent = b.name;
       document.getElementById("book-desc-text").textContent = b.desc;
       document.getElementById("book-keypoints-text").textContent =
@@ -466,7 +468,7 @@ function bindBookClicks() {
       document.getElementById("book-cta-board").style.backgroundImage =
         b.ctacoverImg
           ? `url('${b.ctacoverImg}')`
-          : "url('https://i.postimg.cc/508MnvsH/image.png')";
+          : `url('${DEFAULT_VISUAL_IMG}')`;
       document.getElementById("book-cta-name").textContent = b.name;
       document.getElementById("book-cta-price").textContent = b.price;
 
@@ -550,9 +552,9 @@ function bindCircleClicks() {
       document.getElementById("circle-topbar-label").textContent = "Circle";
       document.getElementById("circle-topbar-name").textContent = c.name;
       document.getElementById("circle-topbar-img").src =
-        c.img || "https://i.postimg.cc/508MnvsH/image.png";
+        c.img || DEFAULT_ICON_IMG;
       document.getElementById("circle-board-img").src =
-        c.img || "https://i.postimg.cc/508MnvsH/image.png";
+        c.img || DEFAULT_ICON_IMG;
       document.getElementById("circle-board-category").textContent = c.category;
       document.getElementById("circle-board-name").textContent = c.name;
       document.getElementById("circle-board-platform").textContent = c.platform;

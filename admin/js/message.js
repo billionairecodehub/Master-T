@@ -120,15 +120,10 @@ function _msgOpenMessage(id) {
   const bodyEl = document.getElementById("msg-body-text");
   if (bodyEl) bodyEl.textContent = msg.body || msg.message || "";
 
-  const titleCard = document.getElementById("msg-title-card");
-  const titleEl = document.getElementById("msg-title-text");
-  if (titleCard && titleEl) {
-    if (msg.title) {
-      titleEl.textContent = msg.title;
-      titleCard.style.display = "";
-    } else {
-      titleCard.style.display = "none";
-    }
+  const titleEl = document.getElementById("msg-body-title");
+  if (titleEl) {
+    titleEl.textContent = msg.title || "";
+    titleEl.style.display = msg.title ? "" : "none";
   }
 
   const replyEl = document.getElementById("msg-response-input");

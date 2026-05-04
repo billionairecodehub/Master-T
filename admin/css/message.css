@@ -108,8 +108,8 @@
 .msg-card {
   background: rgba(10, 16, 45, 0.85);
   border: 0.5px solid rgba(107, 158, 255, 0.1);
-  border-radius: 14px;
-  padding: 18px 18px;
+  border-radius: 4px;
+  padding: 18px;
   cursor: pointer;
   transition:
     background 0.15s,
@@ -191,7 +191,7 @@
 .msg-response-card {
   background: rgba(10, 16, 45, 0.85);
   border: 0.5px solid rgba(107, 158, 255, 0.1);
-  border-radius: 14px;
+  border-radius: 8px;
   padding: 18px;
 }
 
@@ -210,6 +210,14 @@
   line-height: 1.65;
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+.msg-body-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(248, 246, 255, 0.92);
+  margin-bottom: 10px;
+  display: none;
 }
 
 /* ── Response area ────────────────────────────────────── */

@@ -189,6 +189,7 @@ button {
   height: auto;
   overflow: visible;
   cursor: default;
+  padding-top: 12px;
 }
 
 .feed-post.expanded .post-read-more {
@@ -210,7 +211,7 @@ button {
 }
 
 /* Vertical thread line */
-.feed-post.expanded .post-expanded-content::before {
+/* .feed-post.expanded .post-expanded-content::before {
   content: "";
   position: absolute;
   left: 6px;
@@ -220,14 +221,14 @@ button {
   background: rgba(255, 255, 255, 0.08);
   border-radius: 1px;
   border-bottom: none;
-}
+} */
 
 /* Thread title — bold text with colon */
 .post-thread-title {
   color: #ccc;
   font-size: 13px;
   font-weight: 700;
-  padding: 4px 0 2px;
+  padding: 10px 0 4px;
 }
 
 .post-thread-text {

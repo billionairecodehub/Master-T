@@ -205,7 +205,7 @@
   justify-content: space-between;
   background: rgba(5, 9, 28, 0.7);
   border: 0.5px solid rgba(107, 158, 255, 0.15);
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 14px 16px;
 }
 
@@ -225,7 +225,7 @@
   width: 44px;
   height: 24px;
   background: rgba(107, 158, 255, 0.15);
-  border-radius: 12px;
+  border-radius: 2px;
   position: relative;
   cursor: pointer;
   transition: background 0.25s;
@@ -418,7 +418,7 @@
   padding: 12px 0;
   background: rgba(10, 16, 45, 0.8);
   border: 0.5px solid rgba(107, 158, 255, 0.2);
-  border-radius: 10px;
+  border-radius: 2px;
   color: rgba(248, 246, 255, 0.5);
   font-family: "Gellix", sans-serif;
   font-size: 14px;
@@ -1013,7 +1013,7 @@
   align-items: center;
   justify-content: space-between;
   border: 0.5px solid rgba(107, 158, 255, 0.14);
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 10px 12px;
   font-size: 12px;
   color: rgba(248, 246, 255, 0.85);

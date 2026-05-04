@@ -205,11 +205,12 @@ button {
 }
 
 .block-story-label {
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: -0.25px;
   color: rgba(255, 255, 255, 0.35);
-  text-transform: uppercase;
+  opacity: 0.75;
+  /* text-transform: uppercase; */
 }
 
 /* ─ 2. img heart replaces span heart ─ */

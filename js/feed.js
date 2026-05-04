@@ -5,6 +5,8 @@ const FEED_ICON_DEFAULT = feedPostIcon ? feedPostIcon.getAttribute("src") : "";
 const BACK_ICON_SRC = "https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png";
 const LOGO_SRC = "https://i.postimg.cc/rwvVj88M/image.png";
 
+let _feedScrollPos = 0;
+
 // ── Feed unread dot ──────────────────────────────────────
 const FEED_SEEN_KEY = "mt_feed_seen";
 
@@ -186,6 +188,9 @@ function bindFeedExpand() {
       if (e.target.closest(".post-like-btn")) return;
       if (e.target.closest(".post-cta-tag")) return;
       if (post.classList.contains("expanded")) return;
+      // Save scroll position before expanding
+      const _mainEl = document.querySelector(".main");
+      _feedScrollPos = _mainEl ? _mainEl.scrollTop : 0;
       // Collapse all and isolate this one
       feedPosts.forEach((p) => {
         p.classList.remove("expanded");
@@ -262,6 +267,8 @@ if (feedPostIcon) {
       .querySelectorAll(".post-date-label")
       .forEach((d) => (d.style.display = ""));
     feedPostIcon.src = FEED_ICON_DEFAULT;
+    const _mainEl = document.querySelector(".main");
+    if (_mainEl) _mainEl.scrollTop = _feedScrollPos;
   });
 }
 
@@ -277,6 +284,8 @@ if (feedHeader) {
       .querySelectorAll(".post-date-label")
       .forEach((d) => (d.style.display = ""));
     if (feedPostIcon) feedPostIcon.src = FEED_ICON_DEFAULT;
+    const _mainEl = document.querySelector(".main");
+    if (_mainEl) _mainEl.scrollTop = _feedScrollPos;
   });
 }
 
