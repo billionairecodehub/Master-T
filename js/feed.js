@@ -106,8 +106,21 @@ function renderFeedPosts() {
         .join("");
 
       const tagColor = CTA_TAG_COLORS[idx % CTA_TAG_COLORS.length];
+      let ctaUrl = "";
+      if (p.ctaLabel && p.ctaType && p.ctaItemId) {
+        const storeKey = p.ctaType === "app" ? "apps" : p.ctaType === "book" ? "books" : "circles";
+        const items = DataStore.getAll(storeKey);
+        const item = items.find((i) => i.id === p.ctaItemId);
+        if (item) {
+          if (p.ctaType === "app") ctaUrl = item.ctaUrl || "";
+          else if (p.ctaType === "book") ctaUrl = (item.platformUrls && item.platformUrls[0]) || item.ctaUrl || "";
+          else if (p.ctaType === "circle") ctaUrl = item.url || "";
+        }
+      }
       const ctaHTML = p.ctaLabel
-        ? `<span class="post-cta-tag" style="background:${tagColor}">${p.ctaLabel}</span>`
+        ? ctaUrl
+          ? `<a class="post-cta-tag" href="${ctaUrl}" target="_blank" rel="noopener noreferrer" style="background:${tagColor}">${p.ctaLabel}</a>`
+          : `<span class="post-cta-tag" style="background:${tagColor};pointer-events:none;">${p.ctaLabel}</span>`
         : "";
 
       const likes = p.likes || 0;
@@ -164,6 +177,7 @@ function bindFeedExpand() {
     post.addEventListener("click", (e) => {
       // Don't toggle if clicking vote buttons
       if (e.target.closest(".post-like-btn")) return;
+      if (e.target.closest(".post-cta-tag")) return;
       if (post.classList.contains("expanded")) return;
       // Collapse all and isolate this one
       feedPosts.forEach((p) => {

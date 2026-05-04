@@ -403,10 +403,15 @@ function _csRenderUpdatesView() {
   const itemsHtml = items
     .map((it) => `<div class="cs-user-update-item">${_csEscHtml(it)}</div>`)
     .join("");
+  const ctaHtml = u.ctaLabel
+    ? u.ctaUrl
+      ? `<a class="cs-user-cta-btn" href="${_csEscHtml(u.ctaUrl)}" target="_blank" rel="noopener noreferrer">${_csEscHtml(u.ctaLabel)}</a>`
+      : `<a class="cs-user-cta-btn" style="pointer-events:none;opacity:0.5;">${_csEscHtml(u.ctaLabel)}</a>`
+    : "";
   el.innerHTML = `<article class="cs-user-detail-card">
     <div class="cs-user-detail-title">${_csEscHtml(u.subject || u.title || "Untitled")}</div>
     ${itemsHtml ? `<div class="cs-user-update-wrap">${itemsHtml}</div>` : `<div class="cs-user-detail-body">${_csEscHtml(u.content || "")}</div>`}
-    ${u.ctaLabel ? `<a class="cs-user-cta-btn" href="${_csEscHtml(u.ctaUrl || "#")}" target="_blank" rel="noopener noreferrer">${_csEscHtml(u.ctaLabel)}</a>` : ""}
+    ${ctaHtml}
   </article>`;
 }
 
@@ -1746,6 +1751,7 @@ function _csBooksResetForm() {
     "cs-books-visual1",
     "cs-books-visual2",
     "cs-books-ctacover",
+    "cs-books-cta-url",
   ].forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.value = "";
@@ -1779,6 +1785,8 @@ function _csBooksLoadEdit(book) {
   if (v2) v2.value = visuals[1] || "";
   const ctacover = document.getElementById("cs-books-ctacover");
   if (ctacover) ctacover.value = book.ctaCover || "";
+  const ctaUrl = document.getElementById("cs-books-cta-url");
+  if (ctaUrl) ctaUrl.value = book.ctaUrl || "";
   const kps = book.keyPoints || [];
   for (let i = 1; i <= 5; i++) {
     const el = document.getElementById(`cs-books-kp-${i}`);
@@ -1825,6 +1833,7 @@ async function _csBooksSave(isDraft) {
     img: document.getElementById("cs-books-icon").value.trim(),
     visuals: [v1, v2].filter(Boolean),
     ctaCover: document.getElementById("cs-books-ctacover")?.value.trim() || "",
+    ctaUrl: document.getElementById("cs-books-cta-url")?.value.trim() || "",
     keyPoints,
     details,
     platformUrls,

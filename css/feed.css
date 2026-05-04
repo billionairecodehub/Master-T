@@ -358,6 +358,7 @@ button {
   border-radius: 5px;
   letter-spacing: -0.2px;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 /* ── Responsive — Tablet (768px+) ── */

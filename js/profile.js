@@ -192,10 +192,30 @@ function refreshProfileData() {
     profileCallBtn.setAttribute("data-contact", "tel:" + p.phone);
   if (profileEmailBtn && p.email)
     profileEmailBtn.setAttribute("data-contact", "mailto:" + p.email);
+  // Mentorship CTA button
+  const mentorshipCta = document.querySelector(".mentorship-cta");
+  if (mentorshipCta) {
+    if (p.mentorshipUrl) {
+      mentorshipCta.setAttribute("data-url", p.mentorshipUrl);
+      mentorshipCta.style.opacity = "";
+      mentorshipCta.style.pointerEvents = "";
+    } else {
+      mentorshipCta.removeAttribute("data-url");
+    }
+  }
   // Re-render like count so all devices see the latest global count
   renderProfileLikes();
 }
 refreshProfileData();
+
+// ── Mentorship CTA button ──
+const mentorshipCtaBtn = document.querySelector(".mentorship-cta");
+if (mentorshipCtaBtn) {
+  mentorshipCtaBtn.addEventListener("click", () => {
+    const url = mentorshipCtaBtn.getAttribute("data-url");
+    if (url) window.open(url, "_blank", "noopener,noreferrer");
+  });
+}
 
 // ── Send message → DataStore.messages ──────────────────────────────────────
 

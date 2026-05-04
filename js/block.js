@@ -393,7 +393,7 @@ function renderBlockRecommends() {
     list
       .map((r) => {
         const cta = r.ctaLabel
-          ? `<a class="block-recommend-cta-faded" href="${r.ctaUrl || "#"}" target="_blank" rel="noopener noreferrer">${r.ctaLabel}</a>`
+          ? `<a class="block-recommend-cta-faded"${r.ctaUrl ? ` href="${r.ctaUrl}" target="_blank" rel="noopener noreferrer"` : ""} style="${r.ctaUrl ? "" : "pointer-events:none;opacity:0.45;"}">` + r.ctaLabel + `</a>`
           : "";
         return `<div class="block-recommend-card" data-id="${r.id}">
           <div class="block-recommend-card-inner">
@@ -436,7 +436,7 @@ function _bRenderRecommend(id) {
 
   // â”€â”€ 5. Expanded: active styled CTA button (not full width) â”€â”€
   const ctaHTML = r.ctaLabel
-    ? `<a class="block-recommend-full-cta" href="${r.ctaUrl || "#"}" target="_blank" rel="noopener noreferrer">${r.ctaLabel}</a>`
+    ? `<a class="block-recommend-full-cta"${r.ctaUrl ? ` href="${r.ctaUrl}" target="_blank" rel="noopener noreferrer"` : ""} style="${r.ctaUrl ? "" : "pointer-events:none;opacity:0.45;"}">` + r.ctaLabel + `</a>`
     : "";
 
   // â”€â”€ 3. Card header at top of full view â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€

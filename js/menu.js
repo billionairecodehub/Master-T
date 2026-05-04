@@ -577,7 +577,15 @@ function bindCircleClicks() {
       // CTA link
       const _cta = document.getElementById("circle-panel-cta");
       if (_cta) {
-        _cta.href = c.url || "#";
+        if (c.url) {
+          _cta.href = c.url;
+          _cta.style.pointerEvents = "";
+          _cta.style.opacity = "";
+        } else {
+          _cta.removeAttribute("href");
+          _cta.style.pointerEvents = "none";
+          _cta.style.opacity = "0.45";
+        }
         const _newCta = _cta.cloneNode(true);
         _cta.parentNode.replaceChild(_newCta, _cta);
         _newCta.addEventListener("click", () => {
