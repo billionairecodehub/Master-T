@@ -108,12 +108,19 @@ function renderFeedPosts() {
       const tagColor = CTA_TAG_COLORS[idx % CTA_TAG_COLORS.length];
       let ctaUrl = "";
       if (p.ctaLabel && p.ctaType && p.ctaItemId) {
-        const storeKey = p.ctaType === "apps" ? "apps" : p.ctaType === "books" ? "books" : "circles";
+        const storeKey =
+          p.ctaType === "apps"
+            ? "apps"
+            : p.ctaType === "books"
+              ? "books"
+              : "circles";
         const items = DataStore.getAll(storeKey);
         const item = items.find((i) => i.id === p.ctaItemId);
         if (item) {
           if (p.ctaType === "apps") ctaUrl = item.ctaUrl || "";
-          else if (p.ctaType === "books") ctaUrl = (item.platformUrls && item.platformUrls[0]) || item.ctaUrl || "";
+          else if (p.ctaType === "books")
+            ctaUrl =
+              (item.platformUrls && item.platformUrls[0]) || item.ctaUrl || "";
           else if (p.ctaType === "circle") ctaUrl = item.url || "";
         }
       }
@@ -188,8 +195,6 @@ function bindFeedExpand() {
       post.style.display = "flex";
       post.classList.add("expanded");
       if (feedPostIcon) feedPostIcon.src = BACK_ICON_SRC;
-      const main = document.querySelector(".main");
-      if (main) main.scrollTop = 0;
 
       // Auto-increment impression on open
       const postId = post.getAttribute("data-id");

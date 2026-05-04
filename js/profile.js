@@ -224,9 +224,11 @@ const msgSendNote = document.getElementById("msg-send-note");
 
 function _profileMsgReset() {
   const n = document.getElementById("msg-sender-name");
+  const t = document.getElementById("msg-sender-title");
   const b = document.getElementById("msg-sender-body");
   const e = document.getElementById("msg-sender-email");
   if (n) n.value = "";
+  if (t) t.value = "";
   if (b) b.value = "";
   if (e) e.value = "";
 }
@@ -241,6 +243,9 @@ if (msgSendBtn) {
   msgSendBtn.addEventListener("click", () => {
     const name = (
       document.getElementById("msg-sender-name")?.value || ""
+    ).trim();
+    const title = (
+      document.getElementById("msg-sender-title")?.value || ""
     ).trim();
     const body = (
       document.getElementById("msg-sender-body")?.value || ""
@@ -267,6 +272,7 @@ if (msgSendBtn) {
 
     DataStore.add("messages", {
       from: name,
+      title,
       email,
       body,
       status: "unopened",

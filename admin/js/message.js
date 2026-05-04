@@ -120,6 +120,17 @@ function _msgOpenMessage(id) {
   const bodyEl = document.getElementById("msg-body-text");
   if (bodyEl) bodyEl.textContent = msg.body || msg.message || "";
 
+  const titleCard = document.getElementById("msg-title-card");
+  const titleEl = document.getElementById("msg-title-text");
+  if (titleCard && titleEl) {
+    if (msg.title) {
+      titleEl.textContent = msg.title;
+      titleCard.style.display = "";
+    } else {
+      titleCard.style.display = "none";
+    }
+  }
+
   const replyEl = document.getElementById("msg-response-input");
   if (replyEl) replyEl.value = msg.reply || "";
 

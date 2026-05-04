@@ -425,6 +425,8 @@ function bindAppClicks() {
 
       menuHome.style.display = "none";
       appPanel.classList.add("open");
+      const main = document.querySelector(".main");
+      if (main) main.scrollTop = 0;
     });
   });
 }
@@ -530,6 +532,8 @@ function bindBookClicks() {
 
       menuHome.style.display = "none";
       bookPanel.classList.add("open");
+      const main = document.querySelector(".main");
+      if (main) main.scrollTop = 0;
     });
   });
 }
@@ -632,6 +636,8 @@ function bindCircleClicks() {
 
       menuHome.style.display = "none";
       circlePanel.classList.add("open");
+      const main = document.querySelector(".main");
+      if (main) main.scrollTop = 0;
     });
   });
 }
