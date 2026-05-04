@@ -13,18 +13,52 @@ document.getElementById("modal-pin-close").addEventListener("click", () => {
   document.getElementById("modal-pin").classList.remove("open");
 });
 
-document.getElementById("save-pin-btn").addEventListener("click", () => {
+document.getElementById("save-pin-btn").addEventListener("click", async () => {
   const current = document.getElementById("pin-current").value.trim();
   const newPin = document.getElementById("pin-new").value.trim();
   const confirm = document.getElementById("pin-confirm").value.trim();
 
-  if (!DataStore.checkPin(current)) return alert("Current PIN is incorrect");
-  if (newPin.length < 4) return alert("New PIN must be at least 4 characters");
-  if (newPin !== confirm) return alert("PINs do not match");
+  if (!DataStore.checkPin(current)) {
+    if (window.UMessageModal) {
+      await window.UMessageModal.error("Current PIN is incorrect", "Error");
+    } else {
+      alert("Current PIN is incorrect");
+    }
+    return;
+  }
+
+  if (newPin.length < 4) {
+    if (window.UMessageModal) {
+      await window.UMessageModal.error(
+        "New PIN must be at least 4 characters",
+        "Error",
+      );
+    } else {
+      alert("New PIN must be at least 4 characters");
+    }
+    return;
+  }
+
+  if (newPin !== confirm) {
+    if (window.UMessageModal) {
+      await window.UMessageModal.error("PINs do not match", "Error");
+    } else {
+      alert("PINs do not match");
+    }
+    return;
+  }
 
   DataStore.setPin(newPin);
   document.getElementById("modal-pin").classList.remove("open");
-  alert("PIN updated successfully");
+
+  if (window.UMessageModal) {
+    await window.UMessageModal.success(
+      "PIN updated successfully",
+      "Notification",
+    );
+  } else {
+    alert("PIN updated successfully");
+  }
 });
 
 // ── Export Data ──────────────────────────────────────

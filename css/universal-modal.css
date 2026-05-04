@@ -1,0 +1,161 @@
+:root {
+  --umodal-z: 5000;
+  --umodal-bg: linear-gradient(145deg, #070b1f 0%, #10183c 62%, #16124a 100%);
+  --umodal-card-border: 1px solid rgba(107, 158, 255, 0.22);
+  --umodal-text: rgba(240, 246, 255, 0.95);
+  --umodal-muted: rgba(189, 206, 244, 0.78);
+  --umodal-btn-confirm: linear-gradient(145deg, #169f58 0%, #21c972 100%);
+  --umodal-btn-cancel: linear-gradient(145deg, #8f1f34 0%, #df4767 100%);
+  --umodal-btn-neutral: linear-gradient(145deg, #3b4c77 0%, #5a6b97 100%);
+}
+
+.umodal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--umodal-z);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(14px, 4vw, 28px);
+  background: rgba(2, 6, 20, 0.68);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.umodal-overlay.is-open {
+  display: flex;
+  opacity: 1;
+}
+
+.umodal-overlay.is-closing {
+  opacity: 0;
+}
+
+.umodal-card {
+  width: min(100%, 560px);
+  border-radius: 16px;
+  border: var(--umodal-card-border);
+  background: var(--umodal-bg);
+  box-shadow: 0 20px 54px rgba(0, 0, 0, 0.48);
+  color: var(--umodal-text);
+  overflow: hidden;
+  transform: translateY(10px) scale(0.98);
+  opacity: 0;
+  transition:
+    transform 0.22s ease,
+    opacity 0.22s ease;
+}
+
+.umodal-overlay.is-open .umodal-card {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.umodal-header {
+  padding: 18px 20px 12px;
+  border-bottom: 1px solid rgba(107, 158, 255, 0.15);
+}
+
+.umodal-title {
+  font-family: "Gellix", Arial, sans-serif;
+  font-size: clamp(18px, 3.4vw, 24px);
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  background: linear-gradient(90deg, #6ea6ff 0%, #c9dcff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.umodal-body {
+  padding: 14px 20px 4px;
+}
+
+.umodal-label {
+  font-family: "Gellix", Arial, sans-serif;
+  font-size: clamp(13px, 2.9vw, 16px);
+  line-height: 1.55;
+  letter-spacing: -0.3px;
+  color: var(--umodal-muted);
+  white-space: pre-wrap;
+}
+
+.umodal-input-wrap {
+  margin-top: 14px;
+}
+
+.umodal-input {
+  width: 100%;
+  border: 1px solid rgba(107, 158, 255, 0.3);
+  background: rgba(3, 9, 28, 0.9);
+  color: rgba(240, 246, 255, 0.95);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-family: "Gellix", Arial, sans-serif;
+  font-size: clamp(13px, 2.7vw, 15px);
+  outline: none;
+}
+
+.umodal-input:focus {
+  border-color: rgba(107, 158, 255, 0.75);
+  box-shadow: 0 0 0 2px rgba(107, 158, 255, 0.2);
+}
+
+.umodal-footer {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 18px 20px 20px;
+}
+
+.umodal-btn {
+  border: none;
+  border-radius: 10px;
+  min-height: 42px;
+  padding: 10px 16px;
+  font-family: "Gellix", Arial, sans-serif;
+  font-size: clamp(12px, 2.6vw, 14px);
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  color: #f6fbff;
+  cursor: pointer;
+  transition:
+    transform 0.14s ease,
+    filter 0.14s ease;
+}
+
+.umodal-btn:active {
+  transform: scale(0.97);
+}
+
+.umodal-btn[data-intent="confirm"] {
+  background: var(--umodal-btn-confirm);
+}
+
+.umodal-btn[data-intent="danger"] {
+  background: var(--umodal-btn-cancel);
+}
+
+.umodal-btn[data-intent="neutral"] {
+  background: var(--umodal-btn-neutral);
+}
+
+@media (min-width: 768px) {
+  .umodal-card {
+    border-radius: 18px;
+  }
+
+  .umodal-header {
+    padding: 20px 24px 14px;
+  }
+
+  .umodal-body {
+    padding: 16px 24px 4px;
+  }
+
+  .umodal-footer {
+    padding: 20px 24px 24px;
+  }
+}

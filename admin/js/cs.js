@@ -2065,9 +2065,21 @@ document.getElementById("cs-msg-toggle").addEventListener("click", () => {
   _csMsgOn = !_csMsgOn;
   document.getElementById("cs-msg-toggle").classList.toggle("on", _csMsgOn);
 });
-document.getElementById("cs-about-add").addEventListener("click", () => {
+document.getElementById("cs-about-add").addEventListener("click", async () => {
   if (_csAboutSections.filter((s) => !s.locked).length >= 6) return;
-  const title = prompt("Section title:");
+  let title = null;
+  if (window.UMessageModal) {
+    title = await window.UMessageModal.prompt({
+      title: "Create Section",
+      label: "Enter a title for this about section.",
+      placeholder: "Section title",
+      primaryText: "Proceed",
+      secondaryText: "Cancel",
+    });
+  } else {
+    title = prompt("Section title:");
+  }
+
   if (!title) return;
   _csAboutSections.push({ title: title.trim(), body: "", locked: false });
   _csRenderAbout();
@@ -2075,7 +2087,7 @@ document.getElementById("cs-about-add").addEventListener("click", () => {
 
 document
   .getElementById("cs-profile-details-save")
-  .addEventListener("click", () => {
+  .addEventListener("click", async () => {
     DataStore.setProfile({
       name: document.getElementById("cs-profile-name").value.trim(),
       img: document.getElementById("cs-profile-img").value.trim(),
@@ -2083,26 +2095,49 @@ document
       phone: document.getElementById("cs-profile-phone").value.trim(),
       email: document.getElementById("cs-profile-email").value.trim(),
     });
-    alert("Details saved");
+    if (window.UMessageModal) {
+      await window.UMessageModal.notify("Details saved", "Notification");
+    } else {
+      alert("Details saved");
+    }
   });
-document.getElementById("cs-profile-cta-save").addEventListener("click", () => {
-  DataStore.setProfile({
-    mentorshipUrl: document
-      .getElementById("cs-profile-mentorship-url")
-      .value.trim(),
-    xUrl: document.getElementById("cs-profile-x-url").value.trim(),
+document
+  .getElementById("cs-profile-cta-save")
+  .addEventListener("click", async () => {
+    DataStore.setProfile({
+      mentorshipUrl: document
+        .getElementById("cs-profile-mentorship-url")
+        .value.trim(),
+      xUrl: document.getElementById("cs-profile-x-url").value.trim(),
+    });
+    if (window.UMessageModal) {
+      await window.UMessageModal.notify("CTA saved", "Notification");
+    } else {
+      alert("CTA saved");
+    }
   });
-  alert("CTA saved");
-});
-document.getElementById("cs-profile-msg-save").addEventListener("click", () => {
-  DataStore.setProfile({ msgLimit: _csMsgLimit, msgOn: _csMsgOn });
-  alert("Message settings saved");
-});
+document
+  .getElementById("cs-profile-msg-save")
+  .addEventListener("click", async () => {
+    DataStore.setProfile({ msgLimit: _csMsgLimit, msgOn: _csMsgOn });
+    if (window.UMessageModal) {
+      await window.UMessageModal.notify(
+        "Message settings saved",
+        "Notification",
+      );
+    } else {
+      alert("Message settings saved");
+    }
+  });
 document
   .getElementById("cs-profile-about-save")
-  .addEventListener("click", () => {
+  .addEventListener("click", async () => {
     DataStore.setProfile({ about: _csAboutSections });
-    alert("About saved");
+    if (window.UMessageModal) {
+      await window.UMessageModal.notify("About saved", "Notification");
+    } else {
+      alert("About saved");
+    }
   });
 
 // ══════════════════════════════════════════════════════

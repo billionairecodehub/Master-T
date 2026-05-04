@@ -70,7 +70,7 @@ button {
   width: 96px;
   height: 96px;
   padding: 2px;
-  /* border: 0.5px solid #949494; */
+  border: 0.5px solid #949494;
   /* background: linear-gradient(90deg, #5b8fff, #f8f6ff); */
   display: flex;
   align-items: center;
@@ -78,7 +78,7 @@ button {
   overflow: visible;
   flex-shrink: 0;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 7px;
 }
 
 .profile-hero-img {
@@ -86,7 +86,7 @@ button {
   height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: 10px;
+  border-radius: 4px;
 }
 
 /* Perforation dotted line between the notches */
