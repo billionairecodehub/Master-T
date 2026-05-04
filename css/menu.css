@@ -505,10 +505,10 @@
 }
 
 .circle-panel-topbar-name {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
   color: #fff;
-  letter-spacing: -1.2px;
+  letter-spacing: -0.5px;
 }
 
 .circle-panel-topbar-img {

@@ -75,6 +75,14 @@
   color: rgba(231, 76, 60, 0.3);
 }
 
+#settings-logout .settings-row-label {
+  color: rgba(231, 76, 60, 0.85);
+}
+
+#settings-logout .settings-row-arrow {
+  color: rgba(231, 76, 60, 0.3);
+}
+
 /* ── Responsive — Desktop (1024px+) ── */
 @media (min-width: 1024px) {
   .settings-page {
