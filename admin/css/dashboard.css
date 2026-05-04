@@ -187,8 +187,7 @@
 }
 
 .admin-home-notification-arrow {
-  font-size: 14px;
-  color: rgba(107, 158, 255, 0.8);
+  display: none;
 }
 
 /* ── Content Page Header / Sections / Tabs ── */
@@ -313,7 +312,7 @@
   flex-shrink: 0;
   flex-grow: 1;
   padding: 12px 20px;
-  border-radius: 2px;
+  border-radius: 4px;
   font-size: 12px;
   font-weight: 400;
   text-align: center;

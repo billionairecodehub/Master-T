@@ -181,7 +181,6 @@ function renderAppsList() {
           <div class="admin-list-name">${a.name}${a.pinned ? '<span class="pinned-badge">PINNED</span>' : ""}</div>
           <div class="admin-list-meta">${a.platform || ""} · ${a.version || ""}</div>
         </div>
-        <div class="admin-list-action">›</div>
       </div>`,
     )
     .join("");
@@ -204,7 +203,6 @@ function renderBooksList() {
           <div class="admin-list-name">${b.name}${b.pinned ? '<span class="pinned-badge">PINNED</span>' : ""}</div>
           <div class="admin-list-meta"><span class="content-list-price">${b.price || ""}</span> · ★ ${b.rating || "—"}</div>
         </div>
-        <div class="admin-list-action">›</div>
       </div>`,
     )
     .join("");
@@ -227,7 +225,6 @@ function renderCirclesList() {
           <div class="admin-list-name">${c.name}</div>
           <div class="admin-list-meta">${c.category || ""} · ${c.platform || ""}</div>
         </div>
-        <div class="admin-list-action">›</div>
       </div>`,
     )
     .join("");
