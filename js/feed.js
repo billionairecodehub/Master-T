@@ -110,7 +110,8 @@ function renderFeedPosts() {
 
       const tagColor = CTA_TAG_COLORS[idx % CTA_TAG_COLORS.length];
       let ctaUrl = "";
-      if (p.ctaLabel && p.ctaType && p.ctaItemId) {
+      let ctaLabel = p.ctaLabel || ""; // static fallback if item no longer exists
+      if (p.ctaType && p.ctaItemId) {
         const storeKey =
           p.ctaType === "apps"
             ? "apps"
@@ -120,17 +121,24 @@ function renderFeedPosts() {
         const items = DataStore.getAll(storeKey);
         const item = items.find((i) => i.id === p.ctaItemId);
         if (item) {
-          if (p.ctaType === "apps") ctaUrl = item.ctaUrl || "";
-          else if (p.ctaType === "books")
+          // Always derive label live from current item data (so price/name changes reflect here)
+          if (p.ctaType === "apps") {
+            ctaUrl = item.ctaUrl || "";
+            ctaLabel = `Visit ${item.name}`;
+          } else if (p.ctaType === "books") {
             ctaUrl =
               (item.platformUrls && item.platformUrls[0]) || item.ctaUrl || "";
-          else if (p.ctaType === "circle") ctaUrl = item.url || "";
+            ctaLabel = `Get ${item.name}${item.price ? " ~ " + item.price : ""}`;
+          } else if (p.ctaType === "circle") {
+            ctaUrl = item.url || "";
+            ctaLabel = `Check Out ${item.name} on ${item.platform || "Circle"}`;
+          }
         }
       }
-      const ctaHTML = p.ctaLabel
+      const ctaHTML = ctaLabel
         ? ctaUrl
-          ? `<a class="post-cta-tag" href="${ctaUrl}" target="_blank" rel="noopener noreferrer" style="background:${tagColor}">${p.ctaLabel}</a>`
-          : `<span class="post-cta-tag" style="background:${tagColor};pointer-events:none;">${p.ctaLabel}</span>`
+          ? `<a class="post-cta-tag" href="${ctaUrl}" target="_blank" rel="noopener noreferrer" style="background:${tagColor}">${ctaLabel}</a>`
+          : `<span class="post-cta-tag" style="background:${tagColor};pointer-events:none;">${ctaLabel}</span>`
         : "";
 
       const likes = p.likes || 0;
