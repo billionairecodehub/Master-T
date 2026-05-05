@@ -768,14 +768,21 @@
 .menu-app-panel-scroll::after,
 .menu-book-panel-scroll::after {
   content: "";
-  position: absolute;
+  position: sticky;
   bottom: 0;
   left: 0;
+  display: block;
   width: 100%;
-  height: 60px;
+  height: 72px;
+  margin-top: -72px;
   pointer-events: none;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.18), transparent);
-  filter: blur(8px);
+  background: linear-gradient(
+    to top,
+    rgba(10, 14, 39, 0.08),
+    rgba(10, 14, 39, 0.04) 38%,
+    transparent 100%
+  );
+  filter: blur(14px);
   z-index: 1;
 }
 
