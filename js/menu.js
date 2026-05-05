@@ -348,38 +348,64 @@ function bindAppClicks() {
       const a = DataStore.getById("apps", id);
       if (!a) return;
 
-      document.getElementById("app-topbar-label").textContent = "App";
+      const visuals = a.visuals || [];
+
+      document.getElementById("app-topbar-label").textContent = "Apps";
       document.getElementById("app-topbar-name").textContent = a.name;
       document.getElementById("app-topbar-img").src = a.img || DEFAULT_ICON_IMG;
       document.getElementById("app-board-img").src = a.img || DEFAULT_ICON_IMG;
+
       const _abn = document.getElementById("app-board-name");
-      const _abnIcon = _abn.querySelector(".app-board-name-icon");
       _abn.textContent = a.name;
-      if (_abnIcon) _abn.insertBefore(_abnIcon, _abn.firstChild);
-      document.getElementById("app-board-platform").textContent = a.platform;
-      document.getElementById("app-board-version").textContent = a.version;
-      document.getElementById("app-visual-1").src =
-        a.visual1 || DEFAULT_VISUAL_IMG;
-      document.getElementById("app-visual-2").src =
-        a.visual2 || DEFAULT_VISUAL_IMG;
-      document.getElementById("app-short-text").textContent = a.short;
-      document.getElementById("app-desc-text").textContent = a.desc;
-      const _ars = document.getElementById("app-rating-score");
-      if (_ars) _ars.textContent = "~" + a.rating;
-      const _arc = document.getElementById("app-rating-count");
-      if (_arc) _arc.textContent = a.ratingcount + " >>";
-      const _art = document.getElementById("app-rating-text");
-      if (_art) _art.textContent = a.ratingtext;
-      document.getElementById("app-cta-board").style.backgroundImage = a.visual1
-        ? `url('${a.visual1}')`
-        : `url('${DEFAULT_VISUAL_IMG}')`;
-      document.getElementById("app-cta-name").textContent = a.name;
+      document.getElementById("app-board-platform").textContent =
+        a.platform || "Apps";
+      document.getElementById("app-board-version").textContent =
+        a.version || "";
+
+      // Visuals — use uploaded images, fallback to default only if missing
+      const v1El = document.getElementById("app-visual-1");
+      const v2El = document.getElementById("app-visual-2");
+      if (v1El) {
+        v1El.src = visuals[0] || DEFAULT_VISUAL_IMG;
+        v1El.style.display = "";
+      }
+      if (v2El) {
+        if (visuals[1]) {
+          v2El.src = visuals[1];
+          v2El.style.display = "";
+        } else {
+          v2El.style.display = "none";
+        }
+      }
+
+      // About
+      const shortEl = document.getElementById("app-short-text");
+      const aboutSection = document.getElementById("app-about-section");
+      const shortVal = a.short || a.about || "";
+      if (shortEl) shortEl.textContent = shortVal;
+      if (aboutSection) aboutSection.style.display = shortVal ? "" : "none";
+
+      // App Description
+      const descEl = document.getElementById("app-desc-text");
+      const descSection = document.getElementById("app-desc-section");
+      const descVal = a.desc || "";
+      if (descEl) descEl.textContent = descVal;
+      if (descSection) descSection.style.display = descVal ? "" : "none";
+
+      // App Note
+      const notesEl = document.getElementById("app-notes-text");
+      const noteSection = document.getElementById("app-note-section");
+      const notesVal = a.notes || "";
+      if (notesEl) notesEl.textContent = notesVal;
+      if (noteSection) noteSection.style.display = notesVal ? "" : "none";
 
       // CTA button — open ctaUrl in new tab
       const _appCta = document.getElementById("app-panel-cta");
       if (_appCta) {
         const _newAppCta = _appCta.cloneNode(true);
         _appCta.parentNode.replaceChild(_newAppCta, _appCta);
+        const ctaNameEl = _newAppCta.querySelector("#app-cta-name");
+        if (ctaNameEl) ctaNameEl.textContent = a.name;
         _newAppCta.addEventListener("click", () => {
           if (a.ctaUrl) {
             const _app = DataStore.getById("apps", a.id);
@@ -440,41 +466,122 @@ function bindBookClicks() {
       const b = DataStore.getById("books", id);
       if (!b) return;
 
-      document.getElementById("book-topbar-label").textContent = "Book";
+      const visuals = b.visuals || [];
+
+      document.getElementById("book-topbar-label").textContent = "Books";
       document.getElementById("book-topbar-name").textContent = b.name;
       document.getElementById("book-topbar-img").src =
         b.img || DEFAULT_ICON_IMG;
-      document.getElementById("book-visual-1").src =
-        b.visual1 || DEFAULT_VISUAL_IMG;
-      document.getElementById("book-visual-2").src =
-        b.visual2 || DEFAULT_VISUAL_IMG;
-      document.getElementById("book-content-title").textContent = b.name;
-      document.getElementById("book-desc-text").textContent = b.desc;
-      document.getElementById("book-keypoints-text").textContent =
-        (b.keyPoints || []).join(" • ") || b.keypoints || "";
-      document.getElementById("book-short-text").textContent =
-        b.merit || b.short || "";
-      const _brs = document.getElementById("book-rating-score");
-      if (_brs) _brs.textContent = "~" + b.rating;
-      const _brc = document.getElementById("book-rating-count");
-      if (_brc) _brc.textContent = b.ratingcount + " >>";
-      document.querySelectorAll(".book-review-bn").forEach((el) => {
-        el.textContent = b.name;
-      });
-      document.getElementById("book-post-review-text").textContent =
-        b.ratingtext;
-      document.getElementById("book-cta-board").style.backgroundImage =
-        b.ctacoverImg
-          ? `url('${b.ctacoverImg}')`
-          : `url('${DEFAULT_VISUAL_IMG}')`;
-      document.getElementById("book-cta-name").textContent = b.name;
-      document.getElementById("book-cta-price").textContent = b.price;
 
-      // CTA button — open first platformUrl or ctaUrl in new tab
+      // Book Images
+      const bv1 = document.getElementById("book-visual-1");
+      const bv2 = document.getElementById("book-visual-2");
+      if (bv1) {
+        bv1.src = visuals[0] || DEFAULT_VISUAL_IMG;
+        bv1.style.display = "";
+      }
+      if (bv2) {
+        if (visuals[1]) {
+          bv2.src = visuals[1];
+          bv2.style.display = "";
+        } else {
+          bv2.style.display = "none";
+        }
+      }
+
+      // Book Title
+      const titleEl = document.getElementById("book-content-title");
+      if (titleEl) titleEl.textContent = b.name;
+
+      // Book Description
+      const descEl = document.getElementById("book-desc-text");
+      const descSection = document.getElementById("book-desc-section");
+      const descVal = b.desc || b.description || "";
+      if (descEl) descEl.textContent = descVal;
+      if (descSection) descSection.style.display = descVal ? "" : "none";
+
+      // Book Key Points — list with icon
+      const kpList = document.getElementById("book-keypoints-list");
+      const kpSection = document.getElementById("book-kp-section");
+      const kps = b.keyPoints || [];
+      if (kpList) {
+        if (kps.length > 0) {
+          kpList.innerHTML = kps
+            .filter(Boolean)
+            .map(
+              (kp) =>
+                `<div class="book-keypoint-item">
+              <img src="https://i.postimg.cc/Wz0jvSc8/Mt-Book-Key-Points-Icon.png" alt="" class="book-keypoint-icon" />
+              <span class="book-keypoint-text">${kp}</span>
+            </div>`,
+            )
+            .join("");
+          if (kpSection) kpSection.style.display = "";
+        } else {
+          kpList.innerHTML = "";
+          if (kpSection) kpSection.style.display = "none";
+        }
+      }
+
+      // Book Merit
+      const meritEl = document.getElementById("book-merit-text");
+      const meritSection = document.getElementById("book-merit-section");
+      const meritVal = b.merit || "";
+      if (meritEl) meritEl.textContent = meritVal;
+      if (meritSection) meritSection.style.display = meritVal ? "" : "none";
+
+      // Book Detail — platform cards with links
+      const detailList = document.getElementById("book-detail-list");
+      const detailSection = document.getElementById("book-detail-section");
+      const details = (b.details || []).filter(Boolean);
+      const platformUrls = b.platformUrls || [];
+      if (detailList) {
+        if (details.length > 0) {
+          detailList.innerHTML = details
+            .map((d, i) => {
+              const url = platformUrls[i] || "";
+              return `<div class="book-detail-card${url ? " clickable" : ""}" data-url="${url}">
+              <div class="book-detail-info">
+                <div class="book-detail-name">${d}</div>
+              </div>
+              ${url ? '<div class="book-detail-arrow">&#8594;</div>' : ""}
+            </div>`;
+            })
+            .join("");
+          // Bind clicks on detail cards
+          detailList
+            .querySelectorAll(".book-detail-card.clickable")
+            .forEach((card) => {
+              card.addEventListener("click", () => {
+                const url = card.getAttribute("data-url");
+                if (url) window.open(url, "_blank", "noopener,noreferrer");
+              });
+            });
+          if (detailSection) detailSection.style.display = "";
+        } else {
+          detailList.innerHTML = "";
+          if (detailSection) detailSection.style.display = "none";
+        }
+      }
+
+      // Book Notes
+      const notesEl = document.getElementById("book-notes-text");
+      const notesSection = document.getElementById("book-notes-section");
+      const notesVal = b.notes || "";
+      if (notesEl) notesEl.textContent = notesVal;
+      if (notesSection) notesSection.style.display = notesVal ? "" : "none";
+
+      // CTA button
       const _bookCta = document.getElementById("book-panel-cta");
       if (_bookCta) {
         const _newBookCta = _bookCta.cloneNode(true);
         _bookCta.parentNode.replaceChild(_newBookCta, _bookCta);
+        const ctaNameEl = _newBookCta.querySelector("#book-cta-name");
+        if (ctaNameEl) ctaNameEl.textContent = b.name;
+        const ctaPriceEl = _newBookCta.querySelector("#book-cta-price");
+        const ctaPriceWrap = _newBookCta.querySelector("#book-cta-price-wrap");
+        if (ctaPriceEl) ctaPriceEl.textContent = b.price || "";
+        if (ctaPriceWrap) ctaPriceWrap.style.display = b.price ? "" : "none";
         _newBookCta.addEventListener("click", () => {
           const _url = (b.platformUrls && b.platformUrls[0]) || b.ctaUrl || "";
           if (_url) {
@@ -487,17 +594,6 @@ function bindBookClicks() {
           }
         });
       }
-
-      // Heart counter
-      document.getElementById("book-overlay-score").textContent = b.rating;
-      document.getElementById("book-overlay-platforms").textContent =
-        b.ratingplatforms;
-      document.getElementById("book-overlay-count").textContent = (
-        b.ratingcount || ""
-      ).replace(/,/g, "");
-      document.querySelectorAll(".book-overlay-bn").forEach((el) => {
-        el.textContent = b.name;
-      });
 
       // Heart counter
       const _bookHCount = document.getElementById("book-heart-count");
@@ -651,20 +747,9 @@ document.getElementById("app-panel-back").addEventListener("click", (e) => {
 
 document.getElementById("book-panel-back").addEventListener("click", (e) => {
   e.stopPropagation();
-  document.getElementById("book-ratings-overlay").classList.remove("open");
   bookPanel.classList.remove("open");
   menuHome.style.display = "flex";
 });
-
-const _bookRatingsOverlayClose = document.getElementById(
-  "book-ratings-overlay-close",
-);
-if (_bookRatingsOverlayClose) {
-  _bookRatingsOverlayClose.addEventListener("click", (e) => {
-    e.stopPropagation();
-    document.getElementById("book-ratings-overlay").classList.remove("open");
-  });
-}
 
 document.getElementById("circle-panel-back").addEventListener("click", (e) => {
   e.stopPropagation();

@@ -910,6 +910,88 @@
   margin: 0;
 }
 
+/* Unified body text for app sections */
+.app-body-text {
+  font-size: 10px;
+  color: rgba(220, 230, 255, 0.65);
+  line-height: 1.8;
+  text-align: left;
+  margin: 0;
+}
+
+/* Book key points list */
+.book-keypoints-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.book-keypoint-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.book-keypoint-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.book-keypoint-text {
+  font-size: 10px;
+  color: rgba(107, 158, 255, 0.75);
+  line-height: 1.7;
+}
+
+/* Book detail platform cards */
+.book-detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.book-detail-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(107, 158, 255, 0.05);
+  border: 0.5px solid rgba(107, 158, 255, 0.12);
+  border-radius: 8px;
+  padding: 12px 14px;
+  gap: 8px;
+}
+
+.book-detail-card.clickable {
+  cursor: pointer;
+}
+
+.book-detail-card.clickable:active {
+  background: rgba(107, 158, 255, 0.1);
+}
+
+.book-detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.book-detail-name {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(220, 230, 255, 0.8);
+}
+
+.book-detail-arrow {
+  font-size: 14px;
+  color: rgba(107, 158, 255, 0.5);
+  flex-shrink: 0;
+}
+
 /* Ratings row */
 .app-ratings-row {
   display: flex;
