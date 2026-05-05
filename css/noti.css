@@ -131,7 +131,7 @@
 
 /* ── Notification Card ───────────────────────────────────── */
 .notification-board {
-  border-radius: var(--radius-2xl);
+  border-radius: 4px;
   overflow: hidden;
   cursor: pointer;
   background: var(--gradient-card-light);

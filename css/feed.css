@@ -160,6 +160,7 @@ button {
   flex-direction: column;
   gap: 0;
   padding: 0 20px;
+  padding-bottom: 28px;
 }
 
 /* Date separator between posts */
