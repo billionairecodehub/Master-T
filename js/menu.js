@@ -571,6 +571,18 @@ function bindBookClicks() {
       if (notesEl) notesEl.textContent = notesVal;
       if (notesSection) notesSection.style.display = notesVal ? "" : "none";
 
+      // CTA cover image (shown above the button)
+      const ctaCoverEl = document.getElementById("book-cta-cover");
+      if (ctaCoverEl) {
+        if (b.ctaCover) {
+          ctaCoverEl.src = b.ctaCover;
+          ctaCoverEl.style.display = "";
+        } else {
+          ctaCoverEl.src = "";
+          ctaCoverEl.style.display = "none";
+        }
+      }
+
       // CTA button
       const _bookCta = document.getElementById("book-panel-cta");
       if (_bookCta) {
