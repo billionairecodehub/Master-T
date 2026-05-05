@@ -92,7 +92,7 @@
   padding: 12px 16px;
   background: transparent;
   border: 0.5px solid rgba(107, 158, 255, 0.3);
-  border-radius: 8px;
+  border-radius: 2px;
   color: rgba(255, 255, 255, 0.6);
   font-size: 15px;
   font-weight: 400;
@@ -362,7 +362,7 @@
   align-items: flex-start;
   cursor: pointer;
   padding: 16px;
-  border-radius: 5px;
+  border-radius: 2px;
   background: var(--gradient-card-light);
   border: 0.5px solid var(--border-color-light);
   backdrop-filter: var(--glass-blur-md);

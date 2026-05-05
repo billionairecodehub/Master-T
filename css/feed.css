@@ -189,7 +189,7 @@ button {
   height: auto;
   overflow: visible;
   cursor: default;
-  padding-top: 12px;
+  padding-top: 40px;
 }
 
 .feed-post.expanded .post-read-more {
