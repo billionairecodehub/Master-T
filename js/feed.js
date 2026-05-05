@@ -231,6 +231,8 @@ function bindPostVotes() {
       e.stopPropagation();
       const post = btn.closest(".feed-post");
       if (!post || !post.classList.contains("expanded")) return;
+      if (btn.dataset.busy) return; // guard against rapid double-tap
+      btn.dataset.busy = "1";
       const postId = btn.getAttribute("data-id");
       const voteKey = "mt_post_like_" + postId;
       const p = DataStore.getById("posts", postId);
@@ -255,6 +257,7 @@ function bindPostVotes() {
         countEl.textContent =
           newLikes >= 1000 ? (newLikes / 1000).toFixed(1) + "k" : newLikes;
       }
+      delete btn.dataset.busy;
     });
   });
 }
