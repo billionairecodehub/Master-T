@@ -315,7 +315,7 @@ button {
 .post-footer-stat {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 3px;
   cursor: default;
   opacity: 0.5;
 }
@@ -337,6 +337,22 @@ button {
   width: 12px;
   height: 12px;
   object-fit: contain;
+}
+
+.post-like-icon {
+  width: 18px;
+  height: 18px;
+  transform-origin: center;
+  animation: post-like-icon-breathe 2.2s ease-in-out infinite;
+}
+
+.post-impression-icon {
+  width: 12px;
+  height: 12px;
+}
+
+.post-like-btn.voted .post-like-icon {
+  animation-duration: 1.6s;
 }
 
 .post-footer-count {
@@ -361,6 +377,18 @@ button {
   border-radius: 2px;
   letter-spacing: -0.2px;
   white-space: nowrap;
+
+  @keyframes post-like-icon-breathe {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.94;
+    }
+    50% {
+      transform: scale(1.08);
+      opacity: 1;
+    }
+  }
   cursor: pointer;
   text-decoration: none;
 }

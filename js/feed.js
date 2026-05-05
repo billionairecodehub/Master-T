@@ -159,11 +159,11 @@ function renderFeedPosts() {
           <div class="post-footer">
             <div class="post-footer-left">
               <div class="post-footer-stat post-like-btn${hasLiked ? " voted" : ""}" data-id="${p.id}">
-                <img src="https://i.postimg.cc/Bn1VbVYY/Mt-Post-Fav-Icon.png" alt="Like" class="post-footer-icon" />
+                <img src="https://i.postimg.cc/Bn1VbVYY/Mt-Post-Fav-Icon.png" alt="Like" class="post-footer-icon post-like-icon" />
                 <span class="post-footer-count post-like-count">${likes > 0 ? (likes >= 1000 ? (likes / 1000).toFixed(1) + "k" : likes) : "0"}</span>
               </div>
               <div class="post-footer-stat post-impression-stat" data-id="${p.id}">
-                <img src="https://i.postimg.cc/QN0Py5Kq/Mt-Post-Impression-Icon.png" alt="Impressions" class="post-footer-icon" />
+                <img src="https://i.postimg.cc/QN0Py5Kq/Mt-Post-Impression-Icon.png" alt="Impressions" class="post-footer-icon post-impression-icon" />
                 <span class="post-footer-count post-impression-count">${impressions > 0 ? (impressions >= 1000 ? (impressions / 1000).toFixed(1) + "k" : impressions) : "0"}</span>
               </div>
             </div>
