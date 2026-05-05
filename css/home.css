@@ -44,9 +44,7 @@
 }
 
 .block-1-label {
-  font-size: 15px;
-  letter-spacing: -0.7px;
-  font-size: var(--font-size-md);
+  font-size: 11px;
   font-weight: 400;
   letter-spacing: var(--letter-spacing-normal);
   background: var(--gradient-secondary-text);
@@ -138,10 +136,10 @@
 }
 
 .block-2-label {
-  font-size: var(--font-size-md);
+  font-size: 11px;
   font-weight: 400;
   letter-spacing: var(--letter-spacing-normal);
-  background: linear-gradient(90deg, #ff6b6b, #ffb3b3);
+  background: var(--gradient-secondary-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -237,7 +235,7 @@
 }
 
 .block-3-label {
-  font-size: var(--font-size-md);
+  font-size: 11px;
   font-weight: 400;
   letter-spacing: var(--letter-spacing-normal);
   background: var(--gradient-secondary-text);
@@ -354,10 +352,10 @@
 }
 
 .block-4-label {
-  font-size: var(--font-size-md);
+  font-size: 11px;
   font-weight: 400;
   letter-spacing: var(--letter-spacing-normal);
-  background: linear-gradient(90deg, #ff6b6b, #ffb3b3);
+  background: var(--gradient-secondary-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -511,7 +509,7 @@
 }
 
 .block-5-label {
-  font-size: var(--font-size-md);
+  font-size: 11px;
   font-weight: 400;
   letter-spacing: var(--letter-spacing-normal);
   background: var(--gradient-secondary-text);
