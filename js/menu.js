@@ -370,12 +370,8 @@ function bindAppClicks() {
         v1El.style.display = "";
       }
       if (v2El) {
-        if (visuals[1]) {
-          v2El.src = visuals[1];
-          v2El.style.display = "";
-        } else {
-          v2El.style.display = "none";
-        }
+        v2El.src = visuals[1] || DEFAULT_VISUAL_IMG;
+        v2El.style.display = "";
       }
 
       // About
@@ -481,12 +477,8 @@ function bindBookClicks() {
         bv1.style.display = "";
       }
       if (bv2) {
-        if (visuals[1]) {
-          bv2.src = visuals[1];
-          bv2.style.display = "";
-        } else {
-          bv2.style.display = "none";
-        }
+        bv2.src = visuals[1] || DEFAULT_VISUAL_IMG;
+        bv2.style.display = "";
       }
 
       // Book Title
@@ -574,13 +566,8 @@ function bindBookClicks() {
       // CTA cover image (shown above the button)
       const ctaCoverEl = document.getElementById("book-cta-cover");
       if (ctaCoverEl) {
-        if (b.ctaCover) {
-          ctaCoverEl.src = b.ctaCover;
-          ctaCoverEl.style.display = "";
-        } else {
-          ctaCoverEl.src = "";
-          ctaCoverEl.style.display = "none";
-        }
+        ctaCoverEl.src = b.ctaCover || DEFAULT_VISUAL_IMG;
+        ctaCoverEl.style.display = "";
       }
 
       // CTA button
