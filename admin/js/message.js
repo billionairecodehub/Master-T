@@ -100,6 +100,38 @@ function _msgRenderList() {
     card.addEventListener("click", () =>
       _msgOpenMessage(card.getAttribute("data-msg-id")),
     );
+
+    // Long-press (600ms) to delete a message
+    let _lpt = null;
+    const _lpStart = () => {
+      _lpt = setTimeout(async () => {
+        _lpt = null;
+        const msgId = card.getAttribute("data-msg-id");
+        if (!msgId) return;
+        if (
+          !(await window.UMessageModal.confirm(
+            "Delete this message?",
+            "Confirm Delete",
+          ))
+        )
+          return;
+        DataStore.remove("messages", msgId);
+        _msgRenderList();
+        _msgUpdateMeta(document.getElementById("msg-meta"));
+      }, 600);
+    };
+    const _lpCancel = () => {
+      if (_lpt) {
+        clearTimeout(_lpt);
+        _lpt = null;
+      }
+    };
+    card.addEventListener("touchstart", _lpStart, { passive: true });
+    card.addEventListener("touchend", _lpCancel);
+    card.addEventListener("touchcancel", _lpCancel);
+    card.addEventListener("mousedown", _lpStart);
+    card.addEventListener("mouseup", _lpCancel);
+    card.addEventListener("mouseleave", _lpCancel);
   });
 }
 
@@ -148,6 +180,38 @@ function _msgOpenMessage(id) {
   // Update meta (unread count changed)
   _msgUpdateMeta(document.getElementById("msg-meta"));
   _msgUpdateMeta(document.getElementById("msg-detail-meta"));
+
+  // Long-press the sender card in detail view to delete this message
+  if (senderEl) {
+    let _dlpt = null;
+    const _dlpStart = () => {
+      _dlpt = setTimeout(async () => {
+        _dlpt = null;
+        if (!_msgOpenId) return;
+        if (
+          !(await window.UMessageModal.confirm(
+            "Delete this message?",
+            "Confirm Delete",
+          ))
+        )
+          return;
+        DataStore.remove("messages", _msgOpenId);
+        _msgCloseDetail();
+      }, 600);
+    };
+    const _dlpCancel = () => {
+      if (_dlpt) {
+        clearTimeout(_dlpt);
+        _dlpt = null;
+      }
+    };
+    senderEl.addEventListener("touchstart", _dlpStart, { passive: true });
+    senderEl.addEventListener("touchend", _dlpCancel);
+    senderEl.addEventListener("touchcancel", _dlpCancel);
+    senderEl.addEventListener("mousedown", _dlpStart);
+    senderEl.addEventListener("mouseup", _dlpCancel);
+    senderEl.addEventListener("mouseleave", _dlpCancel);
+  }
 
   // Switch views
   document.getElementById("msg-list-view").style.display = "none";

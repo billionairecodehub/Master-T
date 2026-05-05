@@ -5,6 +5,8 @@ const QUEST_ICON_DEFAULT = questIcon ? questIcon.getAttribute("src") : "";
 const QUEST_BACK_ICON = "https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png";
 const QUEST_LOGO = "https://i.postimg.cc/pdv2ftPx/Master-Togan-Logo.png";
 
+let _questScrollPos = 0;
+
 // ── Quest unread dot ─────────────────────────────────────
 const QUEST_SEEN_KEY = "mt_quest_seen";
 
@@ -131,6 +133,9 @@ function bindQuestExpand() {
       // Don't toggle if clicking a vote button
       if (e.target.closest(".quest-thumb")) return;
       if (board.classList.contains("expanded")) return;
+      // Save scroll position before expanding
+      const _questMain = document.querySelector(".main");
+      _questScrollPos = _questMain ? _questMain.scrollTop : 0;
       // Isolate: hide all boards, show only this one (mirror feed pattern)
       boards.forEach((b) => {
         b.classList.remove("expanded");
@@ -139,6 +144,8 @@ function bindQuestExpand() {
       board.style.display = "flex";
       board.classList.add("expanded");
       if (questIcon) questIcon.src = QUEST_BACK_ICON;
+      // Scroll to top of expanded board
+      if (_questMain) _questMain.scrollTop = 0;
     });
   });
 }
@@ -245,6 +252,8 @@ if (questIcon) {
       b.style.display = "flex";
     });
     questIcon.src = QUEST_ICON_DEFAULT;
+    const _qm = document.querySelector(".main");
+    if (_qm) _qm.scrollTop = _questScrollPos;
   });
 }
 
@@ -257,6 +266,8 @@ if (questHeader) {
       b.style.display = "flex";
     });
     if (questIcon) questIcon.src = QUEST_ICON_DEFAULT;
+    const _qm = document.querySelector(".main");
+    if (_qm) _qm.scrollTop = _questScrollPos;
   });
 }
 

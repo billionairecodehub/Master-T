@@ -201,6 +201,8 @@ function bindFeedExpand() {
       post.style.display = "flex";
       post.classList.add("expanded");
       if (feedPostIcon) feedPostIcon.src = BACK_ICON_SRC;
+      // Scroll to top of post
+      if (_mainEl) _mainEl.scrollTop = 0;
 
       // Auto-increment impression on open
       const postId = post.getAttribute("data-id");

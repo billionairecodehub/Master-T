@@ -542,6 +542,31 @@
   display: flex;
 }
 
+/* Safe actions (Edit etc) — always visible when card is open */
+.cs-card-safe-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Danger actions (Delete) — hidden by default, shown only on long-press */
+.cs-card-danger-actions {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 2px;
+  padding-top: 6px;
+  border-top: 0.5px solid rgba(231, 76, 60, 0.12);
+}
+
+.cs-card.long-held .cs-card-danger-actions {
+  display: flex;
+}
+
+.cs-card.long-held {
+  border-color: rgba(231, 76, 60, 0.25);
+}
+
 .cs-card-action {
   background: rgba(107, 158, 255, 0.03);
   border: 0.5px solid rgba(107, 158, 255, 0.22);

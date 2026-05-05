@@ -26,6 +26,7 @@ const _B_TAB_LABELS = {
 let _bActiveTab = "stories";
 let _bViewType = null; // "story" | "recommend"
 let _bViewId = null; // id of open item
+let _bScrollPos = 0; // scroll position before opening full view
 
 // 1. Tab switching
 document.querySelectorAll(".block-tab").forEach((tab) => {
@@ -50,10 +51,14 @@ document.querySelectorAll(".block-tab").forEach((tab) => {
 function _bOpenView(type, id) {
   _bViewType = type;
   _bViewId = id;
+  // Save scroll position before expanding
+  const _bMain = document.querySelector(".main");
+  _bScrollPos = _bMain ? _bMain.scrollTop : 0;
   _bTabs.style.display = "none";
   _bLists.style.display = "none";
   _bFullView.style.display = "block";
   _bHeaderIcon.src = _B_BACK;
+  if (_bMain) _bMain.scrollTop = 0;
   if (type === "story") _bRenderStory(id);
   else if (type === "recommend") _bRenderRecommend(id);
 }
@@ -67,8 +72,9 @@ function _bCloseView() {
   _bFullContent.innerHTML = "";
   _bHeaderIcon.src = _B_ICON;
   _bHeaderName.textContent = _B_TAB_LABELS[_bActiveTab];
+  // Restore scroll position from before the item was opened
   const main = document.querySelector(".main");
-  if (main) main.scrollTop = 0;
+  if (main) main.scrollTop = _bScrollPos;
 }
 
 // â”€â”€ 1. Back: icon click OR header-area click â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€

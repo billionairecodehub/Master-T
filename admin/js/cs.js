@@ -54,24 +54,49 @@ function _csRenderList(containerId, items, opts = {}) {
   const sorted = items
     .slice()
     .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
   el.innerHTML = sorted
     .map((item) => {
-      const actions = (opts.actions || [])
+      // Separate safe actions from danger (delete) actions
+      const safeActions = (opts.actions || []).filter(
+        (a) => a.cls !== "danger",
+      );
+      const dangerActions = (opts.actions || []).filter(
+        (a) => a.cls === "danger",
+      );
+
+      const safeHTML = safeActions
         .map(
           (a) =>
             `<button type="button" class="cs-card-action ${a.cls || ""}" data-item-id="${item.id}" data-action="${a.id}">${a.label}</button>`,
         )
         .join("");
+      const dangerHTML = dangerActions
+        .map(
+          (a) =>
+            `<button type="button" class="cs-card-action ${a.cls || ""}" data-item-id="${item.id}" data-action="${a.id}">${a.label}</button>`,
+        )
+        .join("");
+
+      const hasActions = safeHTML || dangerHTML;
       return `<div class="cs-card" data-item-id="${item.id}">
       <div class="cs-card-top">
         <div class="cs-card-subject">${item.subject || item.question || item.title || item.name || "Untitled"}</div>
         <div class="cs-card-date">${_csDateLabel(item.createdAt)}</div>
       </div>
       ${item.content || item.body ? `<div class="cs-card-meta">${(item.content || item.body || "").replace(/\r/g, "")}</div>` : ""}
-      ${actions ? `<div class="cs-card-expand">${actions}</div>` : ""}
+      ${
+        hasActions
+          ? `<div class="cs-card-expand">
+        ${safeHTML ? `<div class="cs-card-safe-actions">${safeHTML}</div>` : ""}
+        ${dangerHTML ? `<div class="cs-card-danger-actions">${dangerHTML}</div>` : ""}
+      </div>`
+          : ""
+      }
     </div>`;
     })
     .join("");
+
   el.querySelectorAll("[data-action]").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -83,16 +108,45 @@ function _csRenderList(containerId, items, opts = {}) {
     });
   });
 
-  // Toggle board behavior: actions are revealed only after tapping a card.
+  // Card tap → open/close (shows safe actions only)
+  // Long-press (600ms) → reveal danger (delete) actions
   el.querySelectorAll(".cs-card").forEach((card) => {
     if (!card.querySelector(".cs-card-expand")) return;
+
     card.addEventListener("click", () => {
       const wasOpen = card.classList.contains("open");
-      el.querySelectorAll(".cs-card.open").forEach((c) =>
-        c.classList.remove("open"),
-      );
+      el.querySelectorAll(".cs-card.open").forEach((c) => {
+        c.classList.remove("open");
+        c.classList.remove("long-held");
+      });
       if (!wasOpen) card.classList.add("open");
     });
+
+    // Long-press to reveal delete
+    let _lpTimer = null;
+    const _lpStart = () => {
+      _lpTimer = setTimeout(() => {
+        _lpTimer = null;
+        el.querySelectorAll(".cs-card.open").forEach((c) => {
+          c.classList.remove("open");
+          c.classList.remove("long-held");
+        });
+        card.classList.add("open");
+        card.classList.add("long-held");
+      }, 600);
+    };
+    const _lpCancel = () => {
+      if (_lpTimer) {
+        clearTimeout(_lpTimer);
+        _lpTimer = null;
+      }
+    };
+    card.addEventListener("touchstart", _lpStart, { passive: true });
+    card.addEventListener("touchend", _lpCancel);
+    card.addEventListener("touchcancel", _lpCancel);
+    card.addEventListener("mousedown", _lpStart);
+    card.addEventListener("mouseup", _lpCancel);
+    card.addEventListener("mouseleave", _lpCancel);
   });
 }
 
@@ -594,7 +648,14 @@ function _csFeedResetForm() {
 function _csFeedPopulateCTASelect(type) {
   const collection =
     type === "apps" ? "apps" : type === "books" ? "books" : "circles";
-  const items = DataStore.getAll(collection).filter((i) => !i.draft);
+  const allItems = DataStore.getAll(collection).filter((i) => !i.draft);
+  // Only include items that have a valid URL (no broken CTA links)
+  const items = allItems.filter((i) => {
+    if (type === "apps") return !!(i.ctaUrl || "").trim();
+    if (type === "books")
+      return !!((i.platformUrls && i.platformUrls[0]) || i.ctaUrl || "").trim();
+    return !!(i.url || "").trim();
+  });
   const sel = document.getElementById("cs-feed-cta-select");
   if (!sel) return;
   sel.innerHTML =
