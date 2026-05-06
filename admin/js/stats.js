@@ -24,14 +24,11 @@ function refreshStats() {
   document.getElementById("stats-stat-updates").textContent = updates.length;
 
   // ── App Analytics ──
-  const now = Date.now();
-  const cutoff24h = now - 24 * 60 * 60 * 1000;
-  const visitors24h = posts
-    .filter((p) => {
-      const stamp = new Date(p.updatedAt || p.createdAt || 0).getTime();
-      return stamp >= cutoff24h;
-    })
-    .reduce((sum, p) => sum + (p.impressions || 0), 0);
+  // Real unique daily visitor count: tracked per-device, Firebase-synced, resets at UTC midnight
+  const profile = DataStore.getProfile();
+  const todayUTC = new Date().toISOString().slice(0, 10);
+  const visitors24h =
+    profile.visitDate === todayUTC ? profile.dailyVisits || 0 : 0;
 
   const postLikes = posts.reduce((sum, p) => sum + (p.likes || 0), 0);
   const outboundClicks =

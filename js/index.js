@@ -1,3 +1,18 @@
+// ── Real unique daily visitor tracking ──────────────────────────────────
+// Key stored per-device in localStorage so one device = one visit per day.
+// Counter lives in DataStore profile (Firebase-synced) and resets at UTC midnight.
+(function _trackDailyVisit() {
+  const todayUTC = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD" UTC
+  const visitedKey = "mt_visited_" + todayUTC;
+  if (localStorage.getItem(visitedKey)) return; // already counted today
+  localStorage.setItem(visitedKey, "1");
+  const profile = DataStore.getProfile();
+  const storedDate = profile.visitDate || "";
+  // If the stored date is still today, increment; otherwise reset to 1
+  const newCount = storedDate === todayUTC ? (profile.dailyVisits || 0) + 1 : 1;
+  DataStore.setProfile({ visitDate: todayUTC, dailyVisits: newCount });
+})();
+
 // Fix 100vh issue on mobile browsers
 function setViewportHeight() {
   const vh = window.innerHeight * 0.01;
