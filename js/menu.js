@@ -167,7 +167,7 @@ function renderMenuApps() {
   if (pinned) {
     pinnedHTML = `
       <div class="menu-pinned-board">
-        <div class="menu-section-label">Top Recommended For Creators</div>
+        <div class="menu-section-label">Top Recommended App</div>
         <div class="menu-pinned-item menu-app-item" data-id="${pinned.id}">
           <img src="${pinned.img || DEFAULT_ICON_IMG}" alt="${pinned.name}" class="menu-pinned-icon" />
           <div class="menu-pinned-details">
