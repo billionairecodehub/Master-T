@@ -579,3 +579,14 @@ renderBlockStories();
 renderBlockRecommends();
 renderBlockPolls();
 updateBlockDot();
+// Apply deep link set by router before this script loaded (direct URL open)
+// rAF lets the block list paint first, then opens the inner view
+if (window._routerDeepLink) {
+  const _dl = window._routerDeepLink;
+  if (_dl.type === "story" || _dl.type === "update") {
+    window._routerDeepLink = null;
+    requestAnimationFrame(() =>
+      _bOpenView(_dl.type === "update" ? "recommend" : "story", _dl.id),
+    );
+  }
+}

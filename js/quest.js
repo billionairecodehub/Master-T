@@ -307,5 +307,5 @@ renderQuests();
 if (window._routerDeepLink && window._routerDeepLink.type === "quest") {
   const _dl = window._routerDeepLink;
   window._routerDeepLink = null;
-  _questOpenItem(_dl.id);
+  requestAnimationFrame(() => _questOpenItem(_dl.id));
 }

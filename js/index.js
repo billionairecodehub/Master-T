@@ -122,36 +122,49 @@ function _router() {
   if (type === "app" || type === "book" || type === "circle") {
     showPage(menuPage);
     markStoreSeen();
-    // Wait for menu.js render (renderMenu runs after boot) then open the panel
     const collection =
       type === "app" ? "apps" : type === "book" ? "books" : "circles";
     const items = DataStore.getAll(collection);
     const item = items.find((i) => _toSlug(i.name) === slug || i.id === slug);
-    // Store target — menu.js will pick it up after rendering
-    if (item) window._routerDeepLink = { type: type, id: item.id };
+    if (item) {
+      // On popstate: menu.js already loaded, call directly
+      if (type === "app" && typeof _menuOpenApp === "function")
+        _menuOpenApp(item.id);
+      else if (type === "book" && typeof _menuOpenBook === "function")
+        _menuOpenBook(item.id);
+      else if (type === "circle" && typeof _menuOpenCircle === "function")
+        _menuOpenCircle(item.id);
+      // On direct URL load: menu.js not loaded yet, set flag for it to pick up
+      else window._routerDeepLink = { type: type, id: item.id };
+    }
     return true;
   }
 
   // ── Per-item detail routes ──
   if (type === "post") {
-    showPage(feedPage);
-    _setActiveNav("feed");
-    if (typeof markFeedSeen === "function") markFeedSeen();
-    if (slug) window._routerDeepLink = { type: "post", id: slug };
-    return true;
+    // Legacy /post/<id> URL — redirect to /feed/<id> so old shared links still work
+    history.replaceState({}, "", "/feed" + (slug ? "/" + slug : ""));
+    return _router();
   }
   if (type === "story") {
     showPage(blockPage);
     _setActiveNav("Block");
     if (typeof markBlockSeen === "function") markBlockSeen();
-    if (slug) window._routerDeepLink = { type: "story", id: slug };
+    if (slug) {
+      // On popstate: block.js loaded, call directly; on direct load: set flag
+      if (typeof _bOpenView === "function") _bOpenView("story", slug);
+      else window._routerDeepLink = { type: "story", id: slug };
+    }
     return true;
   }
   if (type === "update") {
     showPage(blockPage);
     _setActiveNav("Block");
     if (typeof markBlockSeen === "function") markBlockSeen();
-    if (slug) window._routerDeepLink = { type: "update", id: slug };
+    if (slug) {
+      if (typeof _bOpenView === "function") _bOpenView("recommend", slug);
+      else window._routerDeepLink = { type: "update", id: slug };
+    }
     return true;
   }
 
@@ -164,13 +177,21 @@ function _router() {
     showPage(feedPage);
     _setActiveNav("feed");
     if (typeof markFeedSeen === "function") markFeedSeen();
+    if (slug) {
+      // On popstate: feed.js loaded, call directly; on direct load: set flag
+      if (typeof _feedOpenPost === "function") _feedOpenPost(slug);
+      else window._routerDeepLink = { type: "post", id: slug };
+    }
     return true;
   }
   if (type === "quest") {
     showPage(questPage);
     _setActiveNav("Quest");
     if (typeof markQuestSeen === "function") markQuestSeen();
-    if (slug && typeof _questOpenItem === "function") _questOpenItem(slug);
+    if (slug) {
+      if (typeof _questOpenItem === "function") _questOpenItem(slug);
+      else window._routerDeepLink = { type: "quest", id: slug };
+    }
     return true;
   }
   if (type === "block") {

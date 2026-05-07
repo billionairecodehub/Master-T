@@ -941,12 +941,12 @@ if (window._routerDeepLink) {
   const _dl = window._routerDeepLink;
   if (_dl.type === "app" && typeof _menuOpenApp === "function") {
     window._routerDeepLink = null;
-    _menuOpenApp(_dl.id);
+    requestAnimationFrame(() => _menuOpenApp(_dl.id));
   } else if (_dl.type === "book" && typeof _menuOpenBook === "function") {
     window._routerDeepLink = null;
-    _menuOpenBook(_dl.id);
+    requestAnimationFrame(() => _menuOpenBook(_dl.id));
   } else if (_dl.type === "circle" && typeof _menuOpenCircle === "function") {
     window._routerDeepLink = null;
-    _menuOpenCircle(_dl.id);
+    requestAnimationFrame(() => _menuOpenCircle(_dl.id));
   }
 }

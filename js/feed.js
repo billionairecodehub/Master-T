@@ -245,7 +245,7 @@ function bindFeedExpand() {
       if (_mainEl) _mainEl.scrollTop = 0;
       // Push shareable URL for this post (only if not already there — avoids duplicate entry on direct load)
       const postId = post.getAttribute("data-id");
-      const _postPath = "/post/" + postId;
+      const _postPath = "/feed/" + postId;
       if (window.location.pathname !== _postPath)
         history.pushState({ type: "post", id: postId }, "", _postPath);
 
@@ -312,7 +312,7 @@ if (feedPostIcon) {
     _feedCollapseAll();
     const _mainEl = document.querySelector(".main");
     if (_mainEl) _mainEl.scrollTop = _feedScrollPos;
-    if (window.location.pathname.startsWith("/post/"))
+    if (window.location.pathname.startsWith("/feed/"))
       history.replaceState({}, "", "/feed");
   });
 }
@@ -324,7 +324,7 @@ if (feedHeader) {
     _feedCollapseAll();
     const _mainEl = document.querySelector(".main");
     if (_mainEl) _mainEl.scrollTop = _feedScrollPos;
-    if (window.location.pathname.startsWith("/post/"))
+    if (window.location.pathname.startsWith("/feed/"))
       history.replaceState({}, "", "/feed");
   });
 }
@@ -332,8 +332,9 @@ if (feedHeader) {
 // Initial render
 renderFeedPosts();
 // Apply deep link set by router before this script loaded (direct URL open)
+// rAF lets the feed list paint first, then opens the post — parent page shows briefly before inner view
 if (window._routerDeepLink && window._routerDeepLink.type === "post") {
   const _dl = window._routerDeepLink;
   window._routerDeepLink = null;
-  _feedOpenPost(_dl.id);
+  requestAnimationFrame(() => _feedOpenPost(_dl.id));
 }
