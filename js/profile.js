@@ -176,12 +176,13 @@ renderProfileLikes();
 // ── Load profile data from DataStore ──
 function refreshProfileData() {
   const p = DataStore.getProfile();
+  const _DEFAULT_PROFILE_IMG = "https://i.postimg.cc/rwvVj88M/image.png";
   // Profile hero image
   const heroImg = document.getElementById("profile-hero-img");
-  if (heroImg && p.img) heroImg.src = p.img;
+  if (heroImg) heroImg.src = p.img || _DEFAULT_PROFILE_IMG;
   // Sync header avatar to match profile image
   const headerImg = document.getElementById("header-profile-img");
-  if (headerImg && p.img) headerImg.src = p.img;
+  if (headerImg) headerImg.src = p.img || _DEFAULT_PROFILE_IMG;
   // Mentorship price
   const priceEl = document.getElementById("mentorship-price");
   const periodEl = document.getElementById("mentorship-period");

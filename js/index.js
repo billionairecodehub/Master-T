@@ -327,6 +327,15 @@ if (!openedFromQuery) {
   if (homeNav) homeNav.classList.add("active");
 }
 
+// Immediately set header avatar from DataStore (no flash — src was empty in HTML)
+(function _initHeaderAvatar() {
+  const _DEFAULT_PROFILE_IMG = "https://i.postimg.cc/rwvVj88M/image.png";
+  const headerImg = document.getElementById("header-profile-img");
+  if (!headerImg) return;
+  const p = DataStore.getProfile();
+  headerImg.src = p.img || _DEFAULT_PROFILE_IMG;
+})();
+
 // ── Real-time global update handler (Firebase SSE → mt:remote-update) ──
 // Also handles cross-tab admin changes via the storage event.
 function _applyRemoteChanges(changed) {

@@ -247,10 +247,10 @@
 }
 
 .menu-app-icon {
-  width: 80px;
-  height: 80px;
+  width: 56px;
+  height: 56px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 2px;
   background: rgba(0, 9, 26, 0.5);
   /* border: var(--border-width) solid var(--border-color-light); */
   /* border: 0.5px solid var(--border-color-light); */
@@ -281,10 +281,10 @@
 }
 
 .menu-book-icon {
-  width: 80px;
-  height: 80px;
+  width: 56px;
+  height: 56px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 2px;
   background: rgba(0, 9, 26, 0.5);
   /* border: 0.5px solid var(--border-color-light); */
   /* filter: brightness(0.72) saturate(0.7) hue-rotate(195deg); */
@@ -320,10 +320,10 @@
 }
 
 .menu-circle-icon {
-  width: 80px;
-  height: 80px;
+  width: 56px;
+  height: 56px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 2px;
   background: rgba(0, 9, 26, 0.5);
   /* border: 0.5px solid var(--border-color-light); */
   /* filter: brightness(0.72) saturate(0.7) hue-rotate(195deg); */

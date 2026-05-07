@@ -82,9 +82,10 @@ button {
 .post-image-wrap {
   position: relative;
   overflow: hidden;
-  width: 44px;
-  height: 44px;
-  border-radius: 2px;
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  border: 2px solid rgba(255, 255, 255, 0.18);
   flex-shrink: 0;
 }
 
