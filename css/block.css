@@ -84,7 +84,6 @@ button {
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: 7px 0;
 }
 
 .block-name-sub {
@@ -98,9 +97,9 @@ button {
 }
 
 .block-name {
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -1.75px;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.75px;
   line-height: 0.95;
   background: var(--gradient-primary-text);
   -webkit-background-clip: text;
