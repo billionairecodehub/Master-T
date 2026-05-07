@@ -148,7 +148,7 @@
 .about-board-title {
   position: relative;
   z-index: 2;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: var(--font-weight-regular);
   letter-spacing: var(--letter-spacing-normal);
   padding: 20px;
@@ -171,7 +171,7 @@
 }
 
 .about-content-title {
-  font-size: var(--font-size-sm);
+  font-size: 10px;
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--letter-spacing-loose);
   margin-bottom: 10px;
@@ -184,7 +184,7 @@
 
 .about-content-description {
   color: rgba(200, 215, 255, 0.75);
-  font-size: var(--font-size-base);
+  font-size: 11px;
   line-height: 1.75;
   letter-spacing: var(--letter-spacing-loose);
 }

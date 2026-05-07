@@ -135,7 +135,7 @@
   overflow: hidden;
   cursor: pointer;
   background: var(--gradient-card-light);
-  border: var(--border-width) solid var(--border-color-light);
+  border: 0.75px solid var(--border-color-light);
   backdrop-filter: var(--glass-blur-md);
   transition: var(--transition-fast);
 }

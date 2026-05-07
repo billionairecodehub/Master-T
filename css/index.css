@@ -429,7 +429,7 @@ body {
   bottom: 0;
   z-index: 10;
   border-top: 0.5px solid rgba(107, 158, 255, 0.2);
-  padding: 7px 4px;
+  padding: 7px 0;
 }
 
 .header-wrapper {
@@ -500,12 +500,6 @@ body {
   z-index: 2;
 }
 
-.header-library-icon {
-  /* padding: 2px; */
-  width: 15px;
-  height: 15px;
-  object-fit: cover;
-}
 
 .header-title {
   font-size: 6px;
