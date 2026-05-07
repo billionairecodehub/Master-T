@@ -155,10 +155,10 @@ button {
 
 .quest-question {
   color: #ddd;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 400;
   line-height: 1.15;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.3px;
   flex: 1;
 }
 
