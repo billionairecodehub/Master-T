@@ -487,8 +487,8 @@ body {
 
 .header-profile img {
   position: relative;
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   object-fit: cover;
   /* border: 1px solid rgba(107, 158, 255, 0.2); */
   border-radius: 2px;
@@ -506,8 +506,8 @@ body {
 
 .header-profile img:hover {
   opacity: 1;
-  border-color: rgba(107, 158, 255, 0.5);
-  box-shadow: var(--shadow-glow-sm);
+  /* border-color: rgba(107, 158, 255, 0.5); */
+  /* box-shadow: var(--shadow-glow-sm); */
 }
 
 .header-title {
