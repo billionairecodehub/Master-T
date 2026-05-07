@@ -487,8 +487,8 @@ body {
 
 .header-profile img {
   position: relative;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   object-fit: cover;
   /* border: 1px solid rgba(107, 158, 255, 0.2); */
   border-radius: 2px;
@@ -657,8 +657,8 @@ body {
   }
 
   .header-profile img {
-    width: 26px;
-    height: 26px;
+    width: 20px;
+    height: 20px;
   }
 
   .header-title {
