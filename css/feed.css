@@ -110,6 +110,7 @@ button {
   flex-direction: column;
   justify-content: center;
   gap: 0;
+  padding-bottom: 10px;
 }
 
 .feed-name-sub {
@@ -151,7 +152,7 @@ button {
   width: 18px;
   height: 18px;
   opacity: 0.5;
-  transform: translateY(8px);
+  /* transform: translateY(8px); */
 }
 
 /* Feed Main */
