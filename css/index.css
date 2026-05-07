@@ -456,6 +456,7 @@ body {
   border-radius: 4px;
   overflow: hidden;
   flex-shrink: 0;
+  background-color: #0a0e27;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -505,12 +506,9 @@ body {
   display: block;
 }
 
-/* .header-menu img:hover {
+.header-menu img:hover {
   opacity: 1;
-  border-color: rgba(107, 158, 255, 0.5);
-  box-shadow: var(--shadow-glow-sm);
-  background: transparent;
-} */
+}
 
 .header-noti-btn {
   position: relative;
