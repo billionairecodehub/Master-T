@@ -496,6 +496,7 @@ body {
   /* object-position: center top; */
   /* clip-path: polygon(0% 0%, 100% 0%, 100% 78%, 50% 100%, 0% 78%); */
   display: block;
+  opacity: 0.75;
   z-index: 2;
 }
 
