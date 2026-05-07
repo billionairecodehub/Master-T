@@ -110,6 +110,7 @@ button {
   flex-direction: column;
   justify-content: center;
   gap: 0;
+  padding: 20px 0;
 }
 
 .feed-name-sub {
@@ -136,7 +137,7 @@ button {
 .feed-tagline {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-regular);
-  letter-spacing: var(--letter-spacing-normal);
+  /* letter-spacing: -0.2px; */
   color: rgba(255, 255, 255, 0.5);
   margin-top: 2px;
 }
@@ -229,7 +230,7 @@ button {
 .post-thread-title {
   color: #ccc;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   padding: 10px 0 4px;
 }
 

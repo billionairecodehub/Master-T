@@ -446,7 +446,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 12px;
+  gap: 5px;
   /* padding-top: 14px; */
   cursor: pointer;
 }
