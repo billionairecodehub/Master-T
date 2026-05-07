@@ -553,7 +553,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 0 10px;
+  padding: 0 5px;
 }
 
 .nav-item {
@@ -582,7 +582,7 @@ body {
   font-size: 7px;
   color: #ccc;
   font-weight: 400;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
   transition: color 0.2s;
 }
 

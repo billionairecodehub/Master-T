@@ -230,14 +230,15 @@ button {
   color: #ccc;
   font-size: 13px;
   font-weight: 700;
-  padding: 10px 0 4px;
+  padding: 15px 0;
+  border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
 }
 
 .post-thread-text {
   color: rgba(255, 255, 255, 0.8);
   font-size: 11px;
   line-height: 1.7;
-  padding: 4px 0 12px;
+  padding: 28px 0;
   white-space: pre-line;
 }
 
