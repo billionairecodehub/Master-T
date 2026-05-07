@@ -228,9 +228,9 @@ button {
 /* Thread title — bold text with colon */
 .post-thread-title {
   color: #ccc;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  padding: 15px 0;
+  padding: 5px 0;
   border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
 }
 
