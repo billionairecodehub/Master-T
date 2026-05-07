@@ -243,9 +243,11 @@ function bindFeedExpand() {
       if (feedPostIcon) feedPostIcon.src = BACK_ICON_SRC;
       // Scroll to top of post
       if (_mainEl) _mainEl.scrollTop = 0;
-      // Push shareable URL for this post
+      // Push shareable URL for this post (only if not already there — avoids duplicate entry on direct load)
       const postId = post.getAttribute("data-id");
-      history.pushState({ type: "post", id: postId }, "", "/post/" + postId);
+      const _postPath = "/post/" + postId;
+      if (window.location.pathname !== _postPath)
+        history.pushState({ type: "post", id: postId }, "", _postPath);
 
       // Auto-increment impression on open
       const impKey = "mt_post_imp_" + postId;
@@ -329,3 +331,9 @@ if (feedHeader) {
 
 // Initial render
 renderFeedPosts();
+// Apply deep link set by router before this script loaded (direct URL open)
+if (window._routerDeepLink && window._routerDeepLink.type === "post") {
+  const _dl = window._routerDeepLink;
+  window._routerDeepLink = null;
+  _feedOpenPost(_dl.id);
+}

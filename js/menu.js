@@ -459,12 +459,11 @@ function bindAppClicks() {
       appPanel.classList.add("open");
       const main = document.querySelector(".main");
       if (main) main.scrollTop = 0;
-      // Push clean URL
-      history.pushState(
-        { type: "app", id: a.id },
-        "",
-        "/app/" + _menuToSlug(a.name),
-      );
+      // Push clean URL (replaceState if already there — avoids duplicate entry on direct load)
+      const _aPath = "/app/" + _menuToSlug(a.name);
+      if (window.location.pathname === _aPath)
+        history.replaceState({ type: "app", id: a.id }, "", _aPath);
+      else history.pushState({ type: "app", id: a.id }, "", _aPath);
     });
   });
 }
@@ -660,12 +659,11 @@ function bindBookClicks() {
       bookPanel.classList.add("open");
       const main = document.querySelector(".main");
       if (main) main.scrollTop = 0;
-      // Push clean URL
-      history.pushState(
-        { type: "book", id: b.id },
-        "",
-        "/book/" + _menuToSlug(b.name),
-      );
+      // Push clean URL (replaceState if already there — avoids duplicate entry on direct load)
+      const _bkPath = "/book/" + _menuToSlug(b.name);
+      if (window.location.pathname === _bkPath)
+        history.replaceState({ type: "book", id: b.id }, "", _bkPath);
+      else history.pushState({ type: "book", id: b.id }, "", _bkPath);
     });
   });
 }
@@ -784,12 +782,11 @@ function bindCircleClicks() {
       circlePanel.classList.add("open");
       const main = document.querySelector(".main");
       if (main) main.scrollTop = 0;
-      // Push clean URL
-      history.pushState(
-        { type: "circle", id: c.id },
-        "",
-        "/circle/" + _menuToSlug(c.name),
-      );
+      // Push clean URL (replaceState if already there — avoids duplicate entry on direct load)
+      const _ciPath = "/circle/" + _menuToSlug(c.name);
+      if (window.location.pathname === _ciPath)
+        history.replaceState({ type: "circle", id: c.id }, "", _ciPath);
+      else history.pushState({ type: "circle", id: c.id }, "", _ciPath);
     });
   });
 }
@@ -939,3 +936,17 @@ if (menuSearchInput) {
 renderMenuApps();
 renderMenuBooks();
 renderMenuCircles();
+// Apply deep link set by router before this script loaded (direct URL open)
+if (window._routerDeepLink) {
+  const _dl = window._routerDeepLink;
+  if (_dl.type === "app" && typeof _menuOpenApp === "function") {
+    window._routerDeepLink = null;
+    _menuOpenApp(_dl.id);
+  } else if (_dl.type === "book" && typeof _menuOpenBook === "function") {
+    window._routerDeepLink = null;
+    _menuOpenBook(_dl.id);
+  } else if (_dl.type === "circle" && typeof _menuOpenCircle === "function") {
+    window._routerDeepLink = null;
+    _menuOpenCircle(_dl.id);
+  }
+}

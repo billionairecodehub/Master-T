@@ -172,12 +172,14 @@ function bindQuestExpand() {
       if (questIcon) questIcon.src = QUEST_BACK_ICON;
       // Scroll to top of expanded board
       if (_questMain) _questMain.scrollTop = 0;
-      // Push shareable URL for this quest
-      history.pushState(
-        { type: "quest", id: board.getAttribute("data-id") },
-        "",
-        "/quest/" + board.getAttribute("data-id"),
-      );
+      // Push shareable URL for this quest (only if not already there)
+      const _qPath = "/quest/" + board.getAttribute("data-id");
+      if (window.location.pathname !== _qPath)
+        history.pushState(
+          { type: "quest", id: board.getAttribute("data-id") },
+          "",
+          _qPath,
+        );
     });
   });
 }
@@ -301,3 +303,9 @@ if (questHeader) {
 
 // Initial render
 renderQuests();
+// Apply deep link set by router before this script loaded (direct URL open)
+if (window._routerDeepLink && window._routerDeepLink.type === "quest") {
+  const _dl = window._routerDeepLink;
+  window._routerDeepLink = null;
+  _questOpenItem(_dl.id);
+}

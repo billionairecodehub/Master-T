@@ -59,9 +59,11 @@ function _bOpenView(type, id) {
   _bFullView.style.display = "block";
   _bHeaderIcon.src = _B_BACK;
   if (_bMain) _bMain.scrollTop = 0;
-  // Push shareable URL
-  const urlPrefix = type === "story" ? "/story/" : "/update/";
-  history.pushState({ type: type, id: id }, "", urlPrefix + id);
+  // Push shareable URL (replaceState if already on that URL — i.e. a direct load, avoids duplicate entry)
+  const _bTargetPath = (type === "story" ? "/story/" : "/update/") + id;
+  if (window.location.pathname === _bTargetPath)
+    history.replaceState({ type: type, id: id }, "", _bTargetPath);
+  else history.pushState({ type: type, id: id }, "", _bTargetPath);
   if (type === "story") _bRenderStory(id);
   else if (type === "recommend") _bRenderRecommend(id);
 }

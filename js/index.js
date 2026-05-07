@@ -127,15 +127,8 @@ function _router() {
       type === "app" ? "apps" : type === "book" ? "books" : "circles";
     const items = DataStore.getAll(collection);
     const item = items.find((i) => _toSlug(i.name) === slug || i.id === slug);
-    if (item) {
-      // Trigger the correct open function exposed by menu.js
-      if (type === "app" && typeof _menuOpenApp === "function")
-        _menuOpenApp(item.id);
-      else if (type === "book" && typeof _menuOpenBook === "function")
-        _menuOpenBook(item.id);
-      else if (type === "circle" && typeof _menuOpenCircle === "function")
-        _menuOpenCircle(item.id);
-    }
+    // Store target — menu.js will pick it up after rendering
+    if (item) window._routerDeepLink = { type: type, id: item.id };
     return true;
   }
 
@@ -144,21 +137,21 @@ function _router() {
     showPage(feedPage);
     _setActiveNav("feed");
     if (typeof markFeedSeen === "function") markFeedSeen();
-    if (slug && typeof _feedOpenPost === "function") _feedOpenPost(slug);
+    if (slug) window._routerDeepLink = { type: "post", id: slug };
     return true;
   }
   if (type === "story") {
     showPage(blockPage);
     _setActiveNav("Block");
     if (typeof markBlockSeen === "function") markBlockSeen();
-    if (slug && typeof _bOpenView === "function") _bOpenView("story", slug);
+    if (slug) window._routerDeepLink = { type: "story", id: slug };
     return true;
   }
   if (type === "update") {
     showPage(blockPage);
     _setActiveNav("Block");
     if (typeof markBlockSeen === "function") markBlockSeen();
-    if (slug && typeof _bOpenView === "function") _bOpenView("recommend", slug);
+    if (slug) window._routerDeepLink = { type: "update", id: slug };
     return true;
   }
 
