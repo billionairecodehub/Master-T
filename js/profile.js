@@ -179,6 +179,9 @@ function refreshProfileData() {
   // Profile hero image
   const heroImg = document.getElementById("profile-hero-img");
   if (heroImg && p.img) heroImg.src = p.img;
+  // Sync header avatar to match profile image
+  const headerImg = document.getElementById("header-profile-img");
+  if (headerImg && p.img) headerImg.src = p.img;
   // Mentorship price
   const priceEl = document.getElementById("mentorship-price");
   const periodEl = document.getElementById("mentorship-period");
