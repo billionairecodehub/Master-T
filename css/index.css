@@ -453,7 +453,7 @@ body {
 .header-profile-avatar {
   width: 20px;
   height: 20px;
-  border-radius: 5px;
+  border-radius: 4px;
   overflow: hidden;
   flex-shrink: 0;
   background: rgba(255, 255, 255, 0.08);
