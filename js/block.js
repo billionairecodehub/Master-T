@@ -59,6 +59,9 @@ function _bOpenView(type, id) {
   _bFullView.style.display = "block";
   _bHeaderIcon.src = _B_BACK;
   if (_bMain) _bMain.scrollTop = 0;
+  // Push shareable URL
+  const urlPrefix = type === "story" ? "/story/" : "/update/";
+  history.pushState({ type: type, id: id }, "", urlPrefix + id);
   if (type === "story") _bRenderStory(id);
   else if (type === "recommend") _bRenderRecommend(id);
 }
@@ -75,6 +78,25 @@ function _bCloseView() {
   // Restore scroll position from before the item was opened
   const main = document.querySelector(".main");
   if (main) main.scrollTop = _bScrollPos;
+  // Update URL back to /block
+  if (
+    window.location.pathname.startsWith("/story/") ||
+    window.location.pathname.startsWith("/update/")
+  )
+    history.replaceState({}, "", "/block");
+}
+
+// Lightweight reset used by hideAllPages (no scroll side-effects)
+function _bForceClose() {
+  if (!_bViewType && _bFullView.style.display === "none") return;
+  _bViewType = null;
+  _bViewId = null;
+  _bTabs.style.display = "flex";
+  _bLists.style.display = "flex";
+  _bFullView.style.display = "none";
+  _bFullContent.innerHTML = "";
+  _bHeaderIcon.src = _B_ICON;
+  _bHeaderName.textContent = _B_TAB_LABELS[_bActiveTab];
 }
 
 // â”€â”€ 1. Back: icon click OR header-area click â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€

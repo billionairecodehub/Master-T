@@ -74,6 +74,10 @@ function hideAllPages() {
     // Close any menu expand view
     if (typeof closeExpandView === "function") closeExpandView();
   }
+  // Reset per-page expanded/detail states so pages are always clean when navigating away
+  if (typeof _feedCollapseAll === "function") _feedCollapseAll();
+  if (typeof _questCollapseAll === "function") _questCollapseAll();
+  if (typeof _bForceClose === "function") _bForceClose();
 }
 
 // Show specific page
@@ -135,6 +139,29 @@ function _router() {
     return true;
   }
 
+  // ── Per-item detail routes ──
+  if (type === "post") {
+    showPage(feedPage);
+    _setActiveNav("feed");
+    if (typeof markFeedSeen === "function") markFeedSeen();
+    if (slug && typeof _feedOpenPost === "function") _feedOpenPost(slug);
+    return true;
+  }
+  if (type === "story") {
+    showPage(blockPage);
+    _setActiveNav("Block");
+    if (typeof markBlockSeen === "function") markBlockSeen();
+    if (slug && typeof _bOpenView === "function") _bOpenView("story", slug);
+    return true;
+  }
+  if (type === "update") {
+    showPage(blockPage);
+    _setActiveNav("Block");
+    if (typeof markBlockSeen === "function") markBlockSeen();
+    if (slug && typeof _bOpenView === "function") _bOpenView("recommend", slug);
+    return true;
+  }
+
   // ── Named page routes ──
   if (type === "profile") {
     showPage(profilePage);
@@ -150,6 +177,7 @@ function _router() {
     showPage(questPage);
     _setActiveNav("Quest");
     if (typeof markQuestSeen === "function") markQuestSeen();
+    if (slug && typeof _questOpenItem === "function") _questOpenItem(slug);
     return true;
   }
   if (type === "block") {

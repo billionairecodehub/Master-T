@@ -51,6 +51,38 @@ function syncFeedCounts() {
 }
 // ────────────────────────────────────────────────────────
 
+// ── Collapse all posts back to list (used by router + back handlers) ──
+function _feedCollapseAll() {
+  document.querySelectorAll(".feed-post").forEach((p) => {
+    p.classList.remove("expanded");
+    p.style.display = "flex";
+  });
+  document
+    .querySelectorAll(".post-date-label")
+    .forEach((d) => (d.style.display = ""));
+  if (feedPostIcon) feedPostIcon.src = FEED_ICON_DEFAULT;
+}
+
+// ── Open a specific post by id (called by router on direct URL load) ──
+function _feedOpenPost(id) {
+  const post = document.querySelector(`.feed-post[data-id="${id}"]`);
+  if (!post) return;
+  const mainEl = document.querySelector(".main");
+  _feedScrollPos = mainEl ? mainEl.scrollTop : 0;
+  document.querySelectorAll(".feed-post").forEach((p) => {
+    p.classList.remove("expanded");
+    p.style.display = "none";
+  });
+  document
+    .querySelectorAll(".post-date-label")
+    .forEach((d) => (d.style.display = "none"));
+  post.style.display = "flex";
+  post.classList.add("expanded");
+  if (feedPostIcon) feedPostIcon.src = BACK_ICON_SRC;
+  if (mainEl) mainEl.scrollTop = 0;
+}
+// ────────────────────────────────────────────────────────
+
 // 6 random colors for book CTA tags
 const CTA_TAG_COLORS = [
   "#5c3a1e",
@@ -211,9 +243,11 @@ function bindFeedExpand() {
       if (feedPostIcon) feedPostIcon.src = BACK_ICON_SRC;
       // Scroll to top of post
       if (_mainEl) _mainEl.scrollTop = 0;
+      // Push shareable URL for this post
+      const postId = post.getAttribute("data-id");
+      history.pushState({ type: "post", id: postId }, "", "/post/" + postId);
 
       // Auto-increment impression on open
-      const postId = post.getAttribute("data-id");
       const impKey = "mt_post_imp_" + postId;
       if (!localStorage.getItem(impKey)) {
         const p = DataStore.getById("posts", postId);
@@ -273,16 +307,11 @@ function bindPostVotes() {
 if (feedPostIcon) {
   feedPostIcon.addEventListener("click", (e) => {
     e.stopPropagation();
-    document.querySelectorAll(".feed-post").forEach((p) => {
-      p.classList.remove("expanded");
-      p.style.display = "flex";
-    });
-    document
-      .querySelectorAll(".post-date-label")
-      .forEach((d) => (d.style.display = ""));
-    feedPostIcon.src = FEED_ICON_DEFAULT;
+    _feedCollapseAll();
     const _mainEl = document.querySelector(".main");
     if (_mainEl) _mainEl.scrollTop = _feedScrollPos;
+    if (window.location.pathname.startsWith("/post/"))
+      history.replaceState({}, "", "/feed");
   });
 }
 
@@ -290,16 +319,11 @@ if (feedPostIcon) {
 const feedHeader = document.querySelector(".feed-header");
 if (feedHeader) {
   feedHeader.addEventListener("click", () => {
-    document.querySelectorAll(".feed-post").forEach((p) => {
-      p.classList.remove("expanded");
-      p.style.display = "flex";
-    });
-    document
-      .querySelectorAll(".post-date-label")
-      .forEach((d) => (d.style.display = ""));
-    if (feedPostIcon) feedPostIcon.src = FEED_ICON_DEFAULT;
+    _feedCollapseAll();
     const _mainEl = document.querySelector(".main");
     if (_mainEl) _mainEl.scrollTop = _feedScrollPos;
+    if (window.location.pathname.startsWith("/post/"))
+      history.replaceState({}, "", "/feed");
   });
 }
 

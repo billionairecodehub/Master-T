@@ -51,6 +51,32 @@ function syncQuestCounts() {
 }
 // ────────────────────────────────────────────────────────
 
+// ── Collapse all quests back to list (used by router + back handlers) ──
+function _questCollapseAll() {
+  document.querySelectorAll(".quest-board").forEach((b) => {
+    b.classList.remove("expanded");
+    b.style.display = "flex";
+  });
+  if (questIcon) questIcon.src = QUEST_ICON_DEFAULT;
+}
+
+// ── Open a specific quest by id (called by router on direct URL load) ──
+function _questOpenItem(id) {
+  const board = document.querySelector(`.quest-board[data-id="${id}"]`);
+  if (!board) return;
+  const mainEl = document.querySelector(".main");
+  _questScrollPos = mainEl ? mainEl.scrollTop : 0;
+  document.querySelectorAll(".quest-board").forEach((b) => {
+    b.classList.remove("expanded");
+    b.style.display = "none";
+  });
+  board.style.display = "flex";
+  board.classList.add("expanded");
+  if (questIcon) questIcon.src = QUEST_BACK_ICON;
+  if (mainEl) mainEl.scrollTop = 0;
+}
+// ────────────────────────────────────────────────────────
+
 function renderQuests() {
   const container = document.getElementById("quest-main");
   if (!container) return;
@@ -146,6 +172,12 @@ function bindQuestExpand() {
       if (questIcon) questIcon.src = QUEST_BACK_ICON;
       // Scroll to top of expanded board
       if (_questMain) _questMain.scrollTop = 0;
+      // Push shareable URL for this quest
+      history.pushState(
+        { type: "quest", id: board.getAttribute("data-id") },
+        "",
+        "/quest/" + board.getAttribute("data-id"),
+      );
     });
   });
 }
@@ -247,13 +279,11 @@ function bindQuestVotes() {
 if (questIcon) {
   questIcon.addEventListener("click", (e) => {
     e.stopPropagation();
-    document.querySelectorAll(".quest-board").forEach((b) => {
-      b.classList.remove("expanded");
-      b.style.display = "flex";
-    });
-    questIcon.src = QUEST_ICON_DEFAULT;
+    _questCollapseAll();
     const _qm = document.querySelector(".main");
     if (_qm) _qm.scrollTop = _questScrollPos;
+    if (window.location.pathname.startsWith("/quest/"))
+      history.replaceState({}, "", "/quest");
   });
 }
 
@@ -261,13 +291,11 @@ if (questIcon) {
 const questHeader = document.querySelector(".quest-header");
 if (questHeader) {
   questHeader.addEventListener("click", () => {
-    document.querySelectorAll(".quest-board").forEach((b) => {
-      b.classList.remove("expanded");
-      b.style.display = "flex";
-    });
-    if (questIcon) questIcon.src = QUEST_ICON_DEFAULT;
+    _questCollapseAll();
     const _qm = document.querySelector(".main");
     if (_qm) _qm.scrollTop = _questScrollPos;
+    if (window.location.pathname.startsWith("/quest/"))
+      history.replaceState({}, "", "/quest");
   });
 }
 
