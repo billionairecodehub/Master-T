@@ -447,6 +447,7 @@ body {
   align-items: center;
   justify-content: flex-start;
   gap: 14px;
+  flex: 1;
   /* padding-top: 14px; */
   cursor: pointer;
 }
@@ -500,7 +501,6 @@ body {
   z-index: 2;
 }
 
-
 .header-title {
   font-size: 6px;
   font-weight: 500;
@@ -516,8 +516,9 @@ body {
 .header-menu {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 14px;
+  flex: 1;
 }
 
 .header-menu-icon {
