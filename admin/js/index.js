@@ -22,6 +22,12 @@ function attemptLogin() {
   if (DataStore.checkPin(pin)) {
     adminLogin.style.display = "none";
     adminLayout.style.display = "flex";
+    // Sync profile avatar in header
+    const adminHeaderImg = document.getElementById("admin-header-profile-img");
+    if (adminHeaderImg) {
+      const p = DataStore.getProfile();
+      if (p.img) adminHeaderImg.src = p.img;
+    }
     showAdminPage("dashboard");
   } else {
     loginError.textContent = "Incorrect PIN";
