@@ -502,12 +502,9 @@ body {
 
 .header-library-icon {
   /* padding: 2px; */
-}
-
-.header-profile img:hover {
-  opacity: 1;
-  /* border-color: rgba(107, 158, 255, 0.5); */
-  /* box-shadow: var(--shadow-glow-sm); */
+  width: 15px;
+  height: 15px;
+  object-fit: cover;
 }
 
 .header-title {
