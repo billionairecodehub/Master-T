@@ -176,7 +176,8 @@ renderProfileLikes();
 // ── Load profile data from DataStore ──
 function refreshProfileData() {
   const p = DataStore.getProfile();
-  const _DEFAULT_PROFILE_IMG = "https://i.postimg.cc/rwvVj88M/image.png";
+  const _DEFAULT_PROFILE_IMG =
+    "https://i.postimg.cc/nhdyR4kF/Mt-Profile-Fallback-Img.png";
   // Profile hero image
   const heroImg = document.getElementById("profile-hero-img");
   if (heroImg) heroImg.src = p.img || _DEFAULT_PROFILE_IMG;

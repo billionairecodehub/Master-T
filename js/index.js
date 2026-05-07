@@ -329,7 +329,8 @@ if (!openedFromQuery) {
 
 // Immediately set header avatar from DataStore (no flash — src was empty in HTML)
 (function _initHeaderAvatar() {
-  const _DEFAULT_PROFILE_IMG = "https://i.postimg.cc/rwvVj88M/image.png";
+  const _DEFAULT_PROFILE_IMG =
+    "https://i.postimg.cc/nhdyR4kF/Mt-Profile-Fallback-Img.png";
   const headerImg = document.getElementById("header-profile-img");
   if (!headerImg) return;
   const p = DataStore.getProfile();
