@@ -1,5 +1,15 @@
 // ── Menu: Dynamic rendering from DataStore ──
 
+// Slug helper — matches the one in index.js for consistent URL generation
+function _menuToSlug(str) {
+  return (str || "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
+
 const abcTitles = document.querySelectorAll(".abc-title");
 const menuSearchInput = document.querySelector(".menu-search-input");
 const menuFilterIcon = document.querySelector(".filter-icon");
@@ -449,7 +459,28 @@ function bindAppClicks() {
       appPanel.classList.add("open");
       const main = document.querySelector(".main");
       if (main) main.scrollTop = 0;
+      // Push clean URL
+      history.pushState(
+        { type: "app", id: a.id },
+        "",
+        "/app/" + _menuToSlug(a.name),
+      );
     });
+  });
+}
+
+// Exposed for router — open an app panel directly by ID (e.g. from a shared URL)
+function _menuOpenApp(id) {
+  const el = document.querySelector(`.menu-app-item[data-id="${id}"]`);
+  if (el) {
+    el.click();
+    return;
+  }
+  // Panel not rendered yet — render menu first then trigger
+  if (typeof renderMenu === "function") renderMenu();
+  requestAnimationFrame(() => {
+    const el2 = document.querySelector(`.menu-app-item[data-id="${id}"]`);
+    if (el2) el2.click();
   });
 }
 
@@ -629,7 +660,27 @@ function bindBookClicks() {
       bookPanel.classList.add("open");
       const main = document.querySelector(".main");
       if (main) main.scrollTop = 0;
+      // Push clean URL
+      history.pushState(
+        { type: "book", id: b.id },
+        "",
+        "/book/" + _menuToSlug(b.name),
+      );
     });
+  });
+}
+
+// Exposed for router — open a book panel directly by ID
+function _menuOpenBook(id) {
+  const el = document.querySelector(`.menu-book-item[data-id="${id}"]`);
+  if (el) {
+    el.click();
+    return;
+  }
+  if (typeof renderMenu === "function") renderMenu();
+  requestAnimationFrame(() => {
+    const el2 = document.querySelector(`.menu-book-item[data-id="${id}"]`);
+    if (el2) el2.click();
   });
 }
 
@@ -733,27 +784,50 @@ function bindCircleClicks() {
       circlePanel.classList.add("open");
       const main = document.querySelector(".main");
       if (main) main.scrollTop = 0;
+      // Push clean URL
+      history.pushState(
+        { type: "circle", id: c.id },
+        "",
+        "/circle/" + _menuToSlug(c.name),
+      );
     });
   });
 }
 
-// ── Back Buttons (static — always in DOM) ──
+// Exposed for router — open a circle panel directly by ID
+function _menuOpenCircle(id) {
+  const el = document.querySelector(`.menu-circle-item[data-id="${id}"]`);
+  if (el) {
+    el.click();
+    return;
+  }
+  if (typeof renderMenu === "function") renderMenu();
+  requestAnimationFrame(() => {
+    const el2 = document.querySelector(`.menu-circle-item[data-id="${id}"]`);
+    if (el2) el2.click();
+  });
+}
+
+// ── Back Buttons — use history.back() so the browser URL reverts cleanly ──
 document.getElementById("app-panel-back").addEventListener("click", (e) => {
   e.stopPropagation();
   appPanel.classList.remove("open");
   menuHome.style.display = "flex";
+  history.back();
 });
 
 document.getElementById("book-panel-back").addEventListener("click", (e) => {
   e.stopPropagation();
   bookPanel.classList.remove("open");
   menuHome.style.display = "flex";
+  history.back();
 });
 
 document.getElementById("circle-panel-back").addEventListener("click", (e) => {
   e.stopPropagation();
   circlePanel.classList.remove("open");
   menuHome.style.display = "flex";
+  history.back();
 });
 
 // ── Main Search Bar ──

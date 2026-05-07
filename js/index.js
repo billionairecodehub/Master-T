@@ -90,65 +90,115 @@ function _setActiveNav(navType) {
   if (target) target.classList.add("active");
 }
 
-function _openPageByQueryParam() {
-  const params = new URLSearchParams(window.location.search);
-  const requested = (params.get("page") || "").trim().toLowerCase();
-  if (!requested) return false;
+// ── URL Router ───────────────────────────────────────────────────────────────
+// Generates a URL-safe slug from any string (e.g. "Frame Control" → "frame-control")
+function _toSlug(str) {
+  return (str || "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
 
-  if (requested === "home") {
-    showPage(homePage);
-    _setActiveNav("home");
+// Navigate to a clean path, updating browser history
+function _navigateTo(path, state = {}) {
+  history.pushState(state, "", path);
+}
+
+// Core router — reads window.location.pathname and activates the right view.
+// Called on boot and on popstate (browser back/forward).
+function _router() {
+  const raw = window.location.pathname.replace(/\/$/, "") || "/";
+  const segments = raw.split("/").filter(Boolean); // e.g. ["app", "frame-control"]
+  const type = segments[0] || "";
+  const slug = segments[1] || "";
+
+  // ── Store item routes: /app/<slug>  /book/<slug>  /circle/<slug> ──
+  if (type === "app" || type === "book" || type === "circle") {
+    showPage(menuPage);
+    markStoreSeen();
+    // Wait for menu.js render (renderMenu runs after boot) then open the panel
+    const collection =
+      type === "app" ? "apps" : type === "book" ? "books" : "circles";
+    const items = DataStore.getAll(collection);
+    const item = items.find((i) => _toSlug(i.name) === slug || i.id === slug);
+    if (item) {
+      // Trigger the correct open function exposed by menu.js
+      if (type === "app" && typeof _menuOpenApp === "function")
+        _menuOpenApp(item.id);
+      else if (type === "book" && typeof _menuOpenBook === "function")
+        _menuOpenBook(item.id);
+      else if (type === "circle" && typeof _menuOpenCircle === "function")
+        _menuOpenCircle(item.id);
+    }
     return true;
   }
 
-  if (requested === "feed" && feedPage) {
+  // ── Named page routes ──
+  if (type === "profile") {
+    showPage(profilePage);
+    return true;
+  }
+  if (type === "feed") {
     showPage(feedPage);
     _setActiveNav("feed");
     if (typeof markFeedSeen === "function") markFeedSeen();
     return true;
   }
-
-  if (requested === "quest" && questPage) {
+  if (type === "quest") {
     showPage(questPage);
     _setActiveNav("Quest");
     if (typeof markQuestSeen === "function") markQuestSeen();
     return true;
   }
-
-  if (requested === "block" && blockPage) {
+  if (type === "block") {
     showPage(blockPage);
     _setActiveNav("Block");
     if (typeof markBlockSeen === "function") markBlockSeen();
     return true;
   }
-
-  if (
-    (requested === "notif" || requested === "notifications") &&
-    notificationsPage
-  ) {
+  if (type === "notifications" || type === "notif") {
     showPage(notificationsPage);
     if (typeof markNotiSeen === "function") markNotiSeen();
     return true;
   }
-
-  if (requested === "menu") {
+  if (type === "store" || type === "menu") {
     showPage(menuPage);
     markStoreSeen();
     return true;
   }
-
-  if (requested === "about" && aboutPage) {
+  if (type === "about") {
     hideAllPages();
     aboutPage.style.display = "flex";
     _setActiveNav("about");
     return true;
   }
 
+  // ── Legacy query-param fallback (?page=feed etc.) ──
+  const params = new URLSearchParams(window.location.search);
+  const qp = (params.get("page") || "").trim().toLowerCase();
+  if (qp) {
+    history.replaceState({}, "", "/" + qp);
+    return _router();
+  }
+
+  // ── Root / home ──
+  if (type === "" || type === "home") {
+    showPage(homePage);
+    _setActiveNav("home");
+    return true;
+  }
+
+  // ── Unknown path → home (soft 404) ──
+  showPage(homePage);
+  _setActiveNav("home");
   return false;
 }
 
 // Event listeners for header buttons
 headerProfile.addEventListener("click", () => {
+  _navigateTo("/profile");
   showPage(profilePage);
 });
 
@@ -157,6 +207,7 @@ const headerNotiBtnEl = document.getElementById("header-noti-btn");
 if (headerNotiBtnEl) {
   headerNotiBtnEl.addEventListener("click", () => {
     if (notificationsPage) {
+      _navigateTo("/notifications");
       showPage(notificationsPage);
       if (typeof markNotiSeen === "function") markNotiSeen();
     }
@@ -167,6 +218,7 @@ if (headerNotiBtnEl) {
 const headerMenuIconEl = document.getElementById("header-menu-icon");
 if (headerMenuIconEl) {
   headerMenuIconEl.addEventListener("click", () => {
+    _navigateTo("/store");
     showPage(menuPage);
     markStoreSeen();
   });
@@ -175,51 +227,60 @@ if (headerMenuIconEl) {
 // Navigation bar clicks
 navItems.forEach((navItem) => {
   navItem.addEventListener("click", () => {
-    // Update active state
     navItems.forEach((n) => n.classList.remove("active"));
     navItem.classList.add("active");
 
     const navType = navItem.getAttribute("data-nav");
     if (navType === "home") {
+      _navigateTo("/");
       showPage(homePage);
     } else if (navType === "profile") {
+      _navigateTo("/profile");
       showPage(profilePage);
     } else if (navType === "feed") {
       if (feedPage) {
+        _navigateTo("/feed");
         showPage(feedPage);
-        // Mark all current posts as seen — clears the unread dot
         if (typeof markFeedSeen === "function") markFeedSeen();
       }
     } else if (navType === "Quest") {
       if (questPage) {
+        _navigateTo("/quest");
         showPage(questPage);
-        // Mark all current quests as seen — clears the unread dot
         if (typeof markQuestSeen === "function") markQuestSeen();
       }
     } else if (navType === "Block") {
       if (blockPage) {
+        _navigateTo("/block");
         showPage(blockPage);
         if (typeof markBlockSeen === "function") markBlockSeen();
       }
     } else if (navType === "Notif") {
-      if (notificationsPage) showPage(notificationsPage);
+      if (notificationsPage) {
+        _navigateTo("/notifications");
+        showPage(notificationsPage);
+      }
     } else if (navType === "about") {
       if (aboutPage) {
+        _navigateTo("/about");
         hideAllPages();
         aboutPage.style.display = "flex";
       }
     } else if (navType === "menu") {
+      _navigateTo("/store");
       showPage(menuPage);
       markStoreSeen();
     }
   });
 });
 
-// Initialize by showing the home page
-const openedFromQuery = _openPageByQueryParam();
+// Browser back/forward support
+window.addEventListener("popstate", () => _router());
+
+// Initialize — run the router on boot
+const openedFromQuery = _router();
 if (!openedFromQuery) {
   showPage(homePage);
-  // Set home nav as active by default
   const homeNav = document.querySelector('.nav-item[data-nav="home"]');
   if (homeNav) homeNav.classList.add("active");
 }
