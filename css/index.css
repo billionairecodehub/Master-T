@@ -487,8 +487,8 @@ body {
 
 .header-profile img {
   position: relative;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   object-fit: cover;
   /* border: 1px solid rgba(107, 158, 255, 0.2); */
   border-radius: 2px;

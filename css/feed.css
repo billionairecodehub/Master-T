@@ -110,7 +110,7 @@ button {
   flex-direction: column;
   justify-content: center;
   gap: 0;
-  padding: 20px 0;
+  padding: 10px 0;
 }
 
 .feed-name-sub {
@@ -137,7 +137,7 @@ button {
 .feed-tagline {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-regular);
-  /* letter-spacing: -0.2px; */
+  letter-spacing: -0.5px;
   color: rgba(255, 255, 255, 0.5);
   margin-top: 2px;
 }
