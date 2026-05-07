@@ -84,6 +84,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 0;
+  padding: 7px 0;
 }
 
 .block-name-sub {
@@ -110,7 +111,7 @@ button {
 .block-tagline {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-regular);
-  letter-spacing: var(--letter-spacing-normal);
+  letter-spacing: -0.5px;
   color: rgba(255, 255, 255, 0.5);
   margin-top: 2px;
 }
