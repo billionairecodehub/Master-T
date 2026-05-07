@@ -83,7 +83,7 @@ button {
   flex-direction: column;
   justify-content: center;
   gap: 0;
-  padding-bottom: 10px;
+  padding: 5px;
 }
 
 .quest-name-sub {
