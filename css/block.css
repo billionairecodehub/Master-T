@@ -249,9 +249,9 @@ button {
 .block-story-subject {
   color: #ddd;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
-  letter-spacing: -0.6px;
+  letter-spacing: -0.5px;
 }
 
 .block-story-author {
