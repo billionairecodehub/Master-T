@@ -116,6 +116,28 @@ function renderQuests() {
            </div>`
         : "";
 
+      // Recommendation block (hardcoded title, content from admin)
+      const recommendationHTML = p.recommendation
+        ? `<div class="quest-recommendation-block">
+             <div class="quest-recommendation-title">Recommendation</div>
+             <div class="quest-recommendation-text">${p.recommendation.replace(/\r/g, "")}</div>
+           </div>`
+        : "";
+
+      // Header image (shown when expanded, at the start of content)
+      const headerImgHTML = p.img
+        ? `<div class="quest-header-img-wrap"><img src="${p.img}" alt="" class="quest-header-img" /></div>`
+        : "";
+
+      // CTA board (shown after key takeaway)
+      const ctaHTML =
+        p.ctaImg || p.ctaLabel
+          ? `<div class="quest-cta-board" data-cta-id="${p.ctaItemId || ""}" data-cta-type="${p.ctaType || ""}">
+               ${p.ctaImg ? `<div class="quest-cta-img-wrap"><img src="${p.ctaImg}" alt="" class="quest-cta-img" /></div>` : ""}
+               ${p.ctaLabel ? `<div class="quest-cta-label">${p.ctaLabel}</div>` : ""}
+             </div>`
+          : "";
+
       // Check existing vote
       const voteKey = "mt_quest_vote_" + p.id;
       const existingVote = localStorage.getItem(voteKey);
@@ -141,14 +163,18 @@ function renderQuests() {
               <span class="quest-thumb-count">${thumbsDown > 0 ? (thumbsDown >= 1000 ? (thumbsDown / 1000).toFixed(1) + "k" : thumbsDown) : "0"}</span>
             </div>
           </div>
+          ${headerImgHTML}
           ${hasThreads ? `<div class="quest-solution">${solutionHTML}</div>` : ""}
           ${takeawayHTML}
+          ${recommendationHTML}
+          ${ctaHTML}
         </div>`;
     })
     .join("");
 
   bindQuestExpand();
   bindQuestVotes();
+  bindQuestCTA();
   updateQuestDot();
 }
 
@@ -273,6 +299,21 @@ function bindQuestVotes() {
             ? (newCount / 1000).toFixed(1) + "k"
             : newCount.toString();
       }
+    });
+  });
+}
+
+function bindQuestCTA() {
+  document.querySelectorAll(".quest-cta-board").forEach((cta) => {
+    cta.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const itemId = cta.getAttribute("data-cta-id");
+      if (!itemId) return;
+      const book = DataStore.getById("books", itemId);
+      if (!book) return;
+      const url =
+        (book.platformUrls && book.platformUrls[0]) || book.ctaUrl || "";
+      if (url) window.open(url, "_blank", "noopener,noreferrer");
     });
   });
 }

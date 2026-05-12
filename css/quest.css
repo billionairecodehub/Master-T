@@ -271,6 +271,98 @@ button {
   white-space: pre-line;
 }
 
+/* Recommendation block */
+.quest-recommendation-block {
+  display: none;
+  margin-top: 12px;
+  padding: 16px 18px;
+  background: rgba(107, 158, 255, 0.04);
+  border: 0.5px solid rgba(107, 158, 255, 0.15);
+  border-radius: 2px;
+}
+
+.quest-recommendation-title {
+  font-size: 13px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #8b9ffa, #f8f6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.quest-recommendation-text {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  line-height: 1.75;
+  white-space: pre-line;
+}
+
+.quest-board.expanded .quest-recommendation-block {
+  display: block;
+}
+
+/* ── Quest header image (shown only when expanded) ────── */
+.quest-header-img-wrap {
+  display: none;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 2px;
+  border: 0.5px solid rgba(107, 158, 255, 0.12);
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.quest-board.expanded .quest-header-img-wrap {
+  display: block;
+}
+
+.quest-header-img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* ── Quest CTA board ──────────────────────────────────── */
+.quest-cta-board {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 20px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.quest-board.expanded .quest-cta-board {
+  display: flex;
+}
+
+.quest-cta-img-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 0.5px solid rgba(107, 158, 255, 0.12);
+}
+
+.quest-cta-img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.quest-cta-label {
+  padding: 20px 16px;
+  background: rgba(10, 16, 45, 0.9);
+  border: 0.5px solid rgba(107, 158, 255, 0.12);
+  border-radius: 14px;
+  color: rgba(248, 246, 255, 0.65);
+  font-size: 13px;
+  font-weight: 400;
+  text-align: center;
+}
+
 /* Thumbs become votable when expanded */
 .quest-board.expanded .quest-thumb {
   opacity: 1;

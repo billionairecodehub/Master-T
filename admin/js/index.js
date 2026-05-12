@@ -102,3 +102,47 @@ adminNavItems.forEach((nav) => {
     }
   });
 });
+
+// ── Background auto-refresh (every 60 s) ─────────────
+// Syncs from Firebase and re-runs the current page's refresh so the admin
+// always sees the latest data without a hard reload.
+// Skipped when the user is actively typing in an input or textarea.
+setInterval(async () => {
+  const active = document.activeElement;
+  if (
+    active &&
+    (active.tagName === "INPUT" ||
+      active.tagName === "TEXTAREA" ||
+      active.tagName === "SELECT")
+  )
+    return;
+
+  try {
+    await DataStore.syncFromRemote();
+  } catch (e) {
+    // silent — stay offline-safe
+  }
+
+  // Re-run whichever page is currently visible
+  switch (currentAdminPage) {
+    case "dashboard":
+      if (typeof refreshDashboard === "function") refreshDashboard();
+      break;
+    case "message":
+      if (typeof refreshMessage === "function") refreshMessage();
+      break;
+    case "stats":
+      if (typeof refreshStats === "function") refreshStats();
+      break;
+    case "posts":
+      if (typeof refreshPosts === "function") refreshPosts();
+      break;
+    case "quests":
+      if (typeof refreshQuests === "function") refreshQuests();
+      break;
+    case "sales":
+      if (typeof refreshSales === "function") refreshSales();
+      break;
+    // content/settings pages have no live data to refresh
+  }
+}, 60 * 1000);

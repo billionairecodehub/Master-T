@@ -60,12 +60,18 @@ function _bOpenView(type, id) {
   _bHeaderIcon.src = _B_BACK;
   if (_bMain) _bMain.scrollTop = 0;
   // Push shareable URL (replaceState if already on that URL — i.e. a direct load, avoids duplicate entry)
-  const _bTargetPath = (type === "story" ? "/story/" : "/update/") + id;
+  const _bTargetPath =
+    type === "story"
+      ? "/story/" + id
+      : type === "recommend"
+        ? "/update/" + id
+        : "/poll-why/" + id;
   if (window.location.pathname === _bTargetPath)
     history.replaceState({ type: type, id: id }, "", _bTargetPath);
   else history.pushState({ type: type, id: id }, "", _bTargetPath);
   if (type === "story") _bRenderStory(id);
   else if (type === "recommend") _bRenderRecommend(id);
+  else if (type === "poll-why") _bRenderPollWhy(id);
 }
 
 function _bCloseView() {
@@ -83,7 +89,8 @@ function _bCloseView() {
   // Update URL back to /block
   if (
     window.location.pathname.startsWith("/story/") ||
-    window.location.pathname.startsWith("/update/")
+    window.location.pathname.startsWith("/update/") ||
+    window.location.pathname.startsWith("/poll-why/")
   )
     history.replaceState({}, "", "/block");
 }
@@ -523,19 +530,45 @@ function _bBuildPollCard(p) {
     statusText = `Ongoing ~ Ends in ${_bTimeLeft(p.endsAt)}`;
   }
 
+  const hasAnswer = isEnded && p.correctAnswerIdx != null;
+  const hasWhyPost =
+    hasAnswer &&
+    p.whyPost &&
+    (p.whyPost.body || (p.whyPost.threads || []).length > 0) &&
+    !p.whyPost.draft;
+
   const optsHTML = (p.options || [])
     .slice(0, 3)
     .map((opt, i) => {
       const pct = total > 0 ? Math.round(((opt.votes || 0) / total) * 100) : 0;
       const isVoted = userVote === String(i);
       const inactive = isEnded || hasVoted;
-      return `<div class="block-poll-option${isVoted ? " voted" : ""}${inactive ? " no-vote" : ""}"
+      const isCorrect = hasAnswer && i === p.correctAnswerIdx;
+      const isWrong = hasAnswer && isVoted && !isCorrect;
+      let cls = "";
+      if (isVoted) cls += " voted";
+      if (inactive) cls += " no-vote";
+      if (isCorrect) cls += " correct";
+      if (isWrong) cls += " wrong";
+      const marker = hasAnswer
+        ? isCorrect
+          ? `<span class="block-poll-answer-marker correct-marker">✓ Correct</span>`
+          : isVoted
+            ? `<span class="block-poll-answer-marker wrong-marker">✗ Wrong</span>`
+            : ""
+        : "";
+      return `<div class="block-poll-option${cls}"
         data-poll-id="${p.id}" data-opt-idx="${i}">
         <span class="block-poll-option-text">${opt.text}</span>
+        ${marker}
         <span class="block-poll-option-pct">${pct}%</span>
       </div>`;
     })
     .join("");
+
+  const whyHintHTML = hasAnswer
+    ? `<span class="poll-why-hint${hasWhyPost ? " has-why" : ""}" data-poll-id="${p.id}">${hasWhyPost ? "Check Out Why >" : "No Details Yet!"}</span>`
+    : "";
 
   return `<div class="block-poll-card" data-id="${p.id}">
     <div class="block-poll-top">
@@ -544,7 +577,10 @@ function _bBuildPollCard(p) {
     </div>
     <div class="block-poll-subject">${p.subject || ""}</div>
     <div class="block-poll-options">${optsHTML}</div>
-    <div class="block-poll-status">${statusText}</div>
+    <div class="block-poll-footer">
+      <span class="block-poll-status">${statusText}</span>
+      ${whyHintHTML}
+    </div>
   </div>`;
 }
 
@@ -569,6 +605,109 @@ function _bBindPollVotes(container) {
           totalVotes: (poll.totalVotes || 0) + 1,
         });
         renderBlockPolls();
+      });
+    });
+
+  // Why hint click → open isolated why page
+  container.querySelectorAll(".poll-why-hint.has-why").forEach((hint) => {
+    hint.addEventListener("click", () => {
+      _bOpenView("poll-why", hint.getAttribute("data-poll-id"));
+    });
+  });
+}
+
+// ── Why Post full page renderer (for block-full-view) ─────────────────────────
+function _bWhyBuildContent(pollId) {
+  const poll = DataStore.getById("polls", pollId);
+  if (!poll || !poll.whyPost) return "";
+  const wp = poll.whyPost;
+  const fmt = (v) => (v >= 1000 ? (v / 1000).toFixed(1) + "k" : String(v));
+  const agreeKey = "mt_poll_why_vote_" + pollId;
+  const agreeVote = localStorage.getItem(agreeKey);
+  const threadsHTML = (wp.threads || [])
+    .map(
+      (t) => `<div class="poll-why-thread">
+        <div class="poll-why-thread-title">${t.title || ""}</div>
+        <div class="poll-why-thread-text">${(t.text || "").replace(/\r/g, "")}</div>
+      </div>`,
+    )
+    .join("");
+  const optionsHTML = (poll.options || [])
+    .slice(0, 3)
+    .map((opt, i) => {
+      const isCorrect = i === poll.correctAnswerIdx;
+      return `<div class="poll-why-opt${isCorrect ? " poll-why-opt-correct" : ""}">
+      ${isCorrect ? `<span class="poll-why-opt-marker">✓</span>` : `<span class="poll-why-opt-marker poll-why-opt-marker-empty"></span>`}
+      <span class="poll-why-opt-text">${opt.text}</span>
+    </div>`;
+    })
+    .join("");
+  return `<div class="poll-why-full">
+    <div class="poll-why-full-header">
+      <img src="${_B_POLL_ICON}" alt="" class="poll-why-full-icon" />
+      <div class="poll-why-full-subject">${poll.subject || ""}</div>
+    </div>
+    <div class="poll-why-options">${optionsHTML}</div>
+    ${wp.image ? `<img src="${wp.image}" class="poll-why-image" alt="" />` : ""}
+    <div class="poll-why-title-row"><span class="poll-why-title">Why?</span></div>
+    ${wp.body ? `<div class="poll-why-body">${wp.body.replace(/\r/g, "")}</div>` : ""}
+    ${threadsHTML}
+    <div class="poll-why-thumbs">
+      <div class="poll-why-thumb poll-why-agree${agreeVote === "agree" ? " voted" : ""}" data-poll-id="${pollId}">
+        <img src="https://i.postimg.cc/8C7LB7fM/Mt-Quest-Thumbs-Up-Icon.png" alt="Agree" class="quest-thumb-icon" />
+        <span class="quest-thumb-count">${fmt(poll.whyAgree || 0)}</span>
+      </div>
+      <div class="poll-why-thumb poll-why-disagree${agreeVote === "disagree" ? " voted" : ""}" data-poll-id="${pollId}">
+        <img src="https://i.postimg.cc/fb1mHMY1/Mt-Quest-Thumbs-Down-Icon.png" alt="Disagree" class="quest-thumb-icon" />
+        <span class="quest-thumb-count">${fmt(poll.whyDisagree || 0)}</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function _bRenderPollWhy(pollId) {
+  _bFullContent.innerHTML = _bWhyBuildContent(pollId);
+  _bBindWhyThumbs(pollId);
+}
+
+function _bBindWhyThumbs(pollId) {
+  _bFullContent
+    .querySelectorAll(".poll-why-agree, .poll-why-disagree")
+    .forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const poll = DataStore.getById("polls", pollId);
+        if (!poll) return;
+        const aKey = "mt_poll_why_vote_" + pollId;
+        const prevVote = localStorage.getItem(aKey);
+        const isAgree = btn.classList.contains("poll-why-agree");
+        const clicked = isAgree ? "agree" : "disagree";
+        if (prevVote === clicked) {
+          localStorage.removeItem(aKey);
+          DataStore.update("polls", pollId, {
+            whyAgree: Math.max(0, (poll.whyAgree || 0) - (isAgree ? 1 : 0)),
+            whyDisagree: Math.max(
+              0,
+              (poll.whyDisagree || 0) - (isAgree ? 0 : 1),
+            ),
+          });
+        } else if (prevVote) {
+          localStorage.setItem(aKey, clicked);
+          DataStore.update("polls", pollId, {
+            whyAgree: Math.max(0, (poll.whyAgree || 0) + (isAgree ? 1 : -1)),
+            whyDisagree: Math.max(
+              0,
+              (poll.whyDisagree || 0) + (isAgree ? -1 : 1),
+            ),
+          });
+        } else {
+          localStorage.setItem(aKey, clicked);
+          DataStore.update("polls", pollId, {
+            whyAgree: (poll.whyAgree || 0) + (isAgree ? 1 : 0),
+            whyDisagree: (poll.whyDisagree || 0) + (isAgree ? 0 : 1),
+          });
+        }
+        _bFullContent.innerHTML = _bWhyBuildContent(pollId);
+        _bBindWhyThumbs(pollId);
       });
     });
 }

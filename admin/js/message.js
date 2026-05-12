@@ -1,22 +1,40 @@
 // admin/js/message.js — Message page logic
 
-// ── EmailJS Config ────────────────────────────────────
-// 1. Sign up free at https://emailjs.com
-// 2. Create an Email Service (Gmail, Outlook, etc.) → copy Service ID
-// 3. Create an Email Template with these variables:
-//    {{to_name}}, {{to_email}}, {{subject}}, {{reply}}
-//    Set "To Email" field to: {{to_email}}
-// 4. Copy Template ID and Public Key (Account → API Keys)
-const EMAILJS_SERVICE_ID = "service_m2mepgf"; // e.g. "service_abc123"
-const EMAILJS_TEMPLATE_ID = "template_oieyfu5"; // e.g. "template_xyz789"
-const EMAILJS_PUBLIC_KEY = "uGXNHp4u77kyRTD6O"; // e.g. "aBcDeFgHiJkLmNoP"
-
-// Initialise once
-try {
-  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-} catch (e) {}
-
 let _msgOpenId = null;
+let _msgSaveState = "idle"; // "idle" | "saved"
+let _msgReplyState = "idle"; // "idle" | "replied"
+let _msgLockedValue = ""; // textarea value at last save/reply
+
+function _msgResetButtons() {
+  _msgSaveState = "idle";
+  _msgReplyState = "idle";
+  const s = document.getElementById("msg-save-btn");
+  const r = document.getElementById("msg-reply-btn");
+  if (s) {
+    s.textContent = "Save";
+    s.disabled = false;
+  }
+  if (r) {
+    r.textContent = "Reply";
+    r.disabled = false;
+  }
+}
+
+function _msgLockButtons(reply, includeReply) {
+  _msgSaveState = "saved";
+  if (includeReply) _msgReplyState = "replied";
+  _msgLockedValue = reply;
+  const s = document.getElementById("msg-save-btn");
+  const r = document.getElementById("msg-reply-btn");
+  if (s) {
+    s.textContent = "Saved";
+    s.disabled = true;
+  }
+  if (r && includeReply) {
+    r.textContent = "Replied";
+    r.disabled = true;
+  }
+}
 
 // ── Called by showAdminPage("message") in index.js ───────────────
 function refreshMessage() {
@@ -177,6 +195,26 @@ function _msgOpenMessage(id) {
   const replyEl = document.getElementById("msg-response-input");
   if (replyEl) replyEl.value = msg.reply || "";
 
+  // Init button states based on message status
+  const prevReply = msg.reply || "";
+  if (prevReply && msg.status === "replied") {
+    _msgSaveState = "saved";
+    _msgReplyState = "replied";
+    _msgLockedValue = prevReply;
+    const s = document.getElementById("msg-save-btn");
+    const r = document.getElementById("msg-reply-btn");
+    if (s) {
+      s.textContent = "Saved";
+      s.disabled = true;
+    }
+    if (r) {
+      r.textContent = "Replied";
+      r.disabled = true;
+    }
+  } else {
+    _msgResetButtons();
+  }
+
   // Update meta (unread count changed)
   _msgUpdateMeta(document.getElementById("msg-meta"));
   _msgUpdateMeta(document.getElementById("msg-detail-meta"));
@@ -232,6 +270,46 @@ document
   .getElementById("msg-back-btn")
   .addEventListener("click", _msgCloseDetail);
 
+// Reset buttons when textarea content changes
+document.getElementById("msg-response-input").addEventListener("input", () => {
+  if (_msgSaveState !== "idle" || _msgReplyState !== "idle") {
+    const cur = document.getElementById("msg-response-input")?.value || "";
+    if (cur !== _msgLockedValue) _msgResetButtons();
+  }
+});
+
+// ── Save response ─────────────────────────────────────
+document.getElementById("msg-save-btn").addEventListener("click", async () => {
+  const reply = (
+    document.getElementById("msg-response-input")?.value || ""
+  ).trim();
+  if (!reply) {
+    await window.UMessageModal.error(
+      "Please write a response first",
+      "Validation",
+    );
+    return;
+  }
+  if (!_msgOpenId) return;
+
+  DataStore.update("messages", _msgOpenId, { reply, status: "replied" });
+
+  const senderEl = document.getElementById("msg-detail-sender");
+  const msg = DataStore.getById("messages", _msgOpenId);
+  if (senderEl && msg) {
+    senderEl.innerHTML = `
+      <div class="msg-card-subject">${_msgSenderName(msg)} Sent You A Message</div>
+      <div class="msg-card-status">${_msgStatusLabel("replied")}</div>
+      ${msg.email ? `<div class="msg-card-email">${msg.email}</div>` : ""}`;
+  }
+  _msgUpdateMeta(document.getElementById("msg-meta"));
+  _msgUpdateMeta(document.getElementById("msg-detail-meta"));
+
+  _msgLockButtons(reply, false);
+  await window.UMessageModal.success("Response saved", "Saved");
+});
+
+// ── Reply via EmailJS ──────────────────────────────────
 document.getElementById("msg-reply-btn").addEventListener("click", async () => {
   const reply = (
     document.getElementById("msg-response-input")?.value || ""
@@ -248,58 +326,49 @@ document.getElementById("msg-reply-btn").addEventListener("click", async () => {
   const msg = DataStore.getById("messages", _msgOpenId);
   if (!msg) return;
 
-  const toEmail = msg.email || "";
+  const toEmail = (msg.email || "").trim();
   if (!toEmail) {
     await window.UMessageModal.error(
       "This message has no email address to reply to.",
-      "Cannot Send",
+      "Cannot Reply",
     );
     return;
   }
 
-  if (!(await window.UMessageModal.confirm("Send this reply?", "Confirmation")))
-    return;
-
-  // Check credentials are configured
-  if (
-    EMAILJS_SERVICE_ID === "YOUR_SERVICE_ID" ||
-    EMAILJS_TEMPLATE_ID === "YOUR_TEMPLATE_ID" ||
-    EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY"
-  ) {
-    await window.UMessageModal.error(
-      "EmailJS is not configured yet. Open admin/js/message.js and fill in your Service ID, Template ID, and Public Key.",
-      "Setup Required",
-    );
-    return;
-  }
-
-  const replyBtn = document.getElementById("msg-reply-btn");
-  if (replyBtn) {
-    replyBtn.disabled = true;
-    replyBtn.textContent = "Sending...";
-  }
+  const profile = DataStore.getProfile();
+  const adminName = profile.name || "Master Togan";
+  const adminEmail = (profile.email || "").trim();
 
   try {
-    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      to_name: msg.from || msg.name || "there",
+    await emailjs.send("service_v3anekc", "template_hq8ojb4", {
       to_email: toEmail,
-      subject: msg.title ? `Re: ${msg.title}` : "Re: Your Message",
-      reply: reply,
+      name: adminName,
+      email: adminEmail,
+      subject: msg.title || "Re: Your Message",
+      message: reply,
     });
 
     DataStore.update("messages", _msgOpenId, { reply, status: "replied" });
-    await window.UMessageModal.success("Reply sent to " + toEmail, "Sent");
-    _msgCloseDetail();
-  } catch (err) {
-    console.error("EmailJS error:", err);
-    await window.UMessageModal.error(
-      "Failed to send email. Check your EmailJS credentials and template.",
-      "Send Failed",
-    );
-  } finally {
-    if (replyBtn) {
-      replyBtn.disabled = false;
-      replyBtn.textContent = "Reply";
+
+    _msgUpdateMeta(document.getElementById("msg-meta"));
+    _msgUpdateMeta(document.getElementById("msg-detail-meta"));
+
+    const senderEl = document.getElementById("msg-detail-sender");
+    const updated = DataStore.getById("messages", _msgOpenId);
+    if (senderEl && updated) {
+      senderEl.innerHTML = `
+        <div class="msg-card-subject">${_msgSenderName(updated)} Sent You A Message</div>
+        <div class="msg-card-status">${_msgStatusLabel("replied")}</div>
+        ${updated.email ? `<div class="msg-card-email">${updated.email}</div>` : ""}`;
     }
+
+    _msgLockButtons(reply, true);
+    await window.UMessageModal.success("Reply sent to " + toEmail, "Sent");
+  } catch (err) {
+    console.error("[MSG] EmailJS reply failed:", err);
+    await window.UMessageModal.error(
+      "Failed to send reply. Please try again.",
+      "Error",
+    );
   }
 });

@@ -45,21 +45,22 @@ async function loadPage(url) {
 async function boot() {
   const main = document.querySelector(".main");
 
-  // Load all 6 page partials in parallel
-  const [home, profile, feed, quest, noti, menu, about, block] =
+  // Load all page partials in parallel
+  const [home, profile, quest, noti, menu, about, polls, updates] =
     await Promise.all([
       loadPage("pages/home.html"),
       loadPage("pages/profile.html"),
-      loadPage("pages/feed.html"),
       loadPage("pages/quest.html"),
       loadPage("pages/noti.html"),
       loadPage("pages/menu.html"),
       loadPage("pages/about.html"),
-      loadPage("pages/block.html"),
+      loadPage("pages/polls.html"),
+      loadPage("pages/updates.html"),
     ]);
 
   // Inject all pages into main container
-  main.innerHTML = home + profile + feed + quest + noti + menu + about + block;
+  main.innerHTML =
+    home + profile + quest + noti + menu + about + polls + updates;
 
   // Now load all JS files in order (shared data first, then sync from Firebase, then page scripts)
   const dataLoad = ["shared/data.js"];
@@ -67,12 +68,12 @@ async function boot() {
     "js/index.js",
     "js/home.js",
     "js/profile.js",
-    "js/feed.js",
     "js/quest.js",
     "js/noti.js",
     "js/menu.js",
     "js/about.js",
-    "js/block.js",
+    "js/polls.js",
+    "js/updates.js",
   ];
 
   // Load data.js first

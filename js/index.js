@@ -33,11 +33,11 @@ window.addEventListener("scroll", () => {
 const homePage = document.querySelector(".home");
 const profilePage = document.querySelector(".profile-page");
 const menuPage = document.querySelector(".menu-page");
-const feedPage = document.querySelector(".feed-page");
+const pollsPage = document.querySelector(".polls-page");
+const updatesPage = document.querySelector(".updates-page");
 const questPage = document.querySelector(".quest-page");
 const notificationsPage = document.querySelector(".notifications-page");
 const aboutPage = document.querySelector(".about-page");
-const blockPage = document.querySelector(".block-page");
 const headerProfile = document.querySelector(".header-profile");
 const headerMenu = document.querySelector(".header-menu");
 const navItems = document.querySelectorAll(".nav-item");
@@ -47,11 +47,11 @@ function hideAllPages() {
   homePage.style.display = "none";
   profilePage.style.display = "none";
   menuPage.style.display = "none";
-  if (feedPage) feedPage.style.display = "none";
+  if (pollsPage) pollsPage.style.display = "none";
+  if (updatesPage) updatesPage.style.display = "none";
   if (questPage) questPage.style.display = "none";
   if (notificationsPage) notificationsPage.style.display = "none";
   if (aboutPage) aboutPage.style.display = "none";
-  if (blockPage) blockPage.style.display = "none";
   // Close any open profile panels
   if (typeof closeProfileView === "function") closeProfileView();
   document
@@ -75,9 +75,8 @@ function hideAllPages() {
     if (typeof closeExpandView === "function") closeExpandView();
   }
   // Reset per-page expanded/detail states so pages are always clean when navigating away
-  if (typeof _feedCollapseAll === "function") _feedCollapseAll();
   if (typeof _questCollapseAll === "function") _questCollapseAll();
-  if (typeof _bForceClose === "function") _bForceClose();
+  if (typeof _uForceClose === "function") _uForceClose();
 }
 
 // Show specific page
@@ -141,28 +140,12 @@ function _router() {
   }
 
   // ── Per-item detail routes ──
-  if (type === "post") {
-    // Legacy /post/<id> URL — redirect to /feed/<id> so old shared links still work
-    history.replaceState({}, "", "/feed" + (slug ? "/" + slug : ""));
-    return _router();
-  }
-  if (type === "story") {
-    showPage(blockPage);
-    _setActiveNav("Block");
-    if (typeof markBlockSeen === "function") markBlockSeen();
-    if (slug) {
-      // On popstate: block.js loaded, call directly; on direct load: set flag
-      if (typeof _bOpenView === "function") _bOpenView("story", slug);
-      else window._routerDeepLink = { type: "story", id: slug };
-    }
-    return true;
-  }
   if (type === "update") {
-    showPage(blockPage);
-    _setActiveNav("Block");
-    if (typeof markBlockSeen === "function") markBlockSeen();
+    showPage(updatesPage);
+    _setActiveNav("updates");
+    if (typeof markUpdatesSeen === "function") markUpdatesSeen();
     if (slug) {
-      if (typeof _bOpenView === "function") _bOpenView("recommend", slug);
+      if (typeof _uOpenView === "function") _uOpenView(slug);
       else window._routerDeepLink = { type: "update", id: slug };
     }
     return true;
@@ -173,15 +156,16 @@ function _router() {
     showPage(profilePage);
     return true;
   }
-  if (type === "feed") {
-    showPage(feedPage);
-    _setActiveNav("feed");
-    if (typeof markFeedSeen === "function") markFeedSeen();
-    if (slug) {
-      // On popstate: feed.js loaded, call directly; on direct load: set flag
-      if (typeof _feedOpenPost === "function") _feedOpenPost(slug);
-      else window._routerDeepLink = { type: "post", id: slug };
-    }
+  if (type === "polls") {
+    showPage(pollsPage);
+    _setActiveNav("polls");
+    if (typeof markPollsSeen === "function") markPollsSeen();
+    return true;
+  }
+  if (type === "updates") {
+    showPage(updatesPage);
+    _setActiveNav("updates");
+    if (typeof markUpdatesSeen === "function") markUpdatesSeen();
     return true;
   }
   if (type === "quest") {
@@ -192,12 +176,6 @@ function _router() {
       if (typeof _questOpenItem === "function") _questOpenItem(slug);
       else window._routerDeepLink = { type: "quest", id: slug };
     }
-    return true;
-  }
-  if (type === "block") {
-    showPage(blockPage);
-    _setActiveNav("Block");
-    if (typeof markBlockSeen === "function") markBlockSeen();
     return true;
   }
   if (type === "notifications" || type === "notif") {
@@ -239,6 +217,15 @@ function _router() {
 }
 
 // Event listeners for header buttons
+const headerTitleEl = document.querySelector(".header-title");
+if (headerTitleEl) {
+  headerTitleEl.addEventListener("click", () => {
+    _navigateTo("/");
+    showPage(homePage);
+    _setActiveNav("home");
+  });
+}
+
 headerProfile.addEventListener("click", () => {
   _navigateTo("/profile");
   showPage(profilePage);
@@ -279,11 +266,11 @@ navItems.forEach((navItem) => {
     } else if (navType === "profile") {
       _navigateTo("/profile");
       showPage(profilePage);
-    } else if (navType === "feed") {
-      if (feedPage) {
-        _navigateTo("/feed");
-        showPage(feedPage);
-        if (typeof markFeedSeen === "function") markFeedSeen();
+    } else if (navType === "polls") {
+      if (pollsPage) {
+        _navigateTo("/polls");
+        showPage(pollsPage);
+        if (typeof markPollsSeen === "function") markPollsSeen();
       }
     } else if (navType === "Quest") {
       if (questPage) {
@@ -291,11 +278,11 @@ navItems.forEach((navItem) => {
         showPage(questPage);
         if (typeof markQuestSeen === "function") markQuestSeen();
       }
-    } else if (navType === "Block") {
-      if (blockPage) {
-        _navigateTo("/block");
-        showPage(blockPage);
-        if (typeof markBlockSeen === "function") markBlockSeen();
+    } else if (navType === "updates") {
+      if (updatesPage) {
+        _navigateTo("/updates");
+        showPage(updatesPage);
+        if (typeof markUpdatesSeen === "function") markUpdatesSeen();
       }
     } else if (navType === "Notif") {
       if (notificationsPage) {
@@ -340,17 +327,6 @@ if (!openedFromQuery) {
 // ── Real-time global update handler (Firebase SSE → mt:remote-update) ──
 // Also handles cross-tab admin changes via the storage event.
 function _applyRemoteChanges(changed) {
-  // Posts: smart update — never collapse/interrupt an expanded post
-  if (!changed || changed === "posts") {
-    const hasExpandedPost = !!document.querySelector(".feed-post.expanded");
-    if (hasExpandedPost) {
-      if (typeof syncFeedCounts === "function") syncFeedCounts();
-    } else {
-      if (typeof renderFeedPosts === "function") renderFeedPosts();
-    }
-    if (typeof updateFeedDot === "function") updateFeedDot();
-  }
-
   // Quests: smart update — never collapse/interrupt an expanded quest board
   if (!changed || changed === "quests") {
     const hasExpandedQuest = !!document.querySelector(".quest-board.expanded");
@@ -382,17 +358,13 @@ function _applyRemoteChanges(changed) {
   if (!changed || changed === "profile") {
     if (typeof refreshProfileData === "function") refreshProfileData();
   }
-  if (!changed || changed === "stories") {
-    if (typeof renderBlockStories === "function") renderBlockStories();
-    if (typeof updateBlockDot === "function") updateBlockDot();
-  }
   if (!changed || changed === "recommends") {
-    if (typeof renderBlockRecommends === "function") renderBlockRecommends();
-    if (typeof updateBlockDot === "function") updateBlockDot();
+    if (typeof renderUpdates === "function") renderUpdates();
+    if (typeof updateUpdatesDot === "function") updateUpdatesDot();
   }
   if (!changed || changed === "polls") {
-    if (typeof renderBlockPolls === "function") renderBlockPolls();
-    if (typeof updateBlockDot === "function") updateBlockDot();
+    if (typeof renderPolls === "function") renderPolls();
+    if (typeof updatePollsDot === "function") updatePollsDot();
   }
 }
 

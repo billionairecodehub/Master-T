@@ -488,6 +488,8 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-transform: uppercase;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .header-menu {

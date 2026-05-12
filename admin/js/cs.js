@@ -883,12 +883,47 @@ function _csQuestResetForm() {
   document.getElementById("cs-quest-subject").value = "";
   const tk = document.getElementById("cs-quest-takeaway");
   if (tk) tk.value = "";
+  const rk = document.getElementById("cs-quest-recommendation");
+  if (rk) rk.value = "";
   for (let i = 1; i <= 10; i++) {
     const t = document.getElementById(`cs-quest-t${i}-title`);
     const b = document.getElementById(`cs-quest-t${i}-body`);
     if (t) t.value = "";
     if (b) b.value = "";
   }
+  // Header image
+  const qImg = document.getElementById("cs-quest-img");
+  if (qImg) {
+    qImg.value = "";
+    const w = qImg.closest(".cs-img-widget");
+    if (w) {
+      _csSetWidgetPreview(w, "");
+      _csSetWidgetState(w, "idle", "");
+    }
+  }
+  // CTA image
+  const qCtaImg = document.getElementById("cs-quest-cta-img");
+  if (qCtaImg) {
+    qCtaImg.value = "";
+    const w = qCtaImg.closest(".cs-img-widget");
+    if (w) {
+      _csSetWidgetPreview(w, "");
+      _csSetWidgetState(w, "idle", "");
+    }
+  }
+  // CTA type/select/display
+  const qCtaSel = document.getElementById("cs-quest-cta-select");
+  if (qCtaSel) {
+    qCtaSel.innerHTML = "";
+    qCtaSel.style.display = "";
+  }
+  const qCtaDisp = document.getElementById("cs-quest-cta-display");
+  if (qCtaDisp) qCtaDisp.value = "";
+  const qCtaType = document.getElementById("cs-quest-cta-type-val");
+  if (qCtaType) qCtaType.value = "books";
+  const qCtaId = document.getElementById("cs-quest-cta-item-id");
+  if (qCtaId) qCtaId.value = "";
+  _csQuestPopulateCTASelect();
 }
 
 function _csQuestLoadEdit(quest) {
@@ -896,6 +931,8 @@ function _csQuestLoadEdit(quest) {
   document.getElementById("cs-quest-subject").value = quest.subject || "";
   const tk = document.getElementById("cs-quest-takeaway");
   if (tk) tk.value = quest.keyTakeaway || "";
+  const rk = document.getElementById("cs-quest-recommendation");
+  if (rk) rk.value = quest.recommendation || "";
   const threads = quest.threads || [];
   for (let i = 1; i <= 10; i++) {
     const t = threads[i - 1] || {};
@@ -904,6 +941,25 @@ function _csQuestLoadEdit(quest) {
     if (titleEl) titleEl.value = t.title || "";
     if (bodyEl) bodyEl.value = t.text || "";
   }
+  // Header image
+  const qImg = document.getElementById("cs-quest-img");
+  if (qImg) qImg.value = quest.img || "";
+  // CTA image
+  const qCtaImg = document.getElementById("cs-quest-cta-img");
+  if (qCtaImg) qCtaImg.value = quest.ctaImg || "";
+  _csSyncImgPreviews(["cs-quest-img", "cs-quest-cta-img"]);
+  // CTA select — always books, populate and restore selection
+  const tv = document.getElementById("cs-quest-cta-type-val");
+  if (tv) tv.value = "books";
+  _csQuestPopulateCTASelect();
+  if (quest.ctaItemId) {
+    const sel = document.getElementById("cs-quest-cta-select");
+    if (sel) sel.value = quest.ctaItemId;
+    const iid = document.getElementById("cs-quest-cta-item-id");
+    if (iid) iid.value = quest.ctaItemId;
+  }
+  const disp = document.getElementById("cs-quest-cta-display");
+  if (disp) disp.value = quest.ctaLabel || "";
   _csSwitch("quest", "create");
 }
 
@@ -917,6 +973,15 @@ async function _csQuestSave(isDraft) {
     keyTakeaway: (
       document.getElementById("cs-quest-takeaway")?.value || ""
     ).trim(),
+    recommendation: (
+      document.getElementById("cs-quest-recommendation")?.value || ""
+    ).trim(),
+    img: document.getElementById("cs-quest-img")?.value.trim() || "",
+    ctaImg: document.getElementById("cs-quest-cta-img")?.value.trim() || "",
+    ctaType: document.getElementById("cs-quest-cta-type-val")?.value || "",
+    ctaItemId: document.getElementById("cs-quest-cta-item-id")?.value || "",
+    ctaLabel:
+      document.getElementById("cs-quest-cta-display")?.value.trim() || "",
     draft: isDraft,
   };
   if (!data.subject) {
@@ -1009,6 +1074,45 @@ document
     );
     if (!ok) return;
     _csQuestResetForm();
+  });
+
+// Quest CTA — book-only populate (always visible, no toggle needed)
+function _csQuestPopulateCTASelect() {
+  const items = DataStore.getAll("books").filter(
+    (b) =>
+      !b.draft &&
+      !!((b.platformUrls && b.platformUrls[0]) || b.ctaUrl || "").trim(),
+  );
+  const sel = document.getElementById("cs-quest-cta-select");
+  if (!sel) return;
+  sel.innerHTML =
+    `<option value="">Select Book</option>` +
+    items
+      .map(
+        (i) =>
+          `<option value="${i.id}">${i.name || i.title || "Untitled"}</option>`,
+      )
+      .join("");
+}
+
+document
+  .getElementById("cs-quest-cta-select")
+  ?.addEventListener("change", () => {
+    const sel = document.getElementById("cs-quest-cta-select");
+    const selId = sel ? sel.value : "";
+    const disp = document.getElementById("cs-quest-cta-display");
+    const iid = document.getElementById("cs-quest-cta-item-id");
+    if (!selId) {
+      if (disp) disp.value = "";
+      if (iid) iid.value = "";
+      return;
+    }
+    const item = DataStore.getById("books", selId);
+    if (item) {
+      const label = `Get ${item.name}${item.price ? " ~ " + item.price : ""}`;
+      if (disp) disp.value = label;
+      if (iid) iid.value = selId;
+    }
   });
 
 // ══════════════════════════════════════════════════════
@@ -1454,34 +1558,127 @@ function _csPollRefresh(tab) {
       },
     );
   } else if (tab === "manage") {
-    _csRenderList(
-      "cs-poll-manage-list",
-      DataStore.getAll("polls").filter((p) => !p.draft),
-      {
-        icon: "📊",
-        actions: [
-          { id: "edit", label: "Edit" },
-          { id: "delete", label: "Delete", cls: "danger" },
-        ],
-        onAction: async (a, id) => {
-          if (a === "delete") {
-            if (
-              !(await window.UMessageModal.confirm(
-                "Delete poll?",
-                "Confirm Delete",
-              ))
-            )
-              return;
-            DataStore.remove("polls", id);
-            _csPollRefresh("manage");
-          } else {
-            const p = DataStore.getById("polls", id);
-            if (p) _csPollLoadEdit(p);
-          }
-        },
-      },
-    );
+    _csPollRenderManageList();
   }
+}
+
+function _csPollRenderManageList() {
+  const el = document.getElementById("cs-poll-manage-list");
+  if (!el) return;
+  const polls = DataStore.getAll("polls")
+    .filter((p) => !p.draft)
+    .slice()
+    .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
+  if (!polls.length) {
+    el.innerHTML = `<div class="cs-empty"><div class="cs-empty-icon">📊</div><div class="cs-empty-text">Nothing here yet</div></div>`;
+    return;
+  }
+
+  el.innerHTML = polls
+    .map((p) => {
+      const isEnded =
+        p.status === "ended" || (p.endsAt && new Date(p.endsAt) <= new Date());
+      const total = p.totalVotes || 0;
+      const fv =
+        total >= 1000 ? (total / 1000).toFixed(1) + "k" : String(total);
+      const statusLabel = isEnded
+        ? `${fv} Votes ~ Ended`
+        : `Ongoing ~ ${total} votes`;
+
+      const optionsHTML = (p.options || [])
+        .map((opt, i) => {
+          const pct =
+            total > 0 ? Math.round(((opt.votes || 0) / total) * 100) : 0;
+          const isCorrect = p.correctAnswerIdx === i;
+          return `<div class="cs-poll-opt-row${isCorrect ? " cs-poll-opt-correct" : ""}">
+            <span class="cs-poll-opt-text">${opt.text}</span>
+            <span class="cs-poll-opt-pct">${pct}% (${opt.votes || 0})</span>
+            ${
+              isEnded
+                ? `<button type="button"
+                    class="cs-poll-answer-btn${isCorrect ? " active" : ""}"
+                    data-poll-id="${p.id}"
+                    data-opt-idx="${i}">
+                    ${isCorrect ? "✓ Correct" : "Mark Correct"}
+                  </button>`
+                : ""
+            }
+          </div>`;
+        })
+        .join("");
+
+      return `<div class="cs-card cs-poll-manage-card" data-item-id="${p.id}">
+        <div class="cs-card-top">
+          <div class="cs-card-subject">${p.subject || "Untitled"}</div>
+          <div class="cs-card-date">${_csDateLabel(p.createdAt)}</div>
+        </div>
+        <div class="cs-poll-status-label">${statusLabel}</div>
+        <div class="cs-poll-opts-list">${optionsHTML}</div>
+        <div class="cs-card-expand">
+          <div class="cs-card-safe-actions">
+            <button type="button" class="cs-card-action" data-item-id="${p.id}" data-action="edit">Edit</button>
+            ${isEnded && p.correctAnswerIdx != null ? `<button type="button" class="cs-card-action cs-poll-why-btn" data-item-id="${p.id}" data-action="why">${p.whyPost ? "Edit Why Post" : "Create Why Post"}</button>` : ""}
+          </div>
+          <div class="cs-card-danger-actions">
+            <button type="button" class="cs-card-action danger" data-item-id="${p.id}" data-action="delete">Delete</button>
+          </div>
+        </div>
+      </div>`;
+    })
+    .join("");
+
+  // Correct-answer toggle buttons
+  el.querySelectorAll(".cs-poll-answer-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const pollId = btn.getAttribute("data-poll-id");
+      const optIdx = parseInt(btn.getAttribute("data-opt-idx"));
+      const poll = DataStore.getById("polls", pollId);
+      if (!poll) return;
+      // Toggle: clicking already-correct answer unselects it
+      const newIdx = poll.correctAnswerIdx === optIdx ? null : optIdx;
+      DataStore.update("polls", pollId, { correctAnswerIdx: newIdx });
+      _csPollRenderManageList();
+    });
+  });
+
+  // Edit / Delete actions
+  el.querySelectorAll("[data-action]").forEach((btn) => {
+    btn.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      const action = btn.getAttribute("data-action");
+      const id = btn.getAttribute("data-item-id");
+      if (action === "delete") {
+        if (
+          !(await window.UMessageModal.confirm(
+            "Delete poll?",
+            "Confirm Delete",
+          ))
+        )
+          return;
+        DataStore.remove("polls", id);
+        _csPollRenderManageList();
+      } else if (action === "edit") {
+        const p = DataStore.getById("polls", id);
+        if (p) _csPollLoadEdit(p);
+      } else if (action === "why") {
+        const p = DataStore.getById("polls", id);
+        if (p) _csPollOpenWhyForm(p);
+      }
+    });
+  });
+
+  // Card tap to expand/collapse actions
+  el.querySelectorAll(".cs-poll-manage-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      const wasOpen = card.classList.contains("open");
+      el.querySelectorAll(".cs-card.open").forEach((c) =>
+        c.classList.remove("open"),
+      );
+      if (!wasOpen) card.classList.add("open");
+    });
+  });
 }
 
 document
@@ -1499,6 +1696,94 @@ document
     );
     if (!ok) return;
     _csPollResetForm();
+  });
+
+// ── Why Post form ─────────────────────────────────────
+function _csPollOpenWhyForm(poll) {
+  document.getElementById("cs-poll-why-poll-id").value = poll.id;
+  const wp = poll.whyPost || {};
+  document.getElementById("cs-poll-why-body").value = wp.body || "";
+  const threads = wp.threads || [];
+  for (let i = 1; i <= 5; i++) {
+    const t = threads[i - 1] || {};
+    const titleEl = document.getElementById(`cs-poll-why-t${i}-title`);
+    const bodyEl = document.getElementById(`cs-poll-why-t${i}-body`);
+    if (titleEl) titleEl.value = t.title || "";
+    if (bodyEl) bodyEl.value = t.text || "";
+  }
+  const imgInput = document.getElementById("cs-poll-why-image");
+  const imgWidget = imgInput?.closest(".cs-img-widget");
+  if (imgInput) imgInput.value = wp.image || "";
+  if (imgWidget) {
+    _csSetWidgetPreview(imgWidget, wp.image || "");
+    _csSetWidgetState(imgWidget, null, "");
+  }
+  _csSwitch("poll", "why");
+}
+
+function _csPollGetWhyThreads() {
+  const threads = [];
+  for (let i = 1; i <= 5; i++) {
+    const title = (
+      document.getElementById(`cs-poll-why-t${i}-title`)?.value || ""
+    ).trim();
+    const text = (
+      document.getElementById(`cs-poll-why-t${i}-body`)?.value || ""
+    ).trim();
+    if (title || text) threads.push({ title, text });
+  }
+  return threads;
+}
+
+async function _csPollSaveWhy(isDraft) {
+  const pollId = document.getElementById("cs-poll-why-poll-id").value;
+  if (!pollId) return;
+  const body = (
+    document.getElementById("cs-poll-why-body")?.value || ""
+  ).trim();
+  const image = (
+    document.getElementById("cs-poll-why-image")?.value || ""
+  ).trim();
+  const threads = _csPollGetWhyThreads();
+  const whyPost = { body, threads, draft: isDraft, image };
+  DataStore.update("polls", pollId, { whyPost });
+  await window.UMessageModal.success(
+    isDraft ? "Why Post saved as draft" : "Why Post published",
+    "Saved",
+  );
+  _csSwitch("poll", "manage");
+}
+
+document
+  .getElementById("cs-poll-why-send")
+  .addEventListener("click", () => _csPollSaveWhy(false));
+document
+  .getElementById("cs-poll-why-draft")
+  .addEventListener("click", () => _csPollSaveWhy(true));
+document
+  .getElementById("cs-poll-why-cancel")
+  .addEventListener("click", async () => {
+    const ok = await window.UMessageModal.confirm(
+      "Clear Why Post form?",
+      "Confirmation",
+    );
+    if (!ok) return;
+    const pollId = document.getElementById("cs-poll-why-poll-id").value;
+    document.getElementById("cs-poll-why-body").value = "";
+    for (let i = 1; i <= 5; i++) {
+      const t = document.getElementById(`cs-poll-why-t${i}-title`);
+      const b = document.getElementById(`cs-poll-why-t${i}-body`);
+      if (t) t.value = "";
+      if (b) b.value = "";
+    }
+    const imgInput = document.getElementById("cs-poll-why-image");
+    const imgWidget = imgInput?.closest(".cs-img-widget");
+    if (imgInput) imgInput.value = "";
+    if (imgWidget) {
+      _csSetWidgetPreview(imgWidget, "");
+      _csSetWidgetState(imgWidget, null, "");
+    }
+    document.getElementById("cs-poll-why-poll-id").value = pollId;
   });
 
 // Duration toggle buttons
@@ -2217,6 +2502,7 @@ document
 let _csAboutSections = [];
 let _csMsgLimit = 5;
 let _csMsgOn = true;
+let _csCallOn = true;
 
 const CS_ABOUT_LOCKED = [
   "Master Togan",
@@ -2233,6 +2519,10 @@ function _csProfileRefresh(tab) {
     document.getElementById("cs-profile-price").value = profile.price || "";
     document.getElementById("cs-profile-phone").value = profile.phone || "";
     document.getElementById("cs-profile-email").value = profile.email || "";
+    _csCallOn = profile.callOn !== false;
+    document
+      .getElementById("cs-call-toggle")
+      ?.classList.toggle("on", _csCallOn);
     _csSyncImgPreviews(["cs-profile-img"]);
   } else if (tab === "cta") {
     document.getElementById("cs-profile-mentorship-url").value =
@@ -2298,6 +2588,10 @@ function _csRenderAbout() {
       _csAboutSections.filter((s) => !s.locked).length >= 6 ? "none" : "flex";
 }
 
+document.getElementById("cs-call-toggle")?.addEventListener("click", () => {
+  _csCallOn = !_csCallOn;
+  document.getElementById("cs-call-toggle")?.classList.toggle("on", _csCallOn);
+});
 document.getElementById("cs-msg-dec").addEventListener("click", () => {
   _csMsgLimit = Math.max(5, _csMsgLimit - 1);
   document.getElementById("cs-msg-val").textContent = _csMsgLimit;
@@ -2335,6 +2629,7 @@ document
       price: document.getElementById("cs-profile-price").value.trim(),
       phone: document.getElementById("cs-profile-phone").value.trim(),
       email: document.getElementById("cs-profile-email").value.trim(),
+      callOn: _csCallOn,
     });
     await window.UMessageModal.notify("Details saved", "Notification");
   });

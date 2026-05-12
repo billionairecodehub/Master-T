@@ -1038,6 +1038,29 @@
       </div>
       <div class="cs-form">
         <div class="cs-field">
+          <div class="cs-field-label">Image</div>
+          <div class="cs-img-widget">
+            <input type="text" id="cs-quest-img" style="display: none" />
+            <input
+              type="file"
+              accept="image/*"
+              class="cs-img-file-input"
+              style="display: none"
+            />
+            <div class="cs-image-upload" role="button" tabindex="0">
+              <div class="cs-image-preview">
+                <img
+                  src="https://i.postimg.cc/d0Cmsk4W/Mt-Admin-Image-Upload-Icon.png"
+                  alt="Upload"
+                  class="cs-upload-placeholder-icon"
+                />
+              </div>
+              <div class="cs-image-hint">Upload Quest Image</div>
+            </div>
+            <div class="cs-upload-status"></div>
+          </div>
+        </div>
+        <div class="cs-field">
           <div class="cs-field-label">Subject</div>
           <input
             type="text"
@@ -1196,6 +1219,53 @@
             style="min-height: 80px"
           ></textarea>
         </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Recommendation</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-quest-recommendation"
+            placeholder="Describe why you recommend this resource..."
+            style="min-height: 80px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">CTA</div>
+          <div class="cs-img-widget">
+            <input type="text" id="cs-quest-cta-img" style="display: none" />
+            <input
+              type="file"
+              accept="image/*"
+              class="cs-img-file-input"
+              style="display: none"
+            />
+            <div class="cs-image-upload" role="button" tabindex="0">
+              <div class="cs-image-preview">
+                <img
+                  src="https://i.postimg.cc/d0Cmsk4W/Mt-Admin-Image-Upload-Icon.png"
+                  alt="Upload"
+                  class="cs-upload-placeholder-icon"
+                />
+              </div>
+              <div class="cs-image-hint">Upload Quest Book Image</div>
+            </div>
+            <div class="cs-upload-status"></div>
+          </div>
+          <select
+            class="cs-field-select"
+            id="cs-quest-cta-select"
+            style="margin-top: 8px"
+          ></select>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-quest-cta-display"
+            readonly
+            placeholder="Get Frame Control ~ $14.45"
+            style="margin-top: 6px"
+          />
+        </div>
+        <input type="hidden" id="cs-quest-cta-type-val" />
+        <input type="hidden" id="cs-quest-cta-item-id" />
         <div class="cs-actions">
           <button type="button" class="cs-btn-publish" id="cs-quest-send">
             Send Quest
@@ -1562,6 +1632,134 @@
       </div>
       <div class="cs-list" id="cs-poll-manage-list"></div>
     </div>
+    <div class="cs-page" id="cs-poll-why" style="display: none">
+      <div class="cs-title">
+        <span class="cs-title-action">Why</span
+        ><span class="cs-title-sep">|</span
+        ><span class="cs-title-name">Post</span>
+      </div>
+      <div class="cs-form">
+        <input type="hidden" id="cs-poll-why-poll-id" />
+        <div class="cs-field">
+          <div class="cs-field-label">Image</div>
+          <div class="cs-img-widget">
+            <input type="text" id="cs-poll-why-image" style="display: none" />
+            <input
+              type="file"
+              accept="image/*"
+              class="cs-img-file-input"
+              style="display: none"
+            />
+            <div class="cs-image-upload" role="button" tabindex="0">
+              <div class="cs-image-preview">
+                <img
+                  src="https://i.postimg.cc/d0Cmsk4W/Mt-Admin-Image-Upload-Icon.png"
+                  alt="Upload"
+                  class="cs-upload-placeholder-icon"
+                />
+              </div>
+              <div class="cs-image-hint">Click to upload &middot; Max 3MB</div>
+            </div>
+            <div class="cs-upload-status"></div>
+          </div>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Why</div>
+          <textarea
+            class="cs-field-textarea"
+            id="cs-poll-why-body"
+            placeholder="Enter Why Content"
+            style="min-height: 100px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Why Thread</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-poll-why-t1-title"
+            placeholder="Enter Why Thread Title"
+          />
+          <textarea
+            class="cs-field-textarea"
+            id="cs-poll-why-t1-body"
+            placeholder="Enter Why Thread Content"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Why Thread</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-poll-why-t2-title"
+            placeholder="Enter Why Thread Title"
+          />
+          <textarea
+            class="cs-field-textarea"
+            id="cs-poll-why-t2-body"
+            placeholder="Enter Why Thread Content"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Why Thread</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-poll-why-t3-title"
+            placeholder="Enter Why Thread Title"
+          />
+          <textarea
+            class="cs-field-textarea"
+            id="cs-poll-why-t3-body"
+            placeholder="Enter Why Thread Content"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Why Thread</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-poll-why-t4-title"
+            placeholder="Enter Why Thread Title"
+          />
+          <textarea
+            class="cs-field-textarea"
+            id="cs-poll-why-t4-body"
+            placeholder="Enter Why Thread Content"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Why Thread</div>
+          <input
+            type="text"
+            class="cs-field-input"
+            id="cs-poll-why-t5-title"
+            placeholder="Enter Why Thread Title"
+          />
+          <textarea
+            class="cs-field-textarea"
+            id="cs-poll-why-t5-body"
+            placeholder="Enter Why Thread Content"
+            style="min-height: 80px; margin-top: 6px"
+          ></textarea>
+        </div>
+        <div class="cs-actions">
+          <button type="button" class="cs-btn-publish" id="cs-poll-why-send">
+            Send Post
+          </button>
+          <button type="button" class="cs-btn-draft" id="cs-poll-why-draft">
+            Draft Post
+          </button>
+          <button type="button" class="cs-btn-cancel" id="cs-poll-why-cancel">
+            Clear Post
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
   <!-- Section: Notifications -->
   <div
@@ -1698,6 +1896,18 @@
             id="cs-profile-phone"
             placeholder="+1 234 567 8900"
           />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Phone</div>
+          <div class="cs-toggle-row">
+            <div>
+              <div class="cs-toggle-label">Show Call Button</div>
+              <div class="cs-toggle-sublabel">
+                Display the call button on profile
+              </div>
+            </div>
+            <div class="cs-toggle" id="cs-call-toggle"></div>
+          </div>
         </div>
         <div class="cs-field">
           <div class="cs-field-label">Email</div>

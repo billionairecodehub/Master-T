@@ -243,9 +243,37 @@
   color: rgba(248, 246, 255, 0.22);
 }
 
+/* ── Action row (Save + Reply) ────────────────────────── */
+.msg-action-row {
+  display: flex;
+  gap: 10px;
+}
+
+/* ── Save button ──────────────────────────────────────── */
+.msg-save-btn {
+  flex: 1;
+  background: rgba(10, 16, 45, 0.95);
+  border: 0.5px solid rgba(107, 158, 255, 0.15);
+  border-radius: 14px;
+  padding: 18px;
+  color: rgba(248, 246, 255, 0.55);
+  font-family: "Gellix", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.msg-save-btn:active {
+  background: rgba(107, 158, 255, 0.08);
+  color: rgba(248, 246, 255, 0.8);
+}
+
 /* ── Reply button ─────────────────────────────────────── */
 .msg-reply-btn {
-  width: 100%;
+  flex: 1;
   background: rgba(10, 16, 45, 0.95);
   border: 0.5px solid rgba(107, 158, 255, 0.15);
   border-radius: 14px;

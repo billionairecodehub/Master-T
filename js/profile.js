@@ -173,7 +173,64 @@ if (profileLikeBtn) {
 
 renderProfileLikes();
 
-// ── Load profile data from DataStore ──
+// ── Render dynamic About sections from DataStore ───────────────────────────
+function renderProfileAboutSections() {
+  const boards = document.getElementById("profile-about-boards");
+  if (!boards) return;
+  const p = DataStore.getProfile();
+  const sections = p.about || [];
+
+  // Update locked static board text from DataStore
+  const LOCKED_MAP = {
+    "Master Togan": "about-master",
+    Description: "about-description",
+    Mission: "about-mission",
+    Contributors: "about-contributions",
+  };
+  sections
+    .filter((s) => s.locked)
+    .forEach((s) => {
+      const subId = LOCKED_MAP[s.title];
+      if (!subId) return;
+      const board = boards.querySelector(`[data-sub="${subId}"]`);
+      if (!board) return;
+      const textEl = board.querySelector(".profile-sub-text");
+      if (textEl && s.body) textEl.textContent = s.body;
+    });
+
+  // Remove previously injected dynamic boards
+  boards
+    .querySelectorAll(".profile-dynamic-board")
+    .forEach((el) => el.remove());
+
+  // Height cycle matching the 4 static board sizes: sm, lg, xs, md
+  const HEIGHTS = [
+    "profile-sub-board-sm",
+    "profile-sub-board-lg",
+    "profile-sub-board-xs",
+    "profile-sub-board-md",
+  ];
+
+  // Append custom (non-locked) sections
+  const custom = sections.filter((s) => !s.locked);
+  custom.forEach((s, i) => {
+    const heightClass = HEIGHTS[i % 4];
+    const div = document.createElement("div");
+    div.className = `profile-sub-board profile-about-board profile-dynamic-board ${heightClass}`;
+    div.setAttribute("data-sub", `dynamic-${i}`);
+    div.innerHTML = `
+      <div class="profile-sub-board-title">${s.title || ""}</div>
+      <div class="profile-sub-board-content">
+        <p class="profile-sub-text">${s.body || ""}</p>
+      </div>`;
+    div.addEventListener("click", () => {
+      div.blur();
+      div.classList.toggle("expanded");
+    });
+    boards.appendChild(div);
+  });
+}
+
 function refreshProfileData() {
   const p = DataStore.getProfile();
   const _DEFAULT_PROFILE_IMG =
@@ -197,6 +254,11 @@ function refreshProfileData() {
     profileCallBtn.setAttribute("data-contact", "tel:" + p.phone);
   if (profileEmailBtn && p.email)
     profileEmailBtn.setAttribute("data-contact", "mailto:" + p.email);
+  // Call button visibility (controlled by admin)
+  if (profileCallBtn) {
+    const callVisible = p.callOn !== false;
+    profileCallBtn.style.display = callVisible ? "" : "none";
+  }
   // Mentorship CTA button
   const mentorshipCta = document.querySelector(".mentorship-cta");
   if (mentorshipCta) {
@@ -210,6 +272,8 @@ function refreshProfileData() {
   }
   // Re-render like count so all devices see the latest global count
   renderProfileLikes();
+  // Render dynamic about sections from DataStore
+  renderProfileAboutSections();
 }
 refreshProfileData();
 
@@ -270,13 +334,20 @@ function _applyMsgGate() {
   }
 
   const todayCount = _getMsgTodayCount();
+  if (todayCount >= 1) {
+    msgSendBtn.disabled = true;
+    msgSendBtn.textContent = "Wait for Next 24hr To Send Another Email";
+    msgSendBtn.style.opacity = "0.55";
+    msgSendBtn.style.cursor = "not-allowed";
+    return;
+  }
   if (todayCount >= msgLimit) {
     msgSendBtn.disabled = true;
-    msgSendBtn.textContent = "Daily Limit Reached";
+    msgSendBtn.textContent = "Daily Message Limit Reached";
     msgSendBtn.style.opacity = "0.55";
     msgSendBtn.style.cursor = "not-allowed";
     _profileMsgSetNote(
-      "You've reached today's message limit. Try again tomorrow.",
+      "Daily message limit reached. Try again tomorrow.",
       "rgba(200,120,60,0.85)",
     );
     return;
@@ -307,7 +378,7 @@ function _profileMsgSetNote(text, color) {
 }
 
 if (msgSendBtn) {
-  msgSendBtn.addEventListener("click", () => {
+  msgSendBtn.addEventListener("click", async () => {
     // Re-check gate before each send
     const p = DataStore.getProfile();
     const msgOn = p.msgOn !== false;
@@ -319,9 +390,16 @@ if (msgSendBtn) {
       );
       return;
     }
+    if (_getMsgTodayCount() >= 1) {
+      _profileMsgSetNote(
+        "Wait for Next 24hr To Send Another Email",
+        "rgba(200,120,60,0.85)",
+      );
+      return;
+    }
     if (_getMsgTodayCount() >= msgLimit) {
       _profileMsgSetNote(
-        "You've reached today's message limit. Try again tomorrow.",
+        "Daily Message Limit Reached",
         "rgba(200,120,60,0.85)",
       );
       return;
@@ -353,36 +431,57 @@ if (msgSendBtn) {
       return;
     }
 
+    const _adminEmail = (DataStore.getProfile().email || "").trim();
+    if (!_adminEmail) {
+      _profileMsgSetNote(
+        "Messaging is currently unavailable",
+        "rgba(200,120,60,0.85)",
+      );
+      return;
+    }
+
     msgSendBtn.disabled = true;
     msgSendBtn.textContent = "Sending...";
 
-    DataStore.add("messages", {
-      from: name,
-      title,
-      email,
-      body,
-      status: "unopened",
-      reply: "",
-    });
+    try {
+      await emailjs.send("service_v3anekc", "template_hq8ojb4", {
+        to_email: _adminEmail,
+        name: name,
+        email: email,
+        subject: title || "Message from " + name,
+        message: body,
+      });
 
-    _incrementMsgCount();
+      // Save to DataStore only after successful delivery
+      DataStore.add("messages", {
+        from: name,
+        title,
+        email,
+        body,
+        status: "unopened",
+        reply: "",
+      });
 
-    _profileMsgSetNote(
-      "Message sent! Response may take a while",
-      "rgba(107,200,107,0.9)",
-    );
-    _profileMsgReset();
+      _incrementMsgCount();
+      _profileMsgSetNote("Message sent!", "rgba(107,200,107,0.9)");
+      _profileMsgReset();
+      _applyMsgGate();
 
-    // Re-evaluate gate (may hit limit after this send)
-    _applyMsgGate();
-
-    // Reset note after 4 s (only if still available)
-    setTimeout(() => {
-      const p2 = DataStore.getProfile();
-      if (p2.msgOn !== false) {
-        _profileMsgSetNote("Response may take a while");
-      }
-    }, 4000);
+      setTimeout(() => {
+        const p2 = DataStore.getProfile();
+        if (p2.msgOn !== false) {
+          _profileMsgSetNote("Response may take a while");
+        }
+      }, 4000);
+    } catch (err) {
+      console.error("[MSG] EmailJS send failed:", err);
+      _profileMsgSetNote(
+        "Failed to send. Please try again.",
+        "rgba(231,76,60,0.9)",
+      );
+      msgSendBtn.disabled = false;
+      msgSendBtn.textContent = "Send a Message";
+    }
   });
 }
 
