@@ -5,7 +5,6 @@ const profileXLink = document.getElementById("profile-x-link");
 const profileXIcon = document.getElementById("profile-x-icon");
 const profileViews = {
   mentorship: document.getElementById("profile-mentorship"),
-  message: document.getElementById("profile-message"),
   about: document.getElementById("profile-about"),
 };
 
@@ -77,11 +76,25 @@ function closeProfileView() {
   if (main) main.scrollTop = 0;
 }
 
-// Board click → open view
+// Board click → open view (or navigate for special boards)
 document.querySelectorAll(".profile-board[data-board]").forEach((board) => {
   const name = board.getAttribute("data-board");
   board.addEventListener("click", () => {
     board.blur();
+    if (name === "app") {
+      // Navigate to App About page
+      if (
+        typeof showPage === "function" &&
+        typeof aboutPage !== "undefined" &&
+        aboutPage
+      ) {
+        history.pushState({}, "", "/about");
+        hideAllPages();
+        aboutPage.style.display = "flex";
+        if (typeof _setActiveNav === "function") _setActiveNav("");
+      }
+      return;
+    }
     openProfileView(name);
   });
 });

@@ -270,15 +270,9 @@ if (headerNotiBtnEl) {
   });
 }
 
-// Header menu icon → show menu page
-const headerMenuIconEl = document.getElementById("header-menu-icon");
-if (headerMenuIconEl) {
-  headerMenuIconEl.addEventListener("click", () => {
-    _navigateTo("/store");
-    showPage(menuPage);
-    markStoreSeen();
-  });
-}
+// Header profile icon (next to notification) — reserved for user auth (future)
+// const headerMenuIconEl = document.getElementById("header-menu-icon");
+// Intentionally disabled — will be wired for Login / Sign Up in a future task.
 
 // Navigation bar clicks
 navItems.forEach((navItem) => {
