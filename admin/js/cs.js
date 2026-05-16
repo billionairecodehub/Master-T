@@ -2865,8 +2865,8 @@ function _csSubsRefresh(tab) {
         (k) => `
       <div class="cs-sub-alpha-row">
         <div class="cs-sub-alpha-letter">${k}</div>
-        <div class="cs-sub-alpha-count">${groups[k]}</div>
         <div class="cs-sub-alpha-bar"><div class="cs-sub-alpha-fill" style="width:${Math.round((groups[k] / maxVal) * 100)}%"></div></div>
+        <div class="cs-sub-alpha-count">${groups[k]}</div>
       </div>`,
       )
       .join("");
