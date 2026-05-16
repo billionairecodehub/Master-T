@@ -1073,7 +1073,7 @@
 .cs-sub-stat-card {
   background: rgba(10, 16, 45, 0.8);
   border: 0.5px solid rgba(107, 158, 255, 0.1);
-  border-radius: 10px;
+  border-radius: 0px;
   padding: 20px 16px;
   display: flex;
   flex-direction: column;
@@ -1081,7 +1081,7 @@
 }
 
 .cs-sub-stat-number {
-  font-size: 30px;
+  font-size: 15px;
   font-weight: 700;
   background: linear-gradient(90deg, #5b8fff, #f8f6ff);
   -webkit-background-clip: text;
@@ -1092,7 +1092,7 @@
 
 .cs-sub-stat-label {
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: rgba(107, 158, 255, 0.5);
@@ -1117,14 +1117,14 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(10, 16, 45, 0.6);
+  /* background: rgba(10, 16, 45, 0.6); */
   border: 0.5px solid rgba(107, 158, 255, 0.07);
-  border-radius: 8px;
+  border-radius: 0px;
   padding: 10px 14px;
 }
 
 .cs-sub-alpha-letter {
-  font-size: 16px;
+  font-size: 7px;
   font-weight: 700;
   background: linear-gradient(90deg, #5b8fff, #f8f6ff);
   -webkit-background-clip: text;
@@ -1136,15 +1136,15 @@
 
 .cs-sub-alpha-count {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 400;
   color: rgba(248, 246, 255, 0.7);
 }
 
 .cs-sub-alpha-bar {
   flex: 1;
   height: 3px;
-  background: rgba(10, 16, 45, 0.9);
-  border-radius: 2px;
+  /* background: rgba(10, 16, 45, 0.9); */
+  border-radius: 0px;
   overflow: hidden;
 }
 
