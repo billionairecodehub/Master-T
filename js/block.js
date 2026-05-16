@@ -644,6 +644,11 @@ function _bBindPollVotes(container) {
         if (!poll || poll.status === "ended") return;
         const vKey = "mt_poll_voted_" + pollId;
         if (localStorage.getItem(vKey) !== null) return;
+        // Rapid-click guard — debounce 800ms so double-taps don't fire twice
+        const cdKey = "mt_poll_vote_cd_" + pollId;
+        if (Date.now() - parseInt(localStorage.getItem(cdKey) || "0", 10) < 800)
+          return;
+        localStorage.setItem(cdKey, Date.now().toString());
         localStorage.setItem(vKey, String(optIdx));
         const newOptions = (poll.options || []).map((o, i) => ({
           ...o,
@@ -726,6 +731,14 @@ function _bBindWhyThumbs(pollId) {
       btn.addEventListener("click", () => {
         const poll = DataStore.getById("polls", pollId);
         if (!poll) return;
+        // 60-second cooldown per why-post vote
+        const whyCdKey = "mt_poll_why_cd_" + pollId;
+        if (
+          Date.now() - parseInt(localStorage.getItem(whyCdKey) || "0", 10) <
+          60000
+        )
+          return;
+        localStorage.setItem(whyCdKey, Date.now().toString());
         const aKey = "mt_poll_why_vote_" + pollId;
         const prevVote = localStorage.getItem(aKey);
         const isAgree = btn.classList.contains("poll-why-agree");
