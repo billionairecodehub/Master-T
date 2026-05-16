@@ -28,6 +28,12 @@ let _bViewType = null; // "story" | "recommend"
 let _bViewId = null; // id of open item
 let _bScrollPos = 0; // scroll position before opening full view
 
+// ── Filter state (Updates tab) ─────────────────────────────────────────────
+const _B_DEFAULT_CATS = ["Dating", "Money", "Frame"];
+let _bFilterCat = "All";
+let _bPendingCat = "All";
+const _bFilterPage = document.getElementById("block-filter-page");
+
 // 1. Tab switching
 document.querySelectorAll(".block-tab").forEach((tab) => {
   tab.addEventListener("click", () => {
@@ -97,13 +103,16 @@ function _bCloseView() {
 
 // Lightweight reset used by hideAllPages (no scroll side-effects)
 function _bForceClose() {
-  if (!_bViewType && _bFullView.style.display === "none") return;
+  const filterOpen = _bFilterPage && _bFilterPage.style.display !== "none";
+  if (!_bViewType && _bFullView.style.display === "none" && !filterOpen) return;
   _bViewType = null;
   _bViewId = null;
   _bTabs.style.display = "flex";
   _bLists.style.display = "flex";
   _bFullView.style.display = "none";
   _bFullContent.innerHTML = "";
+  if (_bFilterPage) _bFilterPage.style.display = "none";
+  _bHeaderArea.style.display = "";
   _bHeaderIcon.src = _B_ICON;
   _bHeaderName.textContent = _B_TAB_LABELS[_bActiveTab];
 }
@@ -261,17 +270,22 @@ function _bBindStoryHearts(root) {
     heart.addEventListener("click", (e) => {
       e.stopPropagation();
       const id = heart.getAttribute("data-id");
+      const cdKey = "mt_story_like_cd_" + id;
+      if (Date.now() - parseInt(localStorage.getItem(cdKey) || "0", 10) < 60000)
+        return;
       const s = DataStore.getById("stories", id);
       if (!s) return;
       const key = "mt_story_like_" + id;
       if (localStorage.getItem(key)) {
         localStorage.removeItem(key);
+        localStorage.setItem(cdKey, Date.now().toString());
         DataStore.update("stories", id, {
           likes: Math.max((s.likes || 0) - 1, 0),
         });
         heart.classList.remove("liked");
       } else {
         localStorage.setItem(key, "1");
+        localStorage.setItem(cdKey, Date.now().toString());
         DataStore.update("stories", id, { likes: (s.likes || 0) + 1 });
         heart.classList.add("liked");
       }
@@ -408,13 +422,31 @@ function _bUpdateStars(id, active) {
 function renderBlockRecommends() {
   const container = document.getElementById("block-recommends-main");
   if (!container) return;
-  const list = DataStore.getAll("recommends")
+  const allList = DataStore.getAll("recommends")
     .slice()
     .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
 
+  const list =
+    _bFilterCat === "All"
+      ? allList
+      : allList.filter(
+          (r) => (r.category || "").toLowerCase() === _bFilterCat.toLowerCase(),
+        );
+
+  const countLabel =
+    _bFilterCat === "All"
+      ? `All ~ ${allList.length}`
+      : `${_bFilterCat} ~ ${list.length}`;
+
   const hdr = `<div class="block-recommend-header-row">
     <div class="block-recommend-header-label">Master Togan ~ Recommendations</div>
-    <div class="block-recommend-header-count">All ~ ${list.length}</div>
+    <div class="block-recommend-header-right">
+      <div class="updates-filter-icon-wrap" id="block-filter-wrap">
+        <img src="https://i.postimg.cc/W4rPYMSj/Mtogan-Filter-Icon.png" alt="Filter" class="block-recommend-filter-icon" id="block-filter-btn" />
+        <span class="updates-filter-active-dot" id="block-filter-active-dot"${_bFilterCat !== "All" ? "" : ' style="display:none"'}></span>
+      </div>
+      <div class="block-recommend-header-count">${countLabel}</div>
+    </div>
   </div>`;
 
   if (list.length === 0) {
@@ -435,6 +467,7 @@ function renderBlockRecommends() {
         return `<div class="block-recommend-card" data-id="${r.id}">
           <div class="block-recommend-card-inner">
             <img src="${_B_REC_ICON}" alt="" class="block-recommend-icon" />
+            ${r.category ? `<div class="block-recommend-cat-label">${r.category}</div>` : ""}
             <div class="block-recommend-subject">${r.subject || ""}</div>
             <div class="block-recommend-card-footer">
               <div class="block-recommend-readmore">Read More...</div>
@@ -446,10 +479,26 @@ function renderBlockRecommends() {
       })
       .join("");
 
+  // Bind filter button (re-rendered on each call)
+  const _bFilterBtnEl = container.querySelector("#block-filter-btn");
+  if (_bFilterBtnEl)
+    _bFilterBtnEl.addEventListener("click", (e) => {
+      e.stopPropagation();
+      _bOpenFilter();
+    });
+
   container.querySelectorAll(".block-recommend-card").forEach((card) => {
-    card.addEventListener("click", () =>
-      _bOpenView("recommend", card.getAttribute("data-id")),
-    );
+    // CTA anchor: let its href fire, do not expand the post
+    card.querySelectorAll(".block-recommend-cta-faded").forEach((cta) => {
+      cta.addEventListener("click", (e) => e.stopPropagation());
+    });
+    // Post body: expand full view
+    const inner = card.querySelector(".block-recommend-card-inner");
+    if (inner) {
+      inner.addEventListener("click", () =>
+        _bOpenView("recommend", card.getAttribute("data-id")),
+      );
+    }
   });
 }
 
@@ -463,7 +512,7 @@ function _bRenderRecommend(id) {
 
   _bHeaderName.textContent = "Block | Updates";
 
-  const items = (r.items || []).slice(0, 5);
+  const items = (r.items || []).slice(0, 5).filter((text) => text.trim());
   const itemsHTML = items
     .map(
       (text) =>
@@ -555,7 +604,7 @@ function _bBuildPollCard(p) {
           ? `<span class="block-poll-answer-marker correct-marker">✓ Correct</span>`
           : isVoted
             ? `<span class="block-poll-answer-marker wrong-marker">✗ Wrong</span>`
-            : ""
+            : `<span class="block-poll-answer-marker empty-marker">Hidden</span>`
         : "";
       return `<div class="block-poll-option${cls}"
         data-poll-id="${p.id}" data-opt-idx="${i}">
@@ -570,7 +619,7 @@ function _bBuildPollCard(p) {
     ? `<span class="poll-why-hint${hasWhyPost ? " has-why" : ""}" data-poll-id="${p.id}">${hasWhyPost ? "Check Out Why >" : "No Details Yet!"}</span>`
     : "";
 
-  return `<div class="block-poll-card" data-id="${p.id}">
+  return `<div class="block-poll-card${hasAnswer ? " has-answer" : ""}" data-id="${p.id}">
     <div class="block-poll-top">
       <div class="block-poll-label">Poll</div>
       <img src="${_B_POLL_ICON}" alt="" class="block-poll-icon" />
@@ -712,7 +761,113 @@ function _bBindWhyThumbs(pollId) {
     });
 }
 
-// â”€â”€ Initial render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Filter (Updates tab) ──────────────────────────────────────────────────────
+
+function _bGetAllCats() {
+  const customs = DataStore.getAll("updateCategories")
+    .map((c) => c.name)
+    .filter(Boolean);
+  const merged = [..._B_DEFAULT_CATS];
+  customs.forEach((c) => {
+    if (!merged.includes(c)) merged.push(c);
+  });
+  return merged.sort((a, b) => a.localeCompare(b));
+}
+
+function _bRenderFilterCats(search) {
+  const catsEl = document.getElementById("block-filter-cats");
+  if (!catsEl) return;
+  const q = (search || "").toLowerCase().trim();
+  const allUpdates = DataStore.getAll("recommends");
+  const allCats = _bGetAllCats();
+
+  const subtitleEl = document.getElementById("block-filter-subtitle");
+  if (subtitleEl)
+    subtitleEl.textContent = `All ~ ${allCats.length + 1} Categories`;
+
+  const items = [
+    { name: "All", count: allUpdates.length },
+    ...allCats.map((cat) => ({
+      name: cat,
+      count: allUpdates.filter(
+        (u) => (u.category || "").toLowerCase() === cat.toLowerCase(),
+      ).length,
+    })),
+  ].filter((item) => !q || item.name.toLowerCase().includes(q));
+
+  if (!items.length) {
+    catsEl.innerHTML =
+      '<div class="updates-filter-empty">No categories found</div>';
+    return;
+  }
+
+  catsEl.innerHTML = `<div class="updates-filter-cats-grid">${items
+    .map(
+      (item) =>
+        `<div class="updates-filter-cat-card${
+          _bPendingCat === item.name ? " selected" : ""
+        }" data-cat="${item.name}"><div class="updates-filter-cat-count">${item.count}</div><div class="updates-filter-cat-name">${item.name}</div></div>`,
+    )
+    .join("")}</div>`;
+
+  catsEl.querySelectorAll(".updates-filter-cat-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      _bPendingCat = card.getAttribute("data-cat");
+      _bRenderFilterCats(search);
+    });
+  });
+}
+
+function _bUpdateFilterDot() {
+  const dot = document.getElementById("block-filter-active-dot");
+  if (dot) dot.style.display = _bFilterCat !== "All" ? "block" : "none";
+}
+
+function _bOpenFilter() {
+  if (_bViewType) return;
+  _bPendingCat = _bFilterCat;
+  _bLists.style.display = "none";
+  _bTabs.style.display = "none";
+  _bHeaderArea.style.display = "none";
+  _bFilterPage.style.display = "flex";
+  document.getElementById("block-filter-search").value = "";
+  _bRenderFilterCats("");
+}
+
+function _bCloseFilter(apply) {
+  if (apply) {
+    _bFilterCat = _bPendingCat;
+    _bUpdateFilterDot();
+    renderBlockRecommends();
+  }
+  _bFilterPage.style.display = "none";
+  _bHeaderArea.style.display = "";
+  _bTabs.style.display = "flex";
+  _bLists.style.display = "flex";
+}
+
+document.getElementById("block-filter-back").addEventListener("click", () => {
+  _bCloseFilter(false);
+});
+
+document.getElementById("block-filter-apply").addEventListener("click", () => {
+  const btn = document.getElementById("block-filter-apply");
+  btn.textContent = "Applied";
+  btn.disabled = true;
+  setTimeout(() => {
+    _bCloseFilter(true);
+    btn.textContent = "Apply";
+    btn.disabled = false;
+  }, 900);
+});
+
+document
+  .getElementById("block-filter-search")
+  .addEventListener("input", (e) => {
+    _bRenderFilterCats(e.target.value);
+  });
+
+// ── Initial render ────────────────────────────────────────────────────────────
 _bHeaderName.textContent = _B_TAB_LABELS[_bActiveTab];
 renderBlockStories();
 renderBlockRecommends();

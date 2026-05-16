@@ -14,7 +14,7 @@
 
 .settings-group-title {
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 1.2px;
   text-transform: uppercase;
   color: rgba(107, 158, 255, 0.45);
@@ -47,7 +47,7 @@
 
 .settings-row-label {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
   color: rgba(248, 246, 255, 0.9);
 }
 

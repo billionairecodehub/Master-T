@@ -122,14 +122,22 @@ function showContentSection(section) {
         .forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
       const tabName = btn.getAttribute("data-section-tab").toLowerCase();
-      showContentSubTab(section, tabName);
+      // Tab bar click is a direct jump — clear back history for this section
+      _csNavStack = [];
+      if (typeof _csSwitchTo === "function") {
+        _csSwitchTo(section, tabName);
+      } else {
+        showContentSubTab(section, tabName);
+      }
     });
   });
 
-  // Show the first sub-tab by default
+  // Show the first sub-tab by default — reset nav stack for a fresh section open
   if (tabs.length > 0) {
-    // showContentSubTab defined in cs.js (loads after this file)
-    if (typeof showContentSubTab === "function") {
+    _csNavStack = [];
+    if (typeof _csSwitchTo === "function") {
+      _csSwitchTo(section, tabs[0].toLowerCase());
+    } else if (typeof showContentSubTab === "function") {
       showContentSubTab(section, tabs[0].toLowerCase());
     }
   }
@@ -149,7 +157,15 @@ document.querySelectorAll(".content-section-board").forEach((board) => {
 const _contentBackBtn = document.getElementById("content-sections-back");
 if (_contentBackBtn) {
   _contentBackBtn.addEventListener("click", () => {
-    showContentSectionBoard();
+    // If there's a recorded previous tab, go back there instead of the board
+    if (typeof _csNavStack !== "undefined" && _csNavStack.length > 0) {
+      const prev = _csNavStack.pop();
+      if (typeof _csSwitchTo === "function") {
+        _csSwitchTo(prev.section, prev.tab);
+      }
+    } else {
+      showContentSectionBoard();
+    }
   });
 }
 

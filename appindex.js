@@ -46,7 +46,7 @@ async function boot() {
   const main = document.querySelector(".main");
 
   // Load all page partials in parallel
-  const [home, profile, quest, noti, menu, about, polls, updates] =
+  const [home, profile, quest, noti, menu, about, feed, block] =
     await Promise.all([
       loadPage("pages/home.html"),
       loadPage("pages/profile.html"),
@@ -54,16 +54,16 @@ async function boot() {
       loadPage("pages/noti.html"),
       loadPage("pages/menu.html"),
       loadPage("pages/about.html"),
-      loadPage("pages/polls.html"),
-      loadPage("pages/updates.html"),
+      loadPage("pages/feed.html"),
+      loadPage("pages/block.html"),
     ]);
 
   // Inject all pages into main container
   main.innerHTML =
-    home + profile + quest + noti + menu + about + polls + updates;
+    home + profile + quest + noti + menu + about + feed + block;
 
   // Now load all JS files in order (shared data first, then sync from Firebase, then page scripts)
-  const dataLoad = ["shared/data.js"];
+  const dataLoad = ["shared/data.js", "shared/scroll-reveal.js"];
   const pageScripts = [
     "js/index.js",
     "js/home.js",
@@ -72,8 +72,8 @@ async function boot() {
     "js/noti.js",
     "js/menu.js",
     "js/about.js",
-    "js/polls.js",
-    "js/updates.js",
+    "js/feed.js",
+    "js/block.js",
   ];
 
   // Load data.js first
@@ -103,6 +103,10 @@ async function boot() {
 
   // Start real-time sync — pushes Firebase changes to all open devices/tabs
   DataStore.startSync();
+
+  if (window.ScrollRevealManager) {
+    window.ScrollRevealManager.mount({ root: main, mode: "site" });
+  }
 }
 
 boot().catch((error) => {

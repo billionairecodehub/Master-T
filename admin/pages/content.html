@@ -21,7 +21,11 @@
     <div class="content-sections-group">
       <div class="content-sections-label">Posts</div>
       <div class="content-sections-grid">
-        <button type="button" class="content-section-board" data-section="feed">
+        <button
+          type="button"
+          class="content-section-board"
+          data-section="feed"
+        >
           <img
             src="https://i.postimg.cc/DZknTVzm/Mt-Admin-Bar-Icon-Post.png"
             alt=""
@@ -654,9 +658,24 @@
         </div>
         <div class="cs-field">
           <div class="cs-field-label">Circle Category</div>
-          <select class="cs-field-select" id="cs-circle-category">
-            <option value="">Select A Category</option>
-          </select>
+          <div class="cs-cat-select-wrap" id="cs-circle-cat-wrap">
+            <button
+              type="button"
+              class="cs-cat-select-trigger"
+              id="cs-circle-cat-trigger"
+            >
+              <span class="cs-cat-select-label" id="cs-circle-cat-display"
+                >Select A Category</span
+              >
+              <span class="cs-cat-select-chevron"></span>
+            </button>
+            <div
+              class="cs-cat-select-dropdown"
+              id="cs-circle-cat-dropdown"
+              style="display: none"
+            ></div>
+          </div>
+          <input type="hidden" id="cs-circle-category" value="" />
           <div
             id="cs-circle-new-cat-row"
             style="display: none; margin-top: 6px"
@@ -667,6 +686,18 @@
               id="cs-circle-new-cat"
               placeholder="Create A New Category"
             />
+          </div>
+          <div class="cs-cat-mgmt-row">
+            <span class="cs-cat-mgmt-hint" id="cs-circle-cat-del-hint"
+              >Select a category, then tap Delete to remove it</span
+            >
+            <button
+              type="button"
+              class="cs-cat-del-btn"
+              id="cs-circle-cat-del-btn"
+            >
+              Delete
+            </button>
           </div>
         </div>
         <div class="cs-field">
@@ -1066,7 +1097,7 @@
             type="text"
             class="cs-field-input"
             id="cs-quest-subject"
-            placeholder="Question Subject ?"
+            placeholder="Quest Subject"
           />
         </div>
         <div class="cs-field">
@@ -1441,6 +1472,48 @@
             id="cs-updates-subject"
             placeholder="Updates Title"
           />
+        </div>
+        <div class="cs-field">
+          <div class="cs-field-label">Update Category</div>
+          <div class="cs-cat-select-wrap" id="cs-updates-cat-wrap">
+            <button
+              type="button"
+              class="cs-cat-select-trigger"
+              id="cs-updates-cat-trigger"
+            >
+              <span class="cs-cat-select-label" id="cs-updates-cat-display"
+                >Select Category</span
+              >
+              <span class="cs-cat-select-chevron"></span>
+            </button>
+            <div
+              class="cs-cat-select-dropdown"
+              id="cs-updates-cat-dropdown"
+              style="display: none"
+            ></div>
+          </div>
+          <input type="hidden" id="cs-updates-category" value="" />
+          <div id="cs-updates-new-cat-wrap" style="display: none">
+            <input
+              type="text"
+              class="cs-field-input"
+              id="cs-updates-new-category"
+              placeholder="New Category Name"
+              style="margin-top: 6px"
+            />
+          </div>
+          <div class="cs-cat-mgmt-row">
+            <span class="cs-cat-mgmt-hint" id="cs-updates-cat-del-hint"
+              >Select a category, then tap Delete to remove it</span
+            >
+            <button
+              type="button"
+              class="cs-cat-del-btn"
+              id="cs-updates-cat-del-btn"
+            >
+              Delete
+            </button>
+          </div>
         </div>
         <div class="cs-field">
           <div class="cs-field-label">Updates Content</div>
@@ -2056,8 +2129,6 @@
       </div>
     </div>
   </div>
-
-  <button class="admin-fab" id="fab-content">+</button>
 </div>
 
 <!-- App Form Modal -->

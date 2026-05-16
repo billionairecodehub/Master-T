@@ -1281,7 +1281,110 @@ document
 //  UPDATES — uses "recommends" collection
 // ══════════════════════════════════════════════════════
 
-function _csUpdatesGetContents() {
+const _CS_UPDATES_DEFAULT_CATS = ["Dating", "Money", "Frame"];
+
+function _csPopulateUpdateCategorySelect(selected) {
+  const display = document.getElementById("cs-updates-cat-display");
+  const dropdown = document.getElementById("cs-updates-cat-dropdown");
+  const hidden = document.getElementById("cs-updates-category");
+  const hint = document.getElementById("cs-updates-cat-del-hint");
+  if (!display || !dropdown || !hidden) return;
+
+  const customEntries = DataStore.getAll("updateCategories");
+  const customs = customEntries.map((c) => c.name).filter(Boolean);
+  const all = [..._CS_UPDATES_DEFAULT_CATS];
+  customs.forEach((c) => {
+    if (!all.includes(c)) all.push(c);
+  });
+
+  hidden.value = selected || "";
+  display.textContent = selected || "Select Category";
+  if (hint)
+    hint.textContent = "Select a category, then tap Delete to remove it";
+
+  const opts = [
+    { value: "", label: "Select Category", deletable: false },
+    ...[..._CS_UPDATES_DEFAULT_CATS]
+      .sort((a, b) => a.localeCompare(b))
+      .map((cat) => ({ value: cat, label: cat, deletable: false })),
+    ...customs
+      .slice()
+      .sort((a, b) => a.localeCompare(b))
+      .map((cat) => ({ value: cat, label: cat, deletable: true })),
+    { value: "__new__", label: "+ New Category...", deletable: false },
+  ];
+
+  const seen = new Set();
+  dropdown.innerHTML = opts
+    .filter((o) => {
+      if (seen.has(o.value)) return false;
+      seen.add(o.value);
+      return true;
+    })
+    .map(
+      (o) =>
+        `<div class="cs-cat-select-opt${selected === o.value ? " active" : ""}${o.deletable ? " deletable" : ""}" data-val="${o.value}">${o.label}${o.deletable ? '<span class="cs-cat-del-dot"></span>' : ""}</div>`,
+    )
+    .join("");
+
+  dropdown.querySelectorAll(".cs-cat-select-opt").forEach((opt) => {
+    opt.addEventListener("click", () => {
+      const val = opt.getAttribute("data-val");
+      hidden.value = val;
+      display.textContent =
+        val === ""
+          ? "Select Category"
+          : val === "__new__"
+            ? "+ New Category..."
+            : val;
+      dropdown.style.display = "none";
+      const newWrap = document.getElementById("cs-updates-new-cat-wrap");
+      const newInput = document.getElementById("cs-updates-new-category");
+      if (newWrap) newWrap.style.display = val === "__new__" ? "block" : "none";
+      if (newInput && val !== "__new__") newInput.value = "";
+    });
+  });
+
+  const newWrap = document.getElementById("cs-updates-new-cat-wrap");
+  const newInput = document.getElementById("cs-updates-new-category");
+  if (newWrap) newWrap.style.display = "none";
+  if (newInput) newInput.value = "";
+}
+
+async function _csDeleteUpdateCategory() {
+  const hint = document.getElementById("cs-updates-cat-del-hint");
+  const hidden = document.getElementById("cs-updates-category");
+  const cat = hidden?.value || "";
+  const flash = (msg) => {
+    if (!hint) return;
+    hint.textContent = msg;
+    hint.style.color = "rgba(255,100,100,0.9)";
+    setTimeout(() => {
+      hint.style.color = "";
+      hint.textContent = "Select a category, then tap Delete to remove it";
+    }, 2200);
+  };
+  if (!cat || cat === "__new__") {
+    flash("Select a category first");
+    return;
+  }
+  if (_CS_UPDATES_DEFAULT_CATS.includes(cat)) {
+    flash(`"${cat}" is a built-in category — cannot be deleted`);
+    return;
+  }
+  const ok = await window.UMessageModal.confirm(
+    `Delete category "${cat}"? Existing updates won't be affected.`,
+    "Delete Category",
+  );
+  if (!ok) return;
+  const entry = DataStore.getAll("updateCategories").find(
+    (c) => c.name === cat,
+  );
+  if (entry) DataStore.remove("updateCategories", entry.id);
+  _csPopulateUpdateCategorySelect("");
+}
+
+function _csGetUpdatesContents() {
   const contents = [];
   for (let i = 1; i <= 5; i++) {
     contents.push(
@@ -1302,6 +1405,7 @@ function _csUpdatesResetForm() {
   const ctaUrl = document.getElementById("cs-updates-cta-url");
   if (ctaTitle) ctaTitle.value = "";
   if (ctaUrl) ctaUrl.value = "";
+  _csPopulateUpdateCategorySelect("");
 }
 
 function _csUpdatesLoadEdit(item) {
@@ -1316,6 +1420,7 @@ function _csUpdatesLoadEdit(item) {
   const ctaUrl = document.getElementById("cs-updates-cta-url");
   if (ctaTitle) ctaTitle.value = item.ctaLabel || item.ctaTitle || "";
   if (ctaUrl) ctaUrl.value = item.ctaUrl || "";
+  _csPopulateUpdateCategorySelect(item.category || "");
   _csSwitch("updates", "create");
 }
 
@@ -1323,9 +1428,30 @@ async function _csUpdatesSave(isDraft) {
   const msg = isDraft ? "Save this update as draft?" : "Send this update?";
   if (!(await window.UMessageModal.confirm(msg, "Confirmation"))) return;
   const id = document.getElementById("cs-updates-edit-id").value;
+  // Resolve category
+  const catSelect = document.getElementById("cs-updates-category");
+  let category = catSelect ? catSelect.value : "";
+  if (category === "__new__") {
+    const newCatInput = document.getElementById("cs-updates-new-category");
+    const newCatName = (newCatInput?.value || "").trim();
+    if (newCatName) {
+      const existing = DataStore.getAll("updateCategories");
+      if (
+        !existing.some(
+          (c) => (c.name || "").toLowerCase() === newCatName.toLowerCase(),
+        )
+      ) {
+        DataStore.add("updateCategories", { name: newCatName });
+      }
+      category = newCatName;
+    } else {
+      category = "";
+    }
+  }
   const data = {
     subject: document.getElementById("cs-updates-subject").value.trim(),
     items: _csUpdatesGetContents(),
+    category: category || "",
     ctaLabel:
       document.getElementById("cs-updates-cta-title")?.value.trim() || "",
     ctaUrl: document.getElementById("cs-updates-cta-url")?.value.trim() || "",
@@ -1333,6 +1459,13 @@ async function _csUpdatesSave(isDraft) {
   };
   if (!data.subject) {
     await window.UMessageModal.error("Updates title is required", "Validation");
+    return;
+  }
+  if (!data.category) {
+    await window.UMessageModal.error(
+      "Please select a category for this update",
+      "Validation",
+    );
     return;
   }
   if (id) DataStore.update("recommends", id, data);
@@ -1349,8 +1482,13 @@ function _csUpdatesRefresh(tab) {
   if (tab === "view") {
     _csRenderUserSitePreview("cs-updates-view-list", "updates");
   } else if (tab === "create") {
-    if (!document.getElementById("cs-updates-edit-id").value)
+    if (!document.getElementById("cs-updates-edit-id").value) {
       _csUpdatesResetForm();
+    } else {
+      _csPopulateUpdateCategorySelect(
+        document.getElementById("cs-updates-category")?.value || "",
+      );
+    }
   } else if (tab === "draft") {
     _csRenderList(
       "cs-updates-draft-list",
@@ -1423,6 +1561,26 @@ document
     if (!ok) return;
     _csUpdatesResetForm();
   });
+
+// Custom category select — toggle panel + close on outside click
+(function () {
+  const trigger = document.getElementById("cs-updates-cat-trigger");
+  const dropdown = document.getElementById("cs-updates-cat-dropdown");
+  if (!trigger || !dropdown) return;
+  trigger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdown.style.display =
+      dropdown.style.display === "none" ? "block" : "none";
+  });
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("#cs-updates-cat-wrap")) {
+      dropdown.style.display = "none";
+    }
+  });
+  document
+    .getElementById("cs-updates-cat-del-btn")
+    ?.addEventListener("click", _csDeleteUpdateCategory);
+})();
 
 // ══════════════════════════════════════════════════════
 //  POLL

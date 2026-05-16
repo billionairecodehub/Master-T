@@ -278,6 +278,14 @@ function bindPostVotes() {
       if (btn.dataset.busy) return; // guard against rapid double-tap
       btn.dataset.busy = "1";
       const postId = btn.getAttribute("data-id");
+      const cdKey = "mt_post_like_cd_" + postId;
+      if (
+        Date.now() - parseInt(localStorage.getItem(cdKey) || "0", 10) <
+        60000
+      ) {
+        delete btn.dataset.busy;
+        return;
+      }
       const voteKey = "mt_post_like_" + postId;
       const p = DataStore.getById("posts", postId);
       if (!p) return;
@@ -287,6 +295,7 @@ function bindPostVotes() {
         const newLikes = Math.max((p.likes || 0) - 1, 0);
         DataStore.update("posts", postId, { likes: newLikes });
         localStorage.removeItem(voteKey);
+        localStorage.setItem(cdKey, Date.now().toString());
         btn.classList.remove("voted");
         const countEl = btn.querySelector(".post-like-count");
         countEl.textContent =
@@ -296,6 +305,7 @@ function bindPostVotes() {
         const newLikes = (p.likes || 0) + 1;
         DataStore.update("posts", postId, { likes: newLikes });
         localStorage.setItem(voteKey, "1");
+        localStorage.setItem(cdKey, Date.now().toString());
         btn.classList.add("voted");
         const countEl = btn.querySelector(".post-like-count");
         countEl.textContent =

@@ -2,6 +2,7 @@
 
 const adminLogin = document.querySelector(".admin-login");
 const adminLayout = document.querySelector(".admin-layout");
+const adminMain = document.querySelector(".admin-main");
 const adminPages = document.querySelectorAll(".admin-page");
 const adminNavItems = document.querySelectorAll(".admin-nav-item");
 
@@ -29,6 +30,9 @@ function attemptLogin() {
       if (p.img) adminHeaderImg.src = p.img;
     }
     showAdminPage("dashboard");
+    if (adminMain && window.ScrollRevealManager) {
+      window.ScrollRevealManager.mount({ root: adminMain, mode: "admin" });
+    }
   } else {
     loginError.textContent = "Incorrect PIN";
     loginInput.value = "";
@@ -87,6 +91,10 @@ function showAdminPage(name) {
   if (name === "message" && typeof refreshMessage === "function")
     refreshMessage();
   if (name === "sales" && typeof refreshSales === "function") refreshSales();
+
+  if (adminMain && window.ScrollRevealManager) {
+    window.ScrollRevealManager.mount({ root: adminMain, mode: "admin" });
+  }
 }
 
 // Nav clicks

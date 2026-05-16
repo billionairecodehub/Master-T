@@ -189,7 +189,7 @@ function _msgOpenMessage(id) {
   const titleEl = document.getElementById("msg-body-title");
   if (titleEl) {
     titleEl.textContent = msg.title || "";
-    titleEl.style.display = msg.title ? "" : "none";
+    titleEl.style.display = msg.title ? "block" : "none";
   }
 
   const replyEl = document.getElementById("msg-response-input");

@@ -33,8 +33,8 @@ window.addEventListener("scroll", () => {
 const homePage = document.querySelector(".home");
 const profilePage = document.querySelector(".profile-page");
 const menuPage = document.querySelector(".menu-page");
-const pollsPage = document.querySelector(".polls-page");
-const updatesPage = document.querySelector(".updates-page");
+const feedPage = document.querySelector(".feed-page");
+const blockPage = document.querySelector(".block-page");
 const questPage = document.querySelector(".quest-page");
 const notificationsPage = document.querySelector(".notifications-page");
 const aboutPage = document.querySelector(".about-page");
@@ -47,8 +47,8 @@ function hideAllPages() {
   homePage.style.display = "none";
   profilePage.style.display = "none";
   menuPage.style.display = "none";
-  if (pollsPage) pollsPage.style.display = "none";
-  if (updatesPage) updatesPage.style.display = "none";
+  if (feedPage) feedPage.style.display = "none";
+  if (blockPage) blockPage.style.display = "none";
   if (questPage) questPage.style.display = "none";
   if (notificationsPage) notificationsPage.style.display = "none";
   if (aboutPage) aboutPage.style.display = "none";
@@ -76,7 +76,8 @@ function hideAllPages() {
   }
   // Reset per-page expanded/detail states so pages are always clean when navigating away
   if (typeof _questCollapseAll === "function") _questCollapseAll();
-  if (typeof _uForceClose === "function") _uForceClose();
+  if (typeof _bForceClose === "function") _bForceClose();
+  if (typeof _feedCollapseAll === "function") _feedCollapseAll();
 }
 
 // Show specific page
@@ -140,13 +141,34 @@ function _router() {
   }
 
   // ── Per-item detail routes ──
-  if (type === "update") {
-    showPage(updatesPage);
-    _setActiveNav("updates");
-    if (typeof markUpdatesSeen === "function") markUpdatesSeen();
+  if (type === "story") {
+    if (blockPage) showPage(blockPage);
+    _setActiveNav("block");
+    if (typeof markBlockSeen === "function") markBlockSeen();
     if (slug) {
-      if (typeof _uOpenView === "function") _uOpenView(slug);
-      else window._routerDeepLink = { type: "update", id: slug };
+      if (typeof _bOpenView === "function") _bOpenView("story", slug);
+      else window._routerDeepLink = { type: "story", id: slug };
+    }
+    return true;
+  }
+
+  if (type === "update") {
+    if (blockPage) showPage(blockPage);
+    _setActiveNav("block");
+    if (typeof markBlockSeen === "function") markBlockSeen();
+    if (slug) {
+      if (typeof _bOpenView === "function") _bOpenView("recommend", slug);
+      else window._routerDeepLink = { type: "recommend", id: slug };
+    }
+    return true;
+  }
+
+  if (type === "poll-why") {
+    if (blockPage) showPage(blockPage);
+    _setActiveNav("block");
+    if (slug) {
+      if (typeof _bOpenView === "function") _bOpenView("poll-why", slug);
+      else window._routerDeepLink = { type: "poll-why", id: slug };
     }
     return true;
   }
@@ -156,16 +178,21 @@ function _router() {
     showPage(profilePage);
     return true;
   }
-  if (type === "polls") {
-    showPage(pollsPage);
-    _setActiveNav("polls");
-    if (typeof markPollsSeen === "function") markPollsSeen();
+  if (type === "feed") {
+    if (feedPage) showPage(feedPage);
+    _setActiveNav("feed");
+    if (typeof markFeedSeen === "function") markFeedSeen();
     return true;
   }
-  if (type === "updates") {
-    showPage(updatesPage);
-    _setActiveNav("updates");
-    if (typeof markUpdatesSeen === "function") markUpdatesSeen();
+  if (type === "block") {
+    if (blockPage) showPage(blockPage);
+    _setActiveNav("block");
+    if (typeof markBlockSeen === "function") markBlockSeen();
+    return true;
+  }
+  if (type === "polls" || type === "updates") {
+    if (blockPage) showPage(blockPage);
+    _setActiveNav("block");
     return true;
   }
   if (type === "quest") {
@@ -266,11 +293,11 @@ navItems.forEach((navItem) => {
     } else if (navType === "profile") {
       _navigateTo("/profile");
       showPage(profilePage);
-    } else if (navType === "polls") {
-      if (pollsPage) {
-        _navigateTo("/polls");
-        showPage(pollsPage);
-        if (typeof markPollsSeen === "function") markPollsSeen();
+    } else if (navType === "feed") {
+      if (feedPage) {
+        _navigateTo("/feed");
+        showPage(feedPage);
+        if (typeof markFeedSeen === "function") markFeedSeen();
       }
     } else if (navType === "Quest") {
       if (questPage) {
@@ -278,11 +305,11 @@ navItems.forEach((navItem) => {
         showPage(questPage);
         if (typeof markQuestSeen === "function") markQuestSeen();
       }
-    } else if (navType === "updates") {
-      if (updatesPage) {
-        _navigateTo("/updates");
-        showPage(updatesPage);
-        if (typeof markUpdatesSeen === "function") markUpdatesSeen();
+    } else if (navType === "block") {
+      if (blockPage) {
+        _navigateTo("/block");
+        showPage(blockPage);
+        if (typeof markBlockSeen === "function") markBlockSeen();
       }
     } else if (navType === "Notif") {
       if (notificationsPage) {
@@ -358,13 +385,21 @@ function _applyRemoteChanges(changed) {
   if (!changed || changed === "profile") {
     if (typeof refreshProfileData === "function") refreshProfileData();
   }
+  if (!changed || changed === "posts") {
+    if (typeof renderFeedPosts === "function") renderFeedPosts();
+    if (typeof updateFeedDot === "function") updateFeedDot();
+  }
+  if (!changed || changed === "stories") {
+    if (typeof renderBlockStories === "function") renderBlockStories();
+    if (typeof updateBlockDot === "function") updateBlockDot();
+  }
   if (!changed || changed === "recommends") {
-    if (typeof renderUpdates === "function") renderUpdates();
-    if (typeof updateUpdatesDot === "function") updateUpdatesDot();
+    if (typeof renderBlockRecommends === "function") renderBlockRecommends();
+    if (typeof updateBlockDot === "function") updateBlockDot();
   }
   if (!changed || changed === "polls") {
-    if (typeof renderPolls === "function") renderPolls();
-    if (typeof updatePollsDot === "function") updatePollsDot();
+    if (typeof renderBlockPolls === "function") renderBlockPolls();
+    if (typeof updateBlockDot === "function") updateBlockDot();
   }
 }
 

@@ -31,7 +31,6 @@ async function boot() {
     dashboard + posts + quests + content + stats + settings + message + sales;
   console.log("[ADMIN] All partials injected into .admin-main");
   // Load shared data layer first, sync from Firebase, then admin scripts
-  const dataScript = "../shared/data.js";
   const adminScripts = [
     "js/index.js",
     "js/dashboard.js",
@@ -46,14 +45,17 @@ async function boot() {
     "js/sales.js",
   ];
 
-  // Load data.js first
-  await new Promise((resolve) => {
-    const script = document.createElement("script");
-    script.src = dataScript;
-    script.onload = resolve;
-    script.onerror = resolve;
-    document.body.appendChild(script);
-  });
+  const preloadScripts = ["../shared/data.js", "../shared/scroll-reveal.js"];
+  // Load shared scripts first
+  for (const src of preloadScripts) {
+    await new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = resolve;
+      script.onerror = resolve;
+      document.body.appendChild(script);
+    });
+  }
 
   // Sync latest content from Firebase before rendering admin
   await DataStore.syncFromRemote();

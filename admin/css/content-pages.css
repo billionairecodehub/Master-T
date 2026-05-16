@@ -1420,3 +1420,166 @@
     border-radius: 10px;
   }
 }
+
+/* ── Custom category select ──────────────────────────── */
+.cs-cat-select-wrap {
+  position: relative;
+}
+
+.cs-cat-select-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: rgba(5, 9, 28, 0.7);
+  border: 1px solid rgba(107, 158, 255, 0.14);
+  border-radius: 14px;
+  padding: 14px 18px;
+  color: rgba(248, 246, 255, 0.7);
+  font-family: "Gellix", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s;
+}
+
+.cs-cat-select-trigger:focus {
+  outline: none;
+  border-color: rgba(107, 158, 255, 0.5);
+  background: rgba(7, 12, 34, 0.92);
+  box-shadow: 0 0 0 4px rgba(107, 158, 255, 0.08);
+}
+
+.cs-cat-select-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cs-cat-select-chevron {
+  width: 12px;
+  height: 8px;
+  flex-shrink: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(107%2C158%2C255%2C0.55)' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.cs-cat-select-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  background: linear-gradient(
+    145deg,
+    rgba(12, 18, 52, 0.98),
+    rgba(8, 13, 36, 0.98)
+  );
+  border: 1px solid rgba(107, 158, 255, 0.18);
+  border-radius: 14px;
+  max-height: 240px;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(2, 5, 16, 0.4);
+  scrollbar-width: none;
+}
+
+.cs-cat-select-dropdown::-webkit-scrollbar {
+  display: none;
+}
+
+.cs-cat-select-opt {
+  padding: 13px 18px;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(248, 246, 255, 0.7);
+  cursor: pointer;
+  transition: background 0.12s;
+  border-bottom: 0.5px solid rgba(107, 158, 255, 0.07);
+}
+
+.cs-cat-select-opt:last-child {
+  border-bottom: none;
+}
+
+.cs-cat-select-opt:hover {
+  background: rgba(107, 158, 255, 0.07);
+}
+
+.cs-cat-select-opt:active {
+  background: rgba(107, 158, 255, 0.12);
+}
+
+.cs-cat-select-opt.active {
+  color: rgba(107, 158, 255, 0.95);
+  font-weight: 500;
+}
+
+.cs-cat-select-opt.delete-pending {
+  background: rgba(255, 70, 70, 0.07);
+  color: rgba(255, 110, 110, 0.9);
+  border-left: 2px solid rgba(255, 80, 80, 0.45);
+  padding-left: 16px;
+}
+
+.cs-cat-del-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(107, 158, 255, 0.25);
+  margin-left: 7px;
+  vertical-align: middle;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.cs-cat-select-opt.delete-pending .cs-cat-del-dot {
+  background: rgba(255, 80, 80, 0.55);
+}
+
+.cs-cat-mgmt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 0 2px;
+}
+
+.cs-cat-mgmt-hint {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.28);
+  flex: 1;
+  min-width: 0;
+  line-height: 1.4;
+  transition: color 0.2s;
+}
+
+.cs-cat-del-btn {
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid rgba(255, 80, 80, 0.28);
+  border-radius: 8px;
+  color: rgba(255, 100, 100, 0.6);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 14px;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.cs-cat-del-btn:active {
+  background: rgba(255, 80, 80, 0.1);
+  border-color: rgba(255, 80, 80, 0.55);
+  color: rgba(255, 110, 110, 0.9);
+}

@@ -95,7 +95,7 @@ function _pBuildPollCard(p) {
           ? `<span class="block-poll-answer-marker correct-marker">✓ Correct</span>`
           : isVoted
             ? `<span class="block-poll-answer-marker wrong-marker">✗ Wrong</span>`
-            : ""
+            : `<span class="block-poll-answer-marker empty-marker">Hidden</span>`
         : "";
       return `<div class="block-poll-option${cls}"
         data-poll-id="${p.id}" data-opt-idx="${i}">
@@ -110,7 +110,7 @@ function _pBuildPollCard(p) {
     ? `<span class="poll-why-hint${hasWhyPost ? " has-why" : ""}" data-poll-id="${p.id}">${hasWhyPost ? "Check Out Why >" : "No Details Yet!"}</span>`
     : "";
 
-  return `<div class="block-poll-card" data-id="${p.id}">
+  return `<div class="block-poll-card${hasAnswer ? " has-answer" : ""}" data-id="${p.id}">
     <div class="block-poll-top">
       <div class="block-poll-label">Poll</div>
       <img src="${_P_POLL_ICON}" alt="" class="block-poll-icon" />
@@ -162,7 +162,6 @@ function _pWhyBuildContent(pollId) {
   const poll = DataStore.getById("polls", pollId);
   if (!poll || !poll.whyPost) return "";
   const wp = poll.whyPost;
-  const fmt = (v) => (v >= 1000 ? (v / 1000).toFixed(1) + "k" : String(v));
   const agreeKey = "mt_poll_why_vote_" + pollId;
   const agreeVote = localStorage.getItem(agreeKey);
   const threadsHTML = (wp.threads || [])
@@ -196,11 +195,11 @@ function _pWhyBuildContent(pollId) {
     <div class="poll-why-thumbs">
       <div class="poll-why-thumb poll-why-agree${agreeVote === "agree" ? " voted" : ""}" data-poll-id="${pollId}">
         <img src="${_P_THUMB_UP}" alt="Agree" class="quest-thumb-icon" />
-        <span class="quest-thumb-count">${fmt(poll.whyAgree || 0)}</span>
+        <span class="quest-thumb-count">${_pFmt(poll.whyAgree || 0)}</span>
       </div>
       <div class="poll-why-thumb poll-why-disagree${agreeVote === "disagree" ? " voted" : ""}" data-poll-id="${pollId}">
         <img src="${_P_THUMB_DOWN}" alt="Disagree" class="quest-thumb-icon" />
-        <span class="quest-thumb-count">${fmt(poll.whyDisagree || 0)}</span>
+        <span class="quest-thumb-count">${_pFmt(poll.whyDisagree || 0)}</span>
       </div>
     </div>
   </div>`;
@@ -218,19 +217,42 @@ function _pWhyOpen(pollId) {
   _pBindWhyThumbs(pollId);
 }
 
+const _pFmt = (v) => (v >= 1000 ? (v / 1000).toFixed(1) + "k" : String(v));
+
 function _pBindWhyThumbs(pollId) {
   _pWhyDetail
     .querySelectorAll(".poll-why-agree, .poll-why-disagree")
     .forEach((btn) => {
       btn.addEventListener("click", () => {
+        if (_pWhyDetail.dataset.voting) return;
+        _pWhyDetail.dataset.voting = "1";
+        setTimeout(() => delete _pWhyDetail.dataset.voting, 400);
+
         const poll = DataStore.getById("polls", pollId);
         if (!poll) return;
+
+        // 1-minute cooldown per poll-why
+        const cdKey = "mt_poll_why_cd_" + pollId;
+        if (
+          Date.now() - parseInt(localStorage.getItem(cdKey) || "0", 10) <
+          60000
+        )
+          return;
+
         const aKey = "mt_poll_why_vote_" + pollId;
         const prevVote = localStorage.getItem(aKey);
         const isAgree = btn.classList.contains("poll-why-agree");
         const clicked = isAgree ? "agree" : "disagree";
+
+        const agreeBtn = _pWhyDetail.querySelector(".poll-why-agree");
+        const disagreeBtn = _pWhyDetail.querySelector(".poll-why-disagree");
+        const agreeCount = agreeBtn?.querySelector(".quest-thumb-count");
+        const disagreeCount = disagreeBtn?.querySelector(".quest-thumb-count");
+
         if (prevVote === clicked) {
+          // Undo vote
           localStorage.removeItem(aKey);
+          localStorage.setItem(cdKey, Date.now().toString());
           DataStore.update("polls", pollId, {
             whyAgree: Math.max(0, (poll.whyAgree || 0) - (isAgree ? 1 : 0)),
             whyDisagree: Math.max(
@@ -238,8 +260,15 @@ function _pBindWhyThumbs(pollId) {
               (poll.whyDisagree || 0) - (isAgree ? 0 : 1),
             ),
           });
+          btn.classList.remove("voted");
+          const u = DataStore.getById("polls", pollId);
+          if (agreeCount) agreeCount.textContent = _pFmt(u.whyAgree || 0);
+          if (disagreeCount)
+            disagreeCount.textContent = _pFmt(u.whyDisagree || 0);
         } else if (prevVote) {
+          // Switch vote
           localStorage.setItem(aKey, clicked);
+          localStorage.setItem(cdKey, Date.now().toString());
           DataStore.update("polls", pollId, {
             whyAgree: Math.max(0, (poll.whyAgree || 0) + (isAgree ? 1 : -1)),
             whyDisagree: Math.max(
@@ -247,15 +276,27 @@ function _pBindWhyThumbs(pollId) {
               (poll.whyDisagree || 0) + (isAgree ? -1 : 1),
             ),
           });
+          agreeBtn?.classList.remove("voted");
+          disagreeBtn?.classList.remove("voted");
+          btn.classList.add("voted");
+          const u = DataStore.getById("polls", pollId);
+          if (agreeCount) agreeCount.textContent = _pFmt(u.whyAgree || 0);
+          if (disagreeCount)
+            disagreeCount.textContent = _pFmt(u.whyDisagree || 0);
         } else {
+          // New vote
           localStorage.setItem(aKey, clicked);
+          localStorage.setItem(cdKey, Date.now().toString());
           DataStore.update("polls", pollId, {
             whyAgree: (poll.whyAgree || 0) + (isAgree ? 1 : 0),
             whyDisagree: (poll.whyDisagree || 0) + (isAgree ? 0 : 1),
           });
+          btn.classList.add("voted");
+          const u = DataStore.getById("polls", pollId);
+          if (agreeCount) agreeCount.textContent = _pFmt(u.whyAgree || 0);
+          if (disagreeCount)
+            disagreeCount.textContent = _pFmt(u.whyDisagree || 0);
         }
-        _pWhyDetail.innerHTML = _pWhyBuildContent(pollId);
-        _pBindWhyThumbs(pollId);
       });
     });
 }

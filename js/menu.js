@@ -436,6 +436,12 @@ function bindAppClicks() {
         _appHeartBtn.parentNode.replaceChild(_newHeart, _appHeartBtn);
         _newHeart.addEventListener("click", (ev) => {
           ev.stopPropagation();
+          const _cdKey = "mt_liked_app_cd_" + a.id;
+          if (
+            Date.now() - parseInt(localStorage.getItem(_cdKey) || "0", 10) <
+            60000
+          )
+            return;
           const _app = DataStore.getById("apps", a.id);
           if (!_app) return;
           const _wasLiked = localStorage.getItem(_likedKey) === "1";
@@ -449,6 +455,7 @@ function bindAppClicks() {
             localStorage.setItem(_likedKey, "1");
             _newHeart.classList.add("liked");
           }
+          localStorage.setItem(_cdKey, Date.now().toString());
           DataStore.update("apps", a.id, { likes: _newLikes });
           const _hc = document.getElementById("app-heart-count");
           if (_hc) _hc.textContent = "+" + _newLikes;
@@ -636,6 +643,12 @@ function bindBookClicks() {
         _bookHeartBtn.parentNode.replaceChild(_newHeart, _bookHeartBtn);
         _newHeart.addEventListener("click", (ev) => {
           ev.stopPropagation();
+          const _cdKey = "mt_liked_book_cd_" + b.id;
+          if (
+            Date.now() - parseInt(localStorage.getItem(_cdKey) || "0", 10) <
+            60000
+          )
+            return;
           const _book = DataStore.getById("books", b.id);
           if (!_book) return;
           const _wasLiked = localStorage.getItem(_likedKey) === "1";
@@ -649,6 +662,7 @@ function bindBookClicks() {
             localStorage.setItem(_likedKey, "1");
             _newHeart.classList.add("liked");
           }
+          localStorage.setItem(_cdKey, Date.now().toString());
           DataStore.update("books", b.id, { likes: _newLikes });
           const _hc = document.getElementById("book-heart-count");
           if (_hc) _hc.textContent = "+" + _newLikes;
@@ -759,6 +773,12 @@ function bindCircleClicks() {
         _heartBtn.parentNode.replaceChild(_newHeart, _heartBtn);
         _newHeart.addEventListener("click", (ev) => {
           ev.stopPropagation();
+          const _cdKey = "mt_liked_circle_cd_" + c.id;
+          if (
+            Date.now() - parseInt(localStorage.getItem(_cdKey) || "0", 10) <
+            60000
+          )
+            return;
           const _circle = DataStore.getById("circles", c.id);
           if (!_circle) return;
           const _wasLiked = localStorage.getItem(_likedKey) === "1";
@@ -772,6 +792,7 @@ function bindCircleClicks() {
             localStorage.setItem(_likedKey, "1");
             _newHeart.classList.add("liked");
           }
+          localStorage.setItem(_cdKey, Date.now().toString());
           DataStore.update("circles", c.id, { likes: _newLikes });
           const _hc = document.getElementById("circle-heart-count");
           if (_hc) _hc.textContent = "+" + _newLikes;
@@ -805,26 +826,29 @@ function _menuOpenCircle(id) {
   });
 }
 
-// ── Back Buttons — use history.back() so the browser URL reverts cleanly ──
+// ── Back Buttons — close panel and stay in-app (replaceState so URL is clean) ──
 document.getElementById("app-panel-back").addEventListener("click", (e) => {
   e.stopPropagation();
   appPanel.classList.remove("open");
   menuHome.style.display = "flex";
-  history.back();
+  if (window.location.pathname.startsWith("/app/"))
+    history.replaceState({}, "", "/store");
 });
 
 document.getElementById("book-panel-back").addEventListener("click", (e) => {
   e.stopPropagation();
   bookPanel.classList.remove("open");
   menuHome.style.display = "flex";
-  history.back();
+  if (window.location.pathname.startsWith("/book/"))
+    history.replaceState({}, "", "/store");
 });
 
 document.getElementById("circle-panel-back").addEventListener("click", (e) => {
   e.stopPropagation();
   circlePanel.classList.remove("open");
   menuHome.style.display = "flex";
-  history.back();
+  if (window.location.pathname.startsWith("/circle/"))
+    history.replaceState({}, "", "/store");
 });
 
 // ── Main Search Bar ──

@@ -214,9 +214,11 @@ button {
 }
 
 .block-story-label {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.4);
-  opacity: 0.8;
+  font-size: 10px;
+  font-weight: 700;
+  color: #4caf7d;
+  letter-spacing: -0.5px;
+  text-transform: capitalize;
 }
 
 /* ─ 2. img heart replaces span heart ─ */
@@ -424,6 +426,20 @@ button {
   color: rgba(255, 255, 255, 0.35);
 }
 
+.block-recommend-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.block-recommend-filter-icon {
+  width: 14px;
+  height: 14px;
+  opacity: 0.5;
+  cursor: pointer;
+  display: block;
+}
+
 .block-recommend-card {
   padding: 24px 0 12px;
   border-bottom: 0.5px solid rgba(107, 158, 255, 0.08);
@@ -474,6 +490,15 @@ button {
   font-size: 10px;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.3);
+}
+
+.block-recommend-cat-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #4caf7d;
+  margin-bottom: 5px;
+  letter-spacing: -0.5px;
+  text-transform: capitalize;
 }
 
 /* ─ 5. Collapsed card: CTA (now clickable anchor) ─ */
@@ -635,17 +660,23 @@ button {
 }
 
 .block-poll-option {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 76px 42px;
+  column-gap: 10px;
   align-items: center;
-  justify-content: space-between;
   background: rgba(255, 255, 255, 0.03);
   border: 0.5px solid rgba(107, 158, 255, 0.08);
   border-radius: 4px;
-  padding: 28px 14px;
+  padding: 14px 14px;
   cursor: pointer;
   transition:
     background 0.15s,
     border-color 0.15s;
+}
+
+/* No answer state — collapse the middle marker column */
+.block-poll-card:not(.has-answer) .block-poll-option {
+  grid-template-columns: minmax(0, 1fr) 42px;
 }
 
 .block-poll-option:active {
@@ -664,7 +695,8 @@ button {
 .block-poll-option-text {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.6);
-  flex: 1;
+  min-width: 0;
+  line-height: 1.35;
 }
 
 .block-poll-option.voted .block-poll-option-text {
@@ -676,8 +708,8 @@ button {
   font-size: 12px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.4);
-  margin-left: 12px;
-  min-width: 38px;
+  margin-left: 0;
+  min-width: 42px;
   text-align: right;
 }
 
@@ -719,10 +751,18 @@ button {
 }
 
 .block-poll-answer-marker {
+  display: inline-block;
   font-size: 10px;
   font-weight: 600;
-  margin: 0 8px;
+  margin: 0;
+  min-width: 76px;
+  text-align: right;
   white-space: nowrap;
+}
+
+.block-poll-answer-marker.empty-marker {
+  visibility: hidden;
+  font-weight: 700;
 }
 
 .correct-marker {
@@ -832,11 +872,12 @@ button {
 
 .poll-why-correct-label {
   font-size: 11px;
+  font-weight: 700;
   color: rgba(100, 220, 130, 0.8);
 }
 
 .poll-why-correct-label span {
-  font-weight: 400;
+  font-weight: 700;
 }
 
 /* ── Poll Why Post (shared elements) ─────────────────── */
@@ -962,4 +1003,238 @@ button {
   #block-full-content {
     padding: 0 48px;
   }
+}
+
+/* ════════════════════════════════════════════
+   UPDATES FILTER PAGE
+════════════════════════════════════════════ */
+
+/* Filter icon wrapper + red dot badge */
+.updates-filter-icon-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.updates-filter-active-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff4545;
+  pointer-events: none;
+  box-shadow: 0 0 0 1.5px #080c24;
+}
+
+/* Full-screen overlay — scoped to .main (position:relative flex-item) */
+.updates-filter-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  background: #080c24;
+  overflow: hidden;
+}
+
+/* ── Filter header (sticky) ── */
+.updates-filter-header {
+  flex-shrink: 0;
+  padding: 20px 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-bottom: 24px;
+}
+
+.updates-filter-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.updates-filter-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.updates-filter-header-icon {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.updates-filter-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.updates-filter-title {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: -0.9px;
+  color: rgba(248, 246, 255, 0.92);
+  line-height: 1;
+}
+
+.updates-filter-subtitle {
+  font-size: 10px;
+  color: rgba(248, 246, 255, 0.4);
+  font-weight: 400;
+  letter-spacing: 0.1px;
+}
+
+.updates-filter-back {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  opacity: 0.65;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+
+.updates-filter-back:active {
+  opacity: 1;
+}
+
+/* Search bar */
+.updates-filter-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 7px;
+  padding: 24px 16px;
+  margin-bottom: 15px;
+}
+
+.updates-filter-search-icon {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  opacity: 0.35;
+  flex-shrink: 0;
+}
+
+.updates-filter-search-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: rgba(248, 246, 255, 0.85);
+  font-family: "Gellix", sans-serif;
+  font-size: 14px;
+}
+
+.updates-filter-search-input::placeholder {
+  color: rgba(248, 246, 255, 0.25);
+}
+
+/* ── Scrollable categories area ── */
+.updates-filter-main {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px 24px 12px;
+}
+
+.updates-filter-cats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.updates-filter-cat-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: none;
+  border-radius: 10px;
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  min-height: 76px;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.updates-filter-cat-card.selected {
+  background: rgba(107, 158, 255, 0.09);
+  border-color: rgba(107, 158, 255, 0.32);
+}
+
+.updates-filter-cat-card:active {
+  background: rgba(107, 158, 255, 0.06);
+}
+
+.updates-filter-cat-count {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.8px;
+  color: rgba(248, 246, 255, 0.88);
+  line-height: 1;
+}
+
+.updates-filter-cat-name {
+  font-size: 10px;
+  font-weight: 400;
+  color: rgba(248, 246, 255, 0.48);
+  text-align: center;
+  letter-spacing: 0.05px;
+  line-height: 1.2;
+}
+
+.updates-filter-empty {
+  text-align: center;
+  padding: 48px 0;
+  color: rgba(248, 246, 255, 0.28);
+  font-size: 13px;
+}
+
+/* ── Sticky footer ── */
+.updates-filter-footer {
+  flex-shrink: 0;
+  padding: 12px 24px 36px;
+}
+
+.updates-filter-apply {
+  width: 100%;
+  background: rgba(10, 16, 45, 0.95);
+  border: none;
+  border-radius: 16px;
+  padding: 20px;
+  color: rgba(248, 246, 255, 0.78);
+  font-family: "Gellix", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  letter-spacing: -0.3px;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.updates-filter-apply:active {
+  background: rgba(107, 158, 255, 0.12);
+  color: rgba(248, 246, 255, 0.95);
+}
+
+.updates-filter-apply:disabled {
+  opacity: 0.7;
+  cursor: default;
 }

@@ -28,6 +28,32 @@ label {
   outline: none;
 }
 
+.scroll-reveal-item {
+  --scroll-reveal-opacity: 0.96;
+  --scroll-reveal-offset: 0px;
+  --scroll-reveal-scale: 1;
+  opacity: var(--scroll-reveal-opacity);
+  transform: translate3d(0, var(--scroll-reveal-offset), 0)
+    scale(var(--scroll-reveal-scale));
+  transform-origin: center top;
+  transition:
+    opacity 0.18s ease-out,
+    transform 0.24s ease-out;
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-item.scroll-reveal-visible {
+  opacity: var(--scroll-reveal-opacity);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 html,
 body {
   font-family: "Gellix", sans-serif;
@@ -38,6 +64,7 @@ body {
   overflow: hidden;
   background: #000;
   color: #fff;
+  touch-action: manipulation;
 }
 
 /* Admin Layout */
@@ -337,11 +364,11 @@ body {
 }
 
 .admin-page-title {
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: -1.5px;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -1.4px;
   line-height: 1;
-  background: linear-gradient(135deg, #6b7a9a 0%, #9aa3b8 50%, #c8cdd8 100%);
+  background: linear-gradient(135deg, #89a9ff 0%, #c5d6ff 52%, #f3f7ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

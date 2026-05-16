@@ -142,9 +142,7 @@ function renderQuests() {
       const voteKey = "mt_quest_vote_" + p.id;
       const existingVote = localStorage.getItem(voteKey);
 
-      // Auto question mark on subject
-      let subject = p.subject || "";
-      if (subject && !subject.endsWith("?")) subject += "?";
+      const subject = p.subject || "";
 
       return `
         <div class="quest-board" data-id="${p.id}">
@@ -218,10 +216,20 @@ function bindQuestVotes() {
       // Only allow voting when expanded
       if (!board || !board.classList.contains("expanded")) return;
 
+      // Guard: ignore rapid repeated clicks
+      if (board.dataset.voting) return;
+      board.dataset.voting = "1";
+      setTimeout(() => delete board.dataset.voting, 400);
+
       const questId = thumb.getAttribute("data-id");
       const voteType = thumb.getAttribute("data-vote");
       const quest = DataStore.getById("quests", questId);
       if (!quest) return;
+
+      // 1-minute cooldown per quest
+      const cdKey = "mt_quest_vote_cd_" + questId;
+      if (Date.now() - parseInt(localStorage.getItem(cdKey) || "0", 10) < 60000)
+        return;
 
       const voteKey = "mt_quest_vote_" + questId;
       const existingVote = localStorage.getItem(voteKey);
@@ -238,6 +246,7 @@ function bindQuestVotes() {
           });
         }
         localStorage.removeItem(voteKey);
+        localStorage.setItem(cdKey, Date.now().toString());
         thumb.classList.remove("voted");
         // Update count
         const updated = DataStore.getById("quests", questId);
@@ -262,6 +271,7 @@ function bindQuestVotes() {
           });
         }
         localStorage.setItem(voteKey, voteType);
+        localStorage.setItem(cdKey, Date.now().toString());
         // Update both thumbs visually
         const allThumbs = board.querySelectorAll(".quest-thumb");
         allThumbs.forEach((t) => t.classList.remove("voted"));
@@ -289,6 +299,7 @@ function bindQuestVotes() {
           });
         }
         localStorage.setItem(voteKey, voteType);
+        localStorage.setItem(cdKey, Date.now().toString());
         thumb.classList.add("voted");
         const updated = DataStore.getById("quests", questId);
         const countEl = thumb.querySelector(".quest-thumb-count");

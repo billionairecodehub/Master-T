@@ -321,6 +321,32 @@
 
 /* ========================================================= */
 
+.scroll-reveal-item {
+  --scroll-reveal-opacity: 0.96;
+  --scroll-reveal-offset: 0px;
+  --scroll-reveal-scale: 1;
+  opacity: var(--scroll-reveal-opacity);
+  transform: translate3d(0, var(--scroll-reveal-offset), 0)
+    scale(var(--scroll-reveal-scale));
+  transform-origin: center top;
+  transition:
+    opacity 0.18s ease-out,
+    transform 0.24s ease-out;
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-item.scroll-reveal-visible {
+  opacity: var(--scroll-reveal-opacity);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;

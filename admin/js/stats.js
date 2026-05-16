@@ -66,10 +66,11 @@ function refreshStats() {
   });
   const maxCount = Math.max(...barsData.map((b) => b.count), 1);
 
+  const frozenBars = new Set();
   document.getElementById("stats-bars").innerHTML = barsData
     .map(
       (b) => `
-      <div class="stats-bar-group">
+      <div class="stats-bar-group"${frozenBars.has(b.name) ? ' style="opacity:0.3;pointer-events:none;"' : ""}>
         <div class="stats-bar-label">
           <span class="stats-bar-name">${b.name}</span>
           <span class="stats-bar-value">${b.count}</span>

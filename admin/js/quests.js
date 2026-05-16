@@ -17,7 +17,7 @@ function refreshQuests() {
       (q) => `
       <div class="quest-list-card" data-quest-id="${q.id}">
         <div class="quest-list-top">
-          <div class="quest-list-subject">${q.subject}${q.subject && !q.subject.endsWith("?") ? "?" : ""}</div>
+          <div class="quest-list-subject">${q.subject}</div>
         </div>
         <div class="quest-list-preview">${(q.threads || []).length} solution thread${(q.threads || []).length !== 1 ? "s" : ""}</div>
       </div>`,
@@ -125,9 +125,6 @@ document
     let subject = questToTitleCase(
       document.getElementById("quest-subject").value.trim(),
     );
-
-    // Auto append question mark
-    if (subject && !subject.endsWith("?")) subject += "?";
 
     const data = {
       subject: subject,

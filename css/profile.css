@@ -733,7 +733,7 @@ button {
   font-size: var(--font-size-md);
   border: none;
   outline: none;
-  border: 2px solid var(--border-color-light);
+  border: 0.75px solid var(--border-color-light);
   border-radius: 24px;
   background: rgba(0, 5, 22, 0.7) !important;
   color: rgba(200, 215, 255, 0.75);

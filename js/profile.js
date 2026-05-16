@@ -156,17 +156,19 @@ if (profileLikeBtn) {
   profileLikeBtn.addEventListener("click", (e) => {
     e.preventDefault();
     profileLikeBtn.blur();
+    const cdKey = "mt_profile_like_cd";
+    if (Date.now() - parseInt(localStorage.getItem(cdKey) || "0", 10) < 60000)
+      return;
     const current = getProfileLikes();
     const hasLiked = !!localStorage.getItem(PROFILE_LIKED_KEY);
     if (hasLiked) {
-      // undo like — decrement global count
       localStorage.removeItem(PROFILE_LIKED_KEY);
       DataStore.setProfile({ totalLikes: Math.max(current - 1, 0) });
     } else {
-      // add like — one per device, increments global count for everyone
       localStorage.setItem(PROFILE_LIKED_KEY, "1");
       DataStore.setProfile({ totalLikes: current + 1 });
     }
+    localStorage.setItem(cdKey, Date.now().toString());
     renderProfileLikes();
   });
 }

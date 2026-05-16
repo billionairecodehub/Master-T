@@ -10,6 +10,19 @@
           </div>
         </div>
         <div class="block-header-right">
+          <div class="updates-filter-icon-wrap">
+            <img
+              src="https://i.postimg.cc/W4rPYMSj/Mtogan-Filter-Icon.png"
+              alt="Filter"
+              class="block-header-icon"
+              id="updates-filter-btn"
+            />
+            <span
+              class="updates-filter-active-dot"
+              id="updates-filter-active-dot"
+              style="display: none"
+            ></span>
+          </div>
           <img
             src="https://i.postimg.cc/zG92gDXB/Mt-Recommend-Icon.png"
             alt="Updates"
@@ -29,5 +42,51 @@
     <div class="block-full-view" id="updates-full-view" style="display: none">
       <div id="updates-full-content"></div>
     </div>
+  </div>
+</div>
+
+<!-- Filter page — full-screen overlay -->
+<div class="updates-filter-page" id="updates-filter-page" style="display: none">
+  <div class="updates-filter-header">
+    <div class="updates-filter-header-top">
+      <div class="updates-filter-header-left">
+        <img
+          src="https://i.postimg.cc/zG92gDXB/Mt-Recommend-Icon.png"
+          alt=""
+          class="updates-filter-header-icon"
+        />
+        <div class="updates-filter-title-block">
+          <div class="updates-filter-title">Updates Category</div>
+          <div class="updates-filter-subtitle" id="updates-filter-subtitle">
+            All ~ 0 Categories
+          </div>
+        </div>
+      </div>
+      <img
+        src="https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png"
+        alt="Back"
+        class="updates-filter-back"
+        id="updates-filter-back"
+      />
+    </div>
+    <div class="updates-filter-search-bar">
+      <img
+        src="https://i.postimg.cc/657Zv49g/Mtogan-Search-Icon.png"
+        alt=""
+        class="updates-filter-search-icon"
+      />
+      <input
+        type="text"
+        class="updates-filter-search-input"
+        id="updates-filter-search"
+        placeholder="Search Update Category"
+      />
+    </div>
+  </div>
+  <div class="updates-filter-main" id="updates-filter-cats"></div>
+  <div class="updates-filter-footer">
+    <button class="updates-filter-apply" id="updates-filter-apply">
+      Apply
+    </button>
   </div>
 </div>
