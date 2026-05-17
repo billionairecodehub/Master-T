@@ -25,8 +25,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.auth-screen.is-active {
   opacity: 1;
-  transition: opacity 0.3s ease;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .auth-wrapper {
@@ -61,8 +69,9 @@
 .auth-logo-main {
   font-size: clamp(48px, 18vw, 92px);
   font-weight: 500;
-  line-height: 0.9;
-  letter-spacing: -4px;
+  line-height: 0.7;
+  max-width: 280px;
+  letter-spacing: -9px;
   background: linear-gradient(160deg, #c8d8ff 0%, #7fb3ff 45%, #4a8dff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

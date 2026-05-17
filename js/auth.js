@@ -26,13 +26,19 @@ function getAuthUser() {
   return stored ? JSON.parse(stored) : null;
 }
 
+function _setGatewayVisible(showAuth) {
+  const authPage = document.getElementById("auth-page");
+  const main = document.querySelector(".main");
+  if (authPage) authPage.style.display = showAuth ? "flex" : "none";
+  if (main) main.style.display = showAuth ? "none" : "block";
+}
+
 // ── Auth Screen Navigation ──
 function showAuthScreen(screenId) {
-  document
-    .querySelectorAll(".auth-screen")
-    .forEach((s) => (s.style.display = "none"));
+  const screens = document.querySelectorAll(".auth-screen");
+  screens.forEach((s) => s.classList.remove("is-active"));
   const screen = document.getElementById(screenId);
-  if (screen) screen.style.display = "flex";
+  if (screen) screen.classList.add("is-active");
 }
 
 function goToSignIn() {
@@ -60,11 +66,7 @@ function completeAuth() {
   setAuthUser(mockUser);
 
   // Hide auth page and show main app
-  const authPage = document.getElementById("auth-page");
-  if (authPage) authPage.style.display = "none";
-
-  const main = document.querySelector(".main");
-  if (main) main.style.display = "block";
+  _setGatewayVisible(false);
 
   // Show and navigate to user-own profile
   if (
@@ -95,12 +97,7 @@ function setupAuthListeners() {
   const btnGoogle = document.getElementById("auth-btn-google");
   if (btnGoogle) {
     btnGoogle.addEventListener("click", () => {
-      btnGoogle.textContent = "Google account selected";
-      btnGoogle.disabled = true;
-      setTimeout(() => {
-        btnGoogle.textContent = "Choose your account";
-        btnGoogle.disabled = false;
-      }, 1500);
+      btnGoogle.setAttribute("data-selected", "1");
     });
   }
 
@@ -155,14 +152,13 @@ setupAuthListeners();
 
 // ── Show Auth or App based on State ──
 function initAuthFlow() {
-  const authPage = document.getElementById("auth-page");
-  if (!authPage) return;
+  if (isUserAuthenticated()) {
+    _setGatewayVisible(false);
+    return;
+  }
 
-  // Testing mode: never block the app on boot.
-  // Auth can still be opened manually from the top-right user icon.
-  authPage.style.display = "none";
-  const main = document.querySelector(".main");
-  if (main) main.style.display = "block";
+  showAuthScreen("auth-screen-start");
+  _setGatewayVisible(true);
 }
 
 initAuthFlow();

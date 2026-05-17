@@ -41,18 +41,13 @@ function setupUserProfileLogout() {
 
     const authPage = document.getElementById("auth-page");
     const main = document.querySelector(".main");
-    if (authPage) authPage.style.display = "none";
-    if (main) main.style.display = "block";
+    if (main) main.style.display = "none";
+    if (authPage) authPage.style.display = "flex";
+    if (typeof showAuthScreen === "function")
+      showAuthScreen("auth-screen-start");
 
+    if (typeof _setActiveNav === "function") _setActiveNav("");
     if (typeof _navigateTo === "function") _navigateTo("/");
-    if (
-      typeof showPage === "function" &&
-      typeof homePage !== "undefined" &&
-      homePage
-    ) {
-      showPage(homePage);
-    }
-    if (typeof _setActiveNav === "function") _setActiveNav("home");
   });
 }
 

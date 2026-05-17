@@ -296,6 +296,9 @@ if (headerMenuIconEl) {
       if (authPage && main) {
         main.style.display = "none";
         authPage.style.display = "flex";
+        if (typeof showAuthScreen === "function") {
+          showAuthScreen("auth-screen-start");
+        }
       }
     } else {
       // Authenticated, navigate to user-own profile
