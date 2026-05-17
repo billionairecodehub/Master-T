@@ -248,13 +248,14 @@ function setupUserProfileLogout() {
   logoutBtn.addEventListener("click", () => {
     localStorage.removeItem("mt_auth_state");
     localStorage.removeItem("mt_auth_user");
+    localStorage.setItem("mt_auth_start_seen", "1");
 
     const authPage = document.getElementById("auth-page");
     const main = document.querySelector(".main");
     if (main) main.style.display = "none";
     if (authPage) authPage.style.display = "flex";
     if (typeof showAuthScreen === "function")
-      showAuthScreen("auth-screen-start");
+      showAuthScreen("auth-screen-signin");
 
     if (typeof _setActiveNav === "function") _setActiveNav("");
     if (typeof _navigateTo === "function") _navigateTo("/");

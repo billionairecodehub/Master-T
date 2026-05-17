@@ -152,6 +152,9 @@
 }
 
 .board-logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(
     130deg,
     rgba(70, 8, 20, 0.9),
@@ -171,8 +174,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 10px;
   cursor: pointer;
+  font-family: "Gellix", sans-serif;
 }
 
 .logout-icon {

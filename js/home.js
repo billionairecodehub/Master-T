@@ -93,8 +93,7 @@ function renderHomeBooksGrid() {
 window.renderHomeBooksGrid = renderHomeBooksGrid;
 renderHomeBooksGrid();
 
-// Home page — Block 3 Apps slots (max 4, synced from Store Apps)
-const HOME_APP_SLOT_MAX = 4;
+// Home page — Block 3 Apps sequence with permanent More board at the end
 const HOME_APP_FALLBACK_ICON = "https://i.postimg.cc/VNY8Ymks/image.png";
 
 function _getHomeStoreApps() {
@@ -130,19 +129,18 @@ function renderHomeAppsSlots() {
   if (!slotsWrap) return;
 
   const apps = _getHomeStoreApps();
-  const visibleApps = apps.slice(0, HOME_APP_SLOT_MAX);
 
   let html = "";
-  for (let i = 0; i < HOME_APP_SLOT_MAX; i++) {
-    const app = visibleApps[i];
-    if (app) {
-      html += `<button class="block-3-icon-item block-3-app-slot" data-id="${app.id}" aria-label="Open ${app.name}">
-        <img src="${app.img || HOME_APP_FALLBACK_ICON}" alt="${app.name}" class="block-3-icon-img" />
-      </button>`;
-    } else {
-      html += `<div class="block-3-icon-item block-3-icon-item-empty" aria-label="Incoming app slot"></div>`;
-    }
-  }
+  apps.forEach((app) => {
+    html += `<button class="block-3-icon-item block-3-app-slot" data-id="${app.id}" aria-label="Open ${app.name}">
+      <img src="${app.img || HOME_APP_FALLBACK_ICON}" alt="${app.name}" class="block-3-icon-img" />
+    </button>`;
+  });
+
+  html += `<button class="block-3-icon-item block-3-more-slot" id="home-app-more" aria-label="Open more apps">
+    <div class="block-3-more-plus">+</div>
+    <div class="block-3-more-text">More</div>
+  </button>`;
 
   slotsWrap.innerHTML = html;
 
@@ -152,6 +150,22 @@ function renderHomeAppsSlots() {
       _openHomeAppInStore(appId);
     });
   });
+
+  const moreBtn = document.getElementById("home-app-more");
+  if (moreBtn) {
+    moreBtn.addEventListener("click", () => {
+      if (typeof _navigateTo === "function") _navigateTo("/store");
+      if (typeof showPage === "function" && typeof menuPage !== "undefined") {
+        showPage(menuPage);
+      }
+      if (typeof markStoreSeen === "function") markStoreSeen();
+      if (typeof _setActiveNav === "function") _setActiveNav("menu");
+      requestAnimationFrame(() => {
+        const appsTab = document.querySelector('.abc-title[data-category="apps"]');
+        if (appsTab) appsTab.click();
+      });
+    });
+  }
 }
 
 window.renderHomeAppsSlots = renderHomeAppsSlots;

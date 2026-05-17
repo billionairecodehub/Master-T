@@ -8,6 +8,7 @@ const AUTH_SIGNUP_COOLDOWN_KEY = "mt_auth_signup_cd_until";
 const AUTH_FORGOT_CODE_KEY = "mt_auth_forgot_code";
 const AUTH_POST_LOGIN_TRANSITION_MS = 5000;
 const AUTH_LOGIN_FREE_PASS = true;
+const AUTH_START_SEEN_KEY = "mt_auth_start_seen";
 
 const _authState = {
   signupStep: 1,
@@ -23,6 +24,14 @@ function _setGatewayVisible(showAuth) {
   const main = document.querySelector(".main");
   if (authPage) authPage.style.display = showAuth ? "flex" : "none";
   if (main) main.style.display = showAuth ? "none" : "block";
+}
+
+function _markStartSeen() {
+  localStorage.setItem(AUTH_START_SEEN_KEY, "1");
+}
+
+function _hasSeenStart() {
+  return localStorage.getItem(AUTH_START_SEEN_KEY) === "1";
 }
 
 function getAuthState() {
@@ -182,11 +191,13 @@ function _setupPasscodeNavigation(containerId) {
 }
 
 function _openSignup() {
+  _markStartSeen();
   showAuthScreen("auth-screen-signup");
   _showSignupStep(1);
 }
 
 function _openSignin() {
+  _markStartSeen();
   showAuthScreen("auth-screen-signin");
 }
 
@@ -450,6 +461,7 @@ function _setupListeners() {
   const btnStart = _qs("auth-btn-start");
   if (btnStart) {
     btnStart.addEventListener("click", () => {
+      _markStartSeen();
       _openSignup();
     });
   }
@@ -490,7 +502,11 @@ function _setupListeners() {
   const forgotReset = _qs("auth-forgot-reset");
   const supportBtn = _qs("auth-contact-support");
   if (forgotOpen) forgotOpen.addEventListener("click", _openForgotPassword);
-  if (forgotBack) forgotBack.addEventListener("click", _openSignin);
+  if (forgotBack)
+    forgotBack.addEventListener("click", () => {
+      _markStartSeen();
+      _openSignin();
+    });
   if (forgotResend) forgotResend.addEventListener("click", _forgotResend);
   if (forgotReset) forgotReset.addEventListener("click", _forgotReset);
   if (supportBtn) {
@@ -520,11 +536,15 @@ function initAuthFlow() {
   _setupListeners();
 
   if (isUserAuthenticated()) {
-    _setGatewayVisible(false);
+    _showPostLoginTransition();
     return;
   }
 
-  showAuthScreen("auth-screen-start");
+  if (_hasSeenStart()) {
+    showAuthScreen("auth-screen-signin");
+  } else {
+    showAuthScreen("auth-screen-start");
+  }
   _setGatewayVisible(true);
 }
 
