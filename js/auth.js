@@ -2,7 +2,7 @@
 
 const AUTH_STATE_KEY = "mt_auth_state";
 const AUTH_USER_KEY = "mt_auth_user";
-const AUTH_POST_LOGIN_TRANSITION_MS = 1000;
+const AUTH_POST_LOGIN_TRANSITION_MS = 3000;
 
 function getAuthState() {
   return localStorage.getItem(AUTH_STATE_KEY) || "unauthenticated";
