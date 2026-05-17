@@ -1,14 +1,65 @@
-// Home page — Library grid (25 icons)
-const libraryGrid = document.getElementById("home-library-grid");
-if (libraryGrid) {
-  const LIBRARY_ICON = "https://i.postimg.cc/508MnvsH/image.png";
-  libraryGrid.innerHTML = Array.from({ length: 25 })
-    .map(
-      () =>
-        `<div class="block-2-grid-item"><img src="${LIBRARY_ICON}" alt="" class="block-2-grid-icon" /></div>`,
-    )
-    .join("");
+// Home page — Block 2 Store & Library books grid (max 25)
+const HOME_BOOK_SLOT_MAX = 25;
+const HOME_BOOK_FALLBACK_ICON = "https://i.postimg.cc/VNY8Ymks/image.png";
+
+function _getHomeStoreBooks() {
+  return DataStore.getAll("books").filter((b) => !b.draft);
 }
+
+function _openHomeBookInStore(bookId) {
+  if (!bookId) return;
+
+  if (typeof _navigateTo === "function") _navigateTo("/store");
+
+  if (
+    typeof showPage === "function" &&
+    typeof menuPage !== "undefined" &&
+    menuPage
+  ) {
+    showPage(menuPage);
+  }
+
+  if (typeof markStoreSeen === "function") markStoreSeen();
+  if (typeof _setActiveNav === "function") _setActiveNav("menu");
+
+  const openDetail = () => {
+    if (typeof _menuOpenBook === "function") _menuOpenBook(bookId);
+  };
+
+  requestAnimationFrame(openDetail);
+}
+
+function renderHomeBooksGrid() {
+  const grid = document.getElementById("home-library-grid");
+  if (!grid) return;
+
+  const books = _getHomeStoreBooks();
+  const visibleBooks = books.slice(0, HOME_BOOK_SLOT_MAX);
+
+  let html = "";
+  for (let i = 0; i < HOME_BOOK_SLOT_MAX; i++) {
+    const book = visibleBooks[i];
+    if (book) {
+      html += `<div class="block-2-grid-item block-2-book-slot" data-id="${book.id}" aria-label="Open ${book.name}">
+        <img src="${book.img || HOME_BOOK_FALLBACK_ICON}" alt="${book.name}" class="block-2-grid-icon" />
+      </div>`;
+    } else {
+      html += `<div class="block-2-grid-item block-2-grid-item-empty" aria-label="Incoming book slot"></div>`;
+    }
+  }
+
+  grid.innerHTML = html;
+
+  grid.querySelectorAll(".block-2-book-slot").forEach((slot) => {
+    slot.addEventListener("click", () => {
+      const bookId = slot.getAttribute("data-id");
+      _openHomeBookInStore(bookId);
+    });
+  });
+}
+
+window.renderHomeBooksGrid = renderHomeBooksGrid;
+renderHomeBooksGrid();
 
 // Home page — Block 3 Apps slots (max 4, synced from Store Apps)
 const HOME_APP_SLOT_MAX = 4;
@@ -76,6 +127,7 @@ renderHomeAppsSlots();
 window.addEventListener("mt:remote-update", (e) => {
   const changed = e.detail?.changed || null;
   if (!changed || changed === "apps") renderHomeAppsSlots();
+  if (!changed || changed === "books") renderHomeBooksGrid();
 });
 
 // Home page — Subscribe form
