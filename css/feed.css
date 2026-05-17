@@ -85,7 +85,7 @@ button {
   width: 36px;
   height: 36px;
   border-radius: 7px;
-  border: 2px solid rgba(255, 255, 255, 0.18);
+  border: 0.75px solid rgba(255, 255, 255, 0.18);
   flex-shrink: 0;
 }
 
@@ -270,10 +270,10 @@ button {
 
 .post-subject {
   color: #ddd;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 500;
   line-height: 1.2;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.75px;
   opacity: 0.9;
 }
 
