@@ -156,11 +156,12 @@ button {
 
 .quest-question {
   color: #ddd;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: -0.3px;
-  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.75px;
+  opacity: 0.9;
+  text-transform: capitalize;
 }
 
 .quest-question-icon {
