@@ -4,8 +4,11 @@
 
 // ── 1. Board Toggle (Expand/Collapse) ──────────────────────────
 function setupBoardToggle() {
-  const boardItems = document.querySelectorAll(".about-board-item");
-  const boardTriggers = document.querySelectorAll(".about-board");
+  const aboutPageEl = document.querySelector(".about-page");
+  if (!aboutPageEl) return;
+
+  const boardItems = aboutPageEl.querySelectorAll(".about-board-item");
+  const boardTriggers = aboutPageEl.querySelectorAll(".about-board");
 
   boardTriggers.forEach((trigger) => {
     trigger.addEventListener("click", () => {
@@ -27,12 +30,15 @@ function setupBoardToggle() {
 
 // ── 2. Search Filter ───────────────────────────────────────────
 function setupSearchFilter() {
-  const searchInput = document.getElementById("about-search-input");
+  const aboutPageEl = document.querySelector(".about-page");
+  if (!aboutPageEl) return;
+
+  const searchInput = aboutPageEl.querySelector("#about-search-input");
   if (!searchInput) return;
 
   searchInput.addEventListener("input", () => {
     const query = searchInput.value.trim().toLowerCase();
-    const boardItems = document.querySelectorAll(".about-board-item");
+    const boardItems = aboutPageEl.querySelectorAll(".about-board-item");
 
     boardItems.forEach((item) => {
       const label = (item.getAttribute("data-label") || "").toLowerCase();
