@@ -44,30 +44,52 @@ async function loadPage(url) {
 
 async function boot() {
   const main = document.querySelector(".main");
+  const mobileLayout = document.querySelector(".mobile-layout");
 
   // Load all page partials in parallel
-  const [home, profile, quest, noti, menu, about, feed, block] =
-    await Promise.all([
-      loadPage("pages/home.html"),
-      loadPage("pages/profile.html"),
-      loadPage("pages/quest.html"),
-      loadPage("pages/noti.html"),
-      loadPage("pages/menu.html"),
-      loadPage("pages/about.html"),
-      loadPage("pages/feed.html"),
-      loadPage("pages/block.html"),
-    ]);
+  const [
+    auth,
+    home,
+    profile,
+    userProfile,
+    quest,
+    noti,
+    menu,
+    about,
+    feed,
+    block,
+  ] = await Promise.all([
+    loadPage("pages/auth.html"),
+    loadPage("pages/home.html"),
+    loadPage("pages/profile.html"),
+    loadPage("pages/user-profile.html"),
+    loadPage("pages/quest.html"),
+    loadPage("pages/noti.html"),
+    loadPage("pages/menu.html"),
+    loadPage("pages/about.html"),
+    loadPage("pages/feed.html"),
+    loadPage("pages/block.html"),
+  ]);
 
-  // Inject all pages into main container
+  // Inject auth page as sibling in mobile-layout (fixed overlay)
+  if (mobileLayout) {
+    const authDiv = document.createElement("div");
+    authDiv.innerHTML = auth;
+    mobileLayout.insertBefore(authDiv.firstElementChild, main);
+  }
+
+  // Inject all other pages into main container
   main.innerHTML =
-    home + profile + quest + noti + menu + about + feed + block;
+    home + profile + userProfile + quest + noti + menu + about + feed + block;
 
-  // Now load all JS files in order (shared data first, then sync from Firebase, then page scripts)
+  // Now load all JS files in order (shared data first, then auth, then page scripts)
   const dataLoad = ["shared/data.js", "shared/scroll-reveal.js"];
   const pageScripts = [
+    "js/auth.js",
     "js/index.js",
     "js/home.js",
     "js/profile.js",
+    "js/user-profile.js",
     "js/quest.js",
     "js/noti.js",
     "js/menu.js",

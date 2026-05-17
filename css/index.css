@@ -421,6 +421,7 @@ body {
   scroll-behavior: smooth;
   overscroll-behavior: contain;
   scrollbar-gutter: stable;
+  display: none;
 }
 
 .main::after {

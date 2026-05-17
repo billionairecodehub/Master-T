@@ -32,6 +32,7 @@ window.addEventListener("scroll", () => {
 // Page references
 const homePage = document.querySelector(".home");
 const profilePage = document.querySelector(".profile-page");
+const userProfilePage = document.querySelector(".user-profile-page");
 const menuPage = document.querySelector(".menu-page");
 const feedPage = document.querySelector(".feed-page");
 const blockPage = document.querySelector(".block-page");
@@ -46,6 +47,7 @@ const navItems = document.querySelectorAll(".nav-item");
 function hideAllPages() {
   homePage.style.display = "none";
   profilePage.style.display = "none";
+  if (userProfilePage) userProfilePage.style.display = "none";
   menuPage.style.display = "none";
   if (feedPage) feedPage.style.display = "none";
   if (blockPage) blockPage.style.display = "none";
@@ -178,6 +180,14 @@ function _router() {
     showPage(profilePage);
     return true;
   }
+  if (type === "user" || type === "me" || type === "account") {
+    if (userProfilePage) {
+      showPage(userProfilePage);
+      _setActiveNav("");
+      if (typeof refreshUserProfile === "function") refreshUserProfile();
+      return true;
+    }
+  }
   if (type === "feed") {
     if (feedPage) showPage(feedPage);
     _setActiveNav("feed");
@@ -273,9 +283,29 @@ if (headerNotiBtnEl) {
   });
 }
 
-// Header profile icon (next to notification) — reserved for user auth (future)
-// const headerMenuIconEl = document.getElementById("header-menu-icon");
-// Intentionally disabled — will be wired for Login / Sign Up in a future task.
+// Header profile icon (next to notification) — navigates to profile page
+const headerMenuIconEl = document.getElementById("header-menu-icon");
+if (headerMenuIconEl) {
+  headerMenuIconEl.addEventListener("click", (e) => {
+    e.preventDefault();
+    const isAuth = !!localStorage.getItem("mt_auth_user");
+    if (!isAuth) {
+      // Not authenticated, show auth page
+      const authPage = document.getElementById("auth-page");
+      const main = document.querySelector(".main");
+      if (authPage && main) {
+        main.style.display = "none";
+        authPage.style.display = "flex";
+      }
+    } else {
+      // Authenticated, navigate to user-own profile
+      _navigateTo("/user");
+      if (userProfilePage) showPage(userProfilePage);
+      if (typeof refreshUserProfile === "function") refreshUserProfile();
+      _setActiveNav("");
+    }
+  });
+}
 
 // Navigation bar clicks
 navItems.forEach((navItem) => {

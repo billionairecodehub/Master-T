@@ -288,10 +288,22 @@ function refreshProfileData() {
     "https://i.postimg.cc/nhdyR4kF/Mt-Profile-Fallback-Img.png";
   // Profile hero image
   const heroImg = document.getElementById("profile-hero-img");
-  if (heroImg) heroImg.src = p.img || _DEFAULT_PROFILE_IMG;
+  if (heroImg) {
+    heroImg.onerror = () => {
+      heroImg.onerror = null;
+      heroImg.src = _DEFAULT_PROFILE_IMG;
+    };
+    heroImg.src = p.img || _DEFAULT_PROFILE_IMG;
+  }
   // Sync header avatar to match profile image
   const headerImg = document.getElementById("header-profile-img");
-  if (headerImg) headerImg.src = p.img || _DEFAULT_PROFILE_IMG;
+  if (headerImg) {
+    headerImg.onerror = () => {
+      headerImg.onerror = null;
+      headerImg.src = _DEFAULT_PROFILE_IMG;
+    };
+    headerImg.src = p.img || _DEFAULT_PROFILE_IMG;
+  }
   // Mentorship price
   const priceEl = document.getElementById("mentorship-price");
   const periodEl = document.getElementById("mentorship-period");
