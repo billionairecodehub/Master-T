@@ -203,7 +203,7 @@ function renderFeedPosts() {
                 <span class="post-footer-count post-like-count">${likes > 0 ? (likes >= 1000 ? (likes / 1000).toFixed(1) + "k" : likes) : "0"}</span>
               </div>
               <div class="post-footer-stat post-impression-stat" data-id="${p.id}">
-                <img src="https://i.postimg.cc/QN0Py5Kq/Mt-Post-Impression-Icon.png" alt="Impressions" class="post-footer-icon post-impression-icon" />
+                <img src="https://i.postimg.cc/GtBqYQW6/Mtogan-Impression-Icon.png" alt="Impressions" class="post-footer-icon post-impression-icon" />
                 <span class="post-footer-count post-impression-count">${impressions > 0 ? (impressions >= 1000 ? (impressions / 1000).toFixed(1) + "k" : impressions) : "0"}</span>
               </div>
             </div>
