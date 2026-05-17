@@ -1,6 +1,6 @@
 <div class="user-profile-page" id="user-profile-page" style="display: none">
   <main class="user-profile-main">
-    <section class="user-profile-wrap">
+    <section class="user-profile-wrap" id="user-profile-main-view">
       <div class="user-profile-header-copy">
         <div class="user-profile-header-title">Profile</div>
         <div class="user-profile-header-brand">getInWithgame</div>
@@ -82,7 +82,6 @@
               src="https://i.postimg.cc/3RKKKLyy/Mtogan-user-logout-icon.png"
               alt="Log out"
             />
-            <span>Log-Out</span>
           </button>
         </div>
       </div>
@@ -102,6 +101,72 @@
           <span>Click to View More Info</span>
         </div>
       </button>
+
+      <div class="user-profile-footer-brand">getInWithgame</div>
+    </section>
+
+    <section
+      class="user-profile-details-view"
+      id="user-profile-details-view"
+      style="display: none"
+    >
+      <div class="user-details-topbar">
+        <button
+          class="user-details-back"
+          id="user-profile-details-back"
+          type="button"
+          aria-label="Back to profile"
+        >
+          <img
+            src="https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png"
+            alt="Back"
+          />
+        </button>
+      </div>
+
+      <div class="user-details-board">
+        <div class="user-details-board-title">Consults</div>
+        <button
+          class="user-details-row-btn"
+          id="user-consult-copy-btn"
+          type="button"
+        >
+          <img
+            src="https://i.postimg.cc/hGTYTWj1/Mtogan-user-copy-id-icon.png"
+            alt="Copy ID"
+            class="user-details-row-icon"
+          />
+          <span>Copy ID</span>
+        </button>
+        <div class="user-details-mini-note" id="user-consult-note"></div>
+      </div>
+
+      <div class="user-details-board user-details-resource-board">
+        <div class="user-details-board-title">Resources</div>
+        <div class="user-details-sub" id="user-resources-meta">
+          Book Purchased By Justbgoodd
+        </div>
+
+        <div class="user-resources-scroll" id="user-resources-scroll"></div>
+
+        <div class="user-resources-bars" id="user-resources-bars"></div>
+      </div>
+
+      <div class="user-details-board">
+        <div class="user-details-board-title">Contact Support</div>
+        <button
+          class="user-details-row-btn"
+          id="user-support-email-btn"
+          type="button"
+        >
+          <img
+            src="https://i.postimg.cc/DZQtkk3S/Mtogan-user-contact-support-icon.png"
+            alt="Support"
+            class="user-details-row-icon"
+          />
+          <span>Support@getinwithgame.com</span>
+        </button>
+      </div>
 
       <div class="user-profile-footer-brand">getInWithgame</div>
     </section>
