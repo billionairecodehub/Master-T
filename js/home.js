@@ -1,5 +1,5 @@
-// Home page — Block 2 Store & Library books grid (max 25)
-const HOME_BOOK_SLOT_MAX = 25;
+// Home page — Block 2 Store & Library books tabs (5 books + 1 more)
+const HOME_BOOK_VISIBLE_MAX = 5;
 const HOME_BOOK_FALLBACK_ICON = "https://i.postimg.cc/VNY8Ymks/image.png";
 
 function _getHomeStoreBooks() {
@@ -30,24 +30,50 @@ function _openHomeBookInStore(bookId) {
   requestAnimationFrame(openDetail);
 }
 
+function _openHomeBooksListInStore() {
+  if (typeof _navigateTo === "function") _navigateTo("/store");
+
+  if (
+    typeof showPage === "function" &&
+    typeof menuPage !== "undefined" &&
+    menuPage
+  ) {
+    showPage(menuPage);
+  }
+
+  if (typeof markStoreSeen === "function") markStoreSeen();
+  if (typeof _setActiveNav === "function") _setActiveNav("menu");
+
+  requestAnimationFrame(() => {
+    const booksTab = document.querySelector('.abc-title[data-category="books"]');
+    if (booksTab) booksTab.click();
+  });
+}
+
 function renderHomeBooksGrid() {
   const grid = document.getElementById("home-library-grid");
   if (!grid) return;
 
   const books = _getHomeStoreBooks();
-  const visibleBooks = books.slice(0, HOME_BOOK_SLOT_MAX);
+  const visibleBooks = books.slice(0, HOME_BOOK_VISIBLE_MAX);
 
   let html = "";
-  for (let i = 0; i < HOME_BOOK_SLOT_MAX; i++) {
+  for (let i = 0; i < HOME_BOOK_VISIBLE_MAX; i++) {
     const book = visibleBooks[i];
     if (book) {
-      html += `<div class="block-2-grid-item block-2-book-slot" data-id="${book.id}" aria-label="Open ${book.name}">
+      html += `<button class="block-2-grid-item block-2-book-slot" data-id="${book.id}" aria-label="Open ${book.name}">
         <img src="${book.img || HOME_BOOK_FALLBACK_ICON}" alt="${book.name}" class="block-2-grid-icon" />
-      </div>`;
+      </button>`;
     } else {
       html += `<div class="block-2-grid-item block-2-grid-item-empty" aria-label="Incoming book slot"></div>`;
     }
   }
+
+  // Last (6th) tab: more books → open Store Books list
+  html += `<button class="block-2-grid-item block-2-more-slot" id="home-library-more" aria-label="Open more books">
+      <div class="block-2-more-icon">+</div>
+      <div class="block-2-more-text">More</div>
+    </button>`;
 
   grid.innerHTML = html;
 
@@ -57,6 +83,11 @@ function renderHomeBooksGrid() {
       _openHomeBookInStore(bookId);
     });
   });
+
+  const moreBtn = document.getElementById("home-library-more");
+  if (moreBtn) {
+    moreBtn.addEventListener("click", _openHomeBooksListInStore);
+  }
 }
 
 window.renderHomeBooksGrid = renderHomeBooksGrid;

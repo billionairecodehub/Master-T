@@ -1,7 +1,7 @@
 <div class="auth-page" id="auth-page">
   <!-- Get Started Screen -->
   <div class="auth-screen auth-screen-start is-active" id="auth-screen-start">
-    <div class="auth-wrapper">
+    <div class="auth-wrapper auth-wrapper-start">
       <div class="auth-logo-section">
         <div class="auth-logo-label">Master Togan Exclusive</div>
         <div class="auth-logo-main">get in with game</div>
@@ -20,80 +20,323 @@
     </div>
   </div>
 
-  <!-- Sign In Screen -->
-  <div class="auth-screen auth-screen-signin" id="auth-screen-signin">
-    <div class="auth-wrapper">
-      <div class="auth-form-section">
-        <div class="auth-form-title">Sign-In</div>
-        <div class="auth-form-subtitle">with Google or Microsoft</div>
+  <!-- Sign Up Screen -->
+  <div class="auth-screen auth-screen-signup" id="auth-screen-signup">
+    <div class="auth-wrapper auth-wrapper-form">
+      <div class="auth-heading">
+        <div class="auth-title">Sign-Up</div>
+        <div class="auth-subtitle">with e-mail and password</div>
+      </div>
 
-        <button class="auth-btn auth-btn-google" id="auth-btn-google">
-          Choose your account
+      <div class="auth-switch" role="tablist" aria-label="Auth switch">
+        <button
+          class="auth-switch-btn is-active"
+          id="auth-tab-signup"
+          type="button"
+        >
+          Sign-Up
         </button>
+        <button class="auth-switch-btn" id="auth-tab-signin" type="button">
+          Sign-In
+        </button>
+      </div>
 
-        <button class="auth-btn auth-btn-primary" id="auth-btn-continue">
+      <div class="auth-signup-step is-active" id="auth-signup-step-1">
+        <div class="auth-inputs">
+          <input
+            id="su-full-name"
+            class="auth-input"
+            type="text"
+            placeholder="Enter Your Full Name"
+            autocomplete="name"
+          />
+          <input
+            id="su-email"
+            class="auth-input"
+            type="email"
+            placeholder="Enter Your Email"
+            autocomplete="email"
+          />
+          <input
+            id="su-password"
+            class="auth-input"
+            type="password"
+            placeholder="Enter Your Password"
+            autocomplete="new-password"
+          />
+          <input
+            id="su-confirm-password"
+            class="auth-input"
+            type="password"
+            placeholder="Confirm Your Password"
+            autocomplete="new-password"
+          />
+        </div>
+
+        <div class="auth-page-bars" aria-hidden="true">
+          <span class="auth-page-bar is-on"></span>
+          <span class="auth-page-bar"></span>
+        </div>
+
+        <button
+          class="auth-btn auth-btn-dark"
+          id="auth-signup-continue"
+          type="button"
+        >
           Continue
         </button>
       </div>
 
-      <div class="auth-footer">
-        <span class="auth-footer-text">getInWithgame</span>
+      <div class="auth-signup-step" id="auth-signup-step-2">
+        <div class="auth-inputs">
+          <input
+            id="su-username"
+            class="auth-input"
+            type="text"
+            placeholder="Create a Username"
+            autocomplete="username"
+          />
+
+          <div class="auth-dual-grid">
+            <button class="auth-choice-btn" data-gender="Male" type="button">
+              Male
+            </button>
+            <button class="auth-choice-btn" data-gender="Female" type="button">
+              Female
+            </button>
+          </div>
+
+          <div class="auth-dual-grid">
+            <button class="auth-choice-btn" data-status="Single" type="button">
+              Single
+            </button>
+            <button class="auth-choice-btn" data-status="Married" type="button">
+              Married
+            </button>
+          </div>
+        </div>
+
+        <button class="auth-link-btn" id="auth-signup-back" type="button">
+          Go Back
+        </button>
+
+        <div class="auth-page-bars" aria-hidden="true">
+          <span class="auth-page-bar"></span>
+          <span class="auth-page-bar is-on"></span>
+        </div>
+
+        <button
+          class="auth-btn auth-btn-dark"
+          id="auth-signup-submit"
+          type="button"
+        >
+          Sign-Up
+        </button>
       </div>
+
+      <div class="auth-bottom-brand">getInWithgame</div>
+      <div class="auth-note" id="auth-signup-note"></div>
+    </div>
+  </div>
+
+  <!-- Sign In Screen -->
+  <div class="auth-screen auth-screen-signin" id="auth-screen-signin">
+    <div class="auth-wrapper auth-wrapper-form">
+      <div class="auth-heading">
+        <div class="auth-title">Sign-In</div>
+        <div class="auth-subtitle">with e-mail and password</div>
+      </div>
+
+      <div class="auth-switch" role="tablist" aria-label="Auth switch">
+        <button class="auth-switch-btn" id="auth-tab-signup-2" type="button">
+          Sign-Up
+        </button>
+        <button
+          class="auth-switch-btn is-active"
+          id="auth-tab-signin-2"
+          type="button"
+        >
+          Sign-in
+        </button>
+      </div>
+
+      <div class="auth-inputs auth-signin-inputs">
+        <input
+          id="si-email"
+          class="auth-input"
+          type="email"
+          placeholder="Enter Your Email"
+          autocomplete="email"
+        />
+        <input
+          id="si-password"
+          class="auth-input"
+          type="password"
+          placeholder="Enter Your Password"
+          autocomplete="current-password"
+        />
+      </div>
+
+      <button class="auth-outline-btn" id="auth-forgot-open" type="button">
+        Forgot Password?
+      </button>
+
+      <button
+        class="auth-btn auth-btn-dark"
+        id="auth-signin-submit"
+        type="button"
+      >
+        Log-In
+      </button>
+
+      <div class="auth-bottom-brand">getInWithgame</div>
+      <div class="auth-note" id="auth-signin-note"></div>
     </div>
   </div>
 
   <!-- Auth Verification Screen -->
   <div class="auth-screen auth-screen-verify" id="auth-screen-verify">
-    <div class="auth-wrapper">
-      <div class="auth-verify-section">
-        <div class="auth-verify-title">Auth</div>
-        <div class="auth-verify-desc">
-          Enter the Passcode sent to your email
-        </div>
+    <div class="auth-wrapper auth-wrapper-form">
+      <div class="auth-heading">
+        <div class="auth-title">Auth</div>
+        <div class="auth-subtitle">Enter the passcode sent to your e-Mail</div>
+      </div>
 
-        <div class="auth-passcode-inputs" id="auth-passcode-inputs">
-          <input
-            type="text"
-            class="auth-passcode-input"
-            maxlength="1"
-            inputmode="numeric"
-            aria-label="Passcode digit 1"
-          />
-          <input
-            type="text"
-            class="auth-passcode-input"
-            maxlength="1"
-            inputmode="numeric"
-            aria-label="Passcode digit 2"
-          />
-          <input
-            type="text"
-            class="auth-passcode-input"
-            maxlength="1"
-            inputmode="numeric"
-            aria-label="Passcode digit 3"
-          />
-          <input
-            type="text"
-            class="auth-passcode-input"
-            maxlength="1"
-            inputmode="numeric"
-            aria-label="Passcode digit 4"
-          />
-        </div>
+      <div class="auth-passcode-inputs" id="auth-passcode-inputs">
+        <input
+          type="text"
+          class="auth-passcode-input"
+          maxlength="1"
+          inputmode="numeric"
+          aria-label="Passcode digit 1"
+        />
+        <input
+          type="text"
+          class="auth-passcode-input"
+          maxlength="1"
+          inputmode="numeric"
+          aria-label="Passcode digit 2"
+        />
+        <input
+          type="text"
+          class="auth-passcode-input"
+          maxlength="1"
+          inputmode="numeric"
+          aria-label="Passcode digit 3"
+        />
+        <input
+          type="text"
+          class="auth-passcode-input"
+          maxlength="1"
+          inputmode="numeric"
+          aria-label="Passcode digit 4"
+        />
+      </div>
 
-        <div class="auth-resend-section">
-          <button class="auth-resend-btn" id="auth-btn-resend">Resend</button>
-        </div>
-
-        <button class="auth-btn auth-btn-primary" id="auth-btn-verify">
-          Verify
+      <div class="auth-inline-links">
+        <button class="auth-link-btn" id="auth-verify-back" type="button">
+          Go Back
+        </button>
+        <button class="auth-link-btn" id="auth-verify-reset" type="button">
+          Reset
         </button>
       </div>
 
-      <div class="auth-footer">
-        <span class="auth-footer-text">getInWithgame</span>
+      <button
+        class="auth-btn auth-btn-dark auth-btn-bottom"
+        id="auth-verify-submit"
+        type="button"
+      >
+        Verify
+      </button>
+
+      <div class="auth-bottom-brand">getInWithgame</div>
+      <div class="auth-note" id="auth-verify-note"></div>
+    </div>
+  </div>
+
+  <!-- Forgot Password Screen -->
+  <div class="auth-screen auth-screen-forgot" id="auth-screen-forgot">
+    <div class="auth-wrapper auth-wrapper-form">
+      <div class="auth-heading">
+        <div class="auth-title auth-title-forgot">Forgot<br />Password?</div>
       </div>
+
+      <div class="auth-inputs">
+        <input
+          id="fp-new-password"
+          class="auth-input"
+          type="password"
+          placeholder="Enter Your New Password"
+          autocomplete="new-password"
+        />
+        <input
+          id="fp-confirm-password"
+          class="auth-input"
+          type="password"
+          placeholder="Confirm Your New Password"
+          autocomplete="new-password"
+        />
+      </div>
+
+      <div class="auth-subtitle auth-forgot-caption">
+        Enter your passcode sent to your email
+      </div>
+
+      <div class="auth-passcode-inputs" id="forgot-passcode-inputs">
+        <input
+          type="text"
+          class="auth-passcode-input"
+          maxlength="1"
+          inputmode="numeric"
+          aria-label="Forgot passcode digit 1"
+        />
+        <input
+          type="text"
+          class="auth-passcode-input"
+          maxlength="1"
+          inputmode="numeric"
+          aria-label="Forgot passcode digit 2"
+        />
+        <input
+          type="text"
+          class="auth-passcode-input"
+          maxlength="1"
+          inputmode="numeric"
+          aria-label="Forgot passcode digit 3"
+        />
+        <input
+          type="text"
+          class="auth-passcode-input"
+          maxlength="1"
+          inputmode="numeric"
+          aria-label="Forgot passcode digit 4"
+        />
+      </div>
+
+      <div class="auth-inline-links">
+        <button class="auth-link-btn" id="auth-forgot-back" type="button">
+          Go Back
+        </button>
+        <button class="auth-link-btn" id="auth-forgot-resend" type="button">
+          Resend
+        </button>
+      </div>
+
+      <button class="auth-outline-btn" id="auth-contact-support" type="button">
+        Contact Support
+      </button>
+
+      <button
+        class="auth-btn auth-btn-dark"
+        id="auth-forgot-reset"
+        type="button"
+      >
+        Reset
+      </button>
+
+      <div class="auth-bottom-brand">getInWithgame</div>
+      <div class="auth-note" id="auth-forgot-note"></div>
     </div>
   </div>
 
