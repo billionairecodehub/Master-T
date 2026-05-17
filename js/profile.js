@@ -88,6 +88,7 @@ document.querySelectorAll(".profile-board[data-board]").forEach((board) => {
         typeof aboutPage !== "undefined" &&
         aboutPage
       ) {
+        window._aboutBackTarget = "profile";
         history.pushState({}, "", "/about");
         hideAllPages();
         aboutPage.style.display = "flex";
@@ -100,7 +101,7 @@ document.querySelectorAll(".profile-board[data-board]").forEach((board) => {
 });
 
 // Back buttons
-document.querySelectorAll(".profile-view-back").forEach((btn) => {
+document.querySelectorAll(".profile-page .profile-view-back").forEach((btn) => {
   btn.addEventListener("click", () => {
     btn.blur();
     closeProfileView();
@@ -108,11 +109,13 @@ document.querySelectorAll(".profile-view-back").forEach((btn) => {
 });
 
 // Click anywhere in header to go back
-document.querySelectorAll(".profile-view-header").forEach((header) => {
-  header.addEventListener("click", () => {
-    closeProfileView();
+document
+  .querySelectorAll(".profile-page .profile-view-header")
+  .forEach((header) => {
+    header.addEventListener("click", () => {
+      closeProfileView();
+    });
   });
-});
 
 // ── Sub board toggle-open ──
 document.querySelectorAll(".profile-sub-board[data-sub]").forEach((sub) => {

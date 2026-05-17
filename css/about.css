@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
+  gap: 5px;
 }
 
 .app-hero-sub {
@@ -46,6 +46,22 @@
   background-clip: text;
   padding-right: 8px;
   padding-bottom: 5px;
+}
+
+.app-hero-info {
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.8px;
+  text-align: center;
+  margin-bottom: 10px;
+  background: linear-gradient(
+    90deg,
+    rgba(240, 245, 255, 0.9),
+    rgba(180, 200, 255, 0.65)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ── Search Bar ─────────────────────────────────────────── */

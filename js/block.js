@@ -231,12 +231,12 @@ function renderBlockStories() {
       const hasLiked = !!localStorage.getItem("mt_story_like_" + s.id);
       return `<div class="block-story-card" data-id="${s.id}">
         <div class="block-story-top">
-          <div class="block-story-label">${s.label || ""}</div>
           <img src="${_B_FAV_ICON}" alt="fav" class="block-story-heart-img${hasLiked ? " liked" : ""}" data-id="${s.id}" />
         </div>
         <div class="block-story-profile">
           <img src="${_B_STORY_ICON}" alt="" class="block-story-avatar" />
           <div class="block-story-meta">
+            <div class="block-story-label">${s.label || ""}</div>
             <div class="block-story-subject">${s.subject || ""}</div>
             <div class="block-story-author">${s.author || "Master Togan"}</div>
           </div>
@@ -335,13 +335,13 @@ function _bRenderStory(id) {
   _bFullContent.innerHTML = `
     <div class="block-story-full-card-header">
       <div class="block-story-top">
-        <div class="block-story-label">${s.label || ""}</div>
         <img src="${_B_FAV_ICON}" alt="fav"
           class="block-story-heart-img${hasLiked ? " liked" : ""}" data-id="${id}" />
       </div>
       <div class="block-story-profile">
         <img src="${_B_STORY_ICON}" alt="" class="block-story-avatar" />
         <div class="block-story-meta">
+          <div class="block-story-label">${s.label || ""}</div>
           <div class="block-story-subject">${s.subject || ""}</div>
           <div class="block-story-author">${s.author || "Master Togan"}</div>
         </div>

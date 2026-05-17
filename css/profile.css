@@ -571,17 +571,13 @@ button {
   padding-top: 10px;
 }
 
-.mentorship-price {
+.mentorship-title {
   font-size: clamp(56px, 22vw, 72px);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -7px;
-  background: linear-gradient(160deg, #5ecfff 0%, #1a8fff 45%, #0055cc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #1a8fff;
   margin-bottom: 20px;
-  padding-right: 20px;
 }
 
 .mentorship-section-title {

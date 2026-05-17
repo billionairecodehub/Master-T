@@ -46,6 +46,54 @@ function setupSearchFilter() {
   });
 }
 
+// ── 3. About Header Back ───────────────────────────────────────
+function setupAboutBackButton() {
+  const header = document.querySelector(".about-page .profile-view-header");
+  const backBtn = document.querySelector(".about-page .profile-view-back");
+  if (!header && !backBtn) return;
+
+  function goBackFromAbout() {
+    const goProfile =
+      window._aboutBackTarget === "profile" &&
+      typeof showPage === "function" &&
+      typeof profilePage !== "undefined" &&
+      profilePage;
+
+    if (goProfile) {
+      window._aboutBackTarget = "";
+      history.pushState({}, "", "/profile");
+      showPage(profilePage);
+      return;
+    }
+
+    history.pushState({}, "", "/");
+    if (
+      typeof showPage === "function" &&
+      typeof homePage !== "undefined" &&
+      homePage
+    ) {
+      showPage(homePage);
+      if (typeof _setActiveNav === "function") _setActiveNav("home");
+    }
+  }
+
+  if (backBtn) {
+    backBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      backBtn.blur();
+      goBackFromAbout();
+    });
+  }
+
+  if (header) {
+    header.addEventListener("click", () => {
+      goBackFromAbout();
+    });
+  }
+}
+
 // ── Initialize on page load ────────────────────────────────────
 setupBoardToggle();
 setupSearchFilter();
+setupAboutBackButton();
