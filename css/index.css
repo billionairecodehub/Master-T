@@ -565,7 +565,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 0 5px;
+  padding: 10px;
 }
 
 .nav-item {
@@ -580,8 +580,8 @@ body {
 }
 
 .nav-icon {
-  width: 17px;
-  height: 17px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
   opacity: 0.45;
   filter: brightness(1.1) saturate(0.7);
