@@ -21,6 +21,7 @@ function _openHomeBookInStore(bookId) {
 
   if (typeof markStoreSeen === "function") markStoreSeen();
   if (typeof _setActiveNav === "function") _setActiveNav("menu");
+  window._menuDetailOrigin = "home";
 
   const openDetail = () => {
     if (typeof _menuOpenBook === "function") _menuOpenBook(bookId);
@@ -84,6 +85,7 @@ function _openHomeAppInStore(appId) {
 
   if (typeof markStoreSeen === "function") markStoreSeen();
   if (typeof _setActiveNav === "function") _setActiveNav("menu");
+  window._menuDetailOrigin = "home";
 
   const openDetail = () => {
     if (typeof _menuOpenApp === "function") _menuOpenApp(appId);

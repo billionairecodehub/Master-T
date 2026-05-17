@@ -463,6 +463,12 @@ function bindAppClicks() {
       }
 
       menuHome.style.display = "none";
+      const _appFromHome = window._menuDetailOrigin === "home";
+      appPanel.setAttribute(
+        "data-back-target",
+        _appFromHome ? "home" : "store",
+      );
+      window._menuDetailOrigin = "";
       appPanel.classList.add("open");
       const main = document.querySelector(".main");
       if (main) main.scrollTop = 0;
@@ -670,6 +676,12 @@ function bindBookClicks() {
       }
 
       menuHome.style.display = "none";
+      const _bookFromHome = window._menuDetailOrigin === "home";
+      bookPanel.setAttribute(
+        "data-back-target",
+        _bookFromHome ? "home" : "store",
+      );
+      window._menuDetailOrigin = "";
       bookPanel.classList.add("open");
       const main = document.querySelector(".main");
       if (main) main.scrollTop = 0;
@@ -829,16 +841,44 @@ function _menuOpenCircle(id) {
 // ── Back Buttons — close panel and stay in-app (replaceState so URL is clean) ──
 document.getElementById("app-panel-back").addEventListener("click", (e) => {
   e.stopPropagation();
+  const backTarget = appPanel.getAttribute("data-back-target") || "store";
+  appPanel.setAttribute("data-back-target", "store");
   appPanel.classList.remove("open");
   menuHome.style.display = "flex";
+  if (backTarget === "home") {
+    if (
+      typeof showPage === "function" &&
+      typeof homePage !== "undefined" &&
+      homePage
+    ) {
+      showPage(homePage);
+      if (typeof _setActiveNav === "function") _setActiveNav("home");
+    }
+    history.replaceState({}, "", "/");
+    return;
+  }
   if (window.location.pathname.startsWith("/app/"))
     history.replaceState({}, "", "/store");
 });
 
 document.getElementById("book-panel-back").addEventListener("click", (e) => {
   e.stopPropagation();
+  const backTarget = bookPanel.getAttribute("data-back-target") || "store";
+  bookPanel.setAttribute("data-back-target", "store");
   bookPanel.classList.remove("open");
   menuHome.style.display = "flex";
+  if (backTarget === "home") {
+    if (
+      typeof showPage === "function" &&
+      typeof homePage !== "undefined" &&
+      homePage
+    ) {
+      showPage(homePage);
+      if (typeof _setActiveNav === "function") _setActiveNav("home");
+    }
+    history.replaceState({}, "", "/");
+    return;
+  }
   if (window.location.pathname.startsWith("/book/"))
     history.replaceState({}, "", "/store");
 });
