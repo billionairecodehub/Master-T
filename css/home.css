@@ -336,11 +336,11 @@
 
 .block-3-icons {
   /* --home-app-card-width: calc((100% - 8px) / 2); */
-  --home-app-card-width: 130px;
-  --home-app-card-height: 130px;
+  --home-app-card-width: 84px;
+  --home-app-card-height: 84px;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 7px;
   justify-content: center;
   margin-top: 12px;
 }
