@@ -478,8 +478,8 @@ body {
 }
 
 .header-profile-avatar {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   border-radius: 4px;
   overflow: hidden;
   flex-shrink: 0;
@@ -528,8 +528,8 @@ body {
 }
 
 .header-menu-icon {
-  width: 15px;
-  height: 15px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
   opacity: 0.75;
   display: block;
@@ -565,7 +565,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 10px;
+  padding: 5px 10px;
 }
 
 .nav-item {
