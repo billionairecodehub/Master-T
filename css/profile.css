@@ -485,6 +485,26 @@ button {
   padding-bottom: 40px;
 }
 
+.profile-app-content {
+  gap: 0;
+  padding: 0 20px 40px;
+}
+
+.profile-app-content .app-hero {
+  gap: 22px;
+  padding: 10px 0 12px;
+}
+
+.profile-app-content .app-search-wrap {
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 0;
+}
+
+.profile-app-content .about-wrapper {
+  padding: 8px 0 0;
+}
+
 .about-identity {
   display: flex;
   flex-direction: column;

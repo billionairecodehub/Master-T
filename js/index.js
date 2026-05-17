@@ -216,9 +216,12 @@ function _router() {
     return true;
   }
   if (type === "about") {
-    hideAllPages();
-    aboutPage.style.display = "flex";
-    _setActiveNav("about");
+    showPage(profilePage);
+    if (typeof window._openProfileBoard === "function") {
+      window._openProfileBoard("app");
+    } else {
+      window._routerDeepLink = { type: "profile-board", id: "app" };
+    }
     return true;
   }
 

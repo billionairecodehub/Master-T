@@ -5,6 +5,7 @@ const profileXLink = document.getElementById("profile-x-link");
 const profileXIcon = document.getElementById("profile-x-icon");
 const profileViews = {
   mentorship: document.getElementById("profile-mentorship"),
+  app: document.getElementById("profile-app"),
   about: document.getElementById("profile-about"),
 };
 
@@ -81,24 +82,13 @@ document.querySelectorAll(".profile-board[data-board]").forEach((board) => {
   const name = board.getAttribute("data-board");
   board.addEventListener("click", () => {
     board.blur();
-    if (name === "app") {
-      // Navigate to App About page
-      if (
-        typeof showPage === "function" &&
-        typeof aboutPage !== "undefined" &&
-        aboutPage
-      ) {
-        window._aboutBackTarget = "profile";
-        history.pushState({}, "", "/about");
-        hideAllPages();
-        aboutPage.style.display = "flex";
-        if (typeof _setActiveNav === "function") _setActiveNav("");
-      }
-      return;
-    }
     openProfileView(name);
   });
 });
+
+window._openProfileBoard = function (name) {
+  openProfileView(name);
+};
 
 // Back buttons
 document.querySelectorAll(".profile-page .profile-view-back").forEach((btn) => {
@@ -124,6 +114,49 @@ document.querySelectorAll(".profile-sub-board[data-sub]").forEach((sub) => {
     sub.classList.toggle("expanded");
   });
 });
+
+function setupProfileAppBoards() {
+  const appView = document.getElementById("profile-app");
+  if (!appView) return;
+
+  const appBoardItems = appView.querySelectorAll(".about-board-item");
+  const appBoardTriggers = appView.querySelectorAll(".about-board");
+  const appSearchInput = appView.querySelector("#profile-app-search");
+
+  appBoardTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const parentItem = trigger.closest(".about-board-item");
+      if (!parentItem) return;
+      const isCurrentlyExpanded = parentItem.classList.contains("expanded");
+      appBoardItems.forEach((item) => item.classList.remove("expanded"));
+      if (!isCurrentlyExpanded) parentItem.classList.add("expanded");
+    });
+  });
+
+  if (appSearchInput) {
+    appSearchInput.addEventListener("input", () => {
+      const query = appSearchInput.value.trim().toLowerCase();
+      appBoardItems.forEach((item) => {
+        const label = (item.getAttribute("data-label") || "").toLowerCase();
+        const text = item.textContent.toLowerCase();
+        const shouldHide =
+          query !== "" && !label.includes(query) && !text.includes(query);
+        item.classList.toggle("hidden", shouldHide);
+      });
+    });
+  }
+}
+
+setupProfileAppBoards();
+
+if (
+  window._routerDeepLink &&
+  window._routerDeepLink.type === "profile-board" &&
+  window._routerDeepLink.id
+) {
+  openProfileView(window._routerDeepLink.id);
+  window._routerDeepLink = null;
+}
 
 // ── About page search filter ──
 const aboutSearchInput = document.getElementById("profile-about-search");
