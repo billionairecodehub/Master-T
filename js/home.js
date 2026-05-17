@@ -10,6 +10,74 @@ if (libraryGrid) {
     .join("");
 }
 
+// Home page — Block 3 Apps slots (max 4, synced from Store Apps)
+const HOME_APP_SLOT_MAX = 4;
+const HOME_APP_FALLBACK_ICON = "https://i.postimg.cc/VNY8Ymks/image.png";
+
+function _getHomeStoreApps() {
+  return DataStore.getAll("apps").filter((a) => !a.draft);
+}
+
+function _openHomeAppInStore(appId) {
+  if (!appId) return;
+
+  if (typeof _navigateTo === "function") _navigateTo("/store");
+
+  if (
+    typeof showPage === "function" &&
+    typeof menuPage !== "undefined" &&
+    menuPage
+  ) {
+    showPage(menuPage);
+  }
+
+  if (typeof markStoreSeen === "function") markStoreSeen();
+  if (typeof _setActiveNav === "function") _setActiveNav("menu");
+
+  const openDetail = () => {
+    if (typeof _menuOpenApp === "function") _menuOpenApp(appId);
+  };
+
+  requestAnimationFrame(openDetail);
+}
+
+function renderHomeAppsSlots() {
+  const slotsWrap = document.getElementById("home-app-slots");
+  if (!slotsWrap) return;
+
+  const apps = _getHomeStoreApps();
+  const visibleApps = apps.slice(0, HOME_APP_SLOT_MAX);
+
+  let html = "";
+  for (let i = 0; i < HOME_APP_SLOT_MAX; i++) {
+    const app = visibleApps[i];
+    if (app) {
+      html += `<button class="block-3-icon-item block-3-app-slot" data-id="${app.id}" aria-label="Open ${app.name}">
+        <img src="${app.img || HOME_APP_FALLBACK_ICON}" alt="${app.name}" class="block-3-icon-img" />
+      </button>`;
+    } else {
+      html += `<div class="block-3-icon-item block-3-icon-item-empty" aria-label="Incoming app slot"></div>`;
+    }
+  }
+
+  slotsWrap.innerHTML = html;
+
+  slotsWrap.querySelectorAll(".block-3-app-slot").forEach((slot) => {
+    slot.addEventListener("click", () => {
+      const appId = slot.getAttribute("data-id");
+      _openHomeAppInStore(appId);
+    });
+  });
+}
+
+window.renderHomeAppsSlots = renderHomeAppsSlots;
+renderHomeAppsSlots();
+
+window.addEventListener("mt:remote-update", (e) => {
+  const changed = e.detail?.changed || null;
+  if (!changed || changed === "apps") renderHomeAppsSlots();
+});
+
 // Home page — Subscribe form
 const subBtn = document.querySelector(".block-5-btn");
 if (subBtn) {

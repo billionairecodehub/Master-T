@@ -369,6 +369,7 @@ function _applyRemoteChanges(changed) {
   }
   if (!changed || changed === "apps") {
     if (typeof renderMenuApps === "function") renderMenuApps();
+    if (typeof renderHomeAppsSlots === "function") renderHomeAppsSlots();
     updateStoreDot();
   }
   if (!changed || changed === "books") {
