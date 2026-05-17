@@ -28,7 +28,7 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.2s ease;
+  transition: none;
 }
 
 .auth-screen.is-active {
@@ -135,8 +135,7 @@
 }
 
 .auth-btn-primary:active {
-  transform: scale(0.98);
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .auth-btn-primary:disabled {

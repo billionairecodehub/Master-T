@@ -33,6 +33,17 @@ function _setGatewayVisible(showAuth) {
   if (main) main.style.display = showAuth ? "none" : "block";
 }
 
+let _authStepBusy = false;
+
+function _authTransitionTo(screenId) {
+  if (_authStepBusy) return;
+  _authStepBusy = true;
+  showAuthScreen(screenId);
+  setTimeout(() => {
+    _authStepBusy = false;
+  }, 180);
+}
+
 // ── Auth Screen Navigation ──
 function showAuthScreen(screenId) {
   const screens = document.querySelectorAll(".auth-screen");
@@ -42,11 +53,11 @@ function showAuthScreen(screenId) {
 }
 
 function goToSignIn() {
-  showAuthScreen("auth-screen-signin");
+  _authTransitionTo("auth-screen-signin");
 }
 
 function goToVerify() {
-  showAuthScreen("auth-screen-verify");
+  _authTransitionTo("auth-screen-verify");
 }
 
 function completeAuth() {
@@ -68,18 +79,17 @@ function completeAuth() {
   // Hide auth page and show main app
   _setGatewayVisible(false);
 
-  // Show and navigate to user-own profile
+  // Show and navigate to app home after auth
   if (
     typeof showPage === "function" &&
-    typeof userProfilePage !== "undefined" &&
-    userProfilePage
+    typeof homePage !== "undefined" &&
+    homePage
   ) {
-    showPage(userProfilePage);
-    if (typeof refreshUserProfile === "function") refreshUserProfile();
-    if (typeof _setActiveNav === "function") _setActiveNav("");
+    showPage(homePage);
+    if (typeof _setActiveNav === "function") _setActiveNav("home");
   }
 
-  if (typeof _navigateTo === "function") _navigateTo("/user");
+  if (typeof _navigateTo === "function") _navigateTo("/");
 }
 
 // ── Setup Auth Event Listeners ──
@@ -104,7 +114,10 @@ function setupAuthListeners() {
   // Continue → Verify
   const btnContinue = document.getElementById("auth-btn-continue");
   if (btnContinue) {
-    btnContinue.addEventListener("click", goToVerify);
+    btnContinue.addEventListener("click", () => {
+      if (_authStepBusy) return;
+      goToVerify();
+    });
   }
 
   // Passcode input navigation
@@ -139,9 +152,11 @@ function setupAuthListeners() {
   const btnVerify = document.getElementById("auth-btn-verify");
   if (btnVerify) {
     btnVerify.addEventListener("click", () => {
+      if (_authStepBusy) return;
       const passcodes = Array.from(passcodeInputs).map((i) => i.value);
       const code = passcodes.join("");
       if (code.length === 4) {
+        _authStepBusy = true;
         completeAuth();
       }
     });
