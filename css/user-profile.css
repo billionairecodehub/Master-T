@@ -76,7 +76,7 @@
 .user-profile-name-label {
   color: rgba(211, 222, 247, 0.82);
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -1.5px;
   line-height: 1.2;
 }
@@ -87,10 +87,11 @@
   letter-spacing: 0;
   line-height: 1.25;
   margin-top: 2px;
+  opacity: 0.75;
 }
 
 .user-profile-name-value {
-  margin-top: 4px;
+  margin-top: -10px;
   color: #1491e7;
   font-size: clamp(34px, 10vw, 64px);
   line-height: 0.95;
