@@ -453,7 +453,7 @@ function updateStoreDot() {
     DataStore.getAll("books").filter((b) => !b.draft).length +
     DataStore.getAll("circles").filter((c) => !c.draft).length;
   const seen = parseInt(localStorage.getItem("mt_store_seen") || "0");
-  const dot = document.getElementById("store-nav-dot");
+  const dot = document.getElementById("user-nav-dot");
   if (dot) dot.style.display = total > seen ? "block" : "none";
 }
 
@@ -463,7 +463,7 @@ function markStoreSeen() {
     DataStore.getAll("books").filter((b) => !b.draft).length +
     DataStore.getAll("circles").filter((c) => !c.draft).length;
   localStorage.setItem("mt_store_seen", String(total));
-  const dot = document.getElementById("store-nav-dot");
+  const dot = document.getElementById("user-nav-dot");
   if (dot) dot.style.display = "none";
 }
 

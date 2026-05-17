@@ -1,31 +1,109 @@
 <div class="user-profile-page" id="user-profile-page" style="display: none">
   <main class="user-profile-main">
     <section class="user-profile-wrap">
-      <div class="user-profile-hero">
-        <img
-          id="user-profile-avatar"
-          src="https://i.postimg.cc/nhdyR4kF/Mt-Profile-Fallback-Img.png"
-          alt="User Profile"
-          class="user-profile-avatar"
-        />
+      <div class="user-profile-header-copy">
+        <div class="user-profile-header-title">Profile</div>
+        <div class="user-profile-header-brand">getInWithgame</div>
       </div>
 
-      <div class="user-profile-cards">
-        <div class="user-profile-card" id="user-profile-name">User</div>
-        <div class="user-profile-card" id="user-profile-gender">Male</div>
-        <div class="user-profile-card" id="user-profile-status">Single</div>
-        <div class="user-profile-card" id="user-profile-age">0 day old</div>
+      <div class="user-profile-main-row">
+        <div class="user-profile-avatar-wrap">
+          <img
+            id="user-profile-avatar"
+            src="https://i.postimg.cc/nhdyR4kF/Mt-Profile-Fallback-Img.png"
+            alt="User Profile"
+            class="user-profile-avatar"
+          />
+        </div>
+
+        <div class="user-profile-name-block">
+          <div class="user-profile-name-label">Username</div>
+          <div class="user-profile-name-meta">Double Tap to Edit</div>
+          <div class="user-profile-name-value" id="user-profile-name-value">
+            Justbgoodd
+          </div>
+        </div>
+      </div>
+
+      <div class="user-profile-board board-full">
+        <div class="board-label">e-Mail</div>
+        <div class="board-content-row">
+          <img
+            class="board-icon"
+            src="https://i.postimg.cc/5yK9KwNZ/Mtogan-user-email-icon.png"
+            alt="Email"
+          />
+          <span id="user-profile-email">getinwithgame@gmail.com</span>
+        </div>
+      </div>
+
+      <div class="user-profile-grid">
+        <div class="user-profile-board board-half">
+          <div class="board-label">Gender</div>
+          <div class="board-content-row">
+            <img
+              class="board-icon"
+              src="https://i.postimg.cc/0232pd4f/Mtogan-user-gender-icon.png"
+              alt="Gender"
+            />
+            <span id="user-profile-gender">Male</span>
+          </div>
+        </div>
+
+        <div class="user-profile-board board-half">
+          <div class="board-label">Marital</div>
+          <div class="board-content-row">
+            <img
+              class="board-icon"
+              src="https://i.postimg.cc/hGnnrC11/Mtogan-user-marital-icon.png"
+              alt="Marital"
+            />
+            <span id="user-profile-marital">Single</span>
+          </div>
+        </div>
+
+        <div class="user-profile-board board-half">
+          <div class="board-label">Account</div>
+          <div class="board-content-row">
+            <img
+              class="board-icon"
+              src="https://i.postimg.cc/tJq7Mqd5/Mtogan-user-account-icon.png"
+              alt="Account"
+            />
+            <span id="user-profile-account">1d ago</span>
+          </div>
+        </div>
+
+        <div class="user-profile-board board-half board-logout">
+          <div class="board-label">Log-Out</div>
+          <button class="logout-inner" id="user-profile-logout" type="button">
+            <img
+              class="board-icon logout-icon"
+              src="https://i.postimg.cc/3RKKKLyy/Mtogan-user-logout-icon.png"
+              alt="Log out"
+            />
+            <span>Log-Out</span>
+          </button>
+        </div>
       </div>
 
       <button
-        class="user-profile-logout"
-        id="user-profile-logout"
+        class="user-profile-board board-full board-details"
+        id="user-profile-details"
         type="button"
       >
-        Log out
+        <div class="board-label">Details</div>
+        <div class="board-content-row">
+          <img
+            class="board-icon"
+            src="https://i.postimg.cc/3x4N6bpw/Mtogan-user-details-icon.png"
+            alt="Details"
+          />
+          <span>Click to View More Info</span>
+        </div>
       </button>
 
-      <div class="user-profile-brand">get In With game</div>
+      <div class="user-profile-footer-brand">getInWithgame</div>
     </section>
   </main>
 </div>
