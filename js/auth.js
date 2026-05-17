@@ -2,6 +2,7 @@
 
 const AUTH_STATE_KEY = "mt_auth_state";
 const AUTH_USER_KEY = "mt_auth_user";
+const AUTH_POST_LOGIN_TRANSITION_MS = 1000;
 
 function getAuthState() {
   return localStorage.getItem(AUTH_STATE_KEY) || "unauthenticated";
@@ -34,6 +35,7 @@ function _setGatewayVisible(showAuth) {
 }
 
 let _authStepBusy = false;
+let _authPostLoginTimer = null;
 
 function _authTransitionTo(screenId) {
   if (_authStepBusy) return;
@@ -76,20 +78,26 @@ function completeAuth() {
   };
   setAuthUser(mockUser);
 
-  // Hide auth page and show main app
-  _setGatewayVisible(false);
+  // Show branded transition screen for a polished gateway experience
+  showAuthScreen("auth-screen-transition");
+  _setGatewayVisible(true);
 
-  // Show and navigate to app home after auth
-  if (
-    typeof showPage === "function" &&
-    typeof homePage !== "undefined" &&
-    homePage
-  ) {
-    showPage(homePage);
-    if (typeof _setActiveNav === "function") _setActiveNav("home");
-  }
+  if (_authPostLoginTimer) clearTimeout(_authPostLoginTimer);
+  _authPostLoginTimer = setTimeout(() => {
+    _setGatewayVisible(false);
 
-  if (typeof _navigateTo === "function") _navigateTo("/");
+    if (
+      typeof showPage === "function" &&
+      typeof homePage !== "undefined" &&
+      homePage
+    ) {
+      showPage(homePage);
+      if (typeof _setActiveNav === "function") _setActiveNav("home");
+    }
+
+    if (typeof _navigateTo === "function") _navigateTo("/");
+    _authStepBusy = false;
+  }, AUTH_POST_LOGIN_TRANSITION_MS);
 }
 
 // ── Setup Auth Event Listeners ──
