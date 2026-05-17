@@ -168,7 +168,7 @@
 .block-2-grid-item {
   width: var(--home-book-tab-width);
   height: var(--home-book-tab-height);
-  border-radius: 9px;
+  border-radius: 4px;
   overflow: hidden;
   border: 0.5px solid rgba(107, 158, 255, 0.28);
   background: linear-gradient(
@@ -348,7 +348,7 @@
 .block-3-icon-item {
   width: var(--home-app-card-width);
   height: var(--home-app-card-height);
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
   border: 0.5px solid rgba(107, 158, 255, 0.22);
   background: linear-gradient(

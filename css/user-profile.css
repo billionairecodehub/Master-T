@@ -185,10 +185,11 @@
 
 .user-profile-footer-brand {
   text-align: center;
-  color: rgba(218, 230, 255, 0.86);
-  font-size: 18px;
-  margin-top: 6px;
-  letter-spacing: -0.9px;
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(200, 215, 255, 0.4);
+  letter-spacing: var(--letter-spacing-normal);
+  padding: 10px 0 28px;
 }
 
 @media (max-width: 390px) {
