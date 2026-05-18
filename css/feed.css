@@ -341,22 +341,22 @@ button {
   opacity: 1;
 }
 
-.post-footer-icon {
+/* .post-footer-icon {
   width: 12px;
   height: 12px;
   object-fit: contain;
-}
+} */
 
 .post-like-icon {
-  width: 14px;
-  height: 14px;
+  width: 28px;
+  height: 28px;
   transform-origin: center;
   animation: post-like-icon-breathe 2.2s ease-in-out infinite;
 }
 
 .post-impression-icon {
-  width: 12px;
-  height: 12px;
+  width: 28px;
+  height: auto;
 }
 
 .post-like-btn.voted .post-like-icon {
@@ -365,7 +365,7 @@ button {
 
 .post-footer-count {
   color: #fff;
-  font-size: 10px;
+  font-size: 15px;
   font-weight: 400;
 }
 
