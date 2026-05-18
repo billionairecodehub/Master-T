@@ -30,7 +30,7 @@
 
 .user-profile-header-title {
   color: rgba(241, 247, 255, 0.96);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
   letter-spacing: -1px;
   line-height: 1;
@@ -38,7 +38,7 @@
 
 .user-profile-header-brand {
   color: rgba(179, 191, 220, 0.75);
-  font-size: 12px;
+  font-size: 10px;
   letter-spacing: -0.2px;
 }
 
@@ -50,8 +50,8 @@
 }
 
 .user-profile-avatar-wrap {
-  width: 84px;
-  height: 84px;
+  width: 72px;
+  height: 72px;
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -74,8 +74,8 @@
 }
 
 .user-profile-name-label {
-  color: rgba(211, 222, 247, 0.82);
-  font-size: 18px;
+  color: rgba(200, 215, 255, 0.4);
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: -1.5px;
   line-height: 1.2;
@@ -83,7 +83,7 @@
 
 .user-profile-name-meta {
   color: rgba(170, 183, 220, 0.6);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0;
   line-height: 1.25;
   margin-top: 2px;
@@ -93,7 +93,8 @@
 .user-profile-name-value {
   margin-top: -10px;
   color: #1491e7;
-  font-size: clamp(34px, 10vw, 64px);
+  /* font-size: clamp(34px, 10vw, 64px); */
+  font-size: 44px;
   line-height: 0.95;
   font-weight: 600;
   letter-spacing: -2.4px;
@@ -123,9 +124,9 @@
 }
 
 .board-label {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
-  color: rgba(229, 237, 255, 0.92);
+  color: rgba(200, 215, 255, 0.4);
   margin-bottom: 8px;
   letter-spacing: -0.5px;
 }
@@ -134,8 +135,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: rgba(225, 234, 255, 0.86);
-  font-size: 13px;
+  color: rgba(200, 215, 255, 0.4);
+  font-size: 11px;
   font-weight: 400;
   letter-spacing: -0.1px;
 }
