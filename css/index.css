@@ -523,13 +523,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 14px;
+  gap: 10px;
   flex: 1;
 }
 
 .header-menu-icon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
   opacity: 0.75;
   display: block;

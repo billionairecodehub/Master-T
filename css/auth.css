@@ -43,8 +43,9 @@
 }
 
 .auth-wrapper-form {
+  height: auto;
   justify-content: center;
-  gap: 18px;
+  gap: 15px;
 }
 
 .auth-logo-section {
@@ -117,6 +118,7 @@
 
 .auth-title-forgot {
   line-height: 0.8;
+  margin-bottom: 10px;
 }
 
 .auth-subtitle {
@@ -264,7 +266,7 @@
 }
 
 .auth-btn-bottom {
-  margin-top: auto;
+  margin-top: 8px;
 }
 
 .auth-link-btn {
@@ -299,9 +301,8 @@
   margin-top: 8px;
 }
 
-/* Keep Forgot Password screen CTA lower while Sign-In stays compact */
 .auth-screen-forgot .auth-outline-btn {
-  margin-top: auto;
+  margin-top: 8px;
 }
 
 .auth-forgot-caption {
