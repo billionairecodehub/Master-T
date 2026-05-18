@@ -348,14 +348,14 @@ button {
 } */
 
 .post-like-icon {
-  width: 28px;
-  height: 28px;
+  width: 18px;
+  height: 18px;
   transform-origin: center;
   animation: post-like-icon-breathe 2.2s ease-in-out infinite;
 }
 
 .post-impression-icon {
-  width: 28px;
+  width: 18px;
   height: auto;
 }
 
