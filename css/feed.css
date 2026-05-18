@@ -273,9 +273,9 @@ button {
 
 .post-subject {
   color: #ddd;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 0.9;
   letter-spacing: -0.3px;
   max-width: 280px;
   opacity: 0.9;

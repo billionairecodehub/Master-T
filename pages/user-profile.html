@@ -1,9 +1,27 @@
 <div class="user-profile-page" id="user-profile-page" style="display: none">
   <main class="user-profile-main">
     <section class="user-profile-wrap" id="user-profile-main-view">
-      <div class="user-profile-header-copy">
-        <div class="user-profile-header-title">Profile</div>
-        <div class="user-profile-header-brand">getInWithgame</div>
+      <div class="user-profile-header-row">
+        <button
+          class="user-profile-header-home"
+          id="user-profile-home-main"
+          type="button"
+        >
+          <div class="user-profile-header-title">Profile</div>
+          <div class="user-profile-header-brand">getInWithgame</div>
+        </button>
+        <button
+          class="user-profile-header-settings"
+          id="user-profile-open-settings"
+          type="button"
+          aria-label="Open settings"
+        >
+          <img
+            class="user-profile-header-settings-icon"
+            src="https://i.postimg.cc/mgbHyBkc/Mtogan-user-settings-icon.png"
+            alt="Settings"
+          />
+        </button>
       </div>
 
       <div class="user-profile-main-row">
@@ -86,9 +104,7 @@
               src="https://i.postimg.cc/DZQtkk3S/Mtogan-user-contact-support-icon.png"
               alt="Contact"
             />
-            <span id="user-profile-contact-value"
-              >24|7 Support</span
-            >
+            <span id="user-profile-contact-value">24|7 Support</span>
           </button>
         </div>
       </div>
@@ -107,6 +123,141 @@
           />
           <span>Tap to Sign-Out</span>
         </div>
+      </button>
+
+      <div class="user-profile-footer-brand">getInWithgame</div>
+    </section>
+
+    <section
+      class="user-profile-wrap user-profile-settings-view"
+      id="user-profile-settings-view"
+      style="display: none"
+    >
+      <div class="user-profile-header-row">
+        <button
+          class="user-profile-header-home"
+          id="user-profile-home-settings"
+          type="button"
+        >
+          <div class="user-profile-header-title">Profile</div>
+          <div class="user-profile-header-brand">getInWithgame</div>
+        </button>
+        <button
+          class="user-profile-header-settings"
+          id="user-profile-settings-static"
+          type="button"
+          aria-label="Settings"
+        >
+          <img
+            class="user-profile-header-settings-icon"
+            src="https://i.postimg.cc/mgbHyBkc/Mtogan-user-settings-icon.png"
+            alt="Settings"
+          />
+        </button>
+      </div>
+
+      <div class="user-settings-title">Settings</div>
+      <div class="user-settings-divider"></div>
+
+      <div class="user-settings-section-title">Edit your Profile</div>
+      <div class="user-settings-profile-row">
+        <button
+          class="user-settings-avatar-upload"
+          id="user-settings-avatar-upload"
+          type="button"
+          aria-label="Upload profile image"
+        >
+          <img
+            id="user-settings-avatar"
+            src="https://i.postimg.cc/nhdyR4kF/Mt-Profile-Fallback-Img.png"
+            alt="Profile"
+            class="user-settings-avatar-img"
+          />
+          <img
+            class="user-settings-upload-icon"
+            src="https://i.postimg.cc/d0Cmsk4W/Mt-Admin-Image-Upload-Icon.png"
+            alt="Upload"
+          />
+        </button>
+        <input
+          id="user-settings-avatar-input"
+          type="file"
+          accept="image/*"
+          hidden
+        />
+
+        <div class="user-settings-name-wrap">
+          <input
+            id="user-settings-name"
+            class="user-settings-name-input"
+            type="text"
+            placeholder="Username"
+          />
+          <div class="user-settings-name-meta">@Mtx Character</div>
+        </div>
+      </div>
+
+      <div class="user-profile-board board-full user-settings-email-board">
+        <div class="board-label">Edit Email</div>
+        <div class="board-content-row user-settings-email-row">
+          <img
+            class="board-icon"
+            src="https://i.postimg.cc/5yK9KwNZ/Mtogan-user-email-icon.png"
+            alt="Email"
+          />
+          <input
+            id="user-settings-email"
+            class="user-settings-email-input"
+            type="email"
+            placeholder="Email"
+          />
+        </div>
+      </div>
+
+      <div class="user-settings-choice-grid" id="user-settings-gender-grid">
+        <button
+          class="user-settings-choice is-selected"
+          data-group="gender"
+          data-value="Male"
+          type="button"
+        >
+          Male
+        </button>
+        <button
+          class="user-settings-choice"
+          data-group="gender"
+          data-value="Female"
+          type="button"
+        >
+          Female
+        </button>
+      </div>
+
+      <div class="user-settings-choice-grid" id="user-settings-marital-grid">
+        <button
+          class="user-settings-choice is-selected"
+          data-group="marital"
+          data-value="Single"
+          type="button"
+        >
+          Single
+        </button>
+        <button
+          class="user-settings-choice"
+          data-group="marital"
+          data-value="Married"
+          type="button"
+        >
+          Married
+        </button>
+      </div>
+
+      <button
+        class="user-profile-board board-full user-settings-save"
+        id="user-settings-save"
+        type="button"
+      >
+        Save Changes
       </button>
 
       <div class="user-profile-footer-brand">getInWithgame</div>
