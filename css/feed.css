@@ -241,7 +241,7 @@ button {
 
 .post-thread-text {
   color: rgba(255, 255, 255, 0.8);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.7;
   white-space: pre-line;
   padding-top: 30px;
@@ -273,10 +273,10 @@ button {
 
 .post-subject {
   color: #ddd;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.75px;
+  line-height: 1.5;
+  letter-spacing: -0.3px;
   opacity: 0.9;
 }
 
