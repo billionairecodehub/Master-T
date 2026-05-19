@@ -129,6 +129,14 @@ async function boot() {
   if (window.ScrollRevealManager) {
     window.ScrollRevealManager.mount({ root: main, mode: "site" });
   }
+
+  // Reveal the layout chrome now that all scripts are loaded and the auth
+  // overlay is ready. This prevents the empty header + footer from flashing
+  // during the async boot period.
+  const headerEl = document.querySelector(".header");
+  const footerEl = document.querySelector(".footer");
+  if (headerEl) headerEl.style.display = "";
+  if (footerEl) footerEl.style.display = "";
 }
 
 boot().catch((error) => {

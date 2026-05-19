@@ -17,9 +17,9 @@ const AUTH_START_SEEN_KEY = "mt_auth_start_seen";
 //   2. Add an email service (Gmail, Outlook, etc.)
 //   3. Create a template using variables: {{to_email}}, {{verification_code}}, {{app_name}}
 //   4. Replace the three placeholder strings below with your actual credentials
-const EMAILJS_PUBLIC_KEY = "YOUR_EMAILJS_PUBLIC_KEY";
-const EMAILJS_SERVICE_ID = "YOUR_EMAILJS_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "YOUR_EMAILJS_TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY = "Fqk76Goc02oUIhWSJ"; // matches emailjs.init() in index.html
+const EMAILJS_SERVICE_ID = "service_v3anekc"; // replace with your EmailJS Service ID
+const EMAILJS_TEMPLATE_ID = "template_cd909qw"; // replace with your EmailJS Template ID
 // ──────────────────────────────────────────────────────────────────────────────
 
 const _emailjsEnabled = () =>
