@@ -252,7 +252,20 @@
 
 /* Page enter — applied by showPage() on every navigation */
 .page-fade-in {
-  animation: fadeIn 0.18s ease-out both;
+  animation: fadeIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.page-fade-out {
+  animation: fadeOut 0.22s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 /* ========== COMPONENT SNIPPETS ========== */

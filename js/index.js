@@ -44,16 +44,26 @@ const headerMenu = document.querySelector(".header-menu");
 const navItems = document.querySelectorAll(".nav-item");
 
 // Hide all pages function
-function hideAllPages() {
-  homePage.style.display = "none";
-  profilePage.style.display = "none";
-  if (userProfilePage) userProfilePage.style.display = "none";
-  menuPage.style.display = "none";
-  if (feedPage) feedPage.style.display = "none";
-  if (blockPage) blockPage.style.display = "none";
-  if (questPage) questPage.style.display = "none";
-  if (notificationsPage) notificationsPage.style.display = "none";
-  if (aboutPage) aboutPage.style.display = "none";
+
+let _currentPage = null;
+function hideAllPagesExcept(exceptPage) {
+  const pages = [
+    homePage,
+    profilePage,
+    userProfilePage,
+    menuPage,
+    feedPage,
+    blockPage,
+    questPage,
+    notificationsPage,
+    aboutPage,
+  ];
+  pages.forEach((p) => {
+    if (p && p !== exceptPage) {
+      p.style.display = "none";
+      p.classList.remove("page-fade-in", "page-fade-out");
+    }
+  });
   // Close any open profile panels
   if (typeof closeProfileView === "function") closeProfileView();
   document
@@ -73,21 +83,38 @@ function hideAllPages() {
       if (bro) bro.classList.remove("open");
     }
     mh.style.display = "flex";
-    // Close any menu expand view
     if (typeof closeExpandView === "function") closeExpandView();
   }
-  // Reset per-page expanded/detail states so pages are always clean when navigating away
   if (typeof _questCollapseAll === "function") _questCollapseAll();
   if (typeof _bForceClose === "function") _bForceClose();
   if (typeof _feedCollapseAll === "function") _feedCollapseAll();
 }
 
 // Show specific page
+
 function showPage(page) {
-  hideAllPages();
+  if (_currentPage && _currentPage !== page) {
+    // Fade out the current page
+    _currentPage.classList.remove("page-fade-in");
+    _currentPage.classList.add("page-fade-out");
+    _currentPage.addEventListener(
+      "animationend",
+      () => {
+        _currentPage.classList.remove("page-fade-out");
+        _currentPage.style.display = "none";
+        _doShowPage(page);
+      },
+      { once: true },
+    );
+  } else {
+    _doShowPage(page);
+  }
+}
+
+function _doShowPage(page) {
+  hideAllPagesExcept(page);
   page.style.display = "block";
-  // Restart the fade-in animation on every navigation
-  page.classList.remove("page-fade-in");
+  page.classList.remove("page-fade-in", "page-fade-out");
   requestAnimationFrame(() =>
     requestAnimationFrame(() => {
       page.classList.add("page-fade-in");
@@ -100,6 +127,7 @@ function showPage(page) {
   );
   const main = document.querySelector(".main");
   if (main) main.scrollTop = 0;
+  _currentPage = page;
 }
 
 function _setActiveNav(navType) {
