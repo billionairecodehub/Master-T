@@ -711,7 +711,8 @@
 /* ── Circle CTA Link Button ── */
 .circle-panel-cta-link {
   display: block;
-  width: 100%;
+  width: 80%;
+  align-self: center;
   background: rgba(5, 10, 35, 0.65);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
