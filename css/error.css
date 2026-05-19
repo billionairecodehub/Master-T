@@ -17,16 +17,6 @@ body {
 
 body {
   background:
-    radial-gradient(
-      circle at 10% 15%,
-      rgba(0, 133, 255, 0.16),
-      transparent 40%
-    ),
-    radial-gradient(
-      circle at 90% 85%,
-      rgba(110, 56, 255, 0.22),
-      transparent 46%
-    ),
     linear-gradient(145deg, #02061a 0%, #08133d 54%, #1b0b52 100%);
   color: #e9f0ff;
 }
@@ -39,6 +29,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 32px 22px;
+  background: var(--gradient-bg-global);
 }
 
 .error-wrap {
@@ -59,7 +50,7 @@ body {
 }
 
 .error-title {
-  font-size: 72px;
+  font-size: 64px;
   font-weight: 500;
   letter-spacing: -7px;
   line-height: 0.7;
@@ -170,9 +161,10 @@ body {
 .home-tab {
   width: 100%;
   border: none;
-  border-radius: 30px;
+  border-radius: 10px;
   background: rgba(2, 7, 29, 0.92);
-  min-height: 230px;
+  /* min-height: 230px; */
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -202,6 +194,7 @@ body {
   color: rgba(201, 212, 245, 0.58);
   font-size: clamp(10px, 3.6vw, 15px);
   letter-spacing: -0.6px;
+  font-family: "Gellix", Arial, sans-serif;
 }
 
 .not-found .fallback-msg {
