@@ -381,6 +381,9 @@ body {
   font-family: "Gellix", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent GPU-compositing flicker on touch interactions */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Mobile Layout */

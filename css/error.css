@@ -59,16 +59,22 @@ body {
 }
 
 .error-title {
-  font-size: clamp(72px, 13vw, 124px);
-  font-weight: 600;
-  line-height: var(--error-title-line-height);
-  letter-spacing: var(--error-title-letter-spacing);
-  padding-bottom: 40px;
-  max-width: 12ch;
-  background: linear-gradient(180deg, #39b8ff 0%, #003b65 84%);
+  font-size: 72px;
+  font-weight: 500;
+  letter-spacing: -7px;
+  line-height: 0.7;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    #2d6aff 0%,
+    #5b8fff 35%,
+    #85b0ff 65%,
+    #3a70ff 100%
+  );
   -webkit-background-clip: text;
-  background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding-bottom: 24px;
   text-wrap: balance;
 }
 
@@ -116,7 +122,7 @@ body {
 }
 
 .result-name {
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 400;
   line-height: 1;
   letter-spacing: -0.5px;
@@ -173,7 +179,6 @@ body {
   gap: 14px;
   cursor: pointer;
   transition: transform 0.2s ease;
-  
 }
 
 .home-tab:active {

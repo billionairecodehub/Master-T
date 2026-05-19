@@ -1,8 +1,18 @@
 function _formatUserAgeFromJoin(joinedAt) {
   const joinTime = Number(joinedAt) || Date.now();
   const diffMs = Math.max(0, Date.now() - joinTime);
-  const days = Math.max(1, Math.floor(diffMs / 86400000));
-  return days + "d ago";
+  const mins = Math.floor(diffMs / 60000);
+  const hrs = Math.floor(diffMs / 3600000);
+  const days = Math.floor(diffMs / 86400000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return mins + "m ago";
+  if (hrs < 24) return hrs + "h ago";
+  if (days < 365) return days + "d ago";
+  return new Date(joinTime).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 }
 
 function _getAuthUser() {
@@ -62,19 +72,52 @@ function _showUserProfileEmailModal() {
   const newEmailInput = document.getElementById("user-email-modal-new");
 
   if (modal) modal.style.display = "flex";
-  if (oldEmailInput)
-    oldEmailInput.value = user.email || "getinwithgame@gmail.com";
+  if (oldEmailInput) oldEmailInput.value = user.email || "";
   if (newEmailInput) newEmailInput.value = "";
 
-  // Clear passcode inputs
+  // Clear passcode inputs and any pending code state
   document.querySelectorAll(".auth-passcode-input").forEach((input) => {
     input.value = "";
   });
+  localStorage.removeItem(_EC_CODE_KEY);
+  localStorage.removeItem(_EC_CD_KEY);
+  _setEmailModalNote("");
 }
 
 function _hideUserProfileEmailModal() {
   const modal = document.getElementById("user-profile-email-modal");
   if (modal) modal.style.display = "none";
+}
+
+// ── Email-change verification constants & helpers ──────────────────────────
+const _EC_CODE_KEY = "mt_auth_email_change_code";
+const _EC_CD_KEY = "mt_auth_email_change_cd_until";
+
+function _setEmailModalNote(msg, isSuccess) {
+  const note = document.getElementById("user-email-modal-note");
+  if (!note) return;
+  note.textContent = msg;
+  note.style.color = isSuccess
+    ? "rgba(100, 220, 120, 0.9)"
+    : "rgba(255, 180, 80, 0.9)";
+}
+
+async function _sendEmailChangeCode(toEmail, code) {
+  try {
+    if (!window.emailjs) return false;
+    await window.emailjs.send("service_v3anekc", "template_cd909qw", {
+      to_email: toEmail,
+      passcode: code,
+    });
+    return true;
+  } catch (e) {
+    console.error("[EMAIL CHANGE]", e);
+    return false;
+  }
+}
+
+function _normalizeEmailLocal(e) {
+  return (e || "").trim().toLowerCase();
 }
 
 function _validateUsername(username) {
@@ -195,45 +238,140 @@ function setupUserProfileInteractions() {
     emailModalBackBtn.addEventListener("click", _hideUserProfileEmailModal);
   }
 
-  // Email modal resend button
+  // Email modal resend button — resend code with 60-second cooldown
   if (emailModalResendBtn) {
-    emailModalResendBtn.addEventListener("click", () => {
-      // In real implementation, resend verification code to new email
-      alert("Verification code resent to your new email");
+    emailModalResendBtn.addEventListener("click", async () => {
+      const until = Number(localStorage.getItem(_EC_CD_KEY) || 0);
+      const remaining = until - Date.now();
+      if (remaining > 0) {
+        _setEmailModalNote(
+          "Wait " + Math.ceil(remaining / 1000) + "s before resending",
+        );
+        return;
+      }
+      const newEmailInput = document.getElementById("user-email-modal-new");
+      const toEmail = (newEmailInput ? newEmailInput.value : "").trim();
+      if (!toEmail) {
+        _setEmailModalNote("Enter your new email first");
+        return;
+      }
+      const code = String(Math.floor(1000 + Math.random() * 9000));
+      localStorage.setItem(_EC_CODE_KEY, code);
+      localStorage.setItem(_EC_CD_KEY, String(Date.now() + 60000));
+      _setEmailModalNote("Resending…");
+      const ok = await _sendEmailChangeCode(toEmail, code);
+      if (ok) {
+        _setEmailModalNote(
+          "New code sent! Check your inbox — also check spam/junk folder.",
+        );
+      } else {
+        _setEmailModalNote("Failed to resend. Try again.");
+      }
     });
   }
 
-  // Email modal confirm button
+  // Email modal confirm button — Step 1: send code  /  Step 2: verify & update
   if (emailModalConfirmBtn) {
-    emailModalConfirmBtn.addEventListener("click", () => {
-      const oldEmailInput = document.getElementById("user-email-modal-old");
+    emailModalConfirmBtn.addEventListener("click", async () => {
       const newEmailInput = document.getElementById("user-email-modal-new");
-      const passcodeInputs = document.querySelectorAll(".auth-passcode-input");
+      const newEmail = (newEmailInput ? newEmailInput.value : "").trim();
+      const codeSent = !!localStorage.getItem(_EC_CODE_KEY);
 
-      const passcode = Array.from(passcodeInputs)
-        .map((input) => input.value)
-        .join("");
+      if (!codeSent) {
+        // ── Step 1: validate new email and send code ──
+        if (!newEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)) {
+          _setEmailModalNote("Enter a valid new email address");
+          return;
+        }
+        const currentUser = _getAuthUser();
+        if (
+          currentUser &&
+          _normalizeEmailLocal(currentUser.email) ===
+            _normalizeEmailLocal(newEmail)
+        ) {
+          _setEmailModalNote("That is already your current email");
+          return;
+        }
+        const code = String(Math.floor(1000 + Math.random() * 9000));
+        localStorage.setItem(_EC_CODE_KEY, code);
+        localStorage.setItem(_EC_CD_KEY, String(Date.now() + 60000));
+        _setEmailModalNote("Sending code…");
+        const ok = await _sendEmailChangeCode(newEmail, code);
+        if (ok) {
+          _setEmailModalNote(
+            "Code sent! Check your inbox — also check spam/junk folder.",
+          );
+        } else {
+          localStorage.removeItem(_EC_CODE_KEY);
+          _setEmailModalNote("Failed to send code. Try again.");
+        }
+      } else {
+        // ── Step 2: validate passcode and update email ──
+        const passcodeInputs = document.querySelectorAll(
+          ".auth-passcode-input",
+        );
+        const passcode = Array.from(passcodeInputs)
+          .map((i) => i.value)
+          .join("");
+        const savedCode = localStorage.getItem(_EC_CODE_KEY) || "";
 
-      if (passcode.length !== 4) {
-        alert("Please enter all 4 digits of the passcode");
-        return;
-      }
+        if (passcode.length !== 4) {
+          _setEmailModalNote("Enter all 4 digits of the code");
+          return;
+        }
+        if (passcode !== savedCode) {
+          _setEmailModalNote("Invalid code — try again");
+          return;
+        }
 
-      if (!newEmailInput || !newEmailInput.value.trim()) {
-        alert("Please enter a new email");
-        return;
-      }
+        const user = _getAuthUser();
+        if (user) {
+          const oldEmail = user.email;
+          user.email = newEmail;
+          _saveAuthUser(user);
 
-      // Verify passcode (in real app, validate against sent code)
-      // For MVP, just check if 4 digits
-      const user = _getAuthUser();
-      if (user) {
-        user.email = newEmailInput.value.trim();
-        _saveAuthUser(user);
-        alert("Email updated successfully");
-        refreshUserProfile();
-        _hideUserProfileEmailModal();
-        _showUserProfileSettingsView();
+          // Sync to account object
+          const acct = JSON.parse(
+            localStorage.getItem("mt_auth_account") || "null",
+          );
+          if (acct) {
+            acct.email = newEmail;
+            localStorage.setItem("mt_auth_account", JSON.stringify(acct));
+          }
+
+          // Sync to DataStore (users + accounts)
+          if (typeof DataStore !== "undefined") {
+            const allUsers = DataStore.getAll("users");
+            const uMatch = allUsers.find(
+              (u) =>
+                u.userId === user.id ||
+                _normalizeEmailLocal(u.email || "") ===
+                  _normalizeEmailLocal(oldEmail),
+            );
+            if (uMatch) {
+              DataStore.update("users", uMatch.id, { email: newEmail });
+            }
+            const allAccounts = DataStore.getAll("accounts");
+            const aMatch = allAccounts.find(
+              (a) =>
+                a.userId === user.id ||
+                _normalizeEmailLocal(a.email || "") ===
+                  _normalizeEmailLocal(oldEmail),
+            );
+            if (aMatch) {
+              DataStore.update("accounts", aMatch.id, { email: newEmail });
+            }
+          }
+        }
+
+        localStorage.removeItem(_EC_CODE_KEY);
+        localStorage.removeItem(_EC_CD_KEY);
+        _setEmailModalNote("Email updated successfully!", true);
+        setTimeout(() => {
+          refreshUserProfile();
+          _hideUserProfileEmailModal();
+          _showUserProfileSettingsView();
+        }, 1200);
       }
     });
   }
@@ -285,15 +423,29 @@ function setupUserProfileInteractions() {
       const file = avatarInput.files && avatarInput.files[0];
       if (!file || !settingsAvatar) return;
 
-      // First show preview via FileReader
+      // Show local preview immediately
       const reader = new FileReader();
-      reader.onload = async () => {
-        settingsAvatar.src = String(reader.result || settingsAvatar.src);
+      reader.onload = async (ev) => {
+        const localPreview = String(ev.target.result || settingsAvatar.src);
+        settingsAvatar.src = localPreview;
 
-        // Then upload to imgbb for persistence
+        // Upload to imgbb; on success, persist URL to localStorage so it survives refresh
         const imgbbUrl = await _uploadToImgbb(file);
         if (imgbbUrl) {
           settingsAvatar.src = imgbbUrl;
+          // Immediately persist to auth_user so it survives without pressing Save
+          const u = _getAuthUser();
+          if (u) {
+            u.avatar = imgbbUrl;
+            _saveAuthUser(u);
+            const acct = JSON.parse(
+              localStorage.getItem("mt_auth_account") || "null",
+            );
+            if (acct) {
+              acct.avatar = imgbbUrl;
+              localStorage.setItem("mt_auth_account", JSON.stringify(acct));
+            }
+          }
         }
       };
       reader.readAsDataURL(file);
@@ -319,6 +471,48 @@ function setupUserProfileInteractions() {
         user.avatar = settingsAvatar.src;
 
       _saveAuthUser(user);
+
+      // Sync to DataStore users so admin panel reflects changes in real time
+      if (typeof DataStore !== "undefined") {
+        const users = DataStore.getAll("users");
+        const match = users.find(
+          (u) => u.userId === user.id || u.email === user.email,
+        );
+        if (match) {
+          DataStore.update("users", match.id, {
+            username: user.name,
+            gender: user.gender,
+            marital: user.status,
+            avatar: user.avatar,
+          });
+        }
+        // Also sync accounts collection so global sign-in uses new data
+        const accounts = DataStore.getAll("accounts");
+        const acctMatch = accounts.find(
+          (a) => a.userId === user.id || a.email === user.email,
+        );
+        if (acctMatch) {
+          DataStore.update("accounts", acctMatch.id, {
+            username: user.name,
+            gender: user.gender,
+            marital: user.status,
+            avatar: user.avatar,
+          });
+        }
+      }
+
+      // Mirror to local account object
+      const acct = JSON.parse(
+        localStorage.getItem("mt_auth_account") || "null",
+      );
+      if (acct) {
+        acct.username = user.name;
+        acct.gender = user.gender;
+        acct.marital = user.status;
+        acct.avatar = user.avatar;
+        localStorage.setItem("mt_auth_account", JSON.stringify(acct));
+      }
+
       refreshUserProfile();
       _showUserProfileMainView();
     });

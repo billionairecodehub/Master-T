@@ -8,7 +8,7 @@ const AUTH_SIGNUP_COOLDOWN_KEY = "mt_auth_signup_cd_until";
 const AUTH_FORGOT_CODE_KEY = "mt_auth_forgot_code";
 const AUTH_FORGOT_COOLDOWN_KEY = "mt_auth_forgot_cd_until";
 const AUTH_FORGOT_EMAIL_KEY = "mt_auth_forgot_email";
-const AUTH_POST_LOGIN_TRANSITION_MS = 1500; // 1.5 s branded splash
+const AUTH_POST_LOGIN_TRANSITION_MS = 1000; // 1 s branded splash
 const AUTH_START_SEEN_KEY = "mt_auth_start_seen";
 
 // ── EmailJS configuration ─────────────────────────────────────────────────────
@@ -72,6 +72,18 @@ function _addUserToDb(account) {
     joinedAt: account.joinedAt,
     avatar: account.avatar,
     signupAt: new Date().toISOString(),
+  });
+  // Also store credentials so the user can sign in from any device
+  DataStore.add("accounts", {
+    userId: account.id,
+    email: account.email,
+    password: account.password,
+    username: account.username,
+    fullName: account.fullName,
+    gender: account.gender,
+    marital: account.marital,
+    avatar: account.avatar,
+    joinedAt: account.joinedAt,
   });
 }
 
@@ -401,7 +413,7 @@ async function _submitSignupStep2() {
     } else {
       _setNote(
         "auth-verify-note",
-        "Verification code sent to your email",
+        "Code sent! Check inbox — also check spam/junk folder.",
         true,
       );
     }
@@ -487,7 +499,11 @@ function _resendSignupCode() {
             true,
           );
         } else {
-          _setNote("auth-verify-note", "New code sent to your email", true);
+          _setNote(
+            "auth-verify-note",
+            "New code sent! Check inbox — also spam/junk folder.",
+            true,
+          );
         }
       } else {
         _setNote("auth-verify-note", "Failed to resend — try again");
@@ -496,10 +512,9 @@ function _resendSignupCode() {
   );
 }
 
-function _signin() {
+async function _signin() {
   const email = _normalizeEmail(_qs("si-email")?.value || "");
   const password = (_qs("si-password")?.value || "").trim();
-  const account = _getAccount();
 
   if (!_isValidEmail(email)) {
     _setNote("auth-signin-note", "Enter a valid email");
@@ -509,16 +524,54 @@ function _signin() {
     _setNote("auth-signin-note", "Enter your password");
     return;
   }
-  if (!account) {
-    _setNote("auth-signin-note", "No account found — please sign up first");
-    return;
+
+  // Validate against the Firebase-synced accounts collection only.
+  // Local-only (legacy) mt_auth_account entries are intentionally ignored.
+  _setNote("auth-signin-note", "Signing in…");
+  let remoteAcct = null;
+  if (typeof DataStore !== "undefined") {
+    const all = DataStore.getAll("accounts");
+    remoteAcct =
+      all.find(
+        (a) =>
+          _normalizeEmail(a.email || "") === email && a.password === password,
+      ) || null;
   }
-  if (account.email !== email || account.password !== password) {
+
+  if (!remoteAcct) {
     _setNote("auth-signin-note", "Incorrect email or password");
     return;
   }
 
-  _setUserSessionFromAccount(account);
+  // Hydrate local session from the remote record so the app works offline
+  const restored = {
+    id: remoteAcct.userId || remoteAcct.id,
+    email: remoteAcct.email,
+    password: remoteAcct.password,
+    username: remoteAcct.username || "",
+    fullName: remoteAcct.fullName || "",
+    gender: remoteAcct.gender || "",
+    marital: remoteAcct.marital || "",
+    joinedAt: remoteAcct.joinedAt || Date.now(),
+    avatar:
+      remoteAcct.avatar ||
+      "https://i.postimg.cc/nhdyR4kF/Mt-Profile-Fallback-Img.png",
+  };
+  _setAccount(restored);
+  localStorage.setItem(
+    "mt_auth_user",
+    JSON.stringify({
+      id: restored.id,
+      email: restored.email,
+      name: restored.username || restored.fullName,
+      gender: restored.gender,
+      status: restored.marital,
+      avatar: restored.avatar,
+      joinedAt: restored.joinedAt,
+    }),
+  );
+
+  _setUserSessionFromAccount(restored);
   setAuthState("authenticated");
   _showPostLoginTransition();
 }
@@ -559,7 +612,11 @@ async function _forgotSendCode() {
     if (result.devCode) {
       _setNote("auth-forgot-note", `[Dev] Code: ${result.devCode}`, true);
     } else {
-      _setNote("auth-forgot-note", "Code sent to your email", true);
+      _setNote(
+        "auth-forgot-note",
+        "Code sent! Check inbox — also check spam/junk folder.",
+        true,
+      );
     }
     _showForgotStep(2);
   } else {
@@ -592,7 +649,11 @@ function _forgotResend() {
       if (result.devCode) {
         _setNote("auth-forgot-note", `[Dev] New code: ${result.devCode}`, true);
       } else {
-        _setNote("auth-forgot-note", "New code sent", true);
+        _setNote(
+          "auth-forgot-note",
+          "New code sent! Check spam/junk if not in inbox.",
+          true,
+        );
       }
     } else {
       _setNote("auth-forgot-note", "Failed to resend — try again");
@@ -637,6 +698,17 @@ function _forgotReset() {
   if (_normalizeEmail(account.email) === _normalizeEmail(resetEmail)) {
     account.password = newPass;
     _setAccount(account);
+    // Also update the DataStore accounts record so the new password works on
+    // all devices (DB is the sole source of truth for sign-in).
+    if (typeof DataStore !== "undefined") {
+      const all = DataStore.getAll("accounts");
+      const dbAcct = all.find(
+        (a) => _normalizeEmail(a.email || "") === _normalizeEmail(resetEmail),
+      );
+      if (dbAcct) {
+        DataStore.update("accounts", dbAcct.id, { password: newPass });
+      }
+    }
   }
 
   localStorage.removeItem(AUTH_FORGOT_CODE_KEY);
@@ -670,15 +742,19 @@ function _showPostLoginTransition() {
   if (_authState.postLoginTimer) clearTimeout(_authState.postLoginTimer);
   _authState.postLoginTimer = setTimeout(() => {
     _setGatewayVisible(false);
-    if (
+    // Use the router so a refresh lands on the exact page the user was on.
+    // _router() reads window.location.pathname which is preserved across refreshes.
+    if (typeof _router === "function") {
+      _router();
+    } else if (
       typeof showPage === "function" &&
       typeof homePage !== "undefined" &&
       homePage
     ) {
       showPage(homePage);
       if (typeof _setActiveNav === "function") _setActiveNav("home");
+      if (typeof _navigateTo === "function") _navigateTo("/");
     }
-    if (typeof _navigateTo === "function") _navigateTo("/");
     _authState.busy = false;
   }, AUTH_POST_LOGIN_TRANSITION_MS);
 }
@@ -762,12 +838,31 @@ function _setupListeners() {
   _setupPasscodeNavigation("forgot-passcode-inputs");
 }
 
+// ── Inactivity tracking ──────────────────────────────────────────────────────
+const AUTH_LAST_ACTIVE_KEY = "mt_last_active";
+const AUTH_INACTIVITY_MS = 2 * 24 * 60 * 60 * 1000; // 2 days
+
+function _recordActivity() {
+  localStorage.setItem(AUTH_LAST_ACTIVE_KEY, String(Date.now()));
+}
+
+function _isInactiveFor2Days() {
+  const last = Number(localStorage.getItem(AUTH_LAST_ACTIVE_KEY) || 0);
+  return last > 0 && Date.now() - last > AUTH_INACTIVITY_MS;
+}
+
 function initAuthFlow() {
   _setupListeners();
+  _recordActivity();
 
   if (isUserAuthenticated()) {
     _showPostLoginTransition();
     return;
+  }
+
+  // After 2 days of inactivity, reset onboarding so user sees Get Started again
+  if (_isInactiveFor2Days()) {
+    localStorage.removeItem(AUTH_START_SEEN_KEY);
   }
 
   if (_hasSeenStart()) {
