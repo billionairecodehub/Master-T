@@ -273,10 +273,10 @@ button {
 
 .post-subject {
   color: #ddd;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 500;
   line-height: 0.9;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.25px;
   max-width: 400px;
   opacity: 0.9;
 }

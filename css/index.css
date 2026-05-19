@@ -611,11 +611,6 @@ body {
   font-weight: 500;
 }
 
-/* Redirect Page (Hidden on Mobile) */
-.redirect-page {
-  display: none;
-}
-
 /* CTA button (shared) */
 .panel-cta {
   width: 100%;
@@ -651,11 +646,6 @@ body {
 
 /* ── Tablet (768px+) ── */
 @media (min-width: 768px) {
-  /* Show the app — no more redirect */
-  .redirect-page {
-    display: none !important;
-  }
-
   .header-wrapper {
     max-width: 900px;
     margin: 0 auto;

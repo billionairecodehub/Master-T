@@ -5,6 +5,8 @@
   min-height: 100%;
   background: var(--gradient-bg-global);
   padding: 10px 20px;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* ── Hero Header ───────────────────────────────────────── */
@@ -132,13 +134,8 @@
   overflow: hidden;
   border: 0.5px solid rgba(107, 158, 255, 0.08);
   background: rgba(10, 14, 39, 0.6);
-  transition: var(--transition-fast);
-  padding: 20px 0px;
-}
-
-.about-board-item:active {
-  background: rgba(20, 28, 60, 0.75);
-  border-color: rgba(107, 158, 255, 0.18);
+  transition: border-color 0.2s ease;
+  padding: 0;
 }
 
 .about-board-item.hidden {
@@ -154,14 +151,8 @@
   align-items: flex-end;
   justify-content: flex-start;
   position: relative;
-  transition: var(--transition-fast);
-  /* prevent tap flash on mobile without disrupting layout */
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-}
-
-.about-board:active {
-  background: var(--gradient-card-active);
 }
 
 .about-board-item.expanded .about-board {
@@ -189,9 +180,11 @@
   overflow: hidden;
   opacity: 0;
   padding: 0 20px;
+  will-change: opacity;
   transition:
-    max-height 0.28s ease,
-    opacity 0.22s ease;
+    max-height 0.3s ease,
+    opacity 0.25s ease,
+    padding 0.3s ease;
 }
 
 /* Expanded state — large enough max-height so all content fits */

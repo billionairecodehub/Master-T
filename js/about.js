@@ -10,8 +10,17 @@ function setupBoardToggle() {
   const boardItems = aboutPageEl.querySelectorAll(".about-board-item");
   const boardTriggers = aboutPageEl.querySelectorAll(".about-board");
 
+  let _toggling = false;
+
   boardTriggers.forEach((trigger) => {
     trigger.addEventListener("click", () => {
+      // Debounce: ignore taps while CSS transition is still running
+      if (_toggling) return;
+      _toggling = true;
+      setTimeout(() => {
+        _toggling = false;
+      }, 320);
+
       const parentItem = trigger.closest(".about-board-item");
       if (!parentItem) return;
 
