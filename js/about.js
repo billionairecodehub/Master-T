@@ -10,24 +10,6 @@ function setupBoardToggle() {
   const boardItems = aboutPageEl.querySelectorAll(".about-board-item");
   const boardTriggers = aboutPageEl.querySelectorAll(".about-board");
 
-  function _collapseItem(item) {
-    const content = item.querySelector(".about-board-content");
-    if (!content) return;
-    content.style.maxHeight = "0px";
-    item.classList.remove("expanded");
-  }
-
-  function _expandItem(item) {
-    const content = item.querySelector(".about-board-content");
-    if (!content) return;
-
-    item.classList.add("expanded");
-    // Sync expansion to next frame to avoid forced reflow flicker on mobile.
-    requestAnimationFrame(() => {
-      content.style.maxHeight = content.scrollHeight + "px";
-    });
-  }
-
   boardTriggers.forEach((trigger) => {
     trigger.addEventListener("click", () => {
       const parentItem = trigger.closest(".about-board-item");
@@ -36,11 +18,11 @@ function setupBoardToggle() {
       const isCurrentlyExpanded = parentItem.classList.contains("expanded");
 
       // Collapse all boards first
-      boardItems.forEach((item) => _collapseItem(item));
+      boardItems.forEach((item) => item.classList.remove("expanded"));
 
-      // Expand this board if it wasn't already expanded
+      // Expand this board if it wasn't already open
       if (!isCurrentlyExpanded) {
-        _expandItem(parentItem);
+        parentItem.classList.add("expanded");
       }
     });
   });

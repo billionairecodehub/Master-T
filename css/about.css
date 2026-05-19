@@ -134,8 +134,6 @@
   background: rgba(10, 14, 39, 0.6);
   transition: var(--transition-fast);
   padding: 20px 0px;
-  contain: layout paint;
-  transform: translateZ(0);
 }
 
 .about-board-item:active {
@@ -150,14 +148,16 @@
 /* ── Board Trigger (card face) ──────────────────────────── */
 .about-board {
   width: 100%;
+  aspect-ratio: 180 / 100;
   cursor: pointer;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-start;
   position: relative;
   transition: var(--transition-fast);
-  min-height: 56px;
-  padding: 0 20px;
+  /* prevent tap flash on mobile without disrupting layout */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .about-board:active {
@@ -166,7 +166,8 @@
 
 .about-board-item.expanded .about-board {
   border-bottom: var(--border-width) solid var(--border-color-light);
-  padding: 12px 20px;
+  aspect-ratio: auto;
+  padding: 18px 20px;
 }
 
 .about-board-title {
@@ -175,31 +176,27 @@
   font-size: 13px;
   font-weight: var(--font-weight-regular);
   letter-spacing: var(--letter-spacing-normal);
+  padding: 20px;
   background: var(--gradient-tertiary-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* ── Board Content (Smooth accordion — no display toggle to prevent flicker) ── */
+/* ── Board Content (max-height accordion — no display toggling = no flicker) ── */
 .about-board-content {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
   padding: 0 20px;
-  /* use transform-based transition so the GPU handles it — avoids layout flicker */
   transition:
     max-height 0.28s ease,
-    opacity 0.22s ease,
-    padding 0.28s ease;
-  will-change: max-height, opacity;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
+    opacity 0.22s ease;
 }
 
-/* Expanded state */
+/* Expanded state — large enough max-height so all content fits */
 .about-board-item.expanded .about-board-content {
+  max-height: 2000px;
   opacity: 1;
   padding: 20px;
 }

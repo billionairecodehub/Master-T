@@ -53,6 +53,9 @@ function _emailExistsInDb(email) {
   const account = _getAccount();
   if (account && _normalizeEmail(account.email) === normalized) return true;
   if (typeof DataStore !== "undefined") {
+    const accounts = DataStore.getAll("accounts");
+    if (accounts.some((a) => _normalizeEmail(a.email || "") === normalized))
+      return true;
     const users = DataStore.getAll("users");
     if (users.some((u) => _normalizeEmail(u.email || "") === normalized))
       return true;
@@ -667,15 +670,11 @@ function _forgotReset() {
   const code = _getPasscodeFromInputs("forgot-passcode-inputs");
   const savedCode = localStorage.getItem(AUTH_FORGOT_CODE_KEY) || "";
   const resetEmail = localStorage.getItem(AUTH_FORGOT_EMAIL_KEY) || "";
-  const account = _getAccount();
+  const localAccount = _getAccount();
 
   if (!resetEmail) {
     _setNote("auth-forgot-note", "Session expired — start over");
     _showForgotStep(1);
-    return;
-  }
-  if (!account) {
-    _setNote("auth-forgot-note", "No account found");
     return;
   }
   if (newPass.length < 4) {
@@ -695,20 +694,76 @@ function _forgotReset() {
     return;
   }
 
-  if (_normalizeEmail(account.email) === _normalizeEmail(resetEmail)) {
-    account.password = newPass;
-    _setAccount(account);
-    // Also update the DataStore accounts record so the new password works on
-    // all devices (DB is the sole source of truth for sign-in).
-    if (typeof DataStore !== "undefined") {
-      const all = DataStore.getAll("accounts");
-      const dbAcct = all.find(
-        (a) => _normalizeEmail(a.email || "") === _normalizeEmail(resetEmail),
+  // DB-first password reset: update existing account by email, or create one
+  // after successful email verification if legacy data has no accounts record.
+  let resolvedAccount = null;
+  if (typeof DataStore !== "undefined") {
+    const allAccounts = DataStore.getAll("accounts");
+    const dbAcct = allAccounts.find(
+      (a) => _normalizeEmail(a.email || "") === _normalizeEmail(resetEmail),
+    );
+
+    if (dbAcct) {
+      DataStore.update("accounts", dbAcct.id, { password: newPass });
+      resolvedAccount = { ...dbAcct, password: newPass };
+    } else {
+      const allUsers = DataStore.getAll("users");
+      const dbUser = allUsers.find(
+        (u) => _normalizeEmail(u.email || "") === _normalizeEmail(resetEmail),
       );
-      if (dbAcct) {
-        DataStore.update("accounts", dbAcct.id, { password: newPass });
-      }
+      const newDbAccount = {
+        userId:
+          (dbUser && (dbUser.userId || dbUser.id)) ||
+          (localAccount && localAccount.id) ||
+          "acc_" + Math.random().toString(36).slice(2, 10),
+        email: resetEmail,
+        password: newPass,
+        username:
+          (dbUser && (dbUser.username || dbUser.fullName)) ||
+          (localAccount && (localAccount.username || localAccount.fullName)) ||
+          "",
+        fullName:
+          (dbUser && dbUser.fullName) ||
+          (localAccount && localAccount.fullName) ||
+          "",
+        gender:
+          (dbUser && dbUser.gender) ||
+          (localAccount && localAccount.gender) ||
+          "",
+        marital:
+          (dbUser && dbUser.marital) ||
+          (localAccount && localAccount.marital) ||
+          "",
+        avatar:
+          (dbUser && dbUser.avatar) ||
+          (localAccount && localAccount.avatar) ||
+          "https://i.postimg.cc/nhdyR4kF/Mt-Profile-Fallback-Img.png",
+        joinedAt:
+          (dbUser && dbUser.joinedAt) ||
+          (localAccount && localAccount.joinedAt) ||
+          Date.now(),
+      };
+      DataStore.add("accounts", newDbAccount);
+      resolvedAccount = newDbAccount;
     }
+  }
+
+  // Keep local cache aligned with DB credential source.
+  if (resolvedAccount) {
+    const nextLocal = {
+      id: resolvedAccount.userId || resolvedAccount.id,
+      email: resolvedAccount.email,
+      password: resolvedAccount.password,
+      username: resolvedAccount.username || "",
+      fullName: resolvedAccount.fullName || "",
+      gender: resolvedAccount.gender || "",
+      marital: resolvedAccount.marital || "",
+      joinedAt: resolvedAccount.joinedAt || Date.now(),
+      avatar:
+        resolvedAccount.avatar ||
+        "https://i.postimg.cc/nhdyR4kF/Mt-Profile-Fallback-Img.png",
+    };
+    _setAccount(nextLocal);
   }
 
   localStorage.removeItem(AUTH_FORGOT_CODE_KEY);
