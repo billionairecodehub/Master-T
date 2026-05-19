@@ -58,8 +58,53 @@
     <link rel="stylesheet" href="css/about.css" />
     <link rel="stylesheet" href="css/block.css" />
     <link rel="stylesheet" href="css/universal-modal.css" />
+    <style>
+      #boot-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 11000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at 50% 22%, #06205c 0%, #010521 72%);
+        transition:
+          opacity 0.22s ease,
+          visibility 0.22s ease;
+      }
+
+      #boot-splash.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .boot-splash-inner {
+        text-align: center;
+        color: rgba(233, 241, 255, 0.95);
+        font-family: "Gellix", sans-serif;
+      }
+
+      .boot-splash-logo {
+        font-size: 44px;
+        font-weight: 500;
+        letter-spacing: -4px;
+      }
+
+      .boot-splash-sub {
+        margin-top: 8px;
+        font-size: 11px;
+        color: rgba(189, 206, 238, 0.85);
+      }
+    </style>
   </head>
   <body>
+    <div id="boot-splash" aria-live="polite">
+      <div class="boot-splash-inner">
+        <div class="boot-splash-logo">get In With game</div>
+        <div class="boot-splash-sub">Loading...</div>
+      </div>
+    </div>
+
     <!-- Mobile Layout -->
     <div class="mobile-layout">
       <header class="header" style="display: none">

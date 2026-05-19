@@ -47,6 +47,15 @@ function _setGatewayVisible(showAuth) {
   if (main) main.style.display = showAuth ? "none" : "block";
 }
 
+function _hideBootSplash() {
+  const splash = document.getElementById("boot-splash");
+  if (!splash) return;
+  splash.classList.add("is-hidden");
+  setTimeout(() => {
+    if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
+  }, 260);
+}
+
 // ── User database (sanitised records synced to Firebase via DataStore) ─────────
 
 function _emailExistsInDb(email) {
@@ -206,6 +215,7 @@ function showAuthScreen(screenId) {
   screens.forEach((s) => s.classList.remove("is-active"));
   const screen = _qs(screenId);
   if (screen) screen.classList.add("is-active");
+  _hideBootSplash();
   _clearAllNotes();
 }
 

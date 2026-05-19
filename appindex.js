@@ -17,6 +17,15 @@ function _redirectToError(code) {
   window.location.replace(target);
 }
 
+function _hideBootSplash() {
+  const splash = document.getElementById("boot-splash");
+  if (!splash) return;
+  splash.classList.add("is-hidden");
+  setTimeout(() => {
+    if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
+  }, 260);
+}
+
 async function loadPage(url) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 12000);
@@ -109,8 +118,9 @@ async function boot() {
     });
   }
 
-  // Sync latest content from Firebase before rendering any page
-  await DataStore.syncFromRemote();
+  // Start Firebase sync in background so auth/transition can render immediately.
+  // This removes the blank delay seen on refresh when network is slow.
+  const initialSync = DataStore.syncFromRemote().catch(() => null);
 
   // Load page scripts (they read from localStorage which is now up-to-date)
   for (const src of pageScripts) {
@@ -122,6 +132,9 @@ async function boot() {
       document.body.appendChild(script);
     });
   }
+
+  // Ensure at least one initial remote sync completes after scripts are ready.
+  await initialSync;
 
   // Start real-time sync — pushes Firebase changes to all open devices/tabs
   DataStore.startSync();
@@ -137,6 +150,9 @@ async function boot() {
   const footerEl = document.querySelector(".footer");
   if (headerEl) headerEl.style.display = "";
   if (footerEl) footerEl.style.display = "";
+
+  // Fallback hide in case auth script did not remove it yet.
+  _hideBootSplash();
 }
 
 boot().catch((error) => {
