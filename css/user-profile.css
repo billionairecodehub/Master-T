@@ -30,15 +30,27 @@
 }
 
 .user-profile-header-home {
+  display: flex;
   border: none;
   background: transparent;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
-  gap: 2px;
+  gap: 4px;
   padding: 0;
   cursor: pointer;
   font-family: "Gellix", sans-serif;
+}
+
+.user-profile-header-modal {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  padding-bottom: 20px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
 }
 
 .user-profile-header-settings {
@@ -59,6 +71,21 @@
 #user-profile-settings-static {
   background: rgba(255, 79, 31, 0.28);
   /* box-shadow: 0 0 0 1px rgba(220, 100, 30, 0.55); */
+}
+
+.user-profile-header-modal-settings {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(244, 248, 255, 0.95);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  /* margin-bottom: 20px; */
 }
 
 .user-profile-header-settings-icon {
@@ -248,23 +275,13 @@
 
 .user-settings-title {
   width: 100%;
-  text-align: center;
+  text-align: left;
   color: #88d4ff;
-  /* font-size: clamp(44px, 13vw, 66px); */
-  font-size: 18px;
+  font-family: "Gellix", sans-serif;
+  font-size: 17px;
   line-height: 0.9;
-  letter-spacing: -0.4px;
-  font-weight: 400;
-  margin-top: 4px;
-  padding-bottom: 10px;
-}
-
-.user-settings-divider {
-  width: 44%;
-  margin: 0 auto 10px;
-  height: 0.5px;
-  border-radius: 0px;
-  background: rgba(242, 247, 255, 0.85);
+  letter-spacing: -0.75px;
+  font-weight: 500;
 }
 
 .user-settings-section-title {
@@ -487,6 +504,10 @@
   gap: 14px;
   max-height: none;
   overflow-y: auto;
+}
+
+.auth-passcode-inputs {
+  padding: 15px 0;
 }
 
 .user-email-modal-passcode-label {

@@ -85,22 +85,41 @@
       }
 
       .boot-splash-logo {
-        font-size: 44px;
-        font-weight: 500;
-        letter-spacing: -4px;
+        color: rgba(245, 250, 255, 0.96);
+        font-size: clamp(72px, 22vw, 108px);
+        font-weight: 600;
+        line-height: 0.7;
+        letter-spacing: -10px;
+        text-align: center;
+        background: linear-gradient(
+          160deg,
+          #e8e8e8 0%,
+          #b8b8b8 50%,
+          #888888 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        padding-bottom: 30px;
+        padding-right: 10px;
+        animation: authTransitionPulse 0.9s ease-out both;
       }
 
       .boot-splash-sub {
         margin-top: 8px;
         font-size: 11px;
-        color: rgba(189, 206, 238, 0.85);
+        font-weight: 400;
+        color: rgba(189, 206, 238, 0.4);
       }
     </style>
   </head>
   <body>
     <div id="boot-splash" aria-live="polite">
       <div class="boot-splash-inner">
-        <div class="boot-splash-logo">get In With game</div>
+        <div class="boot-splash-logo">
+          get In <br />With <br />
+          game
+        </div>
         <div class="boot-splash-sub">Loading...</div>
       </div>
     </div>

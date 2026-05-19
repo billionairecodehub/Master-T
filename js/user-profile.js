@@ -117,7 +117,8 @@ async function _sendEmailChangeCode(toEmail, code) {
     if (!window.emailjs) return false;
     await window.emailjs.send("service_v3anekc", "template_cd909qw", {
       to_email: toEmail,
-      passcode: code,
+      verification_code: code,
+      app_name: "Master Togan",
     });
     return true;
   } catch (e) {
