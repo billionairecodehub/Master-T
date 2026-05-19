@@ -2479,20 +2479,117 @@ function _csCircleResetForm() {
   }
   const sel = document.getElementById("cs-circle-category");
   if (sel) sel.value = "";
-  const newCatRow = document.getElementById("cs-circle-new-cat-row");
-  if (newCatRow) newCatRow.style.display = "none";
+  _csPopulateCircleCategorySelect("");
   _csSyncImgPreviews(["cs-circle-icon"]);
 }
 
-function _csCirclePopulateCategories() {
-  const sel = document.getElementById("cs-circle-category");
-  if (!sel) return;
+const _CS_CIRCLE_DEFAULT_CATS = [
+  "Gaming",
+  "Sports",
+  "Social",
+  "Tech",
+  "Dating",
+  "Money",
+];
+
+function _csPopulateCircleCategorySelect(selected) {
+  const display = document.getElementById("cs-circle-cat-display");
+  const dropdown = document.getElementById("cs-circle-cat-dropdown");
+  const hidden = document.getElementById("cs-circle-category");
+  const hint = document.getElementById("cs-circle-cat-del-hint");
+  if (!display || !dropdown || !hidden) return;
+
+  // Derive categories from existing circle records
   const circles = DataStore.getAll("circles");
-  const cats = [...new Set(circles.map((c) => c.category).filter(Boolean))];
-  sel.innerHTML =
-    '<option value="">Select A Category</option>' +
-    cats.map((c) => `<option value="${c}">${c}</option>`).join("") +
-    '<option value="__new__">+ Create A New Category</option>';
+  const existing = [...new Set(circles.map((c) => c.category).filter(Boolean))];
+  const all = [..._CS_CIRCLE_DEFAULT_CATS];
+  existing.forEach((c) => {
+    if (!all.includes(c)) all.push(c);
+  });
+
+  hidden.value = selected || "";
+  display.textContent = selected || "Select A Category";
+  if (hint)
+    hint.textContent = "Select a category, then tap Delete to remove it";
+
+  const opts = [
+    { value: "", label: "Select A Category", deletable: false },
+    ...[...all]
+      .sort((a, b) => a.localeCompare(b))
+      .map((cat) => ({
+        value: cat,
+        label: cat,
+        deletable: !_CS_CIRCLE_DEFAULT_CATS.includes(cat),
+      })),
+    { value: "__new__", label: "+ New Category...", deletable: false },
+  ];
+
+  const seen = new Set();
+  dropdown.innerHTML = opts
+    .filter((o) => {
+      if (seen.has(o.value)) return false;
+      seen.add(o.value);
+      return true;
+    })
+    .map(
+      (o) =>
+        `<div class="cs-cat-select-opt${selected === o.value ? " active" : ""}${o.deletable ? " deletable" : ""}" data-val="${o.value}">${o.label}${o.deletable ? '<span class="cs-cat-del-dot"></span>' : ""}</div>`,
+    )
+    .join("");
+
+  dropdown.querySelectorAll(".cs-cat-select-opt").forEach((opt) => {
+    opt.addEventListener("click", () => {
+      const val = opt.getAttribute("data-val");
+      hidden.value = val;
+      display.textContent =
+        val === ""
+          ? "Select A Category"
+          : val === "__new__"
+            ? "+ New Category..."
+            : val;
+      dropdown.style.display = "none";
+      const newCatRow = document.getElementById("cs-circle-new-cat-row");
+      const newCatInput = document.getElementById("cs-circle-new-cat");
+      if (newCatRow)
+        newCatRow.style.display = val === "__new__" ? "block" : "none";
+      if (newCatInput && val !== "__new__") newCatInput.value = "";
+    });
+  });
+
+  // Reset new-cat row
+  const newCatRow = document.getElementById("cs-circle-new-cat-row");
+  const newCatInput = document.getElementById("cs-circle-new-cat");
+  if (newCatRow) newCatRow.style.display = "none";
+  if (newCatInput) newCatInput.value = "";
+}
+
+async function _csDeleteCircleCategory() {
+  const hint = document.getElementById("cs-circle-cat-del-hint");
+  const hidden = document.getElementById("cs-circle-category");
+  const cat = hidden?.value || "";
+  const flash = (msg) => {
+    if (!hint) return;
+    hint.textContent = msg;
+    hint.style.color = "rgba(255,100,100,0.9)";
+    setTimeout(() => {
+      hint.style.color = "";
+      hint.textContent = "Select a category, then tap Delete to remove it";
+    }, 2200);
+  };
+  if (!cat || cat === "__new__") {
+    flash("Select a category first");
+    return;
+  }
+  if (_CS_CIRCLE_DEFAULT_CATS.includes(cat)) {
+    flash(`"${cat}" is a built-in category — cannot be deleted`);
+    return;
+  }
+  const ok = await window.UMessageModal.confirm(
+    `Delete category "${cat}"? Existing circles won\'t be affected.`,
+    "Delete Category",
+  );
+  if (!ok) return;
+  _csPopulateCircleCategorySelect("");
 }
 
 function _csCircleLoadEdit(circle) {
@@ -2508,9 +2605,7 @@ function _csCircleLoadEdit(circle) {
     const f = document.getElementById(`cs-circle-feat-${i}`);
     if (f) f.value = feats[i - 1] || "";
   }
-  _csCirclePopulateCategories();
-  const sel = document.getElementById("cs-circle-category");
-  if (sel && circle.category) sel.value = circle.category;
+  _csPopulateCircleCategorySelect(circle.category || "");
   _csSyncImgPreviews(["cs-circle-icon"]);
   _csSwitch("circle", "create");
 }
@@ -2627,14 +2722,30 @@ function _csCircleRefresh(tab) {
   }
 }
 
-document
-  .getElementById("cs-circle-category")
-  ?.addEventListener("change", () => {
-    const val = document.getElementById("cs-circle-category")?.value;
-    const newCatRow = document.getElementById("cs-circle-new-cat-row");
-    if (newCatRow)
-      newCatRow.style.display = val === "__new__" ? "block" : "none";
+// Custom category select — toggle panel + close on outside click
+(function () {
+  const trigger = document.getElementById("cs-circle-cat-trigger");
+  const dropdown = document.getElementById("cs-circle-cat-dropdown");
+  if (!trigger || !dropdown) return;
+  trigger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    _csPopulateCircleCategorySelect(
+      document.getElementById("cs-circle-category")?.value || "",
+    );
+    dropdown.style.display =
+      dropdown.style.display === "none" ? "block" : "none";
   });
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("#cs-circle-cat-wrap")) {
+      dropdown.style.display = "none";
+    }
+  });
+  document
+    .getElementById("cs-circle-cat-del-btn")
+    ?.addEventListener("click", _csDeleteCircleCategory);
+  // Populate on init so the form is ready before any edit
+  _csPopulateCircleCategorySelect("");
+})();
 
 document
   .getElementById("cs-circle-send")
