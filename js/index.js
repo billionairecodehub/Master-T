@@ -44,42 +44,22 @@ const headerMenu = document.querySelector(".header-menu");
 const navItems = document.querySelectorAll(".nav-item");
 
 // Hide all pages function
-
-let _currentPage = null;
-function hideAllPagesExcept(exceptPage) {
-  const pages = [
-    homePage,
-    profilePage,
-    userProfilePage,
-    menuPage,
-    feedPage,
-    blockPage,
-    questPage,
-    notificationsPage,
-    aboutPage,
-  ];
-  pages.forEach((p) => {
-    if (p && p !== exceptPage) {
-      p.style.display = "none";
-      p.classList.remove(
-        "page-slide-in",
-        "page-slide-out",
-        "page-fade-in",
-        "page-fade-out",
-      );
-      p.style.position = "";
-      p.style.zIndex = "";
-      p.style.left = "";
-      p.style.right = "";
-      p.style.top = "";
-      p.style.width = "";
-    }
-  });
-  // ...existing code...
+function hideAllPages() {
+  homePage.style.display = "none";
+  profilePage.style.display = "none";
+  if (userProfilePage) userProfilePage.style.display = "none";
+  menuPage.style.display = "none";
+  if (feedPage) feedPage.style.display = "none";
+  if (blockPage) blockPage.style.display = "none";
+  if (questPage) questPage.style.display = "none";
+  if (notificationsPage) notificationsPage.style.display = "none";
+  if (aboutPage) aboutPage.style.display = "none";
+  // Close any open profile panels
   if (typeof closeProfileView === "function") closeProfileView();
   document
     .querySelectorAll(".profile-panel")
     .forEach((p) => p.classList.remove("open"));
+  // Reset menu to home view if circle/app/book panel was open
   const cp = document.getElementById("panel-circle");
   const ap = document.getElementById("panel-app");
   const bp = document.getElementById("panel-book");
@@ -93,89 +73,33 @@ function hideAllPagesExcept(exceptPage) {
       if (bro) bro.classList.remove("open");
     }
     mh.style.display = "flex";
+    // Close any menu expand view
     if (typeof closeExpandView === "function") closeExpandView();
   }
+  // Reset per-page expanded/detail states so pages are always clean when navigating away
   if (typeof _questCollapseAll === "function") _questCollapseAll();
   if (typeof _bForceClose === "function") _bForceClose();
   if (typeof _feedCollapseAll === "function") _feedCollapseAll();
 }
 
 // Show specific page
-
 function showPage(page) {
-  if (_currentPage && _currentPage !== page) {
-    // Prepare both pages for sliding
-    _currentPage.style.position = "absolute";
-    _currentPage.style.zIndex = 2;
-    _currentPage.style.left = 0;
-    _currentPage.style.top = 0;
-    _currentPage.style.width = "100%";
-    page.style.position = "absolute";
-    page.style.zIndex = 3;
-    page.style.left = "100%";
-    page.style.top = 0;
-    page.style.width = "100%";
-    page.style.display = "block";
-    page.classList.remove(
-      "page-slide-in",
-      "page-slide-out",
-      "page-fade-in",
-      "page-fade-out",
-    );
-    // Animate outgoing and incoming
-    requestAnimationFrame(() => {
-      _currentPage.classList.add("page-slide-out");
-      page.classList.add("page-slide-in");
-      page.style.left = 0;
-      _currentPage.style.left = "-100%";
-      // After animation, cleanup
-      const cleanup = () => {
-        _currentPage.classList.remove("page-slide-out");
-        _currentPage.style.display = "none";
-        _currentPage.style.position = "";
-        _currentPage.style.zIndex = "";
-        _currentPage.style.left = "";
-        _currentPage.style.top = "";
-        _currentPage.style.width = "";
-        page.classList.remove("page-slide-in");
-        page.style.position = "";
-        page.style.zIndex = "";
-        page.style.left = "";
-        page.style.top = "";
-        page.style.width = "";
-        _doShowPage(page, true);
-      };
-      page.addEventListener("animationend", cleanup, { once: true });
-    });
-  } else {
-    _doShowPage(page);
-  }
-}
-
-function _doShowPage(page, skipAnim) {
-  hideAllPagesExcept(page);
+  hideAllPages();
   page.style.display = "block";
-  if (!skipAnim) {
-    page.classList.remove(
-      "page-slide-in",
-      "page-slide-out",
-      "page-fade-in",
-      "page-fade-out",
-    );
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => {
-        page.classList.add("page-fade-in");
-        page.addEventListener(
-          "animationend",
-          () => page.classList.remove("page-fade-in"),
-          { once: true },
-        );
-      }),
-    );
-  }
+  // Restart the fade-in animation on every navigation
+  page.classList.remove("page-fade-in");
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => {
+      page.classList.add("page-fade-in");
+      page.addEventListener(
+        "animationend",
+        () => page.classList.remove("page-fade-in"),
+        { once: true },
+      );
+    }),
+  );
   const main = document.querySelector(".main");
   if (main) main.scrollTop = 0;
-  _currentPage = page;
 }
 
 function _setActiveNav(navType) {
