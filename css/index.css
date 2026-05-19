@@ -251,9 +251,9 @@
 }
 
 /* Page enter — applied by showPage() on every navigation */
-.page-fade-in {
+/* .page-fade-in {
   animation: fadeIn 0.18s ease-out both;
-}
+} */
 
 /* ========== COMPONENT SNIPPETS ========== */
 
