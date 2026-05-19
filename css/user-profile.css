@@ -424,7 +424,9 @@
   height: 100%;
   z-index: 1000;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
 }
 
 .user-profile-modal-overlay {
@@ -442,14 +444,13 @@
   position: relative;
   width: 100%;
   max-width: 420px;
-  margin: 0 auto;
   background: var(--gradient-bg-global);
-  border-radius: 20px 20px 0 0;
-  padding: 18px 14px 90px;
+  border-radius: 20px;
+  padding: 18px 24px;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  max-height: 90vh;
+  max-height: none;
   overflow-y: auto;
 }
 
@@ -464,8 +465,14 @@
 .user-email-modal-actions {
   width: 100%;
   display: flex;
-  gap: 8px;
-  margin-top: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.email-modal-action {
+  color: rgba(200, 215, 255, 0.6);
+  font-size: 11px;
+  font-family: "Gellix", sans-serif;
 }
 
 .user-email-modal-confirm {

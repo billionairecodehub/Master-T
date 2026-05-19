@@ -88,8 +88,7 @@ function showAdminPage(name) {
   if (name === "content" && typeof refreshContent === "function")
     refreshContent();
   if (name === "stats" && typeof refreshStats === "function") refreshStats();
-  if (name === "message" && typeof refreshMessage === "function")
-    refreshMessage();
+  if (name === "users" && typeof refreshUsers === "function") refreshUsers();
   if (name === "sales" && typeof refreshSales === "function") refreshSales();
 
   if (adminMain && window.ScrollRevealManager) {
@@ -136,8 +135,8 @@ setInterval(async () => {
     case "dashboard":
       if (typeof refreshDashboard === "function") refreshDashboard();
       break;
-    case "message":
-      if (typeof refreshMessage === "function") refreshMessage();
+    case "users":
+      if (typeof refreshUsers === "function") refreshUsers();
       break;
     case "stats":
       if (typeof refreshStats === "function") refreshStats();

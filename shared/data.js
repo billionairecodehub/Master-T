@@ -30,6 +30,7 @@ const REMOTE_COLLECTION_KEYS = [
   "sales",
   "updateCategories",
   "circleCategories",
+  "users",
 ];
 
 const DATA_KEYS = {
@@ -49,6 +50,7 @@ const DATA_KEYS = {
   sales: "mt_sales",
   updateCategories: "mt_update_categories",
   circleCategories: "mt_circle_categories",
+  users: "mt_users",
 };
 
 // ── Helpers ──────────────────────────────────────────────

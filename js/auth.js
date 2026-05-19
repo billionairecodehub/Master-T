@@ -1,4 +1,4 @@
-// ── Auth Gateway: Get Started → Sign-Up/Sign-In → Verify → Transition → Home ──
+// ── Auth Gateway: Get Started → Sign-Up → Verify → Sign-In → Transition → Home ──
 
 const AUTH_STATE_KEY = "mt_auth_state";
 const AUTH_USER_KEY = "mt_auth_user";
@@ -6,15 +6,35 @@ const AUTH_ACCOUNT_KEY = "mt_auth_account";
 const AUTH_SIGNUP_CODE_KEY = "mt_auth_signup_code";
 const AUTH_SIGNUP_COOLDOWN_KEY = "mt_auth_signup_cd_until";
 const AUTH_FORGOT_CODE_KEY = "mt_auth_forgot_code";
-const AUTH_POST_LOGIN_TRANSITION_MS = 5000;
-const AUTH_LOGIN_FREE_PASS = true;
+const AUTH_FORGOT_COOLDOWN_KEY = "mt_auth_forgot_cd_until";
+const AUTH_FORGOT_EMAIL_KEY = "mt_auth_forgot_email";
+const AUTH_POST_LOGIN_TRANSITION_MS = 1500; // 1.5 s branded splash
 const AUTH_START_SEEN_KEY = "mt_auth_start_seen";
+
+// ── EmailJS configuration ─────────────────────────────────────────────────────
+// To enable real email verification:
+//   1. Sign up at https://www.emailjs.com/ (free tier is enough)
+//   2. Add an email service (Gmail, Outlook, etc.)
+//   3. Create a template using variables: {{to_email}}, {{verification_code}}, {{app_name}}
+//   4. Replace the three placeholder strings below with your actual credentials
+const EMAILJS_PUBLIC_KEY = "YOUR_EMAILJS_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID = "YOUR_EMAILJS_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_EMAILJS_TEMPLATE_ID";
+// ──────────────────────────────────────────────────────────────────────────────
+
+const _emailjsEnabled = () =>
+  !EMAILJS_PUBLIC_KEY.startsWith("YOUR_") &&
+  !EMAILJS_SERVICE_ID.startsWith("YOUR_") &&
+  !EMAILJS_TEMPLATE_ID.startsWith("YOUR_");
+
+let _emailjsReady = false;
 
 const _authState = {
   signupStep: 1,
   signupGender: "",
   signupStatus: "",
   pendingSignup: null,
+  forgotStep: 1,
   busy: false,
   postLoginTimer: null,
 };
@@ -24,6 +44,75 @@ function _setGatewayVisible(showAuth) {
   const main = document.querySelector(".main");
   if (authPage) authPage.style.display = showAuth ? "flex" : "none";
   if (main) main.style.display = showAuth ? "none" : "block";
+}
+
+// ── User database (sanitised records synced to Firebase via DataStore) ─────────
+
+function _emailExistsInDb(email) {
+  const normalized = _normalizeEmail(email);
+  const account = _getAccount();
+  if (account && _normalizeEmail(account.email) === normalized) return true;
+  if (typeof DataStore !== "undefined") {
+    const users = DataStore.getAll("users");
+    if (users.some((u) => _normalizeEmail(u.email || "") === normalized))
+      return true;
+  }
+  return false;
+}
+
+function _addUserToDb(account) {
+  if (typeof DataStore === "undefined") return;
+  DataStore.add("users", {
+    userId: account.id,
+    fullName: account.fullName,
+    email: account.email,
+    username: account.username,
+    gender: account.gender,
+    marital: account.marital,
+    joinedAt: account.joinedAt,
+    avatar: account.avatar,
+    signupAt: new Date().toISOString(),
+  });
+}
+
+// ── EmailJS ───────────────────────────────────────────────────────────────────
+
+async function _loadEmailJs() {
+  if (_emailjsReady || window.emailjs) {
+    _emailjsReady = true;
+    return true;
+  }
+  return new Promise((resolve) => {
+    const s = document.createElement("script");
+    s.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+    s.onload = () => {
+      window.emailjs.init(EMAILJS_PUBLIC_KEY);
+      _emailjsReady = true;
+      resolve(true);
+    };
+    s.onerror = () => resolve(false);
+    document.head.appendChild(s);
+  });
+}
+
+async function _sendVerificationEmail(toEmail, code) {
+  if (!_emailjsEnabled()) {
+    console.log(`[AUTH DEV] Code for ${toEmail}: ${code}`);
+    return { ok: true, devCode: code };
+  }
+  const loaded = await _loadEmailJs();
+  if (!loaded) return { ok: false };
+  try {
+    await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      to_email: toEmail,
+      verification_code: code,
+      app_name: "Master Togan",
+    });
+    return { ok: true };
+  } catch (e) {
+    console.error("[AUTH] Email send failed:", e);
+    return { ok: false };
+  }
 }
 
 function _markStartSeen() {
@@ -143,9 +232,24 @@ function _setSignupCode() {
   localStorage.setItem(AUTH_SIGNUP_CODE_KEY, code);
   localStorage.setItem(
     AUTH_SIGNUP_COOLDOWN_KEY,
-    String(Date.now() + 120 * 1000),
+    String(Date.now() + 60 * 1000),
   );
   return code;
+}
+
+function _setForgotCode() {
+  const code = _generateCode();
+  localStorage.setItem(AUTH_FORGOT_CODE_KEY, code);
+  localStorage.setItem(
+    AUTH_FORGOT_COOLDOWN_KEY,
+    String(Date.now() + 60 * 1000),
+  );
+  return code;
+}
+
+function _getForgotCooldownMs() {
+  const until = Number(localStorage.getItem(AUTH_FORGOT_COOLDOWN_KEY) || "0");
+  return Math.max(0, until - Date.now());
 }
 
 function _getSignupCode() {
@@ -201,6 +305,14 @@ function _openSignin() {
   showAuthScreen("auth-screen-signin");
 }
 
+function _showForgotStep(step) {
+  _authState.forgotStep = step === 2 ? 2 : 1;
+  const s1 = document.getElementById("auth-forgot-step-1");
+  const s2 = document.getElementById("auth-forgot-step-2");
+  if (s1) s1.classList.toggle("is-active", _authState.forgotStep === 1);
+  if (s2) s2.classList.toggle("is-active", _authState.forgotStep === 2);
+}
+
 function _buildPendingSignupFromStep1() {
   const fullName = (_qs("su-full-name")?.value || "").trim();
   const email = _normalizeEmail(_qs("su-email")?.value || "");
@@ -210,17 +322,15 @@ function _buildPendingSignupFromStep1() {
   if (!fullName) return { ok: false, msg: "Enter your full name" };
   if (!_isValidEmail(email)) return { ok: false, msg: "Enter a valid email" };
   if (password.length < 4)
-    return { ok: false, msg: "Password should be at least 4 characters" };
+    return { ok: false, msg: "Password must be at least 4 characters" };
   if (password !== confirm)
     return { ok: false, msg: "Password and confirm password must match" };
+  if (_emailExistsInDb(email))
+    return { ok: false, msg: "An account with this email already exists" };
 
   return {
     ok: true,
-    data: {
-      fullName,
-      email,
-      password,
-    },
+    data: { fullName, email, password },
   };
 }
 
@@ -237,7 +347,7 @@ function _submitSignupStep1() {
   _showSignupStep(2);
 }
 
-function _submitSignupStep2() {
+async function _submitSignupStep2() {
   const username = (_qs("su-username")?.value || "").trim();
   if (!_authState.pendingSignup) {
     _setNote("auth-signup-note", "Complete page 1 first");
@@ -249,11 +359,11 @@ function _submitSignupStep2() {
     return;
   }
   if (!_authState.signupGender) {
-    _setNote("auth-signup-note", "Select gender");
+    _setNote("auth-signup-note", "Select your gender");
     return;
   }
   if (!_authState.signupStatus) {
-    _setNote("auth-signup-note", "Select marital status");
+    _setNote("auth-signup-note", "Select your marital status");
     return;
   }
 
@@ -264,21 +374,42 @@ function _submitSignupStep2() {
     marital: _authState.signupStatus,
   };
 
-  _setSignupCode();
+  const code = _setSignupCode();
   _clearPasscodeInputs("auth-passcode-inputs");
   showAuthScreen("auth-screen-verify");
-  _setNote(
-    "auth-verify-note",
-    "Passcode sent. Use Reset after 120s if needed",
-    true,
+  _setNote("auth-verify-note", "Sending verification code…");
+
+  const result = await _sendVerificationEmail(
+    _authState.pendingSignup.email,
+    code,
   );
+  if (result.ok) {
+    if (result.devCode) {
+      _setNote(
+        "auth-verify-note",
+        `[Dev] Code: ${result.devCode} — configure EmailJS for real emails`,
+        true,
+      );
+    } else {
+      _setNote(
+        "auth-verify-note",
+        "Verification code sent to your email",
+        true,
+      );
+    }
+  } else {
+    _setNote(
+      "auth-verify-note",
+      "Could not send email — check your connection or EmailJS config",
+    );
+  }
 }
 
 function _finalizeSignup() {
   const p = _authState.pendingSignup;
   if (!p) {
     _openSignup();
-    _setNote("auth-signup-note", "Restart sign-up process");
+    _setNote("auth-signup-note", "Session expired — restart sign-up");
     return;
   }
 
@@ -295,11 +426,18 @@ function _finalizeSignup() {
   };
 
   _setAccount(account);
-  _setUserSessionFromAccount(account);
-  setAuthState("authenticated");
+  _addUserToDb(account); // push sanitised record (no password) to Firebase
   _authState.pendingSignup = null;
 
-  _showPostLoginTransition();
+  // Pre-fill Sign-In so user can log in immediately
+  const siEmail = _qs("si-email");
+  const siPass = _qs("si-password");
+  if (siEmail) siEmail.value = account.email;
+  if (siPass) siPass.value = account.password;
+
+  // Redirect to Sign-In — do NOT auto-login
+  _openSignin();
+  _setNote("auth-signin-note", "Account created! Log in to continue.", true);
 }
 
 function _verifySignupCode() {
@@ -322,41 +460,38 @@ function _resendSignupCode() {
   const cd = _getSignupCooldownMs();
   if (cd > 0) {
     const sec = Math.ceil(cd / 1000);
-    _setNote("auth-verify-note", "Reset available in " + sec + "s");
+    _setNote("auth-verify-note", `Wait ${sec}s before resending`);
     return;
   }
-  _setSignupCode();
-  _setNote("auth-verify-note", "Passcode reset and sent", true);
+  const code = _setSignupCode();
+  if (!_authState.pendingSignup?.email) {
+    _setNote("auth-verify-note", "Session expired — please sign up again");
+    return;
+  }
+  _setNote("auth-verify-note", "Resending…");
+  _sendVerificationEmail(_authState.pendingSignup.email, code).then(
+    (result) => {
+      if (result.ok) {
+        if (result.devCode) {
+          _setNote(
+            "auth-verify-note",
+            `[Dev] New code: ${result.devCode}`,
+            true,
+          );
+        } else {
+          _setNote("auth-verify-note", "New code sent to your email", true);
+        }
+      } else {
+        _setNote("auth-verify-note", "Failed to resend — try again");
+      }
+    },
+  );
 }
 
 function _signin() {
   const email = _normalizeEmail(_qs("si-email")?.value || "");
   const password = (_qs("si-password")?.value || "").trim();
   const account = _getAccount();
-
-  // Testing mode: allow login without strict credential checks.
-  if (AUTH_LOGIN_FREE_PASS) {
-    const base = account || {
-      id: "acc_" + Math.random().toString(36).slice(2, 10),
-      fullName: "Test User",
-      email: email || "test@getinwithgame.com",
-      password: password || "1234",
-      username: "Justbgoodd",
-      gender: "Male",
-      marital: "Single",
-      joinedAt: Date.now(),
-      avatar: "https://i.postimg.cc/nhdyR4kF/Mt-Profile-Fallback-Img.png",
-    };
-
-    if (email) base.email = email;
-    if (password) base.password = password;
-
-    _setAccount(base);
-    _setUserSessionFromAccount(base);
-    setAuthState("authenticated");
-    _showPostLoginTransition();
-    return;
-  }
 
   if (!_isValidEmail(email)) {
     _setNote("auth-signin-note", "Enter a valid email");
@@ -367,7 +502,7 @@ function _signin() {
     return;
   }
   if (!account) {
-    _setNote("auth-signin-note", "No account found. Please sign up first");
+    _setNote("auth-signin-note", "No account found — please sign up first");
     return;
   }
   if (account.email !== email || account.password !== password) {
@@ -381,19 +516,80 @@ function _signin() {
 }
 
 function _openForgotPassword() {
-  const account = _getAccount();
-  if (!account) {
-    _setNote("auth-signin-note", "No account found. Please sign up first");
+  _authState.forgotStep = 1;
+  showAuthScreen("auth-screen-forgot");
+  _showForgotStep(1);
+  _clearPasscodeInputs("forgot-passcode-inputs");
+}
+
+async function _forgotSendCode() {
+  const email = _normalizeEmail(_qs("fp-email")?.value || "");
+  if (!_isValidEmail(email)) {
+    _setNote("auth-forgot-note", "Enter a valid email");
     return;
   }
-  localStorage.setItem(AUTH_FORGOT_CODE_KEY, _generateCode());
+  if (!_emailExistsInDb(email)) {
+    _setNote("auth-forgot-note", "No account found with this email");
+    return;
+  }
+  const cd = _getForgotCooldownMs();
+  if (cd > 0) {
+    _setNote(
+      "auth-forgot-note",
+      `Wait ${Math.ceil(cd / 1000)}s before resending`,
+    );
+    return;
+  }
+
+  localStorage.setItem(AUTH_FORGOT_EMAIL_KEY, email);
+  const code = _setForgotCode();
   _clearPasscodeInputs("forgot-passcode-inputs");
-  showAuthScreen("auth-screen-forgot");
+  _setNote("auth-forgot-note", "Sending code…");
+
+  const result = await _sendVerificationEmail(email, code);
+  if (result.ok) {
+    if (result.devCode) {
+      _setNote("auth-forgot-note", `[Dev] Code: ${result.devCode}`, true);
+    } else {
+      _setNote("auth-forgot-note", "Code sent to your email", true);
+    }
+    _showForgotStep(2);
+  } else {
+    _setNote(
+      "auth-forgot-note",
+      "Failed to send code — check your email and try again",
+    );
+  }
 }
 
 function _forgotResend() {
-  localStorage.setItem(AUTH_FORGOT_CODE_KEY, _generateCode());
-  _setNote("auth-forgot-note", "Passcode re-sent", true);
+  const cd = _getForgotCooldownMs();
+  if (cd > 0) {
+    _setNote(
+      "auth-forgot-note",
+      `Wait ${Math.ceil(cd / 1000)}s before resending`,
+    );
+    return;
+  }
+  const email = localStorage.getItem(AUTH_FORGOT_EMAIL_KEY) || "";
+  if (!email) {
+    _setNote("auth-forgot-note", "Session expired — start over");
+    _showForgotStep(1);
+    return;
+  }
+  const code = _setForgotCode();
+  _setNote("auth-forgot-note", "Resending…");
+  _sendVerificationEmail(email, code).then((result) => {
+    if (result.ok) {
+      if (result.devCode) {
+        _setNote("auth-forgot-note", `[Dev] New code: ${result.devCode}`, true);
+      } else {
+        _setNote("auth-forgot-note", "New code sent", true);
+      }
+    } else {
+      _setNote("auth-forgot-note", "Failed to resend — try again");
+    }
+  });
 }
 
 function _forgotReset() {
@@ -401,17 +597,20 @@ function _forgotReset() {
   const confirmPass = (_qs("fp-confirm-password")?.value || "").trim();
   const code = _getPasscodeFromInputs("forgot-passcode-inputs");
   const savedCode = localStorage.getItem(AUTH_FORGOT_CODE_KEY) || "";
+  const resetEmail = localStorage.getItem(AUTH_FORGOT_EMAIL_KEY) || "";
   const account = _getAccount();
 
+  if (!resetEmail) {
+    _setNote("auth-forgot-note", "Session expired — start over");
+    _showForgotStep(1);
+    return;
+  }
   if (!account) {
-    _setNote("auth-forgot-note", "No account found. Please sign up first");
+    _setNote("auth-forgot-note", "No account found");
     return;
   }
   if (newPass.length < 4) {
-    _setNote(
-      "auth-forgot-note",
-      "New password should be at least 4 characters",
-    );
+    _setNote("auth-forgot-note", "Password must be at least 4 characters");
     return;
   }
   if (newPass !== confirmPass) {
@@ -419,7 +618,7 @@ function _forgotReset() {
     return;
   }
   if (code.length !== 4) {
-    _setNote("auth-forgot-note", "Enter full 4-digit passcode");
+    _setNote("auth-forgot-note", "Enter the full 4-digit passcode");
     return;
   }
   if (!savedCode || code !== savedCode) {
@@ -427,12 +626,31 @@ function _forgotReset() {
     return;
   }
 
-  account.password = newPass;
-  _setAccount(account);
-  _setNote("auth-forgot-note", "Password reset complete", true);
+  if (_normalizeEmail(account.email) === _normalizeEmail(resetEmail)) {
+    account.password = newPass;
+    _setAccount(account);
+  }
+
+  localStorage.removeItem(AUTH_FORGOT_CODE_KEY);
+  localStorage.removeItem(AUTH_FORGOT_COOLDOWN_KEY);
+  localStorage.removeItem(AUTH_FORGOT_EMAIL_KEY);
+
+  const siEmail = _qs("si-email");
+  if (siEmail) siEmail.value = resetEmail;
+
+  _setNote(
+    "auth-forgot-note",
+    "Password reset! Log in with your new password.",
+    true,
+  );
   setTimeout(() => {
     _openSignin();
-  }, 400);
+    _setNote(
+      "auth-signin-note",
+      "Password updated — enter your new password.",
+      true,
+    );
+  }, 600);
 }
 
 function _showPostLoginTransition() {
@@ -496,25 +714,27 @@ function _setupListeners() {
   const siSubmit = _qs("auth-signin-submit");
   if (siSubmit) siSubmit.addEventListener("click", _signin);
 
+  // Forgot Password
   const forgotOpen = _qs("auth-forgot-open");
-  const forgotBack = _qs("auth-forgot-back");
-  const forgotResend = _qs("auth-forgot-resend");
-  const forgotReset = _qs("auth-forgot-reset");
-  const supportBtn = _qs("auth-contact-support");
   if (forgotOpen) forgotOpen.addEventListener("click", _openForgotPassword);
-  if (forgotBack)
-    forgotBack.addEventListener("click", () => {
-      _markStartSeen();
-      _openSignin();
-    });
+
+  // Forgot step 1
+  const forgotSend = _qs("auth-forgot-send");
+  if (forgotSend) forgotSend.addEventListener("click", _forgotSendCode);
+
+  const forgotBack = _qs("auth-forgot-back");
+  if (forgotBack) forgotBack.addEventListener("click", _openSignin);
+
+  // Forgot step 2
+  const forgotBack2 = _qs("auth-forgot-back-2");
+  if (forgotBack2)
+    forgotBack2.addEventListener("click", () => _showForgotStep(1));
+
+  const forgotResend = _qs("auth-forgot-resend");
   if (forgotResend) forgotResend.addEventListener("click", _forgotResend);
+
+  const forgotReset = _qs("auth-forgot-reset");
   if (forgotReset) forgotReset.addEventListener("click", _forgotReset);
-  if (supportBtn) {
-    supportBtn.addEventListener("click", () => {
-      window.location.href =
-        "mailto:support@getinwithgame.com?subject=Password%20Reset%20Support";
-    });
-  }
 
   const verifyBack = _qs("auth-verify-back");
   const verifyReset = _qs("auth-verify-reset");

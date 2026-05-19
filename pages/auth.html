@@ -262,78 +262,102 @@
         <div class="auth-title auth-title-forgot">Forgot<br />Password?</div>
       </div>
 
-      <div class="auth-inputs">
-        <input
-          id="fp-new-password"
-          class="auth-input"
-          type="password"
-          placeholder="Enter Your New Password"
-          autocomplete="new-password"
-        />
-        <input
-          id="fp-confirm-password"
-          class="auth-input"
-          type="password"
-          placeholder="Confirm Your New Password"
-          autocomplete="new-password"
-        />
-      </div>
+      <!-- Step 1: Email -->
+      <div class="auth-signup-step is-active" id="auth-forgot-step-1">
+        <div class="auth-inputs">
+          <input
+            id="fp-email"
+            class="auth-input"
+            type="email"
+            placeholder="Enter Your Email"
+            autocomplete="email"
+          />
+        </div>
 
-      <div class="auth-subtitle auth-forgot-caption">
-        Enter your passcode sent to your email
-      </div>
-
-      <div class="auth-passcode-inputs" id="forgot-passcode-inputs">
-        <input
-          type="text"
-          class="auth-passcode-input"
-          maxlength="1"
-          inputmode="numeric"
-          aria-label="Forgot passcode digit 1"
-        />
-        <input
-          type="text"
-          class="auth-passcode-input"
-          maxlength="1"
-          inputmode="numeric"
-          aria-label="Forgot passcode digit 2"
-        />
-        <input
-          type="text"
-          class="auth-passcode-input"
-          maxlength="1"
-          inputmode="numeric"
-          aria-label="Forgot passcode digit 3"
-        />
-        <input
-          type="text"
-          class="auth-passcode-input"
-          maxlength="1"
-          inputmode="numeric"
-          aria-label="Forgot passcode digit 4"
-        />
-      </div>
-
-      <div class="auth-inline-links">
         <button class="auth-link-btn" id="auth-forgot-back" type="button">
           Go Back
         </button>
-        <button class="auth-link-btn" id="auth-forgot-resend" type="button">
-          Resend
+
+        <button
+          class="auth-btn auth-btn-dark"
+          id="auth-forgot-send"
+          type="button"
+        >
+          Send Code
         </button>
       </div>
 
-      <button class="auth-outline-btn" id="auth-contact-support" type="button">
-        Contact Support
-      </button>
+      <!-- Step 2: New Password + Passcode -->
+      <div class="auth-signup-step" id="auth-forgot-step-2">
+        <div class="auth-inputs">
+          <input
+            id="fp-new-password"
+            class="auth-input"
+            type="password"
+            placeholder="Enter Your New Password"
+            autocomplete="new-password"
+          />
+          <input
+            id="fp-confirm-password"
+            class="auth-input"
+            type="password"
+            placeholder="Confirm Your New Password"
+            autocomplete="new-password"
+          />
+        </div>
 
-      <button
-        class="auth-btn auth-btn-dark"
-        id="auth-forgot-reset"
-        type="button"
-      >
-        Reset
-      </button>
+        <div class="auth-subtitle auth-forgot-caption">
+          Enter your passcode sent to your email
+        </div>
+
+        <div class="auth-passcode-inputs" id="forgot-passcode-inputs">
+          <input
+            type="text"
+            class="auth-passcode-input"
+            maxlength="1"
+            inputmode="numeric"
+            aria-label="Forgot passcode digit 1"
+          />
+          <input
+            type="text"
+            class="auth-passcode-input"
+            maxlength="1"
+            inputmode="numeric"
+            aria-label="Forgot passcode digit 2"
+          />
+          <input
+            type="text"
+            class="auth-passcode-input"
+            maxlength="1"
+            inputmode="numeric"
+            aria-label="Forgot passcode digit 3"
+          />
+          <input
+            type="text"
+            class="auth-passcode-input"
+            maxlength="1"
+            inputmode="numeric"
+            aria-label="Forgot passcode digit 4"
+          />
+        </div>
+
+        <div class="auth-inline-links">
+          <button class="auth-link-btn" id="auth-forgot-back-2" type="button">
+            Go Back
+          </button>
+          <button class="auth-link-btn" id="auth-forgot-resend" type="button">
+            Resend
+          </button>
+        </div>
+
+        <button
+          class="auth-btn auth-btn-dark"
+          id="auth-forgot-reset"
+          type="button"
+        >
+          Reset Password
+        </button>
+      </div>
 
       <div class="auth-bottom-brand">getInWithgame</div>
       <div class="auth-note" id="auth-forgot-note"></div>
