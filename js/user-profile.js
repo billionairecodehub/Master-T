@@ -49,18 +49,22 @@ function _showUserProfileMainView() {
   const mainView = document.getElementById("user-profile-main-view");
   const settingsView = document.getElementById("user-profile-settings-view");
   const modalView = document.getElementById("user-profile-email-modal");
-  if (mainView) mainView.style.display = "flex";
+  const settingsBtn = document.getElementById("user-profile-open-settings");
+  if (mainView) mainView.style.display = "";
   if (settingsView) settingsView.style.display = "none";
   if (modalView) modalView.style.display = "none";
+  if (settingsBtn) settingsBtn.classList.remove("is-active");
 }
 
 function _showUserProfileSettingsView() {
   const mainView = document.getElementById("user-profile-main-view");
   const settingsView = document.getElementById("user-profile-settings-view");
   const modalView = document.getElementById("user-profile-email-modal");
+  const settingsBtn = document.getElementById("user-profile-open-settings");
   if (mainView) mainView.style.display = "none";
   if (settingsView) settingsView.style.display = "flex";
   if (modalView) modalView.style.display = "none";
+  if (settingsBtn) settingsBtn.classList.add("is-active");
 }
 
 function _showUserProfileEmailModal() {
@@ -70,10 +74,16 @@ function _showUserProfileEmailModal() {
   const modal = document.getElementById("user-profile-email-modal");
   const oldEmailInput = document.getElementById("user-email-modal-old");
   const newEmailInput = document.getElementById("user-email-modal-new");
+  const verifySection = document.getElementById("email-modal-verify-section");
+  const confirmBtn = document.getElementById("user-email-modal-confirm");
 
   if (modal) modal.style.display = "flex";
   if (oldEmailInput) oldEmailInput.value = user.email || "";
   if (newEmailInput) newEmailInput.value = "";
+
+  // Reset to step 1
+  if (verifySection) verifySection.style.display = "none";
+  if (confirmBtn) confirmBtn.textContent = "Send Code";
 
   // Clear passcode inputs and any pending code state
   document.querySelectorAll(".auth-passcode-input").forEach((input) => {
@@ -233,7 +243,17 @@ function setupUserProfileInteractions() {
     emailEditBtn.addEventListener("click", _showUserProfileEmailModal);
   }
 
-  // Email modal close button
+  // Email modal close — Cancel in header + overlay (no-op)
+  const emailModalCancelBtn = document.getElementById(
+    "user-profile-modal-cancel",
+  );
+  if (emailModalCancelBtn) {
+    emailModalCancelBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      _hideUserProfileEmailModal();
+      _showUserProfileSettingsView();
+    });
+  }
   if (emailModalBackBtn) {
     emailModalBackBtn.addEventListener("click", _hideUserProfileEmailModal);
   }
@@ -298,6 +318,12 @@ function setupUserProfileInteractions() {
         _setEmailModalNote("Sending code…");
         const ok = await _sendEmailChangeCode(newEmail, code);
         if (ok) {
+          // Step 1 complete — reveal verify section and update button
+          const verifySection = document.getElementById(
+            "email-modal-verify-section",
+          );
+          if (verifySection) verifySection.style.display = "";
+          if (emailModalConfirmBtn) emailModalConfirmBtn.textContent = "Verify";
           _setEmailModalNote(
             "Code sent! Check your inbox — also check spam/junk folder.",
           );
@@ -367,6 +393,13 @@ function setupUserProfileInteractions() {
         localStorage.removeItem(_EC_CODE_KEY);
         localStorage.removeItem(_EC_CD_KEY);
         _setEmailModalNote("Email updated successfully!", true);
+        // Reset modal back to step 1 state
+        const verifySection = document.getElementById(
+          "email-modal-verify-section",
+        );
+        if (verifySection) verifySection.style.display = "none";
+        if (emailModalConfirmBtn)
+          emailModalConfirmBtn.textContent = "Send Code";
         setTimeout(() => {
           refreshUserProfile();
           _hideUserProfileEmailModal();
@@ -402,6 +435,24 @@ function setupUserProfileInteractions() {
     homeMainBtn.addEventListener("click", _showUserProfileMainView);
   if (homeSettingsBtn)
     homeSettingsBtn.addEventListener("click", _showUserProfileMainView);
+
+  // Clicking anywhere in the profile header row (not settings icon) navigates home
+  const mainHeaderRow = document.querySelector(
+    "#user-profile-main-view .user-profile-header-row",
+  );
+  const settingsHeaderRow = document.querySelector(
+    "#user-profile-settings-view .user-profile-header-row",
+  );
+  [mainHeaderRow, settingsHeaderRow].forEach((row) => {
+    if (!row) return;
+    row.addEventListener("click", (e) => {
+      // Only navigate if the click wasn't on the settings icon button
+      if (!e.target.closest(".user-profile-header-settings")) {
+        _showUserProfileMainView();
+      }
+    });
+  });
+
   if (openSettingsBtn)
     openSettingsBtn.addEventListener("click", () => {
       refreshUserProfile();
@@ -519,10 +570,29 @@ function setupUserProfileInteractions() {
   }
 
   if (contactBtn) {
-    contactBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      window.location.href =
-        "mailto:Support@getinwithgame.com?subject=Support%20Request";
+    contactBtn.addEventListener("click", () => {
+      const email = "Support@getinwithgame.com";
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard
+          .writeText(email)
+          .then(() => {
+            const span = document.getElementById("user-profile-contact-value");
+            if (span) {
+              span.textContent = "Copied!";
+              setTimeout(() => {
+                span.textContent = "Copy Email";
+              }, 2000);
+            }
+          })
+          .catch(() => {
+            const span = document.getElementById("user-profile-contact-value");
+            if (span) span.textContent = email;
+          });
+      } else {
+        // Fallback: show the email as text
+        const span = document.getElementById("user-profile-contact-value");
+        if (span) span.textContent = email;
+      }
     });
   }
 }

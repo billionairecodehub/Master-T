@@ -103,7 +103,7 @@
               src="https://i.postimg.cc/DZQtkk3S/Mtogan-user-contact-support-icon.png"
               alt="Contact"
             />
-            <span id="user-profile-contact-value">24|7 Support</span>
+            <span id="user-profile-contact-value">Copy Email</span>
           </button>
         </div>
       </div>
@@ -280,7 +280,12 @@
             type="button"
           >
             <div class="user-profile-header-title">Profile</div>
-            <div class="user-profile-header-brand">getInWithgame</div>
+            <div
+              class="user-profile-modal-cancel"
+              id="user-profile-modal-cancel"
+            >
+              Cancel
+            </div>
           </button>
           <button
             class="user-profile-header-settings"
@@ -313,56 +318,52 @@
           placeholder="Enter New Email"
         />
 
-        <div class="user-email-modal-passcode-label">
-          Enter the Passcode sent to your new email
-        </div>
+        <!-- Step 2: shown only after code is sent -->
+        <div id="email-modal-verify-section" style="display: none">
+          <div class="user-email-modal-passcode-label">
+            Enter the Passcode sent to your new email
+          </div>
 
-        <div class="auth-passcode-inputs" id="user-email-modal-passcode">
-          <input
-            type="text"
-            class="auth-passcode-input"
-            maxlength="1"
-            inputmode="numeric"
-            aria-label="Passcode digit 1"
-          />
-          <input
-            type="text"
-            class="auth-passcode-input"
-            maxlength="1"
-            inputmode="numeric"
-            aria-label="Passcode digit 2"
-          />
-          <input
-            type="text"
-            class="auth-passcode-input"
-            maxlength="1"
-            inputmode="numeric"
-            aria-label="Passcode digit 3"
-          />
-          <input
-            type="text"
-            class="auth-passcode-input"
-            maxlength="1"
-            inputmode="numeric"
-            aria-label="Passcode digit 4"
-          />
-        </div>
+          <div class="auth-passcode-inputs" id="user-email-modal-passcode">
+            <input
+              type="text"
+              class="auth-passcode-input"
+              maxlength="1"
+              inputmode="numeric"
+              aria-label="Passcode digit 1"
+            />
+            <input
+              type="text"
+              class="auth-passcode-input"
+              maxlength="1"
+              inputmode="numeric"
+              aria-label="Passcode digit 2"
+            />
+            <input
+              type="text"
+              class="auth-passcode-input"
+              maxlength="1"
+              inputmode="numeric"
+              aria-label="Passcode digit 3"
+            />
+            <input
+              type="text"
+              class="auth-passcode-input"
+              maxlength="1"
+              inputmode="numeric"
+              aria-label="Passcode digit 4"
+            />
+          </div>
 
-        <div class="user-email-modal-actions">
-          <span
-            class="email-modal-action"
-            id="user-email-modal-back"
-            type="button"
-          >
-            Go Back
-          </span>
-          <span
-            class="email-modal-action"
-            id="user-email-modal-resend"
-            type="button"
-          >
-            Resend
-          </span>
+          <div class="user-email-modal-actions">
+            <span
+              class="email-modal-action"
+              id="user-email-modal-resend"
+              role="button"
+            >
+              Resend
+            </span>
+          </div>
         </div>
 
         <p
@@ -381,10 +382,8 @@
           id="user-email-modal-confirm"
           type="button"
         >
-          Confirm Edit
+          Send Code
         </button>
-
-        <div class="user-profile-footer-brand">getInWithgame</div>
       </div>
     </div>
   </main>

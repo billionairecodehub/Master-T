@@ -8,7 +8,8 @@ const AUTH_SIGNUP_COOLDOWN_KEY = "mt_auth_signup_cd_until";
 const AUTH_FORGOT_CODE_KEY = "mt_auth_forgot_code";
 const AUTH_FORGOT_COOLDOWN_KEY = "mt_auth_forgot_cd_until";
 const AUTH_FORGOT_EMAIL_KEY = "mt_auth_forgot_email";
-const AUTH_POST_LOGIN_TRANSITION_MS = 1000; // 1 s branded splash
+const AUTH_POST_LOGIN_TRANSITION_MS = 1000; // refresh  → 1 s
+const AUTH_LOGIN_TRANSITION_MS = 3000; // fresh login → 3 s
 const AUTH_START_SEEN_KEY = "mt_auth_start_seen";
 
 // ── EmailJS configuration ─────────────────────────────────────────────────────
@@ -576,7 +577,7 @@ async function _signin() {
 
   _setUserSessionFromAccount(restored);
   setAuthState("authenticated");
-  _showPostLoginTransition();
+  _showPostLoginTransition(true); // fresh login → 3 s splash
 }
 
 function _openForgotPassword() {
@@ -788,17 +789,16 @@ function _forgotReset() {
   }, 600);
 }
 
-function _showPostLoginTransition() {
+function _showPostLoginTransition(isLogin) {
   if (_authState.busy) return;
   _authState.busy = true;
   showAuthScreen("auth-screen-transition");
   _setGatewayVisible(true);
 
+  const ms = isLogin ? AUTH_LOGIN_TRANSITION_MS : AUTH_POST_LOGIN_TRANSITION_MS;
   if (_authState.postLoginTimer) clearTimeout(_authState.postLoginTimer);
   _authState.postLoginTimer = setTimeout(() => {
     _setGatewayVisible(false);
-    // Use the router so a refresh lands on the exact page the user was on.
-    // _router() reads window.location.pathname which is preserved across refreshes.
     if (typeof _router === "function") {
       _router();
     } else if (
@@ -811,7 +811,7 @@ function _showPostLoginTransition() {
       if (typeof _navigateTo === "function") _navigateTo("/");
     }
     _authState.busy = false;
-  }, AUTH_POST_LOGIN_TRANSITION_MS);
+  }, ms);
 }
 
 function _setupListeners() {
@@ -911,7 +911,7 @@ function initAuthFlow() {
   _recordActivity();
 
   if (isUserAuthenticated()) {
-    _showPostLoginTransition();
+    _showPostLoginTransition(false); // refresh → 1 s splash
     return;
   }
 
