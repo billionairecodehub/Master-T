@@ -199,9 +199,10 @@ function _showSignupStep(step) {
   const step2 = _qs("auth-signup-step-2");
   if (step1) step1.classList.toggle("is-active", _authState.signupStep === 1);
   if (step2) step2.classList.toggle("is-active", _authState.signupStep === 2);
+  _setNote("auth-signup-note", "");
 }
 
-function _setChoice(group, value) {
+function _setSignupChoice(group, value) {
   const selector = group === "gender" ? "[data-gender]" : "[data-status]";
   document.querySelectorAll(selector).forEach((btn) => {
     const isSelected =
@@ -211,6 +212,7 @@ function _setChoice(group, value) {
   });
   if (group === "gender") _authState.signupGender = value;
   else _authState.signupStatus = value;
+  _setNote("auth-signup-note", "");
 }
 
 function _normalizeEmail(email) {
@@ -344,6 +346,12 @@ function _submitSignupStep1() {
     ...(_authState.pendingSignup || {}),
     ...result.data,
   };
+  // Reset choice selections so the user always starts step 2 fresh
+  _authState.signupGender = "";
+  _authState.signupStatus = "";
+  document
+    .querySelectorAll("[data-gender],[data-status]")
+    .forEach((b) => b.classList.remove("is-selected"));
   _showSignupStep(2);
 }
 
@@ -700,16 +708,18 @@ function _setupListeners() {
   if (suBack) suBack.addEventListener("click", () => _showSignupStep(1));
   if (suSubmit) suSubmit.addEventListener("click", _submitSignupStep2);
 
-  document.querySelectorAll("[data-gender]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      _setChoice("gender", btn.getAttribute("data-gender") || "");
+  // Event delegation for choice buttons — more reliable on mobile than direct binding
+  const authPageEl = document.getElementById("auth-page");
+  if (authPageEl) {
+    authPageEl.addEventListener("click", (e) => {
+      const gBtn = e.target.closest("[data-gender]");
+      const sBtn = e.target.closest("[data-status]");
+      if (gBtn)
+        _setSignupChoice("gender", gBtn.getAttribute("data-gender") || "");
+      else if (sBtn)
+        _setSignupChoice("status", sBtn.getAttribute("data-status") || "");
     });
-  });
-  document.querySelectorAll("[data-status]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      _setChoice("status", btn.getAttribute("data-status") || "");
-    });
-  });
+  }
 
   const siSubmit = _qs("auth-signin-submit");
   if (siSubmit) siSubmit.addEventListener("click", _signin);

@@ -207,7 +207,7 @@
 .auth-choice-btn {
   height: 66px;
   border-radius: 34px;
-  border: 0.5px solid rgba(122, 143, 214, 0.3);
+  border: 1.5px solid rgba(122, 143, 214, 0.35);
   background: rgba(6, 10, 37, 0.4);
   color: rgba(221, 232, 255, 0.74);
   font-size: 17px;
@@ -215,13 +215,28 @@
   font-weight: 500;
   cursor: pointer;
   font-family: "Gellix", sans-serif;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.auth-choice-btn:active {
+  background: rgba(30, 60, 150, 0.7);
 }
 
 .auth-choice-btn.is-selected {
-  border-color: rgba(110, 170, 255, 0.9);
-  background: rgba(18, 52, 148, 0.6);
+  border-color: rgba(100, 160, 255, 1);
+  background: rgba(30, 80, 200, 0.75);
   color: rgba(255, 255, 255, 1);
-  box-shadow: 0 0 0 1px rgba(100, 160, 255, 0.35);
+  font-weight: 600;
+  box-shadow:
+    0 0 0 2px rgba(100, 160, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .auth-page-bars {
