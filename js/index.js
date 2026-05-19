@@ -61,15 +61,25 @@ function hideAllPagesExcept(exceptPage) {
   pages.forEach((p) => {
     if (p && p !== exceptPage) {
       p.style.display = "none";
-      p.classList.remove("page-fade-in", "page-fade-out");
+      p.classList.remove(
+        "page-slide-in",
+        "page-slide-out",
+        "page-fade-in",
+        "page-fade-out",
+      );
+      p.style.position = "";
+      p.style.zIndex = "";
+      p.style.left = "";
+      p.style.right = "";
+      p.style.top = "";
+      p.style.width = "";
     }
   });
-  // Close any open profile panels
+  // ...existing code...
   if (typeof closeProfileView === "function") closeProfileView();
   document
     .querySelectorAll(".profile-panel")
     .forEach((p) => p.classList.remove("open"));
-  // Reset menu to home view if circle/app/book panel was open
   const cp = document.getElementById("panel-circle");
   const ap = document.getElementById("panel-app");
   const bp = document.getElementById("panel-book");
@@ -94,37 +104,75 @@ function hideAllPagesExcept(exceptPage) {
 
 function showPage(page) {
   if (_currentPage && _currentPage !== page) {
-    // Fade out the current page
-    _currentPage.classList.remove("page-fade-in");
-    _currentPage.classList.add("page-fade-out");
-    _currentPage.addEventListener(
-      "animationend",
-      () => {
-        _currentPage.classList.remove("page-fade-out");
-        _currentPage.style.display = "none";
-        _doShowPage(page);
-      },
-      { once: true },
+    // Prepare both pages for sliding
+    _currentPage.style.position = "absolute";
+    _currentPage.style.zIndex = 2;
+    _currentPage.style.left = 0;
+    _currentPage.style.top = 0;
+    _currentPage.style.width = "100%";
+    page.style.position = "absolute";
+    page.style.zIndex = 3;
+    page.style.left = "100%";
+    page.style.top = 0;
+    page.style.width = "100%";
+    page.style.display = "block";
+    page.classList.remove(
+      "page-slide-in",
+      "page-slide-out",
+      "page-fade-in",
+      "page-fade-out",
     );
+    // Animate outgoing and incoming
+    requestAnimationFrame(() => {
+      _currentPage.classList.add("page-slide-out");
+      page.classList.add("page-slide-in");
+      page.style.left = 0;
+      _currentPage.style.left = "-100%";
+      // After animation, cleanup
+      const cleanup = () => {
+        _currentPage.classList.remove("page-slide-out");
+        _currentPage.style.display = "none";
+        _currentPage.style.position = "";
+        _currentPage.style.zIndex = "";
+        _currentPage.style.left = "";
+        _currentPage.style.top = "";
+        _currentPage.style.width = "";
+        page.classList.remove("page-slide-in");
+        page.style.position = "";
+        page.style.zIndex = "";
+        page.style.left = "";
+        page.style.top = "";
+        page.style.width = "";
+        _doShowPage(page, true);
+      };
+      page.addEventListener("animationend", cleanup, { once: true });
+    });
   } else {
     _doShowPage(page);
   }
 }
 
-function _doShowPage(page) {
+function _doShowPage(page, skipAnim) {
   hideAllPagesExcept(page);
   page.style.display = "block";
-  page.classList.remove("page-fade-in", "page-fade-out");
-  requestAnimationFrame(() =>
-    requestAnimationFrame(() => {
-      page.classList.add("page-fade-in");
-      page.addEventListener(
-        "animationend",
-        () => page.classList.remove("page-fade-in"),
-        { once: true },
-      );
-    }),
-  );
+  if (!skipAnim) {
+    page.classList.remove(
+      "page-slide-in",
+      "page-slide-out",
+      "page-fade-in",
+      "page-fade-out",
+    );
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        page.classList.add("page-fade-in");
+        page.addEventListener(
+          "animationend",
+          () => page.classList.remove("page-fade-in"),
+          { once: true },
+        );
+      }),
+    );
+  }
   const main = document.querySelector(".main");
   if (main) main.scrollTop = 0;
   _currentPage = page;
