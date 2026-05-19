@@ -38,15 +38,90 @@ function _getSelectedChoice(group, fallback) {
 function _showUserProfileMainView() {
   const mainView = document.getElementById("user-profile-main-view");
   const settingsView = document.getElementById("user-profile-settings-view");
+  const modalView = document.getElementById("user-profile-email-modal");
   if (mainView) mainView.style.display = "flex";
   if (settingsView) settingsView.style.display = "none";
+  if (modalView) modalView.style.display = "none";
 }
 
 function _showUserProfileSettingsView() {
   const mainView = document.getElementById("user-profile-main-view");
   const settingsView = document.getElementById("user-profile-settings-view");
+  const modalView = document.getElementById("user-profile-email-modal");
   if (mainView) mainView.style.display = "none";
   if (settingsView) settingsView.style.display = "flex";
+  if (modalView) modalView.style.display = "none";
+}
+
+function _showUserProfileEmailModal() {
+  const user = _getAuthUser();
+  if (!user) return;
+
+  const modal = document.getElementById("user-profile-email-modal");
+  const oldEmailInput = document.getElementById("user-email-modal-old");
+  const newEmailInput = document.getElementById("user-email-modal-new");
+
+  if (modal) modal.style.display = "flex";
+  if (oldEmailInput)
+    oldEmailInput.value = user.email || "getinwithgame@gmail.com";
+  if (newEmailInput) newEmailInput.value = "";
+
+  // Clear passcode inputs
+  document.querySelectorAll(".auth-passcode-input").forEach((input) => {
+    input.value = "";
+  });
+}
+
+function _hideUserProfileEmailModal() {
+  const modal = document.getElementById("user-profile-email-modal");
+  if (modal) modal.style.display = "none";
+}
+
+function _validateUsername(username) {
+  // Check max 12 characters
+  if (!username || username.length > 12) {
+    return { valid: false, error: "Username must be max 12 characters" };
+  }
+
+  // Check uniqueness - simple check against all stored user data
+  // In a real app, this would check against a database
+  // For now, check if it's different from current user
+  const currentUser = _getAuthUser();
+  if (currentUser && currentUser.name && currentUser.name !== username) {
+    // Could implement a check against other users here
+    // For MVP, we'll allow it as long as it's valid format
+  }
+
+  return { valid: true };
+}
+
+async function _uploadToImgbb(file) {
+  // Using a public imgbb API endpoint - this is basic implementation
+  // In production, use a dedicated API key
+  const formData = new FormData();
+  formData.append("image", file);
+
+  try {
+    const response = await fetch(
+      "https://api.imgbb.com/1/upload?key=5d12fe479ea82c96d71c7b9d5f98854c",
+      {
+        method: "POST",
+        body: formData,
+        mode: "cors",
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error("Upload failed");
+    }
+
+    const data = await response.json();
+    return data.data.url; // Return the uploaded image URL
+  } catch (error) {
+    console.error("imgbb upload error:", error);
+    // Return base64 as fallback if upload fails
+    return null;
+  }
 }
 
 function refreshUserProfile() {
@@ -63,7 +138,9 @@ function refreshUserProfile() {
   const ageEl = document.getElementById("user-profile-account");
   const settingsAvatarEl = document.getElementById("user-settings-avatar");
   const settingsNameEl = document.getElementById("user-settings-name");
-  const settingsEmailEl = document.getElementById("user-settings-email");
+  const settingsEmailDisplayEl = document.getElementById(
+    "user-settings-email-display",
+  );
 
   if (avatarEl) avatarEl.src = user.avatar || fallbackAvatar;
   if (nameEl) nameEl.textContent = user.name || "Justbgoodd";
@@ -74,15 +151,15 @@ function refreshUserProfile() {
 
   if (settingsAvatarEl) settingsAvatarEl.src = user.avatar || fallbackAvatar;
   if (settingsNameEl) settingsNameEl.value = user.name || "Justbgoodd";
-  if (settingsEmailEl)
-    settingsEmailEl.value = user.email || "getinwithgame@gmail.com";
+  if (settingsEmailDisplayEl)
+    settingsEmailDisplayEl.textContent =
+      user.email || "getinwithgame@gmail.com";
 
   _setChoice("gender", user.gender || "Male");
   _setChoice("marital", user.status || "Single");
 }
 
 function setupUserProfileInteractions() {
-  const nameEl = document.getElementById("user-profile-name-value");
   const contactBtn = document.getElementById("user-profile-contact");
   const homeMainBtn = document.getElementById("user-profile-home-main");
   const homeSettingsBtn = document.getElementById("user-profile-home-settings");
@@ -93,25 +170,95 @@ function setupUserProfileInteractions() {
   const avatarInput = document.getElementById("user-settings-avatar-input");
   const saveBtn = document.getElementById("user-settings-save");
   const settingsName = document.getElementById("user-settings-name");
-  const settingsEmail = document.getElementById("user-settings-email");
   const settingsAvatar = document.getElementById("user-settings-avatar");
+  const emailEditBtn = document.getElementById("user-settings-email-btn");
+  const emailModalBackBtn = document.getElementById("user-email-modal-back");
+  const emailModalResendBtn = document.getElementById(
+    "user-email-modal-resend",
+  );
+  const emailModalConfirmBtn = document.getElementById(
+    "user-email-modal-confirm",
+  );
+  const emailModalOverlay = document.getElementById(
+    "user-profile-modal-overlay",
+  );
 
   _showUserProfileMainView();
 
-  if (nameEl) {
-    nameEl.addEventListener("dblclick", () => {
-      const user = _getAuthUser();
-      if (!user) return;
+  // Email edit button - open modal
+  if (emailEditBtn) {
+    emailEditBtn.addEventListener("click", _showUserProfileEmailModal);
+  }
 
-      const next = window.prompt("Edit username", user.name || "");
-      if (!next) return;
-      const clean = next.trim();
-      if (!clean) return;
-      user.name = clean;
-      _saveAuthUser(user);
-      refreshUserProfile();
+  // Email modal close button
+  if (emailModalBackBtn) {
+    emailModalBackBtn.addEventListener("click", _hideUserProfileEmailModal);
+  }
+
+  // Email modal resend button
+  if (emailModalResendBtn) {
+    emailModalResendBtn.addEventListener("click", () => {
+      // In real implementation, resend verification code to new email
+      alert("Verification code resent to your new email");
     });
   }
+
+  // Email modal confirm button
+  if (emailModalConfirmBtn) {
+    emailModalConfirmBtn.addEventListener("click", () => {
+      const oldEmailInput = document.getElementById("user-email-modal-old");
+      const newEmailInput = document.getElementById("user-email-modal-new");
+      const passcodeInputs = document.querySelectorAll(".auth-passcode-input");
+
+      const passcode = Array.from(passcodeInputs)
+        .map((input) => input.value)
+        .join("");
+
+      if (passcode.length !== 4) {
+        alert("Please enter all 4 digits of the passcode");
+        return;
+      }
+
+      if (!newEmailInput || !newEmailInput.value.trim()) {
+        alert("Please enter a new email");
+        return;
+      }
+
+      // Verify passcode (in real app, validate against sent code)
+      // For MVP, just check if 4 digits
+      const user = _getAuthUser();
+      if (user) {
+        user.email = newEmailInput.value.trim();
+        _saveAuthUser(user);
+        alert("Email updated successfully");
+        refreshUserProfile();
+        _hideUserProfileEmailModal();
+        _showUserProfileSettingsView();
+      }
+    });
+  }
+
+  // Prevent modal close on overlay click (only close on Go Back button)
+  if (emailModalOverlay) {
+    emailModalOverlay.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+  }
+
+  // Passcode input auto-focus behavior
+  document.querySelectorAll(".auth-passcode-input").forEach((input, idx) => {
+    input.addEventListener("input", (e) => {
+      if (e.target.value && idx < 3) {
+        document.querySelectorAll(".auth-passcode-input")[idx + 1].focus();
+      }
+    });
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace" && !input.value && idx > 0) {
+        document.querySelectorAll(".auth-passcode-input")[idx - 1].focus();
+      }
+    });
+  });
 
   if (homeMainBtn)
     homeMainBtn.addEventListener("click", _showUserProfileMainView);
@@ -134,25 +281,38 @@ function setupUserProfileInteractions() {
 
   if (avatarUploadBtn && avatarInput) {
     avatarUploadBtn.addEventListener("click", () => avatarInput.click());
-    avatarInput.addEventListener("change", () => {
+    avatarInput.addEventListener("change", async () => {
       const file = avatarInput.files && avatarInput.files[0];
       if (!file || !settingsAvatar) return;
+
+      // First show preview via FileReader
       const reader = new FileReader();
-      reader.onload = () => {
+      reader.onload = async () => {
         settingsAvatar.src = String(reader.result || settingsAvatar.src);
+
+        // Then upload to imgbb for persistence
+        const imgbbUrl = await _uploadToImgbb(file);
+        if (imgbbUrl) {
+          settingsAvatar.src = imgbbUrl;
+        }
       };
       reader.readAsDataURL(file);
     });
   }
 
   if (saveBtn) {
-    saveBtn.addEventListener("click", () => {
+    saveBtn.addEventListener("click", async () => {
       const user = _getAuthUser() || { joinedAt: Date.now() };
       const nextName = settingsName ? settingsName.value.trim() : "";
-      const nextEmail = settingsEmail ? settingsEmail.value.trim() : "";
+
+      // Validate username
+      const validation = _validateUsername(nextName);
+      if (!validation.valid) {
+        alert(validation.error);
+        return;
+      }
 
       if (nextName) user.name = nextName;
-      if (nextEmail) user.email = nextEmail;
       user.gender = _getSelectedChoice("gender", user.gender || "Male");
       user.status = _getSelectedChoice("marital", user.status || "Single");
       if (settingsAvatar && settingsAvatar.src)

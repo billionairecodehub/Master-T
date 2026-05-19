@@ -39,7 +39,6 @@
           <div class="user-profile-name-value" id="user-profile-name-value">
             Justbgoodd
           </div>
-          <div class="user-profile-name-meta">Double Tap to Edit</div>
         </div>
       </div>
 
@@ -192,12 +191,17 @@
             class="user-settings-name-input"
             type="text"
             placeholder="Username"
+            maxlength="12"
           />
           <div class="user-settings-name-meta">12 Max Character</div>
         </div>
       </div>
 
-      <div class="user-profile-board board-full user-settings-email-board">
+      <button
+        class="user-profile-board board-full user-settings-email-board"
+        id="user-settings-email-btn"
+        type="button"
+      >
         <div class="board-label">Edit Email</div>
         <div class="board-content-row user-settings-email-row">
           <img
@@ -205,14 +209,9 @@
             src="https://i.postimg.cc/5yK9KwNZ/Mtogan-user-email-icon.png"
             alt="Email"
           />
-          <input
-            id="user-settings-email"
-            class="user-settings-email-input"
-            type="email"
-            placeholder="Email"
-          />
+          <span id="user-settings-email-display">getinwithgame@gmail.com</span>
         </div>
-      </div>
+      </button>
 
       <div class="user-settings-choice-grid" id="user-settings-gender-grid">
         <button
@@ -262,5 +261,120 @@
 
       <div class="user-profile-footer-brand">getInWithgame</div>
     </section>
+
+    <!-- Email Edit Modal -->
+    <div
+      class="user-profile-email-modal"
+      id="user-profile-email-modal"
+      style="display: none"
+    >
+      <div
+        class="user-profile-modal-overlay"
+        id="user-profile-modal-overlay"
+      ></div>
+      <div class="user-profile-modal-content">
+        <div class="user-profile-header-row">
+          <button
+            class="user-profile-header-home"
+            id="user-profile-modal-home"
+            type="button"
+          >
+            <div class="user-profile-header-title">Profile</div>
+            <div class="user-profile-header-brand">getInWithgame</div>
+          </button>
+          <button
+            class="user-profile-header-settings"
+            id="user-profile-modal-settings"
+            type="button"
+            aria-label="Settings"
+          >
+            <img
+              class="user-profile-header-settings-icon"
+              src="https://i.postimg.cc/mgbHyBkc/Mtogan-user-settings-icon.png"
+              alt="Settings"
+            />
+          </button>
+        </div>
+
+        <div class="user-settings-title">Edit Email</div>
+
+        <input
+          id="user-email-modal-old"
+          class="auth-input"
+          type="email"
+          placeholder="Enter Old Email"
+          readonly
+        />
+
+        <input
+          id="user-email-modal-new"
+          class="auth-input"
+          type="email"
+          placeholder="Enter New Email"
+        />
+
+        <div class="user-email-modal-passcode-label">
+          Enter the Passcode sent to your new email
+        </div>
+
+        <div class="auth-passcode-inputs" id="user-email-modal-passcode">
+          <input
+            type="text"
+            class="auth-passcode-input"
+            maxlength="1"
+            inputmode="numeric"
+            aria-label="Passcode digit 1"
+          />
+          <input
+            type="text"
+            class="auth-passcode-input"
+            maxlength="1"
+            inputmode="numeric"
+            aria-label="Passcode digit 2"
+          />
+          <input
+            type="text"
+            class="auth-passcode-input"
+            maxlength="1"
+            inputmode="numeric"
+            aria-label="Passcode digit 3"
+          />
+          <input
+            type="text"
+            class="auth-passcode-input"
+            maxlength="1"
+            inputmode="numeric"
+            aria-label="Passcode digit 4"
+          />
+        </div>
+
+        <div class="user-email-modal-actions">
+          <button
+            class="auth-outline-btn"
+            id="user-email-modal-back"
+            type="button"
+          >
+            Go Back
+          </button>
+          <button
+            class="auth-outline-btn"
+            id="user-email-modal-resend"
+            type="button"
+          >
+            Resend
+          </button>
+        </div>
+
+        <button
+          class="auth-btn auth-btn-primary user-email-modal-confirm"
+          id="user-email-modal-confirm"
+          type="button"
+        >
+          Confirm Edit
+        </button>
+
+        <div class="user-profile-footer-brand">getInWithgame</div>
+      </div>
+    </div>
   </main>
 </div>
