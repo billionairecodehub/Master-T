@@ -18,6 +18,28 @@
           "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.emailjs.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; connect-src 'self' https://mtogan-b3877-default-rtdb.firebaseio.com https://api.imgbb.com https://api.emailjs.com; font-src 'self' data:; frame-ancestors 'none';"
         }
       ]
+    },
+    {
+      "source": "/(.*)\\.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, max-age=0"
+        },
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
+        }
+      ]
     }
   ]
 }

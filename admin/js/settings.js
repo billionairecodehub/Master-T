@@ -121,7 +121,23 @@ document
     a.click();
     URL.revokeObjectURL(url);
   });
+// ── Export Users ─────────────────────────────────────────────
 
+document
+  .getElementById("settings-export-users")
+  .addEventListener("click", () => {
+    const data = DataStore.getAll("users");
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download =
+      "mastertogan-users-" + new Date().toISOString().slice(0, 10) + ".json";
+    a.click();
+    URL.revokeObjectURL(url);
+  });
 // ── Log Out ──────────────────────────────────────────
 
 document.getElementById("settings-logout").addEventListener("click", () => {

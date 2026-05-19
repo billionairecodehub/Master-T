@@ -58,6 +58,18 @@
     <link rel="stylesheet" href="css/about.css" />
     <link rel="stylesheet" href="css/block.css" />
     <link rel="stylesheet" href="css/universal-modal.css" />
+
+    <!-- ── Service Worker: register early so offline fallback is ready ── -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/sw.js", { scope: "/" })
+          .catch(function () {
+            /* non-fatal — app works without SW */
+          });
+      }
+    </script>
+
     <style>
       #boot-splash {
         position: fixed;

@@ -86,6 +86,18 @@ function hideAllPages() {
 function showPage(page) {
   hideAllPages();
   page.style.display = "block";
+  // Restart the fade-in animation on every navigation
+  page.classList.remove("page-fade-in");
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => {
+      page.classList.add("page-fade-in");
+      page.addEventListener(
+        "animationend",
+        () => page.classList.remove("page-fade-in"),
+        { once: true },
+      );
+    }),
+  );
   const main = document.querySelector(".main");
   if (main) main.scrollTop = 0;
 }

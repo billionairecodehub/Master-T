@@ -516,11 +516,11 @@ button {
   background: rgba(0, 5, 22, 0.7) !important;
   color: #ddd;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   cursor: pointer;
   font-family: "Gellix", sans-serif;
   text-decoration: none;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.25px;
 }
 
 .block-recommend-cta-faded:active {
@@ -601,11 +601,11 @@ button {
   background: rgba(0, 5, 22, 0.7) !important;
   color: #ddd;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   cursor: pointer;
   font-family: "Gellix", sans-serif;
   text-decoration: none;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.25px;
   margin-bottom: 10px;
 }
 
