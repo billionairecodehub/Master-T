@@ -290,6 +290,17 @@
   margin-right: 4px;
 }
 
+.store-nav-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 9px;
+  height: 9px;
+  background: #ffd600;
+  border-radius: 50%;
+  display: none;
+}
+
 /* ── Search filter: hide non-matching cards ──────────────── */
 .notification-board.noti-hidden,
 .noti-date-group-label.noti-hidden {
