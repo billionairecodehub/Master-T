@@ -1,3 +1,20 @@
+.quest-comment-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.quest-comment-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+.quest-comment-count {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+}
 /* ── Quest Page ─────────────────────────────── */
 
 /* Prevent mobile zoom on button focus */

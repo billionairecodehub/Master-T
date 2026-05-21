@@ -144,6 +144,13 @@ function renderQuests() {
 
       const subject = p.subject || "";
 
+      // Comment count (default 0 if missing)
+      const commentCount =
+        typeof p.comments === "number"
+          ? p.comments
+          : Array.isArray(p.comments)
+            ? p.comments.length
+            : 0;
       return `
         <div class="quest-board" data-id="${p.id}">
           <div class="quest-top">
@@ -159,6 +166,10 @@ function renderQuests() {
             <div class="quest-thumb quest-thumb-down${existingVote === "down" ? " voted" : ""}" data-id="${p.id}" data-vote="down">
               <img src="https://i.postimg.cc/fb1mHMY1/Mt-Quest-Thumbs-Down-Icon.png" alt="Down" class="quest-thumb-icon" />
               <span class="quest-thumb-count">${thumbsDown > 0 ? (thumbsDown >= 1000 ? (thumbsDown / 1000).toFixed(1) + "k" : thumbsDown) : "0"}</span>
+            </div>
+            <div class="quest-comment-indicator" data-id="${p.id}">
+              <img src="https://i.postimg.cc/TYQLDc10/Mtogan-Quest-Comment-Icon.png" alt="Comments" class="quest-comment-icon" />
+              <span class="quest-comment-count">${commentCount}</span>
             </div>
           </div>
           ${headerImgHTML}

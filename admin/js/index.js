@@ -18,12 +18,13 @@ const loginBtn = document.getElementById("login-btn");
 const loginInput = document.getElementById("login-pin");
 const loginError = document.getElementById("login-error");
 
-function attemptLogin() {
+async function attemptLogin() {
   const pin = loginInput.value.trim();
   if (DataStore.checkPin(pin)) {
     adminLogin.style.display = "none";
     adminLayout.style.display = "flex";
-    // Sync profile avatar in header
+    // Always sync profile from Firebase before showing UI
+    await DataStore.syncFromRemote();
     const adminHeaderImg = document.getElementById("admin-header-profile-img");
     if (adminHeaderImg) {
       const p = DataStore.getProfile();
