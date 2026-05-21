@@ -473,7 +473,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
+  padding: 0 15px;
 }
 
 .header-profile {
@@ -573,7 +573,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 5px 10px;
+  padding: 5px;
 }
 
 .nav-item {
