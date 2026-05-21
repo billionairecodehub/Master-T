@@ -285,7 +285,7 @@ function renderProfileAboutSections() {
 function refreshProfileData() {
   const p = DataStore.getProfile();
   const _DEFAULT_PROFILE_IMG =
-    "https://i.postimg.cc/nhdyR4kF/Mt-Profile-Fallback-Img.png";
+    "https://i.postimg.cc/nr9srgXk/Master-Togan-Profile-Image.png";
   // Profile hero image
   const heroImg = document.getElementById("profile-hero-img");
   if (heroImg) {

@@ -28,7 +28,9 @@ async function attemptLogin() {
     const adminHeaderImg = document.getElementById("admin-header-profile-img");
     if (adminHeaderImg) {
       const p = DataStore.getProfile();
-      if (p.img) adminHeaderImg.src = p.img;
+      const fallbackImg =
+        "https://i.postimg.cc/nr9srgXk/Master-Togan-Profile-Image.png";
+      adminHeaderImg.src = p.img || fallbackImg;
     }
     showAdminPage("dashboard");
     if (adminMain && window.ScrollRevealManager) {

@@ -387,7 +387,7 @@ if (!openedFromQuery) {
 async function _syncAndInitHeaderAvatar() {
   await DataStore.syncFromRemote();
   const _DEFAULT_PROFILE_IMG =
-    "https://i.postimg.cc/nhdyR4kF/Mt-Profile-Fallback-Img.png";
+    "https://i.postimg.cc/nr9srgXk/Master-Togan-Profile-Image.png";
   const headerImg = document.getElementById("header-profile-img");
   if (!headerImg) return;
   const p = DataStore.getProfile();
