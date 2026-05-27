@@ -731,8 +731,8 @@ body {
 }
 
 .nav-icon {
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   object-fit: contain;
   opacity: 0.45;
   filter: brightness(1.1) saturate(0.7);
@@ -742,10 +742,10 @@ body {
 }
 
 .nav-label {
-  font-size: 7px;
+  font-size: 10px;
   color: #ccc;
   font-weight: 400;
-  letter-spacing: 0.3px;
+  letter-spacing: -0.3px;
   transition: color 0.2s;
 }
 

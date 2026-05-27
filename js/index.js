@@ -427,6 +427,15 @@ async function _syncAndInitHeaderAvatar() {
 function syncHeaderAccountAvatar() {
   const accountImgEl = document.getElementById("header-account-img");
   if (!accountImgEl) return;
+  // If the img has been hardcoded for testing, don't overwrite it.
+  try {
+    if (accountImgEl.getAttribute("data-hardcode") === "1") {
+      console.debug(
+        "[debug] syncHeaderAccountAvatar: skipping overwrite because data-hardcode=1",
+      );
+      return;
+    }
+  } catch (e) {}
   const _DEFAULT_PROFILE_IMG =
     "https://i.postimg.cc/nr9srgXk/Master-Togan-Profile-Image.png";
   try {
@@ -455,6 +464,13 @@ function syncHeaderAccountAvatar() {
   } catch (e) {
     accountImgEl.src = _DEFAULT_PROFILE_IMG;
   }
+  // DEBUG: report what src ended up on the account image
+  try {
+    console.debug(
+      "[debug] syncHeaderAccountAvatar -> #header-account-img.src:",
+      accountImgEl.src,
+    );
+  } catch (e) {}
 }
 
 // Update avatar when auth changes in other tabs
