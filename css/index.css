@@ -244,7 +244,7 @@
 /* ========== SITE HEADER (consolidated) ========== */
 .site-header {
   background: rgba(10, 14, 39, 0.98);
-  padding: 12px 16px;
+  padding: 5px 16px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -608,7 +608,7 @@ body {
   bottom: 0;
   z-index: 10;
   border-top: 0.5px solid rgba(107, 158, 255, 0.2);
-  padding: 7px 0;
+  padding: 0px 0;
 }
 
 .header-wrapper {
@@ -717,7 +717,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 5px;
+  padding: 4px;
 }
 
 .nav-item {
@@ -732,8 +732,8 @@ body {
 }
 
 .nav-icon {
-  width: 28px;
-  height: 28px;
+  width: 25px;
+  height: 25px;
   object-fit: contain;
   opacity: 0.45;
   filter: brightness(1.1) saturate(0.7);
