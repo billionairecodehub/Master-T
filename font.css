@@ -86,3 +86,13 @@ html,
 body {
   font-family: "Gellix", Arial, Helvetica, sans-serif;
 }
+
+/* Rostock Kaligraph — used only for header brand */
+@font-face {
+  font-family: "RostockKaligraph";
+  /* file name contains a space in the repo, use percent-encoding to reference it */
+  src: url("font/Rostock%20Kaligraph.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

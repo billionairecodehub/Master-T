@@ -138,35 +138,58 @@
 
     <!-- Mobile Layout -->
     <div class="mobile-layout">
-      <header class="header" style="display: none">
-        <div class="header-wrapper">
-          <div class="header-profile">
-            <div class="header-profile-avatar">
+      <header class="site-header" role="banner">
+        <div class="site-header__inner">
+          <!-- left: profile avatar + brand text -->
+          <div class="site-header__left">
+            <button
+              class="icon-button avatar-button"
+              id="header-user-btn"
+              aria-label="Open profile"
+            >
               <img
                 id="header-profile-img"
                 src="https://i.postimg.cc/nhdyR4kF/Mt-Profile-Fallback-Img.png"
                 alt="Profile"
+                class="avatar"
               />
+            </button>
+            <div class="site-header__brand-left">
+              <span class="brand brand--rostock">get In With game</span>
             </div>
           </div>
-          <div class="header-title">get In With game</div>
-          <div class="header-menu">
-            <div class="header-noti-btn" id="header-noti-btn">
+
+          <!-- right: notifications + account avatar -->
+          <div
+            class="site-header__right"
+            role="navigation"
+            aria-label="User actions"
+          >
+            <button
+              class="icon-button"
+              id="header-noti-btn"
+              aria-label="Notifications"
+            >
               <img
                 src="https://i.postimg.cc/5tHhvgFc/Mt-Notification-Icon.png"
                 alt="Notifications"
-                class="header-menu-icon"
+                class="icon--bell"
               />
               <div class="noti-nav-dot" id="noti-nav-dot"></div>
-            </div>
-            <div class="header-noti-btn" id="header-user-btn">
+            </button>
+
+            <button
+              class="icon-button avatar-button"
+              id="header-account-btn"
+              aria-label="Open account"
+            >
               <img
-                id="header-menu-icon"
+                id="header-account-img"
                 src="https://i.postimg.cc/ncpWyckP/Mtogan-User-Profile-Icon.png"
-                alt="Menu"
-                class="header-menu-icon"
+                alt="Account"
+                class="avatar avatar--right"
               />
-            </div>
+            </button>
           </div>
         </div>
       </header>

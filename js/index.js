@@ -39,8 +39,12 @@ const blockPage = document.querySelector(".block-page");
 const questPage = document.querySelector(".quest-page");
 const notificationsPage = document.querySelector(".notifications-page");
 const aboutPage = document.querySelector(".about-page");
-const headerProfile = document.querySelector(".header-profile");
-const headerMenu = document.querySelector(".header-menu");
+const headerProfile =
+  document.getElementById("header-user-btn") ||
+  document.querySelector(".header-profile");
+const headerMenu =
+  document.getElementById("header-account-btn") ||
+  document.querySelector(".header-menu");
 const navItems = document.querySelectorAll(".nav-item");
 
 // Hide all pages function
@@ -278,10 +282,12 @@ if (headerTitleEl) {
   });
 }
 
-headerProfile.addEventListener("click", () => {
-  _navigateTo("/profile");
-  showPage(profilePage);
-});
+if (headerProfile) {
+  headerProfile.addEventListener("click", () => {
+    _navigateTo("/profile");
+    showPage(profilePage);
+  });
+}
 
 // Header notification button → show notifications page
 const headerNotiBtnEl = document.getElementById("header-noti-btn");
@@ -296,7 +302,10 @@ if (headerNotiBtnEl) {
 }
 
 // Header profile icon (next to notification) — navigates to profile page
-const headerMenuIconEl = document.getElementById("header-menu-icon");
+const headerMenuIconEl =
+  document.getElementById("header-account-btn") ||
+  document.getElementById("header-account-img") ||
+  document.getElementById("header-menu-icon");
 if (headerMenuIconEl) {
   headerMenuIconEl.addEventListener("click", (e) => {
     e.preventDefault();
@@ -392,7 +401,53 @@ async function _syncAndInitHeaderAvatar() {
   if (!headerImg) return;
   const p = DataStore.getProfile();
   headerImg.src = p.img || _DEFAULT_PROFILE_IMG;
+
+  // Ensure account avatar uses latest profile data when DataStore has been synced
+  try {
+    if (typeof syncHeaderAccountAvatar === "function")
+      syncHeaderAccountAvatar();
+  } catch (e) {}
+
+  // Also set the right-side account avatar to the authenticated user's image
+  try {
+    const accountImgEl = document.getElementById("header-account-img");
+    if (accountImgEl) {
+      const raw = localStorage.getItem("mt_auth_user");
+      const auth = raw ? JSON.parse(raw) : null;
+      accountImgEl.src =
+        (auth && (auth.img || auth.photoURL)) || _DEFAULT_PROFILE_IMG;
+    }
+  } catch (e) {
+    // ignore parse errors
+  }
 }
+
+// Keep header account avatar in sync with authenticated user data
+function syncHeaderAccountAvatar() {
+  const accountImgEl = document.getElementById("header-account-img");
+  if (!accountImgEl) return;
+  const _DEFAULT_PROFILE_IMG =
+    "https://i.postimg.cc/nr9srgXk/Master-Togan-Profile-Image.png";
+  try {
+    const raw = localStorage.getItem("mt_auth_user");
+    const auth = raw ? JSON.parse(raw) : null;
+    accountImgEl.src =
+      (auth && (auth.img || auth.photoURL)) || _DEFAULT_PROFILE_IMG;
+  } catch (e) {
+    accountImgEl.src = _DEFAULT_PROFILE_IMG;
+  }
+}
+
+// Update avatar when auth changes in other tabs
+window.addEventListener("storage", (e) => {
+  if (e.key === "mt_auth_user") syncHeaderAccountAvatar();
+});
+
+// expose function for other modules to call after login/profile update
+window.syncHeaderAccountAvatar = syncHeaderAccountAvatar;
+
+// run once on boot
+syncHeaderAccountAvatar();
 
 // Call on boot
 _syncAndInitHeaderAvatar();
