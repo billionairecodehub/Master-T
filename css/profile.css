@@ -5,7 +5,7 @@
   font-family: "Gellix", sans-serif;
 }
 .mtogan-profile-page {
-  background: #191e38;
+  background: transparent;
   display: flex;
   flex-direction: row;
   padding: 15px 0;
