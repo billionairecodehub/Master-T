@@ -35,7 +35,7 @@
   align-self: stretch;
   flex-shrink: 0;
   height: 240px;
-  border-radius: 2px;
+  border-radius: 0px;
   position: relative;
   object-fit: cover;
 }

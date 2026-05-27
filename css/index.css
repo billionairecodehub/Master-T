@@ -274,11 +274,12 @@
   font-family: "Gellix", sans-serif;
   font-weight: 400;
   font-size: 24px;
-  letter-spacing: -0.9px;
+  letter-spacing: -0.7px;
 }
 .brand--title {
   /* font-family: "RostockKaligraph", var(--font-family-primary); */
   font-family: "Gellix", sans-serif;
+  letter-spacing: -0.7px;
 }
 
 .icon-button {
