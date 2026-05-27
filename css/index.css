@@ -295,23 +295,23 @@
     background 0.12s,
     transform 0.06s;
 }
-.icon-button:hover {
+/* .icon-button:hover {
   background: rgba(255, 255, 255, 0.04);
-}
+} */
 .icon-button:active {
   transform: translateY(1px);
 }
-.icon-button:focus {
+/* .icon-button:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(20, 145, 231, 0.12);
-}
+} */
 
 .avatar {
   width: 36px;
   height: 36px;
   border-radius: 999px;
   object-fit: cover;
-  border: 0.6px solid rgba(255, 255, 255, 0.9);
+  border: 0.5px solid rgba(255, 255, 255, 0.9);
 }
 .avatar--right {
   width: 33px;
@@ -328,10 +328,10 @@
 
 /* Notification circular stroke and inner icon centering */
 #header-noti-btn {
-  width: 33px;
-  height: 33px;
+  width: 30px;
+  height: 30px;
   border-radius: 999px;
-  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  border: 0.5px solid rgba(255, 255, 255, 0.95);
   display: inline-flex;
   align-items: center;
   justify-content: center;
