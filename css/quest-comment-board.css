@@ -1,0 +1,218 @@
+/* Quest Comment Board Modal Styles */
+.quest-comment-board {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1002;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  pointer-events: none;
+  background: rgba(10, 14, 39, 0.82);
+}
+.quest-comment-board-container {
+  width: 100%;
+  max-width: 840px; /* match quest main max width, adjust as needed */
+  margin: 0 auto;
+  /* ...existing code... */
+}
+.quest-comment-board-container {
+  width: 100%;
+  max-width: 840px;
+  margin: 0 auto;
+  background: var(
+    --gradient-bg-global,
+    linear-gradient(135deg, #18122b 60%, #241a3d 100%)
+  );
+  border-radius: 5px 5px 0 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.32);
+  padding: 1rem 1rem 12px 1rem;
+  min-height: 220px;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  pointer-events: all;
+  animation: quest-comment-board-slideup 0.32s cubic-bezier(0.4, 1.4, 0.6, 1) 1;
+}
+@keyframes quest-comment-board-slideup {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.quest-comment-board-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 18px 8px 18px;
+}
+.quest-comment-board-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.quest-comment-board-header-icon {
+  width: 22px;
+  height: 22px;
+  opacity: 0.85;
+}
+.quest-comment-board-header-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+.quest-comment-board-header-count {
+  font-size: 16px;
+  font-weight: 400;
+  color: #e0e0e0;
+  margin-left: 6px;
+}
+.quest-comment-board-header-right {
+  display: flex;
+  align-items: center;
+}
+.quest-comment-board-cancel {
+  width: 22px;
+  height: 22px;
+  opacity: 0.7;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.quest-comment-board-cancel:hover {
+  opacity: 1;
+}
+.quest-comment-board-list {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 0 18px 8px 18px;
+  max-height: 38vh;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.quest-comment-board-input-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(10, 14, 39, 0.92);
+  border-radius: 12px;
+  margin: 0 0 8px 0;
+  padding: 8px 12px;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+}
+.quest-comment-board-send-btn {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0 0 0 8px;
+  margin-left: 2px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.18s;
+  opacity: 0.8;
+}
+.quest-comment-board-send-btn:hover {
+  opacity: 1;
+}
+.quest-comment-board-send-icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+.quest-comment-board-input-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
+}
+.quest-comment-board-input {
+  flex: 1 1 auto;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  padding: 4px 0;
+  font-family: "Gellix", sans-serif;
+}
+.quest-comment-board-footer {
+  text-align: center;
+  color: #b9aaff;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  margin-top: 2px;
+  opacity: 0.7;
+}
+
+/* Comment Item */
+.quest-comment-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 2px;
+}
+.quest-comment-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #2a1a4d;
+}
+.quest-comment-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.quest-comment-author {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.quest-comment-text {
+  font-size: 14px;
+  color: #e0e0e0;
+  line-height: 1.5;
+  word-break: break-word;
+}
+.quest-comment-reactions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 4px;
+}
+.quest-comment-reaction {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: #b9aaff;
+  opacity: 0.8;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.15s;
+}
+.quest-comment-reaction:hover {
+  opacity: 1;
+}
+.quest-comment-reaction-icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+.quest-comment-reaction-count {
+  font-size: 13px;
+  color: #b9aaff;
+  margin-left: 2px;
+}

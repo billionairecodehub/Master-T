@@ -14,11 +14,11 @@
   // ── 2. Block common DevTools keyboard shortcuts ──────────────────────────
   document.addEventListener("keydown", function (e) {
     const k = e.key;
-    // F12
-    if (k === "F12") {
-      e.preventDefault();
-      return;
-    }
+    // F12 (DISABLED FOR DEV)
+    // if (k === "F12") {
+    //   e.preventDefault();
+    //   return;
+    // }
     // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C (inspect, console, pick)
     if (e.ctrlKey && e.shiftKey && ["I", "J", "C", "i", "j", "c"].includes(k)) {
       e.preventDefault();

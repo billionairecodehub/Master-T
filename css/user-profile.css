@@ -1,3 +1,172 @@
+.user-profile-header-toolkit {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 8px 0 0;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.user-profile-header-toolkit:hover {
+  background: rgba(107, 158, 255, 0.08);
+}
+.user-profile-header-toolkit-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  object-fit: contain;
+  opacity: 0.92;
+  transition: opacity 0.18s;
+}
+.user-profile-header-toolkit:hover .user-profile-header-toolkit-icon {
+  opacity: 1;
+}
+
+.user-toolkit-back {
+  position: absolute;
+  right: 12px;
+  top: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+/* .user-toolkit-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #aee2ff;
+  text-align: center;
+  font-family: "Gellix", sans-serif;
+} */
+.user-toolkit-main {
+  width: 100%;
+  padding: 0 0 12px;
+}
+
+.user-toolkit-title {
+  margin-top: -2px;
+  color: #1491e7;
+  /* font-size: clamp(34px, 10vw, 64px); */
+  font-size: 64px;
+  line-height: 0.95;
+  font-weight: 600;
+  letter-spacing: -3px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  font-family: "Gellix", sans-serif;
+}
+
+.user-toolkit-board {
+  width: 100%;
+  height: 540px;
+  background: linear-gradient(
+    135deg,
+    rgba(40, 12, 80, 0.9),
+    rgba(30, 12, 60, 0.85)
+  );
+  border-radius: 22px;
+  padding: 28px;
+}
+
+.user-toolkit-board-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #d6c7ff;
+  margin-bottom: 8px;
+}
+
+.user-toolkit-board-subtitle {
+  font-size: 12px;
+  color: rgba(214, 199, 255, 0.7);
+  margin-bottom: 18px;
+}
+
+.user-toolkit-books-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 22px;
+}
+
+.user-toolkit-book-tile {
+  width: 88px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.user-toolkit-book-cover {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.user-toolkit-book-title {
+  font-size: 11px;
+  color: rgba(225, 225, 225, 0.9);
+  text-align: center;
+}
+.user-toolkit-book-username {
+  font-size: 0.85rem;
+  color: rgba(200, 180, 255, 0.7);
+}
+
+.user-toolkit-book-page.user-profile-wrap {
+  width: 100%;
+  max-width: 640px;
+  margin: 12px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.user-toolkit-book-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.user-toolkit-book-back {
+  position: absolute;
+  right: 12px;
+  top: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.user-toolkit-book-back-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  opacity: 0.92;
+}
+
+.user-toolkit-book-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  opacity: 0.92;
+}
+
+
+.user-toolkit-book-main {
+  width: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(40, 12, 80, 0.95),
+    rgba(30, 12, 60, 0.9)
+  );
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
 .user-profile-page {
   width: 100%;
   min-height: 100%;
@@ -29,6 +198,12 @@
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
 }
 
+.user-profile-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .user-profile-header-home {
   display: flex;
   border: none;
@@ -51,6 +226,20 @@
   margin-bottom: 4px;
   padding-bottom: 20px;
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
+}
+
+.user-profile-header-toolkit {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 8px 0 0;
+  cursor: pointer;
+  transition: background 0.18s;
 }
 
 .user-profile-header-settings {
@@ -378,6 +567,133 @@
   font-family: "Gellix", sans-serif;
 }
 
+
+/* Toolkit book page - detailed styling to match dark purple mockup */
+.user-toolkit-book-page.user-profile-wrap {
+  width: 100%;
+  max-width: 720px;
+  margin: 18px auto 40px;
+  padding: 0 12px;
+}
+.user-toolkit-book-main {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(31,6,62,0.98) 0%, rgba(35,8,80,0.95) 100%);
+  border-radius: 22px;
+  padding: 34px 34px 84px;
+  box-shadow: 0 18px 60px rgba(16,8,36,0.6) inset, 0 24px 80px rgba(0,0,0,0.45);
+  position: relative;
+  overflow: hidden;
+}
+
+.user-toolkit-book-meta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.user-toolkit-book-cover-lg {
+  width: 84px;
+  height: 84px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 12px 30px rgba(8,6,16,0.6);
+  flex-shrink: 0;
+}
+.user-toolkit-book-title-lg {
+  font-family: "Gellix", sans-serif;
+  font-size: 24px;
+  line-height: 1.05;
+  color: rgba(227, 214, 255, 0.92);
+  font-weight: 700;
+  letter-spacing: -0.8px;
+}
+.user-toolkit-book-username-lg {
+  font-size: 13px;
+  color: rgba(200, 180, 255, 0.66);
+  margin-top: 6px;
+}
+
+.user-toolkit-book-desc-wrap {
+  margin-top: 18px;
+}
+.user-toolkit-book-desc-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(230, 214, 255, 0.9);
+  margin-bottom: 10px;
+}
+.user-toolkit-book-desc {
+  color: rgba(210, 190, 235, 0.64);
+  font-size: 14px;
+  line-height: 1.9;
+  max-width: 100%;
+  white-space: pre-wrap;
+}
+
+/* Full-width Download CTA at bottom of the board */
+.user-toolkit-download-btn {
+  position: absolute;
+  left: 34px;
+  right: 34px;
+  bottom: 20px;
+  height: 56px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.95));
+  color: rgba(230,230,236,0.95);
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Gellix", sans-serif;
+}
+.user-toolkit-download-btn:active { transform: translateY(1px); }
+
+/* Empty state for toolkit */
+.user-toolkit-empty {
+  width: 100%;
+  padding: 28px 14px;
+  text-align: center;
+  color: rgba(200,180,235,0.6);
+  font-size: 14px;
+}
+
+/* Slightly larger tiles and spacing for toolkit list */
+.user-toolkit-books-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 22px;
+  align-items: flex-start;
+}
+.user-toolkit-book-tile {
+  width: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.user-toolkit-book-tile:hover { transform: translateY(-6px); }
+.user-toolkit-book-cover { width: 88px; height: 88px; border-radius: 12px; }
+.user-toolkit-book-title { font-size: 12px; color: rgba(235,235,245,0.9); }
+
+/* Header icon active state */
+.user-profile-header-toolkit.is-active {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+}
+.user-profile-header-toolkit-icon { filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5)); }
+
+@media (max-width: 520px) {
+  .user-toolkit-book-main { padding: 22px 22px 100px; }
+  .user-toolkit-book-title-lg { font-size: 20px; }
+  .user-toolkit-book-cover-lg { width: 72px; height: 72px; }
+  .user-toolkit-book-cover { width: 72px; height: 72px; }
+}
 .user-settings-email-input::placeholder,
 .user-settings-name-input::placeholder {
   color: rgba(170, 183, 220, 0.45);

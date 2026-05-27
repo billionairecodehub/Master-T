@@ -1,3 +1,20 @@
+// (Toolkit button wiring moved into setupUserProfileInteractions())
+// Show Toolkit Section (SPA navigation)
+function _showUserProfileToolkitView() {
+  const mainView = document.getElementById("user-profile-main-view");
+  const settingsView = document.getElementById("user-profile-settings-view");
+  const toolkitView = document.getElementById("user-profile-toolkit-view");
+  const toolkitBookView = document.getElementById("user-toolkit-book-page");
+  const modalView = document.getElementById("user-profile-email-modal");
+  const settingsBtn = document.getElementById("user-profile-open-settings");
+  // Hide main and settings, show toolkit section (sibling behavior like settings)
+  if (mainView) mainView.style.display = "none";
+  if (settingsView) settingsView.style.display = "none";
+  if (toolkitView) toolkitView.style.display = "flex";
+  if (toolkitBookView) toolkitBookView.style.display = "none";
+  if (modalView) modalView.style.display = "none";
+  if (settingsBtn) settingsBtn.classList.remove("is-active");
+}
 function _formatUserAgeFromJoin(joinedAt) {
   const joinTime = Number(joinedAt) || Date.now();
   const diffMs = Math.max(0, Date.now() - joinTime);
@@ -49,10 +66,24 @@ function _showUserProfileMainView() {
   const mainView = document.getElementById("user-profile-main-view");
   const settingsView = document.getElementById("user-profile-settings-view");
   const modalView = document.getElementById("user-profile-email-modal");
+  const toolkitView = document.getElementById("user-profile-toolkit-view");
+  const toolkitBookView = document.getElementById("user-toolkit-book-page");
   const settingsBtn = document.getElementById("user-profile-open-settings");
   if (mainView) mainView.style.display = "";
   if (settingsView) settingsView.style.display = "none";
   if (modalView) modalView.style.display = "none";
+  if (toolkitView) toolkitView.style.display = "none";
+  if (toolkitBookView) toolkitBookView.style.display = "none";
+
+  // Ensure profile main children are visible.
+  if (mainView) {
+    const mainContent = mainView.querySelector(".user-profile-main");
+    if (mainContent) {
+      Array.from(mainContent.children).forEach((child) => {
+        child.style.display = "";
+      });
+    }
+  }
   if (settingsBtn) settingsBtn.classList.remove("is-active");
 }
 
@@ -211,13 +242,91 @@ function refreshUserProfile() {
 
   _setChoice("gender", user.gender || "Male");
   _setChoice("marital", user.status || "Single");
+
+  // Render toolkit from purchased books
+  try {
+    if (typeof renderUserToolkit === "function") renderUserToolkit();
+  } catch (e) {
+    console.error("renderUserToolkit error", e);
+  }
+}
+
+// Render toolkit tiles from localStorage 'mt_toolkit_books' and DataStore
+function renderUserToolkit() {
+  const container = document.getElementById("user-toolkit-books-list");
+  if (!container) return;
+  container.innerHTML = "";
+  let ids = [];
+  try {
+    ids = JSON.parse(localStorage.getItem("mt_toolkit_books") || "[]") || [];
+  } catch (e) {
+    ids = [];
+  }
+
+  if (ids.length === 0) {
+    container.innerHTML =
+      "<div class='user-toolkit-empty'>No resources yet</div>";
+    return;
+  }
+
+  ids.forEach((id) => {
+    const b =
+      typeof DataStore !== "undefined" ? DataStore.getById("books", id) : null;
+    if (!b) return;
+    const tile = document.createElement("div");
+    tile.className = "user-toolkit-book-tile";
+    tile.setAttribute("data-book-id", b.id);
+    tile.innerHTML = `
+      <img src="${b.img || b.ctaCover || "https://i.postimg.cc/3Jw1kQw2/sample-book-cover.png"}" alt="${b.name || "book"}" class="user-toolkit-book-cover" />
+      <div class="user-toolkit-book-title">${b.name || ""}</div>
+      <div class="user-toolkit-book-username">${b.author || b.username || ""}</div>
+    `;
+    container.appendChild(tile);
+    tile.addEventListener("click", () => openToolkitBookDetail(b.id));
+  });
+}
+
+function openToolkitBookDetail(bookId) {
+  const b =
+    typeof DataStore !== "undefined"
+      ? DataStore.getById("books", bookId)
+      : null;
+  if (!b) return;
+  const toolkitView = document.getElementById("user-profile-toolkit-view");
+  const bookPage = document.getElementById("user-toolkit-book-page");
+  if (toolkitView) toolkitView.style.display = "none";
+  if (bookPage) bookPage.style.display = "flex";
+
+  const cover =
+    b.img ||
+    b.ctaCover ||
+    "https://i.postimg.cc/3Jw1kQw2/sample-book-cover.png";
+  const title = b.name || "";
+  const author = b.author || b.username || "";
+  const desc = b.desc || b.description || b.summary || "";
+
+  const coverEl = document.querySelector(".user-toolkit-book-cover-lg");
+  if (coverEl) coverEl.src = cover;
+  const titleEl = document.querySelector(".user-toolkit-book-title-lg");
+  if (titleEl) titleEl.textContent = title;
+  const userEl = document.querySelector(".user-toolkit-book-username-lg");
+  if (userEl) userEl.textContent = author;
+  const descEl = document.querySelector(".user-toolkit-book-desc");
+  if (descEl) descEl.textContent = desc;
+  const downloadBtn = document.getElementById("user-toolkit-download-btn");
+  if (downloadBtn) {
+    downloadBtn.onclick = () => alert("Download started (demo) for " + title);
+  }
+  window.scrollTo(0, 0);
 }
 
 function setupUserProfileInteractions() {
   const contactBtn = document.getElementById("user-profile-contact");
   const homeMainBtn = document.getElementById("user-profile-home-main");
   const homeSettingsBtn = document.getElementById("user-profile-home-settings");
+  const homeToolkitBtn = document.getElementById("user-profile-home-toolkit");
   const openSettingsBtn = document.getElementById("user-profile-open-settings");
+  const toolkitBtn = document.getElementById("user-profile-open-toolkit");
   const avatarUploadBtn = document.getElementById(
     "user-settings-avatar-upload",
   );
@@ -436,6 +545,8 @@ function setupUserProfileInteractions() {
     homeMainBtn.addEventListener("click", _showUserProfileMainView);
   if (homeSettingsBtn)
     homeSettingsBtn.addEventListener("click", _showUserProfileMainView);
+  if (homeToolkitBtn)
+    homeToolkitBtn.addEventListener("click", _showUserProfileMainView);
 
   // Clicking anywhere in the profile header row (not settings icon) navigates home
   const mainHeaderRow = document.querySelector(
@@ -444,11 +555,18 @@ function setupUserProfileInteractions() {
   const settingsHeaderRow = document.querySelector(
     "#user-profile-settings-view .user-profile-header-row",
   );
-  [mainHeaderRow, settingsHeaderRow].forEach((row) => {
+  const toolkitHeaderRow = document.querySelector(
+    "#user-profile-toolkit-view .user-profile-header-row",
+  );
+  [mainHeaderRow, settingsHeaderRow, toolkitHeaderRow].forEach((row) => {
     if (!row) return;
     row.addEventListener("click", (e) => {
       // Only navigate if the click wasn't on the settings icon button
-      if (!e.target.closest(".user-profile-header-settings")) {
+      // Ignore clicks on settings and toolkit header icons
+      if (
+        !e.target.closest(".user-profile-header-settings") &&
+        !e.target.closest(".user-profile-header-toolkit")
+      ) {
         _showUserProfileMainView();
       }
     });
@@ -458,6 +576,13 @@ function setupUserProfileInteractions() {
     openSettingsBtn.addEventListener("click", () => {
       refreshUserProfile();
       _showUserProfileSettingsView();
+    });
+
+  if (toolkitBtn)
+    toolkitBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      refreshUserProfile();
+      _showUserProfileToolkitView();
     });
 
   document.querySelectorAll(".user-settings-choice").forEach((btn) => {
@@ -598,6 +723,54 @@ function setupUserProfileInteractions() {
   }
 }
 
+// Setup Toolkit interactions (moved from js/user-toolkit.js)
+function setupUserToolkitInteractions() {
+  const toolkitPage = document.getElementById("user-profile-toolkit-view");
+  const toolkitBookPage = document.getElementById("user-toolkit-book-page");
+  const toolkitBackBtn = document.getElementById("user-toolkit-back-btn");
+  const toolkitBookBackBtn = document.getElementById(
+    "user-toolkit-book-back-btn",
+  );
+  const toolkitBookTiles = document.querySelectorAll(".user-toolkit-book-tile");
+  const toolkitDownloadBtn = document.getElementById(
+    "user-toolkit-download-btn",
+  );
+
+  // Back from toolkit to profile main
+  if (toolkitBackBtn) {
+    toolkitBackBtn.addEventListener("click", function () {
+      _showUserProfileMainView();
+    });
+  }
+
+  // Book tile click → open book details
+  if (toolkitBookTiles && toolkitBookPage) {
+    toolkitBookTiles.forEach(function (tile) {
+      tile.addEventListener("click", function () {
+        if (toolkitPage) toolkitPage.style.display = "none";
+        if (toolkitBookPage) toolkitBookPage.style.display = "flex";
+        window.scrollTo(0, 0);
+      });
+    });
+  }
+
+  // Back from book details to toolkit
+  if (toolkitBookBackBtn && toolkitPage) {
+    toolkitBookBackBtn.addEventListener("click", function () {
+      if (toolkitBookPage) toolkitBookPage.style.display = "none";
+      if (toolkitPage) toolkitPage.style.display = "flex";
+      window.scrollTo(0, 0);
+    });
+  }
+
+  // Download button (demo)
+  if (toolkitDownloadBtn) {
+    toolkitDownloadBtn.addEventListener("click", function () {
+      alert("Download started (demo only)");
+    });
+  }
+}
+
 function setupUserProfileLogout() {
   const logoutBtn = document.getElementById("user-profile-logout");
   if (!logoutBtn) return;
@@ -622,4 +795,5 @@ function setupUserProfileLogout() {
 window.refreshUserProfile = refreshUserProfile;
 refreshUserProfile();
 setupUserProfileInteractions();
+setupUserToolkitInteractions();
 setupUserProfileLogout();

@@ -378,3 +378,81 @@
     </div>
   </div>
 </div>
+</div>
+
+<!-- Payment Modal (Store purchase flow) -->
+<div class="menu-payment-modal" id="menu-payment-modal" style="display:none">
+  <div class="menu-payment-overlay" id="menu-payment-overlay"></div>
+  <div class="menu-payment-board" id="menu-payment-board">
+    <div class="payment-progress">
+      <div class="progress-bar" data-step="1"></div>
+      <div class="progress-bar" data-step="2"></div>
+      <div class="progress-bar" data-step="3"></div>
+    </div>
+
+    <!-- Step 1: Purchase Initiation -->
+    <div class="payment-step" data-step="1">
+      <div class="payment-center-row">
+        <img src="" alt="User" class="payment-avatar" id="payment-avatar-step1" />
+        <img src="https://i.postimg.cc/6pQRKdGs/Mtogan-Payment-Purchase-Icon.png" alt="Purchase" class="payment-purchase-icon" />
+        <img src="" alt="Book" class="payment-book-icon" id="payment-book-icon-step1" />
+      </div>
+      <div class="payment-info">
+        <div class="payment-property">Book</div>
+        <div class="payment-title" id="payment-book-title">The Money Game</div>
+        <div class="payment-username" id="payment-username">~ Justbgoodd</div>
+      </div>
+      <button class="payment-cta" id="payment-step1-cta">Get The Money Game ~ $0.00</button>
+      <div class="payment-step-footer">
+        <button class="payment-cancel" id="payment-cancel-step1">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Payment Entry -->
+    <div class="payment-step" data-step="2" style="display:none">
+      <div class="payment-split">
+        <div class="payment-left">
+          <img src="" alt="User" class="payment-avatar" id="payment-avatar-step2" />
+          <img src="https://i.postimg.cc/6pQRKdGs/Mtogan-Payment-Purchase-Icon.png" alt="Purchase" class="payment-purchase-icon" />
+          <img src="" alt="Book" class="payment-book-icon" id="payment-book-icon-step2" />
+        </div>
+        <div class="payment-right">
+          <div class="payment-title" id="payment-book-title-2">The Money Game</div>
+          <div class="payment-username" id="payment-username-2">~ Justbgoodd</div>
+        </div>
+      </div>
+
+      <div class="payment-card-form">
+        <input type="text" id="payment-card-number" placeholder="Card number" />
+        <div class="payment-card-row">
+          <input type="text" id="payment-card-expiry" placeholder="MM/YY" />
+          <input type="text" id="payment-card-cvc" placeholder="CVC" />
+        </div>
+      </div>
+      <div class="payment-actions">
+        <button class="payment-back" id="payment-back-to-step1">Go Back</button>
+        <div style="display:flex;gap:12px;">
+          <button class="payment-terminate" id="payment-terminate">Terminate</button>
+          <button class="payment-cta" id="payment-step2-cta">Pay ~ $0.00</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Success -->
+    <div class="payment-step" data-step="3" style="display:none">
+      <div class="payment-success-hero">
+        <img src="" alt="Book Large" class="payment-book-icon-lg" id="payment-book-icon-step3" />
+      </div>
+      <div class="payment-info">
+        <div class="payment-property">Book</div>
+        <div class="payment-title" id="payment-book-title-3">The Money Game</div>
+        <div class="payment-success-msg">Added to your toolkit</div>
+        <div class="payment-username" id="payment-username-3">~ Justbgoodd</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;width:100%">
+        <button class="payment-cta" id="payment-step3-view">View</button>
+        <button class="payment-later" id="payment-step3-later">Later</button>
+      </div>
+    </div>
+  </div>
+</div>

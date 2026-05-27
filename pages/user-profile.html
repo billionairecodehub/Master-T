@@ -1,27 +1,45 @@
+<!-- Toolkit sections ) -->
 <div class="user-profile-page" id="user-profile-page" style="display: none">
   <main class="user-profile-main">
     <section class="user-profile-wrap" id="user-profile-main-view">
       <div class="user-profile-header-row">
-        <button
-          class="user-profile-header-home"
-          id="user-profile-home-main"
-          type="button"
-        >
-          <div class="user-profile-header-title">Profile</div>
-          <div class="user-profile-header-brand">getInWithgame</div>
-        </button>
-        <button
-          class="user-profile-header-settings"
-          id="user-profile-open-settings"
-          type="button"
-          aria-label="Open settings"
-        >
-          <img
-            class="user-profile-header-settings-icon"
-            src="https://i.postimg.cc/mgbHyBkc/Mtogan-user-settings-icon.png"
-            alt="Settings"
-          />
-        </button>
+        <div class="user-profile-header-left">
+          <button
+            class="user-profile-header-home"
+            id="user-profile-home-main"
+            type="button"
+          >
+            <div class="user-profile-header-title">Profile</div>
+            <div class="user-profile-header-brand">getInWithgame</div>
+          </button>
+        </div>
+
+        <div class="user-profile-header-right">
+          <button
+            class="user-profile-header-toolkit"
+            id="user-profile-open-toolkit"
+            type="button"
+            aria-label="Open toolkit"
+          >
+            <img
+              class="user-profile-header-toolkit-icon"
+              src="https://i.postimg.cc/3rtFQv5J/Mtogan-user-toolkit-icon.png"
+              alt="Toolkit"
+            />
+          </button>
+          <button
+            class="user-profile-header-settings"
+            id="user-profile-open-settings"
+            type="button"
+            aria-label="Open settings"
+          >
+            <img
+              class="user-profile-header-settings-icon"
+              src="https://i.postimg.cc/mgbHyBkc/Mtogan-user-settings-icon.png"
+              alt="Settings"
+            />
+          </button>
+        </div>
       </div>
 
       <div class="user-profile-main-row">
@@ -127,32 +145,161 @@
       <div class="user-profile-footer-brand">getInWithgame</div>
     </section>
 
+    <!-- Toolkit section: sibling to main and settings, toggled like settings -->
+    <section
+      class="user-profile-wrap user-profile-toolkit-view"
+      id="user-profile-toolkit-view"
+      style="display: none"
+    >
+      <div class="user-profile-header-row">
+        <div class="user-profile-header-left">
+          <button
+            class="user-profile-header-home"
+            id="user-profile-home-toolkit"
+            type="button"
+          >
+            <div class="user-profile-header-title">Profile</div>
+            <div class="user-profile-header-brand">getInWithgame</div>
+          </button>
+        </div>
+        <div class="user-profile-header-right">
+          <button
+            class="user-profile-header-toolkit"
+            id="user-profile-open-toolkit"
+            type="button"
+            aria-label="Open toolkit"
+          >
+            <img
+              class="user-profile-header-toolkit-icon"
+              src="https://i.postimg.cc/3rtFQv5J/Mtogan-user-toolkit-icon.png"
+              alt="Toolkit"
+            />
+          </button>
+          <button
+            class="user-profile-header-settings"
+            id="user-profile-settings-static-toolkit"
+            type="button"
+            aria-label="Settings"
+          >
+            <img
+              class="user-profile-header-settings-icon"
+              src="https://i.postimg.cc/mgbHyBkc/Mtogan-user-settings-icon.png"
+              alt="Settings"
+            />
+          </button>
+        </div>
+      </div>
+
+      <main class="user-toolkit-main">
+        <div class="user-toolkit-title">toolkit</div>
+        <div class="user-toolkit-board">
+          <div class="user-toolkit-board-title">Resources</div>
+          <div class="user-toolkit-board-subtitle">
+            Books Purchased by
+            <span id="user-toolkit-username">Justbgoodd</span>
+          </div>
+          <div class="user-toolkit-books-list" id="user-toolkit-books-list">
+            <!-- Tiles are rendered dynamically from purchased books -->
+          </div>
+        </div>
+      </main>
+      <footer class="user-profile-footer-brand">getInWithgame</footer>
+    </section>
+
+    <!-- Book Details Modal/Page (hidden by default) -->
+    <section
+      class="user-toolkit-book-page user-profile-wrap"
+      id="user-toolkit-book-page"
+      style="display: none"
+    >
+      <header class="user-toolkit-book-header">
+        <button
+          class="user-toolkit-book-back"
+          id="user-toolkit-book-back-btn"
+          type="button"
+        >
+          <img
+            src="https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png"
+            alt="Back"
+            class="user-toolkit-book-back-icon"
+          />
+        </button>
+        <img
+          src="https://i.postimg.cc/3rtFQv5J/Mtogan-user-toolkit-icon.png"
+          alt="Book Icon"
+          class="user-toolkit-book-icon"
+        />
+      </header>
+      <main class="user-toolkit-book-main">
+        <div class="user-toolkit-book-flex">
+          <img
+            src="https://i.postimg.cc/3Jw1kQw2/sample-book-cover.png"
+            alt="Book Cover"
+            class="user-toolkit-book-cover-lg"
+          />
+          <div class="user-toolkit-book-info">
+            <div class="user-toolkit-book-title-lg">The Masculine Path</div>
+            <div class="user-toolkit-book-username-lg">Justbgoodd</div>
+            <div class="user-toolkit-book-desc">
+              A practical guide to building strength, discipline, and purpose.
+              This book covers the foundational principles every man should
+              know.
+            </div>
+          </div>
+        </div>
+        <button
+          class="user-toolkit-download-btn"
+          id="user-toolkit-download-btn"
+          type="button"
+        >
+          Download
+        </button>
+      </main>
+      <footer class="user-profile-footer-brand">getInWithgame</footer>
+    </section>
+
     <section
       class="user-profile-wrap user-profile-settings-view"
       id="user-profile-settings-view"
       style="display: none"
     >
       <div class="user-profile-header-row">
-        <button
-          class="user-profile-header-home"
-          id="user-profile-home-settings"
-          type="button"
-        >
-          <div class="user-profile-header-title">Profile</div>
-          <div class="user-profile-header-brand">getInWithgame</div>
-        </button>
-        <button
-          class="user-profile-header-settings"
-          id="user-profile-settings-static"
-          type="button"
-          aria-label="Settings"
-        >
-          <img
-            class="user-profile-header-settings-icon"
-            src="https://i.postimg.cc/mgbHyBkc/Mtogan-user-settings-icon.png"
-            alt="Settings"
-          />
-        </button>
+        <div class="user-profile-header-left">
+          <button
+            class="user-profile-header-home"
+            id="user-profile-home-settings"
+            type="button"
+          >
+            <div class="user-profile-header-title">Profile</div>
+            <div class="user-profile-header-brand">getInWithgame</div>
+          </button>
+        </div>
+        <div class="user-profile-header-right">
+          <button
+            class="user-profile-header-toolkit"
+            id="user-profile-open-toolkit"
+            type="button"
+            aria-label="Open toolkit"
+          >
+            <img
+              class="user-profile-header-toolkit-icon"
+              src="https://i.postimg.cc/3rtFQv5J/Mtogan-user-toolkit-icon.png"
+              alt="Toolkit"
+            />
+          </button>
+          <button
+            class="user-profile-header-settings"
+            id="user-profile-settings-static"
+            type="button"
+            aria-label="Settings"
+          >
+            <img
+              class="user-profile-header-settings-icon"
+              src="https://i.postimg.cc/mgbHyBkc/Mtogan-user-settings-icon.png"
+              alt="Settings"
+            />
+          </button>
+        </div>
       </div>
 
       <!-- <div class="user-settings-title">Settings</div>

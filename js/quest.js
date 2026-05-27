@@ -184,7 +184,66 @@ function renderQuests() {
   bindQuestExpand();
   bindQuestVotes();
   bindQuestCTA();
+  bindQuestCommentBoard();
   updateQuestDot();
+  // Bind comment icon click to open the comment board modal
+  function bindQuestCommentBoard() {
+    // Ensure modal HTML is present
+    let modal = document.getElementById("quest-comment-board");
+    if (!modal) {
+      // Try to inject from static HTML file if not present
+      const root = document.getElementById("quest-comment-board-root");
+      if (root) {
+        fetch("../pages/quest-comment-board.html")
+          .then((r) => r.text())
+          .then((html) => {
+            root.innerHTML = html;
+          });
+      }
+      // Try again after short delay
+      setTimeout(bindQuestCommentBoard, 200);
+      return;
+    }
+    // Comment icon click (only when inside expanded quest)
+    document.querySelectorAll(".quest-comment-indicator").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const board = el.closest(".quest-board");
+        if (!board || !board.classList.contains("expanded")) return;
+        // Show modal
+        modal.style.display = "flex";
+        // Optionally: set quest id for context
+        modal.setAttribute("data-quest-id", el.getAttribute("data-id"));
+        // Animate (reset scroll, etc)
+        const list = modal.querySelector(".quest-comment-board-list");
+        if (list) list.scrollTop = 0;
+        // Focus input
+        const input = modal.querySelector(".quest-comment-board-input");
+        if (input) input.value = "";
+      });
+    });
+    // Cancel/close icon
+    const cancelBtn = modal.querySelector("#quest-comment-board-cancel");
+    if (cancelBtn) {
+      cancelBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        modal.style.display = "none";
+      });
+    }
+    // Auto-close on quest collapse or page switch
+    function autoCloseCommentBoard() {
+      if (modal.style.display === "flex") {
+        modal.style.display = "none";
+      }
+    }
+    // Listen for quest collapse
+    const questIcon = document.querySelector(".quest-icon");
+    if (questIcon) {
+      questIcon.addEventListener("click", autoCloseCommentBoard);
+    }
+    // Listen for navigation/page switch (popstate)
+    window.addEventListener("popstate", autoCloseCommentBoard);
+  }
 }
 
 function bindQuestExpand() {

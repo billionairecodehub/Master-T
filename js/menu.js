@@ -625,15 +625,14 @@ function bindBookClicks() {
         if (ctaPriceEl) ctaPriceEl.textContent = b.price || "";
         if (ctaPriceWrap) ctaPriceWrap.style.display = b.price ? "" : "none";
         _newBookCta.addEventListener("click", () => {
-          const _url = (b.platformUrls && b.platformUrls[0]) || b.ctaUrl || "";
-          if (_url) {
-            const _book = DataStore.getById("books", b.id);
-            if (_book)
-              DataStore.update("books", b.id, {
-                ctaClicks: (_book.ctaClicks || 0) + 1,
-              });
-            window.open(_url, "_blank", "noopener,noreferrer");
-          }
+          // Increment CTA analytics
+          const _book = DataStore.getById("books", b.id);
+          if (_book)
+            DataStore.update("books", b.id, {
+              ctaClicks: (_book.ctaClicks || 0) + 1,
+            });
+          // Open in-app payment modal (mock flow)
+          if (typeof openPaymentModal === "function") openPaymentModal(b);
         });
       }
 
@@ -692,6 +691,143 @@ function bindBookClicks() {
       else history.pushState({ type: "book", id: b.id }, "", _bkPath);
     });
   });
+}
+
+// Payment modal flow (three steps) — mock implementation
+function openPaymentModal(book) {
+  const modal = document.getElementById("menu-payment-modal");
+  const overlay = document.getElementById("menu-payment-overlay");
+  const board = document.getElementById("menu-payment-board");
+  if (!modal || !board) return;
+
+  // Populate book data
+  const title = book.name || "Untitled";
+  const price = book.price || "$0.00";
+  const cover = book.ctaCover || book.img || "";
+  const userRaw = localStorage.getItem("mt_auth_user");
+  const user = userRaw
+    ? JSON.parse(userRaw)
+    : { name: "Justbgoodd", avatar: "" };
+
+  document.getElementById("payment-book-title").textContent = title;
+  document.getElementById("payment-book-title-2").textContent = title;
+  document.getElementById("payment-book-title-3").textContent = title;
+  document.getElementById("payment-username").textContent =
+    "~ " + (user.name || "");
+  document.getElementById("payment-username-2").textContent =
+    "~ " + (user.name || "");
+  document.getElementById("payment-username-3").textContent =
+    "~ " + (user.name || "");
+
+  [
+    "payment-book-icon-step1",
+    "payment-book-icon-step2",
+    "payment-book-icon-step3",
+  ].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && cover) el.src = cover;
+    else if (el) el.src = "https://i.postimg.cc/3Jw1kQw2/sample-book-cover.png";
+  });
+  ["payment-avatar-step1", "payment-avatar-step2"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && user.avatar) el.src = user.avatar;
+    else if (el)
+      el.src = "https://i.postimg.cc/nhdyR4kF/Mt-Profile-Fallback-Img.png";
+  });
+
+  // Set CTA texts
+  const cta1 = document.getElementById("payment-step1-cta");
+  const cta2 = document.getElementById("payment-step2-cta");
+  if (cta1) cta1.textContent = `Get ${title} ~ ${price}`;
+  if (cta2) cta2.textContent = `Pay ~ ${price}`;
+
+  // Progress bars
+  const bars = board.querySelectorAll(".progress-bar");
+  function setStep(n) {
+    board
+      .querySelectorAll(".payment-step")
+      .forEach((s) => (s.style.display = "none"));
+    const stepEl = board.querySelector(`.payment-step[data-step="${n}"]`);
+    if (stepEl) stepEl.style.display = "flex";
+    bars.forEach((bi) =>
+      bi.classList.toggle("active", Number(bi.getAttribute("data-step")) <= n),
+    );
+  }
+
+  // Show modal
+  modal.style.display = "flex";
+  setStep(1);
+
+  // Handlers
+  const step1Btn = document.getElementById("payment-step1-cta");
+  const step2Btn = document.getElementById("payment-step2-cta");
+  const backBtn = document.getElementById("payment-back-to-step1");
+  const cancelBtn = document.getElementById("payment-cancel-step1");
+  const terminateBtn = document.getElementById("payment-terminate");
+  const laterBtn = document.getElementById("payment-step3-later");
+  const viewBtn = document.getElementById("payment-step3-view");
+
+  const cleanup = () => {
+    modal.style.display = "none";
+    // remove listeners
+    if (step1Btn) step1Btn.onclick = null;
+    if (step2Btn) step2Btn.onclick = null;
+    if (backBtn) backBtn.onclick = null;
+    if (viewBtn) viewBtn.onclick = null;
+    if (cancelBtn) cancelBtn.onclick = null;
+    if (terminateBtn) terminateBtn.onclick = null;
+    if (laterBtn) laterBtn.onclick = null;
+    if (overlay) overlay.onclick = null;
+  };
+
+  if (overlay) overlay.onclick = cleanup;
+
+  if (step1Btn)
+    step1Btn.onclick = () => {
+      setStep(2);
+    };
+  if (cancelBtn) cancelBtn.onclick = cleanup;
+  if (backBtn) backBtn.onclick = () => setStep(1);
+  if (step2Btn)
+    step2Btn.onclick = () => {
+      // simulate success
+      setStep(3);
+      // persist to local toolkit list
+      try {
+        const key = "mt_toolkit_books";
+        const raw = localStorage.getItem(key);
+        const arr = raw ? JSON.parse(raw) : [];
+        if (!arr.includes(book.id)) arr.push(book.id);
+        localStorage.setItem(key, JSON.stringify(arr));
+        // refresh profile/toolkit so it shows immediately
+        if (typeof refreshUserProfile === "function") refreshUserProfile();
+      } catch (e) {}
+    };
+
+  if (viewBtn)
+    viewBtn.onclick = () => {
+      cleanup();
+      // Navigate to user profile and open toolkit
+      if (typeof _navigateTo === "function") _navigateTo("/user");
+      if (
+        typeof showPage === "function" &&
+        typeof userProfilePage !== "undefined"
+      )
+        showPage(userProfilePage);
+      if (typeof refreshUserProfile === "function") refreshUserProfile();
+      if (typeof _showUserProfileToolkitView === "function")
+        _showUserProfileToolkitView();
+    };
+  if (laterBtn)
+    laterBtn.onclick = () => {
+      // close modal without navigating
+      cleanup();
+    };
+  if (terminateBtn)
+    terminateBtn.onclick = () => {
+      // terminate the flow — close and do not save
+      cleanup();
+    };
 }
 
 // Exposed for router — open a book panel directly by ID
