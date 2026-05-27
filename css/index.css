@@ -629,8 +629,8 @@ body {
 }
 
 .header-profile-avatar {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border-radius: 4px;
   overflow: hidden;
   flex-shrink: 0;
@@ -674,7 +674,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 5px;
   flex: 1;
 }
 
@@ -702,8 +702,8 @@ body {
   position: absolute;
   top: -2px;
   right: -2px;
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: #ffd700;
   border: 1.5px solid #070b1e;
