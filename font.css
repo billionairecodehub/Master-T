@@ -89,9 +89,9 @@ body {
 
 /* Rostock Kaligraph — used only for header brand */
 @font-face {
-  font-family: "RostockKaligraph";
+  font-family: "Quantify";
   /* file name contains a space in the repo, use percent-encoding to reference it */
-  src: url("font/Rostock%20Kaligraph.ttf") format("truetype");
+  src: url("font/Quantify.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
