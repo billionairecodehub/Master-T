@@ -272,13 +272,13 @@
 .brand {
   color: rgba(255, 255, 255, 0.95);
   font-family: "Gellix", sans-serif;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.6px;
 }
 .brand--rostock {
   font-family: "RostockKaligraph", "Gellix", sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
 }
 
@@ -311,15 +311,15 @@
 }
 
 .avatar {
-  width: 33px;
-  height: 33px;
+  width: 30px;
+  height: 30px;
   border-radius: 999px;
   object-fit: cover;
   border: 0.6px solid rgba(255, 255, 255, 0.9);
 }
 .avatar--right {
-  width: 33px;
-  height: 33px;
+  width: 30px;
+  height: 30px;
 }
 
 .noti-nav-dot {
