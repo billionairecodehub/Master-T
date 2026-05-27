@@ -314,15 +314,15 @@
 } */
 
 .avatar {
-  width: 25px;
-  height: 25px;
+  width: 17px;
+  height: 17px;
   border-radius: 999px;
   object-fit: cover;
   border: 0.5px solid rgba(255, 255, 255, 0.9);
 }
 .avatar--right {
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
 }
 
 /* control non-avatar icon size */
@@ -629,8 +629,8 @@ body {
 }
 
 .header-profile-avatar {
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   border-radius: 4px;
   overflow: hidden;
   flex-shrink: 0;
@@ -679,8 +679,8 @@ body {
 }
 
 .header-menu-icon {
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   object-fit: contain;
   opacity: 0.75;
   display: block;
