@@ -1,3 +1,231 @@
+.mtogan-profile-page,
+.mtogan-profile-page * {
+  box-sizing: border-box;
+  width: 100%;
+  font-family: "Gellix", sans-serif;
+}
+.mtogan-profile-page {
+  background: #191e38;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  height: 912px;
+  position: relative;
+  overflow: hidden;
+  font-family: "Gellix", sans-serif;
+}
+.mtogan-profile-page-wrapper {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 37px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 420px;
+  height: 882px;
+  position: relative;
+  overflow: hidden;
+  font-family: "Gellix", sans-serif;
+}
+.mt-profile-image {
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 449px;
+  position: relative;
+  object-fit: cover;
+}
+.mtogan-profile-title {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: auto;
+  position: relative;
+  font-family: "Gellix", sans-serif;
+}
+.mt-profile-title {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+  font-family: "Gellix", sans-serif;
+}
+.mt-profile-title-text {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 36px;
+  letter-spacing: -0.07em;
+  font-weight: 600;
+  position: relative;
+}
+.mt-title-badge-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.mt-profile-subtitle-text {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 16px;
+  letter-spacing: -0.07em;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+}
+.mtogan-profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 367px;
+  position: relative;
+}
+.mt-profile-details-board {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.mt-profile-details {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.mt-profile-details-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.mt-profile-details-text {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 24px;
+  letter-spacing: -0.07em;
+  font-weight: 400;
+  position: relative;
+  width: 95px;
+}
+.mt-profile-details-cta-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.mt-profile-details-text2 {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 24px;
+  letter-spacing: -0.07em;
+  font-weight: 400;
+  position: relative;
+  width: 78px;
+}
+.mt-profile-actions-btn {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 100%;
+  position: relative;
+}
+.mt-profile-follow-btn {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px 44px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 180px;
+  height: 56px;
+  position: relative;
+}
+.mt-profile-follow-text {
+  color: #000000;
+  text-align: center;
+  font-family: "Gellix", sans-serif;
+  font-size: 24px;
+  letter-spacing: -0.07em;
+  font-weight: 500;
+  opacity: 0.75;
+  position: relative;
+}
+.mt-profile-like-btn {
+  background: #000000;
+  border-radius: 10px;
+  padding: 10px 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 180px;
+  height: 56px;
+  position: relative;
+}
+.mt-profile-like {
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.mt-profile-like-icon {
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.mt-like-count {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 24px;
+  letter-spacing: -0.07em;
+  font-weight: 400;
+  opacity: 0.75;
+  position: relative;
+}
+
 /* ── Profile Page ───────────────────────────── */
 
 /* Glass-shine sweep animation */
@@ -54,6 +282,7 @@ button {
   flex-direction: column;
   width: 100%;
   padding: 0 20px;
+  gap: 80px;
 }
 
 /* ── Profile Hero ── */

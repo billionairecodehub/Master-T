@@ -307,29 +307,29 @@
 } */
 
 .avatar {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 999px;
   object-fit: cover;
   border: 0.5px solid rgba(255, 255, 255, 0.9);
 }
 .avatar--right {
-  width: 33px;
-  height: 33px;
+  width: 28px;
+  height: 28px;
 }
 
 /* control non-avatar icon size */
 .icon--bell,
 .icon-button > img:not(.avatar) {
-  width: 28px;
-  height: 28px;
+  width: 25px;
+  height: 25px;
   object-fit: contain;
 }
 
 /* Notification circular stroke and inner icon centering */
 #header-noti-btn {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 999px;
   border: 0.5px solid rgba(255, 255, 255, 0.95);
   display: inline-flex;

@@ -131,7 +131,6 @@
   justify-content: space-between;
 }
 
-
 .user-toolkit-book-back {
   position: absolute;
   right: 12px;
@@ -154,7 +153,6 @@
   object-fit: contain;
   opacity: 0.92;
 }
-
 
 .user-toolkit-book-main {
   width: 100%;
@@ -567,7 +565,6 @@
   font-family: "Gellix", sans-serif;
 }
 
-
 /* Toolkit book page - detailed styling to match dark purple mockup */
 .user-toolkit-book-page.user-profile-wrap {
   width: 100%;
@@ -580,10 +577,16 @@
   flex-direction: column;
   gap: 18px;
   width: 100%;
-  background: linear-gradient(180deg, rgba(31,6,62,0.98) 0%, rgba(35,8,80,0.95) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(31, 6, 62, 0.98) 0%,
+    rgba(35, 8, 80, 0.95) 100%
+  );
   border-radius: 22px;
   padding: 34px 34px 84px;
-  box-shadow: 0 18px 60px rgba(16,8,36,0.6) inset, 0 24px 80px rgba(0,0,0,0.45);
+  box-shadow:
+    0 18px 60px rgba(16, 8, 36, 0.6) inset,
+    0 24px 80px rgba(0, 0, 0, 0.45);
   position: relative;
   overflow: hidden;
 }
@@ -598,7 +601,7 @@
   height: 84px;
   border-radius: 12px;
   object-fit: cover;
-  box-shadow: 0 12px 30px rgba(8,6,16,0.6);
+  box-shadow: 0 12px 30px rgba(8, 6, 16, 0.6);
   flex-shrink: 0;
 }
 .user-toolkit-book-title-lg {
@@ -642,7 +645,7 @@
   border-radius: 12px;
   border: none;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.95));
-  color: rgba(230,230,236,0.95);
+  color: rgba(230, 230, 236, 0.95);
   font-size: 16px;
   font-weight: 400;
   cursor: pointer;
@@ -651,14 +654,16 @@
   justify-content: center;
   font-family: "Gellix", sans-serif;
 }
-.user-toolkit-download-btn:active { transform: translateY(1px); }
+.user-toolkit-download-btn:active {
+  transform: translateY(1px);
+}
 
 /* Empty state for toolkit */
 .user-toolkit-empty {
   width: 100%;
   padding: 28px 14px;
   text-align: center;
-  color: rgba(200,180,235,0.6);
+  color: rgba(200, 180, 235, 0.6);
   font-size: 14px;
 }
 
@@ -676,23 +681,50 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
 }
-.user-toolkit-book-tile:hover { transform: translateY(-6px); }
-.user-toolkit-book-cover { width: 88px; height: 88px; border-radius: 12px; }
-.user-toolkit-book-title { font-size: 12px; color: rgba(235,235,245,0.9); }
+.user-toolkit-book-tile:hover {
+  transform: translateY(-6px);
+}
+.user-toolkit-book-cover {
+  width: 88px;
+  height: 88px;
+  border-radius: 12px;
+}
+.user-toolkit-book-title {
+  font-size: 12px;
+  color: rgba(235, 235, 245, 0.9);
+}
 
 /* Header icon active state */
 .user-profile-header-toolkit.is-active {
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.04),
+    rgba(255, 255, 255, 0.02)
+  );
 }
-.user-profile-header-toolkit-icon { filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5)); }
+.user-profile-header-toolkit-icon {
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.5));
+}
 
 @media (max-width: 520px) {
-  .user-toolkit-book-main { padding: 22px 22px 100px; }
-  .user-toolkit-book-title-lg { font-size: 20px; }
-  .user-toolkit-book-cover-lg { width: 72px; height: 72px; }
-  .user-toolkit-book-cover { width: 72px; height: 72px; }
+  .user-toolkit-book-main {
+    padding: 22px 22px 100px;
+  }
+  .user-toolkit-book-title-lg {
+    font-size: 20px;
+  }
+  .user-toolkit-book-cover-lg {
+    width: 72px;
+    height: 72px;
+  }
+  .user-toolkit-book-cover {
+    width: 72px;
+    height: 72px;
+  }
 }
 .user-settings-email-input::placeholder,
 .user-settings-name-input::placeholder {
