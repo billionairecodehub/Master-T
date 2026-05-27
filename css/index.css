@@ -277,10 +277,10 @@
 
 .brand {
   color: rgba(255, 255, 255, 0.95);
-  font-family: "Quantify", sans-serif;
+  font-family: "Gellix", sans-serif;
   font-weight: 400;
   font-size: 17px;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.6px;
 }
 .brand--title {
   /* font-family: "RostockKaligraph", var(--font-family-primary); */
@@ -347,8 +347,8 @@
   position: relative;
 }
 #header-noti-btn .icon--bell {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
 }
 
 .noti-nav-dot {
