@@ -1,21 +1,18 @@
-.mtogan-profile-page,
-.mtogan-profile-page * {
-  box-sizing: border-box;
-  width: 100%;
-  font-family: "Gellix", sans-serif;
-}
 .mtogan-profile-page {
+  box-sizing: border-box;
+  font-family: "Gellix", sans-serif;
   background: transparent;
   display: flex;
   flex-direction: row;
   padding: 15px 0;
   gap: 10px;
-  /* align-items: center; */
   justify-content: center;
-  height: 912px;
   position: relative;
   overflow: hidden;
-  font-family: "Gellix", sans-serif;
+}
+.mtogan-profile-page * {
+  box-sizing: inherit;
+  font-family: inherit;
 }
 .mtogan-profile-page-wrapper {
   padding: 5px;
@@ -26,7 +23,6 @@
   justify-content: flex-start;
   flex-shrink: 0;
   width: 100%;
-  height: auto;
   position: relative;
   overflow: hidden;
   font-family: "Gellix", sans-serif;
