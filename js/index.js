@@ -408,18 +408,7 @@ async function _syncAndInitHeaderAvatar() {
       syncHeaderAccountAvatar();
   } catch (e) {}
 
-  // Also set the right-side account avatar to the authenticated user's image
-  try {
-    const accountImgEl = document.getElementById("header-account-img");
-    if (accountImgEl) {
-      const raw = localStorage.getItem("mt_auth_user");
-      const auth = raw ? JSON.parse(raw) : null;
-      accountImgEl.src =
-        (auth && (auth.img || auth.photoURL)) || _DEFAULT_PROFILE_IMG;
-    }
-  } catch (e) {
-    // ignore parse errors
-  }
+  // account avatar will be synced by syncHeaderAccountAvatar()
 }
 
 // Keep header account avatar in sync with authenticated user data
@@ -429,10 +418,28 @@ function syncHeaderAccountAvatar() {
   const _DEFAULT_PROFILE_IMG =
     "https://i.postimg.cc/nr9srgXk/Master-Togan-Profile-Image.png";
   try {
+    // Prefer authenticated user's image from localStorage
     const raw = localStorage.getItem("mt_auth_user");
     const auth = raw ? JSON.parse(raw) : null;
-    accountImgEl.src =
-      (auth && (auth.img || auth.photoURL)) || _DEFAULT_PROFILE_IMG;
+    if (auth && (auth.img || auth.photoURL)) {
+      accountImgEl.src = auth.img || auth.photoURL;
+      return;
+    }
+
+    // Fallback: use DataStore profile image if available after sync
+    if (
+      typeof DataStore !== "undefined" &&
+      typeof DataStore.getProfile === "function"
+    ) {
+      const p = DataStore.getProfile();
+      if (p && p.img) {
+        accountImgEl.src = p.img;
+        return;
+      }
+    }
+
+    // Final fallback: default image
+    accountImgEl.src = _DEFAULT_PROFILE_IMG;
   } catch (e) {
     accountImgEl.src = _DEFAULT_PROFILE_IMG;
   }
