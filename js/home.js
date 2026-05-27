@@ -45,7 +45,9 @@ function _openHomeBooksListInStore() {
   if (typeof _setActiveNav === "function") _setActiveNav("menu");
 
   requestAnimationFrame(() => {
-    const booksTab = document.querySelector('.abc-title[data-category="books"]');
+    const booksTab = document.querySelector(
+      '.abc-title[data-category="books"]',
+    );
     if (booksTab) booksTab.click();
   });
 }
@@ -161,7 +163,9 @@ function renderHomeAppsSlots() {
       if (typeof markStoreSeen === "function") markStoreSeen();
       if (typeof _setActiveNav === "function") _setActiveNav("menu");
       requestAnimationFrame(() => {
-        const appsTab = document.querySelector('.abc-title[data-category="apps"]');
+        const appsTab = document.querySelector(
+          '.abc-title[data-category="apps"]',
+        );
         if (appsTab) appsTab.click();
       });
     });
@@ -194,3 +198,58 @@ if (subBtn) {
     }, 2000);
   });
 }
+
+// Animate numeric stat in block-4 when it becomes visible.
+function animateBlock4Number() {
+  const el = document.querySelector(".block-4-number");
+  if (!el) return;
+  if (el.getAttribute("data-animated") === "1") return;
+
+  const raw = el.textContent || "0";
+  // Extract digits
+  const matches = raw.replace(/,/g, "").match(/\d+/);
+  const target = matches ? Number(matches[0]) : 0;
+  const suffix = raw.trim().endsWith("+") ? "+" : "";
+
+  function format(n) {
+    return n.toLocaleString();
+  }
+
+  let start = null;
+  const duration = 1200; // ms
+
+  function step(ts) {
+    if (!start) start = ts;
+    const progress = Math.min(1, (ts - start) / duration);
+    const current = Math.floor(progress * target);
+    el.textContent = format(current) + suffix;
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      el.textContent = format(target) + suffix;
+      el.setAttribute("data-animated", "1");
+    }
+  }
+
+  // Use IntersectionObserver to run when visible
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          requestAnimationFrame((t) => step(t || performance.now()));
+          obs.disconnect();
+        }
+      });
+    });
+    io.observe(el);
+  } else {
+    // fallback: run after short delay
+    setTimeout(
+      () => requestAnimationFrame((t) => step(t || performance.now())),
+      200,
+    );
+  }
+}
+
+// Start the animation on boot (observer will wait until it's visible)
+animateBlock4Number();

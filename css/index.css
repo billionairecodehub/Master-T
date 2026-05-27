@@ -261,14 +261,14 @@
 .site-header__right {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 2px;
   flex: 0 0 auto;
 }
 
 .site-header__left {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 0px;
 }
 .site-header__brand-left {
   display: flex;
@@ -278,8 +278,8 @@
 .brand {
   color: rgba(255, 255, 255, 0.95);
   font-family: "Gellix", sans-serif;
-  font-weight: 400;
-  font-size: 17px;
+  font-weight: 500;
+  font-size: 15px;
   letter-spacing: -0.6px;
 }
 .brand--title {
