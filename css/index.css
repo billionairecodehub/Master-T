@@ -277,15 +277,15 @@
 
 .brand {
   color: rgba(255, 255, 255, 0.95);
-  font-family: "Gellix", sans-serif;
+  font-family: "Quantify", sans-serif;
   font-weight: 400;
   font-size: 17px;
-  letter-spacing: -0.7px;
+  letter-spacing: -0.5px;
 }
 .brand--title {
   /* font-family: "RostockKaligraph", var(--font-family-primary); */
-  font-family: "Quantify", sans-serif;
-  letter-spacing: -0.7px;
+  /* font-family: "Quantify", sans-serif;
+  letter-spacing: -0.7px; */
 }
 
 .icon-button {
@@ -314,15 +314,15 @@
 } */
 
 .avatar {
-  width: 17px;
-  height: 17px;
+  width: 15px;
+  height: 15px;
   border-radius: 999px;
   object-fit: cover;
   border: 0.5px solid rgba(255, 255, 255, 0.9);
 }
 .avatar--right {
-  width: 17px;
-  height: 17px;
+  width: 15px;
+  height: 15px;
 }
 
 /* control non-avatar icon size */
@@ -347,8 +347,8 @@
   position: relative;
 }
 #header-noti-btn .icon--bell {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
 }
 
 .noti-nav-dot {
