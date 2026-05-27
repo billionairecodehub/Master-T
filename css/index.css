@@ -271,14 +271,14 @@
 
 .brand {
   color: rgba(255, 255, 255, 0.95);
-  font-family: var(--font-family-primary);
-  font-weight: 600;
-  letter-spacing: 0.9px;
-}
-.brand--rostock {
-  font-family: "RostockKaligraph", var(--font-family-primary);
-  font-size: 18px;
+  font-family: "Gellix", sans-serif;
   font-weight: 400;
+  font-size: 24px;
+  letter-spacing: -2px;
+}
+.brand--title {
+  /* font-family: "RostockKaligraph", var(--font-family-primary); */
+  font-family: "Gellix", sans-serif;
 }
 
 .icon-button {
