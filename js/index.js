@@ -282,6 +282,18 @@ if (headerTitleEl) {
   });
 }
 
+// Brand text in header should also navigate home when clicked
+const headerBrandEl = document.querySelector(".brand");
+if (headerBrandEl) {
+  headerBrandEl.style.cursor = "pointer";
+  headerBrandEl.addEventListener("click", (e) => {
+    e.preventDefault();
+    _navigateTo("/");
+    showPage(homePage);
+    _setActiveNav("home");
+  });
+}
+
 if (headerProfile) {
   headerProfile.addEventListener("click", () => {
     _navigateTo("/profile");
