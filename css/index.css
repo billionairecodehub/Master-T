@@ -278,7 +278,7 @@
 }
 .brand--rostock {
   font-family: "RostockKaligraph", "Gellix", sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 400;
 }
 
@@ -311,15 +311,15 @@
 }
 
 .avatar {
-  width: 44px;
-  height: 44px;
+  width: 33px;
+  height: 33px;
   border-radius: 999px;
   object-fit: cover;
   border: 0.6px solid rgba(255, 255, 255, 0.9);
 }
 .avatar--right {
-  width: 44px;
-  height: 44px;
+  width: 33px;
+  height: 33px;
 }
 
 .noti-nav-dot {
@@ -335,21 +335,21 @@
 
 /* Prevent oversized exported images from breaking header layout */
 .icon--bell {
-  width: 28px;
-  height: 28px;
+  width: 15px;
+  height: 15px;
   display: block;
   object-fit: contain;
 }
 .icon-button > img:not(.avatar) {
-  width: 28px;
-  height: 28px;
+  width: 15px;
+  height: 15px;
   object-fit: contain;
 }
 
 /* Notification circular stroke and inner icon centering */
 #header-noti-btn {
-  width: 44px;
-  height: 44px;
+  width: 33px;
+  height: 33px;
   border-radius: 999px;
   border: 0.5px solid rgba(255, 255, 255, 0.95);
   display: inline-flex;
@@ -362,8 +362,8 @@
 
 #header-noti-btn .icon--bell,
 #header-noti-btn > img.icon--bell {
-  width: 30px;
-  height: 30px;
+  width: 15px;
+  height: 15px;
 }
 
 /* ensure the notif dot sits outside the stroke but aligned */
