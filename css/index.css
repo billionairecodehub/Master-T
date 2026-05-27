@@ -559,7 +559,7 @@ body {
   top: 0;
   z-index: 10;
   border-bottom: 0.5px solid rgba(107, 158, 255, 0.2);
-  padding: 14px 0;
+  padding: 7px 0;
 }
 
 .main {
@@ -608,7 +608,6 @@ body {
   bottom: 0;
   z-index: 10;
   border-top: 0.5px solid rgba(107, 158, 255, 0.2);
-  padding: 0px 0;
 }
 
 .header-wrapper {
@@ -717,7 +716,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 4px;
+  padding: 5px 0;
 }
 
 .nav-item {
