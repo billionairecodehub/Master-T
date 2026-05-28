@@ -798,3 +798,182 @@
     letter-spacing: -6px;
   }
 }
+
+/* Advanced Apps interactive block (designer styles) */
+.frame-29,
+.frame-29 * {
+  box-sizing: border-box;
+}
+.frame-29 {
+  background: #000000;
+  height: 543px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 24px;
+}
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 417px;
+  position: absolute;
+  left: 0px;
+  top: -28px;
+}
+.app-image {
+  opacity: 0.25;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 417px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.app-description-board {
+  background: rgba(10, 14, 39, 0.98);
+  padding: 24px 14px 42px 53px;
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: auto;
+  position: relative;
+  margin-top: 40px;
+}
+.apps-boards-indicator-bar {
+  display: flex;
+  flex-direction: row;
+  gap: 1px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.board-indicator-bar {
+  background: #fff;
+  border-radius: 99px;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  position: relative;
+  aspect-ratio: 1;
+}
+.board-indicator-bar2 {
+  background: #fff;
+  border-radius: 99px;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  position: relative;
+  aspect-ratio: 1;
+  opacity: 0.4;
+}
+.apps-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 329px;
+  position: relative;
+}
+.apps-title {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.image-35 {
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.togan-ai-based-chat {
+  color: #ddd;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0;
+  font-weight: 600;
+  position: relative;
+}
+.apps-content {
+  color: #aaa;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 14px;
+  letter-spacing: 0px;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+}
+.frame-34 {
+  padding: 0px 67px 0px 67px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 268px;
+  height: 197px;
+  position: absolute;
+  left: 74px;
+  top: 157px;
+}
+.apps-blocks {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.rectangle-22,
+.rectangle-23,
+.rectangle-24,
+.rectangle-25,
+.rectangle-26 {
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.get-in-with-game-solution-based-creativity {
+  color: #ffffff;
+  text-align: center;
+  font-family: "Gellix", sans-serif;
+  font-size: 12px;
+  letter-spacing: -0.07em;
+  font-weight: 400;
+  position: relative;
+}
+.app-title {
+  color: #ffffff;
+  text-align: center;
+  font-family: "Gellix", sans-serif;
+  font-size: 128px;
+  letter-spacing: -0.09em;
+  font-weight: 400;
+  position: absolute;
+  left: 0px;
+  top: 34px;
+  width: 268px;
+  height: 154px;
+}
