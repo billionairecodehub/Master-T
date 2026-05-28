@@ -45,7 +45,7 @@ button {
 .quest-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 10px 20px;
   position: sticky;
   top: 0;
@@ -136,17 +136,28 @@ button {
   margin-top: 2px;
 }
 
-.quest-header-right {
+/* Centered header block (icon + title) */
+.quest-header-center {
+  position: relative;
   display: flex;
-  align-items: flex-end;
-  padding-bottom: 2px;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
 }
 
-.quest-icon {
-  width: 18px;
-  height: 18px;
-  opacity: 0.5;
-  /* transform: translateY(8px); */
+.quest-header-center .quest-icon {
+  width: 22px;
+  height: 22px;
+  opacity: 0.9;
+}
+
+.quest-header-center .quest-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  text-transform: lowercase;
+  font-family: "Gellix", sans-serif;
+  letter-spacing: -0.6px;
 }
 
 /* Quest Main */

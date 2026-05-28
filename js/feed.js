@@ -2,7 +2,8 @@
 
 const feedPostIcon = document.querySelector(".feed-icon");
 const FEED_ICON_DEFAULT = feedPostIcon ? feedPostIcon.getAttribute("src") : "";
-const BACK_ICON_SRC = "https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png";
+const BACK_ICON_SRC =
+  "https://i.postimg.cc/J4Lsycmk/Mtogan-Datastore-Back-icon.png";
 const LOGO_SRC = "https://i.postimg.cc/nr9srgXk/Master-Togan-Profile-Image.png";
 
 let _feedScrollPos = 0;

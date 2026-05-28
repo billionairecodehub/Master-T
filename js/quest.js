@@ -2,7 +2,8 @@
 
 const questIcon = document.querySelector(".quest-icon");
 const QUEST_ICON_DEFAULT = questIcon ? questIcon.getAttribute("src") : "";
-const QUEST_BACK_ICON = "https://i.postimg.cc/dtNjQWhf/App-Mode-Back-Icon.png";
+const QUEST_BACK_ICON =
+  "https://i.postimg.cc/J4Lsycmk/Mtogan-Datastore-Back-icon.png";
 const QUEST_LOGO = "https://i.postimg.cc/pdv2ftPx/Master-Togan-Logo.png";
 
 let _questScrollPos = 0;
