@@ -114,6 +114,51 @@ function getRelativeTime(dateStr) {
 
 function renderFeedPosts() {
   const container = document.getElementById("feed-main");
+  // Prepended debug preview: a hard-coded preview post shown as the top item
+  // Uses `localStorage.mt_debug_hard_feed_src` if present (URL or data-URL)
+  let _debugPreviewHTML = "";
+  try {
+    const _previewImgSrc =
+      localStorage.getItem("mt_debug_hard_feed_src") || LOGO_SRC;
+    _debugPreviewHTML = `
+      <div class="feed-post-board">
+        <div class="feed-post-wrapper">
+          <div class="feed-header-board">
+            <img class="rectangle-10" src="${_previewImgSrc}" />
+            <div class="feed-header-details">
+              <div class="feed-header-author">
+                <div class="master-togan">Master Togan</div>
+                <img class="image-9" src="https://i.postimg.cc/VLf05ksb/Mt-Title-badge-Icon.png" />
+              </div>
+              <div class="post-24-min-ago">Post ~ 24Min ago</div>
+            </div>
+          </div>
+          <div class="feed-main-content">
+            <div class="feed-post-content">
+              This is a hard-coded preview post using the same layout as your pasted HTML. Use this to style the page live.
+            </div>
+            <div class="feed-post-label">Read More...</div>
+          </div>
+          <div class="feed-footer">
+            <div class="feed-footer-stats">
+              <div class="feed-like">
+                <img class="feed-like-icon" src="https://i.postimg.cc/pLRds21c/Feed-Like-Icon.png" />
+                <div class="feed-like-count">243</div>
+              </div>
+              <div class="feed-impression">
+                <img class="feed-impression-icon" src="https://i.postimg.cc/QMVhzVgW/Feed-Impression-Icon.png" />
+                <div class="feed-impression-count">773</div>
+              </div>
+            </div>
+            <div class="feed-cta-btn">
+              <div class="get-red-pill-game-15">Get Red Pill Game ~ $15</div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  } catch (e) {
+    _debugPreviewHTML = "";
+  }
   const _profileImg = DataStore.getProfile().img || LOGO_SRC;
   const posts = DataStore.getAll("posts")
     .slice()
@@ -130,7 +175,7 @@ function renderFeedPosts() {
     return;
   }
 
-  container.innerHTML = posts
+  const postsHTML = posts
     .map((p, idx) => {
       const threadsHTML = (p.threads || [])
         .map(
@@ -215,6 +260,9 @@ function renderFeedPosts() {
         </div>`;
     })
     .join("");
+
+  // Prepend debug preview HTML (if set) so it appears as the first/top post
+  container.innerHTML = (_debugPreviewHTML || "") + postsHTML;
 
   bindFeedExpand();
   updateFeedDot();

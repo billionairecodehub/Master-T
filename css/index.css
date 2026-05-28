@@ -319,7 +319,7 @@
   color: #ffffff;
   text-align: left;
   font-family: "Gellix", sans-serif;
-  font-size: 28px;
+  font-size: 25px;
   letter-spacing: -0.07em;
   font-weight: 600;
   position: relative;
@@ -419,9 +419,9 @@
 .avatar {
   /* width: 15px;
   height: 15px; */
-  border-radius: 4px;
+  border-radius: 0px;
   object-fit: cover;
-  border: 0.5px solid rgba(255, 255, 255, 0.9);
+  /* border: 0.5px solid rgba(255, 255, 255, 0.9); */
 }
 .avatar--right {
   /* width: 15px;

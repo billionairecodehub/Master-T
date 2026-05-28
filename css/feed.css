@@ -1,3 +1,234 @@
+.feed-post-board,
+.feed-post-board * {
+  box-sizing: border-box;
+}
+.feed-post-board {
+  background: transparent;
+  border-radius: 5px;
+  padding: 27px 30px 27px 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 29px;
+  row-gap: 35px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-content: center;
+  height: 304px;
+  position: relative;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+}
+.feed-post-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex: 1;
+  position: relative;
+}
+.feed-header-board {
+  display: flex;
+  flex-direction: row;
+  gap: 11px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 216px;
+  height: 52px;
+  position: relative;
+}
+.rectangle-10 {
+  border-radius: 99px;
+  border-style: solid;
+  border-color: #fff;
+  border-width: 0.5px;
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.feed-header-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 155px;
+  position: relative;
+}
+.feed-header-author {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.master-togan {
+  color: #fff;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 24px;
+  line-height: 20px;
+  letter-spacing: -0.07em;
+  font-weight: 600;
+  opacity: 0.75;
+  position: relative;
+}
+.image-9 {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.post-24-min-ago {
+  color: #fff;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 16px;
+  letter-spacing: -0.7px;
+  font-weight: 400;
+  opacity: 0.75;
+  position: relative;
+  align-self: stretch;
+}
+.feed-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 90px;
+  position: relative;
+}
+.feed-post-content {
+  color: #fff;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  opacity: 0.75;
+  position: relative;
+  align-self: stretch;
+  height: auto;
+  padding: 10px 0;
+}
+.feed-post-label {
+  color: #fff;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  opacity: 0.75;
+  position: relative;
+  align-self: stretch;
+}
+.feed-footer {
+  display: flex;
+  flex-direction: row;
+  gap: 41px;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.feed-footer-stats {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: auto;
+  position: relative;
+}
+.feed-like {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.feed-like-icon {
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.feed-like-count {
+  color: #fff;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 16px;
+  letter-spacing: -0.07em;
+  font-weight: 400;
+  opacity: 0.75;
+  position: relative;
+}
+.feed-impression {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.feed-impression-icon {
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.feed-impression-count {
+  color: #fff;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  opacity: 0.75;
+  position: relative;
+}
+.feed-cta-btn {
+  background: #27f8ff;
+  border-radius: 4px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: auto;
+  height: auto;
+  position: relative;
+}
+.get-red-pill-game-15 {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 15px;
+  line-height: 2px;
+  font-weight: 400;
+  position: relative;
+}
+
 /* ── Feed Page ─────────────────────────────── */
 
 /* Prevent mobile zoom on button focus */
