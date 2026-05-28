@@ -412,7 +412,7 @@ button {
   color: rgba(255, 255, 255, 0.95);
   text-transform: lowercase;
   font-family: "Gellix", sans-serif;
-  letter-spacing: -0.6px;
+  letter-spacing: -0.09rem;
 }
 
 /* Feed Main */
