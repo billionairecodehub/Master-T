@@ -81,6 +81,46 @@ function _questOpenItem(id) {
 function renderQuests() {
   const container = document.getElementById("quest-main");
   if (!container) return;
+  // Prepended debug preview: a hard-coded preview quest shown as the top item
+  // Uses `localStorage.mt_debug_hard_quest_src` if present (URL or data-URL)
+  let _debugQuestHTML = "";
+  try {
+    const _previewImgSrc =
+      localStorage.getItem("mt_debug_hard_quest_src") || QUEST_LOGO;
+    _debugQuestHTML = `
+      <div class="quest-post-board">
+        <div class="quest-post-wrapper">
+          <div class="quest-post-content">
+            <div class="quest-title">
+              <div class="quest-title-text">Quest</div>
+              <img class="quest-title-icon" src="quest-title-icon0.png" />
+            </div>
+            <div class="quest-topic">
+              Why Do Women Sometimes Lose Interest
+              <br />
+              After A Man Shows Too Much Interest ?
+            </div>
+            <div class="quest-footer-stats">
+              <div class="quest-vote-up">
+                <img class="quest-vote-up-icon" src="quest-vote-up-icon0.png" />
+                <div class="quest-vote-up-count">643</div>
+              </div>
+              <div class="quest-vote-down">
+                <img class="quest-vote-down-icon" src="quest-vote-down-icon0.png" />
+                <div class="quest-vote-down-count">73</div>
+              </div>
+              <div class="quest-comment">
+                <img class="quest-comment-icon" src="quest-comment-icon0.png" />
+                <div class="quest-comment-count">84</div>
+              </div>
+            </div>
+          </div>
+          <img class="quest-tagged-visual" src="quest-tagged-visual0.png" />
+        </div>
+      </div>`;
+  } catch (e) {
+    _debugQuestHTML = "";
+  }
   const quests = DataStore.getAll("quests")
     .slice()
     .sort((a, b) => {
@@ -95,7 +135,7 @@ function renderQuests() {
     return;
   }
 
-  container.innerHTML = quests
+  const questsHTML = quests
     .map((p) => {
       const solutionHTML = (p.threads || [])
         .map(
@@ -181,6 +221,9 @@ function renderQuests() {
         </div>`;
     })
     .join("");
+
+  // Prepend debug preview HTML (if set) so it appears as the first/top quest
+  container.innerHTML = (_debugQuestHTML || "") + questsHTML;
 
   bindQuestExpand();
   bindQuestVotes();

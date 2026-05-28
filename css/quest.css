@@ -445,3 +445,179 @@ button {
     padding: 16px 48px;
   }
 }
+
+/* Hard-coded quest preview styles (from designer) */
+.quest-post-board,
+.quest-post-board * {
+  box-sizing: border-box;
+}
+.quest-post-board {
+  background: #d9d9d9;
+  border-radius: 2px;
+  padding: 29px 22px 20px 19px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 148px;
+  position: relative;
+}
+.quest-post-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 22px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.quest-post-content {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 213px;
+  position: relative;
+}
+.quest-title {
+  display: flex;
+  flex-direction: row;
+  gap: 1px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.quest-title-text {
+  color: #000000;
+  text-align: left;
+  font-family: "Gellix-Regular", sans-serif;
+  font-size: 24px;
+  line-height: 20px;
+  letter-spacing: -0.07em;
+  font-weight: 400;
+  opacity: 0.75;
+  position: relative;
+}
+.quest-title-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.quest-topic {
+  color: #000000;
+  text-align: left;
+  font-family: "Gellix-Regular", sans-serif;
+  font-size: 13px;
+  letter-spacing: -0.07em;
+  font-weight: 400;
+  opacity: 0.4;
+  position: relative;
+  align-self: stretch;
+}
+.quest-footer-stats {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.quest-vote-up {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.quest-vote-up-icon {
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.quest-vote-up-count {
+  color: #000000;
+  text-align: left;
+  font-family: "Gellix-Regular", sans-serif;
+  font-size: 16px;
+  letter-spacing: -0.07em;
+  font-weight: 400;
+  opacity: 0.75;
+  position: relative;
+}
+.quest-vote-down {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.quest-vote-down-icon {
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  position: relative;
+  transform-origin: 0 0;
+  transform: rotate(-180deg) scale(1, 1);
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.quest-vote-down-count {
+  color: #000000;
+  text-align: left;
+  font-family: "Gellix-Regular", sans-serif;
+  font-size: 16px;
+  letter-spacing: -0.07em;
+  font-weight: 400;
+  opacity: 0.75;
+  position: relative;
+}
+.quest-comment {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.quest-comment-icon {
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.quest-comment-count {
+  color: #000000;
+  text-align: left;
+  font-family: "Gellix-Regular", sans-serif;
+  font-size: 16px;
+  letter-spacing: -0.07em;
+  font-weight: 400;
+  opacity: 0.75;
+  position: relative;
+}
+.quest-tagged-visual {
+  border-radius: 4px;
+  flex-shrink: 0;
+  width: 97px;
+  height: 97px;
+  position: relative;
+  object-fit: cover;
+}
