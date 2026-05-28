@@ -275,18 +275,33 @@
   align-items: center;
 }
 
+/* Center the brand visually in the header regardless of left/right widths */
+.site-header__brand-left {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  pointer-events: none; /* allow clicks only on the inner .brand */
+  max-width: calc(100% - 160px);
+}
+.site-header__brand-left .brand {
+  pointer-events: auto;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .brand {
   color: rgba(255, 255, 255, 0.95);
   font-family: "Gellix", sans-serif;
   font-weight: 400;
   font-size: 12px;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.7px;
   opacity: 0.75;
-}
-.brand--title {
-  /* font-family: "RostockKaligraph", var(--font-family-primary); */
-  /* font-family: "Quantify", sans-serif;
-  letter-spacing: -0.7px; */
 }
 
 .icon-button {
@@ -358,8 +373,8 @@
 }
 .site-header .avatar,
 .site-header .avatar.avatar--right {
-  width: 17px;
-  height: 17px;
+  width: 25px;
+  height: 25px;
   border-radius: 999px;
   display: block;
   object-fit: cover;
