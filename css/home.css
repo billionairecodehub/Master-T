@@ -50,7 +50,6 @@
   background: rgba(0, 9, 26, 0.6);
   flex-shrink: 0;
   position: relative;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
 }
 .block-1-img-item:not(:first-child) {
   margin-left: -12px; /* overlap */
@@ -68,6 +67,24 @@
   gap: 4px;
   margin-top: 96px;
   height: auto;
+}
+
+.block-1-title {
+  font-size: var(--font-size-xs);
+  font-weight: 400;
+  color: rgba(200, 215, 255, 0.4);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.block-1-label {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: var(--letter-spacing-normal);
+  background: var(--gradient-secondary-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .block-1-tagline {
