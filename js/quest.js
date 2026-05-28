@@ -93,29 +93,30 @@ function renderQuests() {
           <div class="quest-post-content">
             <div class="quest-title">
               <div class="quest-title-text">Quest</div>
-              <img class="quest-title-icon" src="quest-title-icon0.png" />
+              <img class="quest-title-icon" src="https://i.postimg.cc/d3LQssLX/Mtogan-Quest-Page-Icon.png" />
             </div>
             <div class="quest-topic">
               Why Do Women Sometimes Lose Interest
               <br />
               After A Man Shows Too Much Interest ?
+               <div class="quest-post-label">Open to Read Solution</div>
             </div>
             <div class="quest-footer-stats">
               <div class="quest-vote-up">
-                <img class="quest-vote-up-icon" src="quest-vote-up-icon0.png" />
+                <img class="quest-vote-up-icon" src="https://i.postimg.cc/HL12Lv3t/Quest-Vote-Up-Icon.png" />
                 <div class="quest-vote-up-count">643</div>
               </div>
               <div class="quest-vote-down">
-                <img class="quest-vote-down-icon" src="quest-vote-down-icon0.png" />
+                <img class="quest-vote-down-icon" src="https://i.postimg.cc/QxBkJZyM/Quest-Vote-Down-Icon.png" />
                 <div class="quest-vote-down-count">73</div>
               </div>
               <div class="quest-comment">
-                <img class="quest-comment-icon" src="quest-comment-icon0.png" />
+                <img class="quest-comment-icon" src="https://i.postimg.cc/B6Q28rFQ/Quest-Comment-Icon.png" />
                 <div class="quest-comment-count">84</div>
               </div>
             </div>
           </div>
-          <img class="quest-tagged-visual" src="quest-tagged-visual0.png" />
+          <img class="quest-tagged-visual" src="https://i.postimg.cc/pTt1gXgR/image.png" />
         </div>
       </div>`;
   } catch (e) {
