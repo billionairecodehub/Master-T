@@ -141,7 +141,7 @@ button {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 2px;
   justify-content: center;
 }
 
@@ -152,7 +152,7 @@ button {
 }
 
 .quest-header-center .quest-title {
-  font-size: 18px;
+  font-size: 28px;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.95);
   text-transform: lowercase;
