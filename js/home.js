@@ -1,6 +1,8 @@
 // Home page — Block 2 Store & Library books tabs (5 books + 1 more)
 const HOME_BOOK_VISIBLE_MAX = 5;
 const HOME_BOOK_FALLBACK_ICON = "https://i.postimg.cc/VNY8Ymks/image.png";
+// Configure the image used for the "More" slot. Replace this URL with your uploaded image.
+const HOME_MORE_IMG = "https://i.postimg.cc/jSptBMLB/Mtogan-More-Tab-Icon.png";
 
 function _getHomeStoreBooks() {
   return DataStore.getAll("books").filter((b) => !b.draft);
@@ -73,8 +75,7 @@ function renderHomeBooksGrid() {
 
   // Last (6th) tab: more books → open Store Books list
   html += `<button class="block-2-grid-item block-2-more-slot" id="home-library-more" aria-label="Open more books">
-      <div class="block-2-more-icon">+</div>
-      <div class="block-2-more-text">More</div>
+      <img src="${HOME_MORE_IMG}" alt="More" class="block-2-more-img" />
     </button>`;
 
   grid.innerHTML = html;
@@ -140,8 +141,7 @@ function renderHomeAppsSlots() {
   });
 
   html += `<button class="block-3-icon-item block-3-more-slot" id="home-app-more" aria-label="Open more apps">
-    <div class="block-3-more-plus">+</div>
-    <div class="block-3-more-text">More</div>
+    <img src="${HOME_MORE_IMG}" alt="More apps" class="block-3-more-img" />
   </button>`;
 
   slotsWrap.innerHTML = html;

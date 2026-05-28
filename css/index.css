@@ -280,7 +280,7 @@
   font-family: "Gellix", sans-serif;
   font-weight: 400;
   font-size: 12px;
-  letter-spacing: 0.25px;
+  letter-spacing: -0.3px;
   opacity: 0.75;
 }
 .brand--title {

@@ -35,22 +35,29 @@
   gap: 2px;
 }
 
-.block-1-title {
-  font-size: var(--font-size-xs);
-  font-weight: 400;
-  color: rgba(200, 215, 255, 0.4);
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
+.block-1-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.block-1-img-item {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 9, 26, 0.6);
+  flex-shrink: 0;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+}
+.block-1-img-item:not(:first-child) {
+  margin-left: -12px; /* overlap */
 }
 
-.block-1-label {
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: var(--letter-spacing-normal);
-  background: var(--gradient-secondary-text);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.block-1-img-item:first-child {
+  margin-left: 0;
 }
 
 .block-1-main {
@@ -82,23 +89,6 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   padding-bottom: 30px;
-}
-
-.block-1-images {
-  display: flex;
-  gap: -40px;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.block-1-img-item {
-  width: 44px;
-  height: 44px;
-  border-radius: 88px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(0, 9, 26, 0.6);
-  flex-shrink: 0;
 }
 
 .block-1-img {
@@ -203,9 +193,11 @@
 
 .block-2-more-slot {
   cursor: pointer;
-  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
-  background: rgba(0, 0, 0, 0.2);
+  background: transparent;
 }
 
 .block-2-more-slot:active {
@@ -214,8 +206,8 @@
 }
 
 .block-2-more-icon {
-  width: 34px;
-  height: 34px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -379,9 +371,11 @@
 
 .block-3-more-slot {
   cursor: pointer;
-  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
-  background: rgba(0, 0, 0, 0.2);
+  background: transparent;
 }
 
 .block-3-more-slot:active {
@@ -407,6 +401,16 @@
   color: rgba(200, 215, 255, 0.78);
   letter-spacing: 0.2px;
   text-transform: uppercase;
+}
+
+/* Single-image "More" slot styling */
+.block-2-more-img,
+.block-3-more-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+  opacity: 0.95;
 }
 
 .block-3-icon-img {
