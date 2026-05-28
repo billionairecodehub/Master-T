@@ -116,7 +116,7 @@ function renderQuests() {
               </div>
             </div>
           </div>
-          <img class="quest-tagged-visual" src="https://i.postimg.cc/pTt1gXgR/image.png" />
+          <img class="quest-tagged-visual" src="https://i.postimg.cc/Gmfq8j3d/image.png">
         </div>
       </div>`;
   } catch (e) {
