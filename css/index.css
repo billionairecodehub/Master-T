@@ -276,7 +276,7 @@
 }
 
 /* Center the brand visually in the header regardless of left/right widths */
-.site-header__brand-left {
+/* .site-header__brand-left {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -284,7 +284,7 @@
   align-items: center;
   justify-content: center;
   z-index: 3;
-  pointer-events: none; /* allow clicks only on the inner .brand */
+  pointer-events: none; 
   max-width: calc(100% - 160px);
 }
 .site-header__brand-left .brand {
@@ -293,6 +293,54 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+} */
+
+.mtogan-header-title {
+  display: flex;
+  flex-direction: column;
+  /* gap: 5px; */
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: auto;
+  position: relative;
+}
+.mt-header-title {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.mt-header-title-text {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 28px;
+  letter-spacing: -0.07em;
+  font-weight: 600;
+  position: relative;
+}
+.mt-title-badge-icon {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.mt-header-subtitle-text {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Gellix", sans-serif;
+  font-size: 12px;
+  letter-spacing: -0.07em;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
 }
 
 .brand {
@@ -329,18 +377,6 @@
   box-shadow: 0 0 0 3px rgba(20, 145, 231, 0.12);
 } */
 
-.avatar {
-  width: 15px;
-  height: 15px;
-  border-radius: 999px;
-  object-fit: cover;
-  border: 0.5px solid rgba(255, 255, 255, 0.9);
-}
-.avatar--right {
-  width: 15px;
-  height: 15px;
-}
-
 /* control non-avatar icon size */
 .icon--bell,
 .icon-button > img:not(.avatar) {
@@ -375,9 +411,22 @@
 .site-header .avatar.avatar--right {
   width: 25px;
   height: 25px;
-  border-radius: 999px;
+  /* border-radius: 999px; */
   display: block;
   object-fit: cover;
+}
+
+.avatar {
+  /* width: 15px;
+  height: 15px; */
+  border-radius: 4px;
+  object-fit: cover;
+  border: 0.5px solid rgba(255, 255, 255, 0.9);
+}
+.avatar--right {
+  /* width: 15px;
+  height: 15px; */
+  border-radius: 999px;
 }
 
 .noti-nav-dot {
