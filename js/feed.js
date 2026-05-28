@@ -152,11 +152,14 @@ function renderFeedPosts() {
               </div>
             </div>
             <div class="feed-cta-btn">
-              <div class="get-red-pill-game-15">Get Red Pill Game ~ $15</div>
+              <button class="feed-cta" aria-label="Get Red Pill Game">
+                <img class="feed-cta-icon" src="https://i.postimg.cc/pL6fmqSd/Mtogan-menu-store-Icon.png" alt="Store" />
+                <span class="get-red-pill-game-15">Get Red Pill Game ~ $15</span>
+              </button>
             </div>
           </div>
         </div>
-      </div>`;
+      </div`;
   } catch (e) {
     _debugPreviewHTML = "";
   }
