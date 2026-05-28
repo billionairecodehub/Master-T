@@ -352,6 +352,19 @@
   height: 25px;
 }
 
+/* Ensure header avatars are constrained (more specific than .avatar) */
+.site-header .icon-button.avatar-button {
+  padding: 4px; /* reduce clickable padding so avatar appears smaller */
+}
+.site-header .avatar,
+.site-header .avatar.avatar--right {
+  width: 17px;
+  height: 17px;
+  border-radius: 999px;
+  display: block;
+  object-fit: cover;
+}
+
 .noti-nav-dot {
   position: absolute;
   width: 8px;

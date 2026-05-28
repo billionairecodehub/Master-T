@@ -52,7 +52,7 @@
   position: relative;
 }
 .block-1-img-item:not(:first-child) {
-  margin-left: -12px; /* overlap */
+  margin-left: -6px; /* overlap */
 }
 
 .block-1-img-item:first-child {
