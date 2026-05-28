@@ -323,6 +323,7 @@
   letter-spacing: -0.07em;
   font-weight: 600;
   position: relative;
+  line-height: 1; /* ensure vertical centering with icon */
 }
 .mt-title-badge-icon {
   flex-shrink: 0;
@@ -331,13 +332,16 @@
   position: relative;
   object-fit: cover;
   aspect-ratio: 1;
+  display: block;
+  align-self: center;
 }
 .mt-header-subtitle-text {
   color: #ffffff;
   text-align: left;
   font-family: "Gellix", sans-serif;
-  font-size: 12px;
-  letter-spacing: -0.07em;
+  font-size: 10px;
+  letter-spacing: -0.05em;
+  opacity: 0.5;
   font-weight: 400;
   position: relative;
   align-self: stretch;
