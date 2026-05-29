@@ -129,14 +129,21 @@ function renderQuests() {
       const db = new Date(b.createdAt || 0).getTime();
       return db - da;
     });
+  // Honor hide-admin toggle: when set, do not render DataStore quests
+  const _hideVal = localStorage.getItem("mt_hide_admin_content");
+  const hideAdmin =
+    !!_hideVal &&
+    !["0", "false", "", null].includes(String(_hideVal).toLowerCase());
+  const questsToRender = hideAdmin ? [] : quests;
+  console.log(
+    "[QUEST] Rendering",
+    questsToRender.length,
+    "quests (hideAdmin=",
+    hideAdmin,
+    ")",
+  );
 
-  if (quests.length === 0) {
-    container.innerHTML =
-      '<div style="text-align:center;padding:40px;color:#333">No quests yet</div>';
-    return;
-  }
-
-  const questsHTML = quests
+  const questsHTML = questsToRender
     .map((p) => {
       const solutionHTML = (p.threads || [])
         .map(
@@ -223,14 +230,46 @@ function renderQuests() {
     })
     .join("");
 
-  // Prepend debug preview HTML (if set) so it appears as the first/top quest
-  container.innerHTML = (_debugQuestHTML || "") + questsHTML;
+  // Prepend debug preview HTML (if set) so it appears as the first/top quest.
+  // Always include the debug preview; questsHTML may be empty when hiding admin content.
+  container.innerHTML = (_debugQuestHTML || "") + (questsHTML || "");
 
   bindQuestExpand();
   bindQuestVotes();
   bindQuestCTA();
   bindQuestCommentBoard();
   updateQuestDot();
+  // Inject a small header toggle button (if header exists) to allow toggling
+  // hiding admin-synced quests without editing HTML templates.
+  try {
+    const headerCenter = document.querySelector(
+      ".quest-header .quest-header-center",
+    );
+    if (headerCenter && !document.getElementById("toggle-admin-quest")) {
+      const btn = document.createElement("button");
+      btn.id = "toggle-admin-quest";
+      btn.className = "icon-button";
+      btn.style.marginLeft = "8px";
+      btn.title = "Toggle admin-synced quests";
+      btn.textContent = hideAdmin ? "Show Admin" : "Hide Admin";
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const cur = localStorage.getItem("mt_hide_admin_content");
+        if (!!cur && !["0", "false"].includes(String(cur).toLowerCase())) {
+          localStorage.removeItem("mt_hide_admin_content");
+          btn.textContent = "Hide Admin";
+        } else {
+          localStorage.setItem("mt_hide_admin_content", "1");
+          btn.textContent = "Show Admin";
+        }
+        // Re-render quests to apply new setting
+        renderQuests();
+      });
+      headerCenter.appendChild(btn);
+    }
+  } catch (e) {
+    /* ignore DOM injection failures */
+  }
   // Bind comment icon click to open the comment board modal
   function bindQuestCommentBoard() {
     // Ensure modal HTML is present
