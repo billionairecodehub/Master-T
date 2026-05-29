@@ -796,7 +796,91 @@ function _csFeedRefresh(tab) {
         },
       },
     );
+  } else if (tab === "slots") {
+    _csBooksSlotsRefresh();
   }
+}
+
+// ── Books Slots (admin upload of per-tile images) ───────────────────
+function _csBooksSlotsRefresh() {
+  const el = document.getElementById("cs-books-slots-list");
+  if (!el) return;
+  const books = DataStore.getAll("books").filter((b) => !b.draft);
+  if (!books || books.length === 0) {
+    el.innerHTML =
+      '<div class="admin-empty"><div class="admin-empty-icon">📖</div><div class="admin-empty-text">No books available</div></div>';
+    return;
+  }
+
+  el.innerHTML = books
+    .map(
+      (b) => `
+      <div class="cs-book-slot-item" data-book-id="${b.id}" style="display:flex;gap:12px;align-items:center;padding:8px;border-bottom:1px solid rgba(255,255,255,0.03)">
+        <div style="width:96px;height:96px;flex:0 0 96px;overflow:hidden;border-radius:4px;background:#071025;display:flex;align-items:center;justify-content:center">
+          <img src="${b.src_img || b.img || "https://i.postimg.cc/VNY8Ymks/image.png"}" alt="${b.name}" style="width:100%;height:100%;object-fit:cover;display:block" />
+        </div>
+        <div style="flex:1;display:flex;flex-direction:row;justify-content:space-between;align-items:center">
+          <div style="display:flex;flex-direction:column">
+            <div style="font-weight:600">${b.name}</div>
+            <div style="font-size:12px;color:rgba(200,200,220,0.7);margin-top:6px">ID: ${b.id}</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input type="file" accept="image/*" class="cs-books-slot-input" data-id="${b.id}" style="display:none" />
+            <button type="button" class="cs-btn" data-action="upload" data-id="${b.id}">Upload</button>
+            <button type="button" class="cs-btn cs-btn-danger" data-action="clear" data-id="${b.id}">Clear</button>
+          </div>
+        </div>
+      </div>`,
+    )
+    .join("");
+
+  // Wire upload buttons -> trigger hidden input
+  el.querySelectorAll(".cs-book-slot-item").forEach((item) => {
+    const id = item.getAttribute("data-book-id");
+    const fileInput = item.querySelector(".cs-books-slot-input");
+    const uploadBtn = item.querySelector('[data-action="upload"]');
+    const clearBtn = item.querySelector('[data-action="clear"]');
+
+    if (uploadBtn && fileInput) {
+      uploadBtn.addEventListener("click", () => fileInput.click());
+      fileInput.addEventListener("change", (ev) => {
+        const file = ev.target.files && ev.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const dataUrl = e.target.result;
+          try {
+            DataStore.update("books", id, { src_img: dataUrl });
+          } catch (err) {
+            console.error("Failed to save slot image", err);
+          }
+          // refresh slot list and public home grid
+          requestAnimationFrame(() => {
+            _csBooksSlotsRefresh();
+            if (typeof window.renderHomeBooksGrid === "function")
+              window.renderHomeBooksGrid();
+          });
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener("click", async () => {
+        const ok = await window.UMessageModal.confirm(
+          "Clear slot image for this book?",
+          "Confirm",
+        );
+        if (!ok) return;
+        DataStore.update("books", id, { src_img: "" });
+        requestAnimationFrame(() => {
+          _csBooksSlotsRefresh();
+          if (typeof window.renderHomeBooksGrid === "function")
+            window.renderHomeBooksGrid();
+        });
+      });
+    }
+  });
 }
 
 // Feed CTA type buttons

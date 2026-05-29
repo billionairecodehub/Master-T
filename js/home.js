@@ -65,17 +65,19 @@ function renderHomeBooksGrid() {
   for (let i = 0; i < HOME_BOOK_VISIBLE_MAX; i++) {
     const book = visibleBooks[i];
     if (book) {
+      // allow an override image for the tile via book.src_img; falls back to book.img
+      const tileImg = book.src_img || book.img || HOME_BOOK_FALLBACK_ICON;
       html += `<button class="block-2-grid-item block-2-book-slot" data-id="${book.id}" aria-label="Open ${book.name}">
-        <img src="${book.img || HOME_BOOK_FALLBACK_ICON}" alt="${book.name}" class="block-2-grid-icon" />
+        <img src="${tileImg}" alt="${book.name}" class="block-2-grid-icon" />
       </button>`;
     } else {
       html += `<div class="block-2-grid-item block-2-grid-item-empty" aria-label="Incoming book slot"></div>`;
     }
   }
 
-  // Last (6th) tab: more books → open Store Books list
+  // Last (6th) tab: more books → open Store Books list. Keep blank background and a small centered icon.
   html += `<button class="block-2-grid-item block-2-more-slot" id="home-library-more" aria-label="Open more books">
-      <img src="${HOME_MORE_IMG}" alt="More" class="block-2-more-img" />
+      <div class="block-2-more-icon">+</div>
     </button>`;
 
   grid.innerHTML = html;
@@ -112,6 +114,8 @@ function renderHomeBooksGrid() {
       _openHomeBookInStore(bookId);
     });
   });
+
+  // No upload inputs on public site — admin uploads are handled in the admin panel
 
   const moreBtn = document.getElementById("home-library-more");
   if (moreBtn) {
