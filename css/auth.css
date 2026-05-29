@@ -10,7 +10,7 @@
   background: linear-gradient(135deg, #06091e 0%, #0d1535 50%, #08091f 100%);
   z-index: 9999;
   overflow: hidden;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
 }
 
 .auth-screen {
@@ -148,7 +148,7 @@
   letter-spacing: -0.75px;
   font-weight: 400;
   cursor: pointer;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
 }
 
 .auth-switch-btn.is-active {
@@ -190,7 +190,7 @@
   letter-spacing: -0.75px;
   outline: none;
   padding: 0 18px;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
 }
 
 .auth-input::placeholder {
@@ -214,7 +214,7 @@
   letter-spacing: -0.75px;
   font-weight: 500;
   cursor: pointer;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
   transition:
     background 0.15s ease,
     border-color 0.15s ease,
@@ -265,7 +265,7 @@
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
 }
 
 .auth-btn-primary {
@@ -293,7 +293,7 @@
   font-size: 12px;
   letter-spacing: -0.2px;
   cursor: pointer;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
   text-align: left;
   padding: 0;
 }

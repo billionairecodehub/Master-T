@@ -1,96 +1,41 @@
-/* Load from GitHub CDN for reliability */
-
-/* Regular */
+/* KyivTypeTitling — local font files uploaded by user */
 @font-face {
-  font-family: "Gellix";
-  src:
-    url("font/Gellix-Thin.woff2") format("woff2"),
-    url("font/Gellix-Thin.woff") format("woff");
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gellix";
-  src:
-    url("font/Gellix-Light.woff2") format("woff2"),
-    url("font/Gellix-Light.woff") format("woff");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gellix";
-  src:
-    url("font/Gellix-Regular.woff2") format("woff2"),
-    url("font/Gellix-Regular.woff") format("woff");
+  font-family: "KyivTypeTitling";
+  src: url("font/KyivTypeTitling-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Gellix";
-  src:
-    url("font/Gellix-Medium.woff2") format("woff2"),
-    url("font/Gellix-Medium.woff") format("woff");
+  font-family: "KyivTypeTitling";
+  src: url("font/KyivTypeTitling-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Gellix";
-  src:
-    url("font/Gellix-SemiBold.woff2") format("woff2"),
-    url("font/Gellix-SemiBold.woff") format("woff");
-  font-weight: 600;
+  font-family: "KyivTypeTitling";
+  src: url("font/KyivTypeTitling-Bold.ttf") format("truetype");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-@font-face {
-  font-family: "Gellix";
-  src:
-    url("font/Gellix-ExtraBold.woff2") format("woff2"),
-    url("font/Gellix-ExtraBold.woff") format("woff");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
+/* Provide an alias for legacy references to "Gellix" so existing CSS continues to work
+   while the project migrates to the new font name. */
+/* Removed legacy "Gellix" alias blocks — using KyivTypeTitling exclusively */
 
-/* Italic variants (if present) */
-@font-face {
-  font-family: "Gellix";
-  src:
-    url("font/Gellix-RegularItalic.woff2") format("woff2"),
-    url("font/Gellix-RegularItalic.woff") format("woff");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Gellix";
-  src:
-    url("font/Gellix-SemiBoldItalic.woff2") format("woff2"),
-    url("font/Gellix-SemiBoldItalic.woff") format("woff");
-  font-weight: 600;
-  font-style: italic;
-  font-display: swap;
-}
-
+/* Default site font — prefer the new KyivTypeTitling name first */
 html,
 body {
-  font-family: "Gellix", Arial, Helvetica, sans-serif;
+  font-family: "KyivTypeTitling", Arial, Helvetica, sans-serif;
 }
 
-/* Rostock Kaligraph — used only for header brand */
+/* Rostock Kaligraph — used only for header brand (unchanged) */
 @font-face {
   font-family: "Quantify";
-  /* file name contains a space in the repo, use percent-encoding to reference it */
   src: url("font/Quantify.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;

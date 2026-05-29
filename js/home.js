@@ -4,6 +4,10 @@ const HOME_BOOK_FALLBACK_ICON = "https://i.postimg.cc/VNY8Ymks/image.png";
 // Configure the image used for the "More" slot. Replace this URL with your uploaded image.
 const HOME_MORE_IMG = "https://i.postimg.cc/jSptBMLB/Mtogan-More-Tab-Icon.png";
 
+// Hardcoded Home library slot images (5 visible slots).
+// Replace these with your uploaded image URLs as you add them.
+const HOME_BOOK_SLOT_SRCS = ["", "", "", "", ""];
+
 function _getHomeStoreBooks() {
   return DataStore.getAll("books").filter((b) => !b.draft);
 }
@@ -65,8 +69,9 @@ function renderHomeBooksGrid() {
   for (let i = 0; i < HOME_BOOK_VISIBLE_MAX; i++) {
     const book = visibleBooks[i];
     if (book) {
-      // allow an override image for the tile via book.src_img; falls back to book.img
-      const tileImg = book.src_img || book.img || HOME_BOOK_FALLBACK_ICON;
+      // Prefer hardcoded slot srcs; fall back to book.img then default
+      const tileImg =
+        HOME_BOOK_SLOT_SRCS[i] || book.img || HOME_BOOK_FALLBACK_ICON;
       html += `<button class="block-2-grid-item block-2-book-slot" data-id="${book.id}" aria-label="Open ${book.name}">
         <img src="${tileImg}" alt="${book.name}" class="block-2-grid-icon" />
       </button>`;

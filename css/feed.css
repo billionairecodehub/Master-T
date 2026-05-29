@@ -72,7 +72,7 @@
 .master-togan {
   color: #fff;
   text-align: left;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
   font-size: 24px;
   /* line-height: 20px; */
   letter-spacing: -0.07em;
@@ -94,7 +94,7 @@
 .post-24-min-ago {
   color: #fff;
   text-align: left;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
   font-size: 16px;
   letter-spacing: -0.7px;
   font-weight: 400;
@@ -116,7 +116,7 @@
 .feed-post-content {
   color: #fff;
   text-align: left;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
   font-size: 16px;
   font-weight: 400;
   opacity: 0.75;
@@ -128,7 +128,7 @@
 .feed-post-label {
   color: #fff;
   text-align: left;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
   font-size: 16px;
   font-weight: 700;
   opacity: 0.75;
@@ -175,7 +175,7 @@
 .feed-like-count {
   color: #fff;
   text-align: left;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
   font-size: 15px;
   letter-spacing: -0.07em;
   font-weight: 400;

@@ -13,7 +13,7 @@ const CONTENT_SECTION_TABS = {
   updates: ["View", "Create", "Draft", "Manage"],
   poll: ["View", "Create", "Draft", "Manage"],
   apps: ["View", "Create", "Draft", "Manage"],
-  books: ["View", "Create", "Draft", "Manage", "Slots"],
+  books: ["View", "Create", "Draft", "Manage"],
   circle: ["View", "Create", "Draft", "Manage"],
   notifications: ["View", "Create", "Draft", "Manage"],
   editprofile: ["Details", "CTA", "Message", "About"],

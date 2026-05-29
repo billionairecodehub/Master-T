@@ -1,6 +1,6 @@
 .mtogan-profile-page {
   box-sizing: border-box;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
   background: transparent;
   display: flex;
   flex-direction: row;
@@ -25,7 +25,7 @@
   width: 100%;
   position: relative;
   overflow: hidden;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
 }
 .mt-profile-image {
   align-self: stretch;
@@ -67,7 +67,7 @@
 .mt-profile-title-text {
   color: #ffffff;
   text-align: left;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
   font-size: 36px;
   letter-spacing: -0.07em;
   font-weight: 600;
@@ -84,7 +84,7 @@
 .mt-profile-subtitle-text {
   color: #ffffff;
   text-align: left;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
   font-size: 16px;
   letter-spacing: -0.07em;
   font-weight: 400;
@@ -178,7 +178,7 @@
 .mt-like-count {
   color: #ffffff;
   text-align: left;
-  font-family: "Gellix-Regular", sans-serif;
+  font-family: "KyivTypeTitling-Regular", sans-serif;
   font-size: 12px;
   letter-spacing: -0.07em;
   font-weight: 400;

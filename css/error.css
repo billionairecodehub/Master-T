@@ -12,12 +12,11 @@
 html,
 body {
   min-height: 100%;
-  font-family: "Gellix", Arial, sans-serif;
+  font-family: "KyivTypeTitling", Arial, sans-serif;
 }
 
 body {
-  background:
-    linear-gradient(145deg, #02061a 0%, #08133d 54%, #1b0b52 100%);
+  background: linear-gradient(145deg, #02061a 0%, #08133d 54%, #1b0b52 100%);
   color: #e9f0ff;
 }
 
@@ -118,7 +117,7 @@ body {
   line-height: 1;
   letter-spacing: -0.5px;
   color: #edf4ff;
-  font-family: "Gellix", Arial, sans-serif;
+  font-family: "KyivTypeTitling", Arial, sans-serif;
 }
 
 .search-card {
@@ -194,7 +193,7 @@ body {
   color: rgba(201, 212, 245, 0.58);
   font-size: clamp(10px, 3.6vw, 15px);
   letter-spacing: -0.6px;
-  font-family: "Gellix", Arial, sans-serif;
+  font-family: "KyivTypeTitling", Arial, sans-serif;
 }
 
 .not-found .fallback-msg {

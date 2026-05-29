@@ -39,7 +39,7 @@
   font-weight: 700;
   color: #aee2ff;
   text-align: center;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
 } */
 .user-toolkit-main {
   width: 100%;
@@ -58,7 +58,7 @@
   cursor: pointer;
   user-select: none;
   text-align: center;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
 }
 
 .user-toolkit-board {

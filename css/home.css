@@ -761,7 +761,7 @@
   border-radius: 4px;
   background: transparent;
   color: rgba(200, 215, 255, 0.7);
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
   box-sizing: border-box;
   transition: var(--transition-fast);
   backdrop-filter: var(--glass-blur-md);
@@ -790,7 +790,7 @@
   letter-spacing: var(--letter-spacing-normal);
   cursor: pointer;
   transition: var(--transition-fast);
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
   backdrop-filter: var(--glass-blur-md);
 }
 
@@ -975,7 +975,7 @@
 .knowledge-never-goes-out-of-style {
   color: #000000;
   text-align: left;
-  font-family: "Gellix-Regular", sans-serif;
+  font-family: "KyivTypeTitling-Regular", sans-serif;
   font-size: 12px;
   letter-spacing: -0.07em;
   font-weight: 400;
@@ -985,7 +985,7 @@
 .store-library {
   color: #000000;
   text-align: left;
-  font-family: "Gellix-Regular", sans-serif;
+  font-family: "KyivTypeTitling-Regular", sans-serif;
   font-size: 64px;
   line-height: 50px;
   letter-spacing: -0.09em;
