@@ -80,6 +80,32 @@ function renderHomeBooksGrid() {
 
   grid.innerHTML = html;
 
+  // Post-render: normalize images and tile heights to defend against uploaded images with extra whitespace
+  requestAnimationFrame(() => {
+    const tiles = grid.querySelectorAll(".block-2-grid-item");
+    tiles.forEach((t) => {
+      t.style.minHeight = "348px";
+      t.style.maxHeight = "348px";
+      t.style.boxSizing = "border-box";
+    });
+    grid
+      .querySelectorAll(".block-2-grid-icon, .block-2-more-img")
+      .forEach((img) => {
+        img.style.width = "100%";
+        img.style.height = "100%";
+        img.style.objectFit = "cover";
+        img.style.display = "block";
+        // if image hasn't loaded yet, ensure it will be sized when it does
+        if (!img.complete) {
+          img.addEventListener("load", () => {
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.objectFit = "cover";
+          });
+        }
+      });
+  });
+
   grid.querySelectorAll(".block-2-book-slot").forEach((slot) => {
     slot.addEventListener("click", () => {
       const bookId = slot.getAttribute("data-id");

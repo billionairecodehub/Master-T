@@ -156,27 +156,32 @@
 
 .block-2-grid-section {
   flex: 1;
-  /* background: radial-gradient(
-    ellipse at center,
-    #8b0000 0%,
-    #3d0000 50%,
-    #1a0000 100%
-  ); */
   padding: 20px 16px;
+  /* enforce a fixed row height for library tiles so all tiles match */
+  height: 348px;
+  box-sizing: border-box;
 }
 
 .block-2-grid {
-  --home-book-tab-width: calc((100% - 16px) / 3);
-  --home-book-tab-height: 136px;
+  /* Horizontal row of book tiles (6 across) */
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: stretch;
   gap: 8px;
-  justify-content: flex-start;
+  height: 100%;
+  overflow-x: auto;
+  padding: 8px 0;
+  -webkit-overflow-scrolling: touch;
 }
 
 .block-2-grid-item {
-  width: var(--home-book-tab-width);
-  height: var(--home-book-tab-height);
+  flex: 0 0 16.6667%; /* six items across when space allows */
+  min-width: 140px; /* allows horizontal scroll on small screens */
+  height: 100%;
+  box-sizing: border-box;
+  /* enforce exact tile height to avoid image intrinsic whitespace issues */
+  min-height: 348px !important;
+  max-height: 348px !important;
   border-radius: 2px;
   overflow: hidden;
   border: 0.5px solid rgba(107, 158, 255, 0.28);
@@ -186,7 +191,7 @@
     rgba(16, 27, 62, 0.62)
   );
   display: flex;
-  align-items: center;
+  align-items: stretch; /* ensure children fill vertically */
   justify-content: center;
   padding: 0;
 }
@@ -248,6 +253,22 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block; /* remove inline gap and ensure consistent sizing */
+}
+
+/* Ensure 'More' image behaves like grid icons and fills its tile */
+.block-2-more-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Safety: ensure buttons inside grid don't add extra padding/line-height */
+.block-2-grid-item,
+.block-2-grid-item button {
+  padding: 0 !important;
+  line-height: 0 !important;
 }
 
 .block-2-footer {
@@ -799,6 +820,184 @@
   }
 }
 
+/* Upgraded Library Section styles (Block 2) */
+.frame-28,
+.frame-28 * {
+  box-sizing: border-box;
+}
+.frame-28 {
+  background: #000000;
+  height: 543px;
+  position: relative;
+  overflow: hidden;
+}
+.library-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  align-items: center;
+  justify-content: flex-start;
+  width: 422px;
+  position: relative;
+  margin: 0 auto;
+}
+.frame-37 {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+  margin: 10px;
+}
+.rectangle-22,
+.rectangle-33,
+.rectangle-34,
+.rectangle-35,
+.rectangle-36 {
+  flex-shrink: 0;
+  width: 78px;
+  height: 348px;
+  position: relative;
+  object-fit: cover;
+}
+.frame-38 {
+  background: #ffffff;
+  padding: 3px 30px 43px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 187px;
+  position: relative;
+}
+.frame-36 {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 362px;
+  position: relative;
+}
+.frame-26 {
+  display: flex;
+  flex-direction: row;
+  gap: 1px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.rectangle-27,
+.rectangle-28,
+.rectangle-29,
+.rectangle-30,
+.rectangle-31 {
+  border-radius: 99px;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  position: relative;
+  aspect-ratio: 1;
+}
+.rectangle-27 {
+  background: #000;
+}
+.rectangle-28,
+.rectangle-29,
+.rectangle-30,
+.rectangle-31 {
+  background: #d9d9d9;
+}
+.frame-35 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.frame-34 {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 176px;
+  position: relative;
+}
+.knowledge-never-goes-out-of-style {
+  color: #000000;
+  text-align: left;
+  font-family: "Gellix-Regular", sans-serif;
+  font-size: 12px;
+  letter-spacing: -0.07em;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+}
+.store-library {
+  color: #000000;
+  text-align: left;
+  font-family: "Gellix-Regular", sans-serif;
+  font-size: 64px;
+  line-height: 50px;
+  letter-spacing: -0.09em;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+}
+.frame-342 {
+  background: #000000;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  position: relative;
+}
+.image-37 {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .library-wrapper {
+    width: 100%;
+    padding: 0 12px;
+  }
+  .rectangle-22,
+  .rectangle-33,
+  .rectangle-34,
+  .rectangle-35,
+  .rectangle-36 {
+    width: 60px;
+    height: 260px;
+  }
+  .store-library {
+    font-size: 36px;
+    line-height: 1;
+  }
+}
+
 /* Advanced Apps interactive block (designer styles) */
 .frame-29,
 .frame-29 * {
@@ -976,4 +1175,209 @@
   top: 34px;
   width: 268px;
   height: 154px;
+}
+
+.frame-28,
+.frame-28 * {
+  box-sizing: border-box;
+}
+.frame-28 {
+  background: #000000;
+  height: 543px;
+  position: relative;
+  overflow: hidden;
+}
+.library-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  align-items: center;
+  justify-content: flex-start;
+  width: 422px;
+  position: absolute;
+  left: -3px;
+  top: 8px;
+}
+.frame-37 {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.rectangle-22 {
+  flex-shrink: 0;
+  width: 78px;
+  height: 348px;
+  position: relative;
+  object-fit: cover;
+}
+.rectangle-33 {
+  flex-shrink: 0;
+  width: 78px;
+  height: 348px;
+  position: relative;
+  object-fit: cover;
+}
+.rectangle-34 {
+  flex-shrink: 0;
+  width: 78px;
+  height: 348px;
+  position: relative;
+  object-fit: cover;
+}
+.rectangle-35 {
+  flex-shrink: 0;
+  width: 78px;
+  height: 348px;
+  position: relative;
+  object-fit: cover;
+}
+.rectangle-36 {
+  flex-shrink: 0;
+  width: 78px;
+  height: 348px;
+  position: relative;
+  object-fit: cover;
+}
+.frame-38 {
+  background: #ffffff;
+  padding: 3px 30px 43px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 187px;
+  position: relative;
+}
+.frame-36 {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 362px;
+  position: relative;
+}
+.frame-26 {
+  display: flex;
+  flex-direction: row;
+  gap: 1px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.rectangle-27 {
+  background: #000000;
+  border-radius: 99px;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  position: relative;
+  aspect-ratio: 1;
+}
+.rectangle-28 {
+  background: #d9d9d9;
+  border-radius: 99px;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  position: relative;
+  aspect-ratio: 1;
+}
+.rectangle-29 {
+  background: #d9d9d9;
+  border-radius: 99px;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  position: relative;
+  aspect-ratio: 1;
+}
+.rectangle-30 {
+  background: #d9d9d9;
+  border-radius: 99px;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  position: relative;
+  aspect-ratio: 1;
+}
+.rectangle-31 {
+  background: #d9d9d9;
+  border-radius: 99px;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  position: relative;
+  aspect-ratio: 1;
+}
+.frame-35 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.frame-34 {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 176px;
+  position: relative;
+}
+.knowledge-never-goes-out-of-style {
+  color: #000000;
+  text-align: center;
+  font-family: "Gellix-Regular", sans-serif;
+  font-size: 12px;
+  letter-spacing: -0.07em;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+}
+.store-library {
+  color: #000000;
+  text-align: center;
+  font-family: "Gellix-Regular", sans-serif;
+  font-size: 64px;
+  line-height: 50px;
+  letter-spacing: -0.09em;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+}
+.frame-342 {
+  background: #000000;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  position: relative;
+}
+.image-37 {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 1;
 }
