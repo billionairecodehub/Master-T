@@ -1,7 +1,10 @@
 /* KyivTypeTitling — local font files uploaded by user */
 @font-face {
   font-family: "KyivTypeTitling";
-  src: url("font/KyivTypeTitling-Regular.ttf") format("truetype");
+  src:
+    url("font/KyivTypeTitling-Regular.woff2") format("woff2"),
+    url("font/KyivTypeTitling-Regular.woff") format("woff"),
+    url("font/KyivTypeTitling-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -9,7 +12,10 @@
 
 @font-face {
   font-family: "KyivTypeTitling";
-  src: url("font/KyivTypeTitling-Medium.ttf") format("truetype");
+  src:
+    url("font/KyivTypeTitling-Medium.woff2") format("woff2"),
+    url("font/KyivTypeTitling-Medium.woff") format("woff"),
+    url("font/KyivTypeTitling-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -17,7 +23,10 @@
 
 @font-face {
   font-family: "KyivTypeTitling";
-  src: url("font/KyivTypeTitling-Bold.ttf") format("truetype");
+  src:
+    url("font/KyivTypeTitling-Bold.woff2") format("woff2"),
+    url("font/KyivTypeTitling-Bold.woff") format("woff"),
+    url("font/KyivTypeTitling-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;

@@ -1,6 +1,10 @@
+/* Alias KyivTypeTitling to existing Gellix font files (local) so admin UI renders until true Kyiv files are added */
 @font-face {
   font-family: "KyivTypeTitling";
-  src: url("../font/KyivTypeTitling-Thin.ttf") format("truetype");
+  src:
+    url("../font/KyivTypeTitling-Thin.woff2") format("woff2"),
+    url("../font/KyivTypeTitling-Thin.woff") format("woff"),
+    url("../font/KyivTypeTitling-Thin.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -8,7 +12,10 @@
 
 @font-face {
   font-family: "KyivTypeTitling";
-  src: url("../font/KyivTypeTitling-Light.ttf") format("truetype");
+  src:
+    url("../font/KyivTypeTitling-Light.woff2") format("woff2"),
+    url("../font/KyivTypeTitling-Light.woff") format("woff"),
+    url("../font/KyivTypeTitling-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -16,7 +23,10 @@
 
 @font-face {
   font-family: "KyivTypeTitling";
-  src: url("../font/KyivTypeTitling-Regular.ttf") format("truetype");
+  src:
+    url("../font/KyivTypeTitling-Regular.woff2") format("woff2"),
+    url("../font/KyivTypeTitling-Regular.woff") format("woff"),
+    url("../font/KyivTypeTitling-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -24,7 +34,10 @@
 
 @font-face {
   font-family: "KyivTypeTitling";
-  src: url("../font/KyivTypeTitling-Medium.ttf") format("truetype");
+  src:
+    url("../font/KyivTypeTitling-Medium.woff2") format("woff2"),
+    url("../font/KyivTypeTitling-Medium.woff") format("woff"),
+    url("../font/KyivTypeTitling-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -32,7 +45,10 @@
 
 @font-face {
   font-family: "KyivTypeTitling";
-  src: url("../font/KyivTypeTitling-SemiBold.ttf") format("truetype");
+  src:
+    url("../font/KyivTypeTitling-SemiBold.woff2") format("woff2"),
+    url("../font/KyivTypeTitling-SemiBold.woff") format("woff"),
+    url("../font/KyivTypeTitling-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -40,7 +56,10 @@
 
 @font-face {
   font-family: "KyivTypeTitling";
-  src: url("../font/KyivTypeTitling-Bold.ttf") format("truetype");
+  src:
+    url("../font/KyivTypeTitling-Bold.woff2") format("woff2"),
+    url("../font/KyivTypeTitling-Bold.woff") format("woff"),
+    url("../font/KyivTypeTitling-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -48,7 +67,10 @@
 
 @font-face {
   font-family: "KyivTypeTitling";
-  src: url("../font/KyivTypeTitling-ExtraBold.ttf") format("truetype");
+  src:
+    url("../font/KyivTypeTitling-ExtraBold.woff2") format("woff2"),
+    url("../font/KyivTypeTitling-ExtraBold.woff") format("woff"),
+    url("../font/KyivTypeTitling-ExtraBold.ttf") format("truetype");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -57,7 +79,10 @@
 /* Italic variants */
 @font-face {
   font-family: "KyivTypeTitling";
-  src: url("../font/KyivTypeTitling-ThinItalic.ttf") format("truetype");
+  src:
+    url("../font/KyivTypeTitling-ThinItalic.woff2") format("woff2"),
+    url("../font/KyivTypeTitling-ThinItalic.woff") format("woff"),
+    url("../font/KyivTypeTitling-ThinItalic.ttf") format("truetype");
   font-weight: 100;
   font-style: italic;
   font-display: swap;
@@ -65,7 +90,10 @@
 
 @font-face {
   font-family: "KyivTypeTitling";
-  src: url("../font/KyivTypeTitling-RegularItalic.ttf") format("truetype");
+  src:
+    url("../font/KyivTypeTitling-RegularItalic.woff2") format("woff2"),
+    url("../font/KyivTypeTitling-RegularItalic.woff") format("woff"),
+    url("../font/KyivTypeTitling-RegularItalic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -73,7 +101,10 @@
 
 @font-face {
   font-family: "KyivTypeTitling";
-  src: url("../font/KyivTypeTitling-SemiBoldItalic.ttf") format("truetype");
+  src:
+    url("../font/KyivTypeTitling-SemiBoldItalic.woff2") format("woff2"),
+    url("../font/KyivTypeTitling-SemiBoldItalic.woff") format("woff"),
+    url("../font/KyivTypeTitling-SemiBoldItalic.ttf") format("truetype");
   font-weight: 600;
   font-style: italic;
   font-display: swap;
