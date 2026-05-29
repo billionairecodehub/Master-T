@@ -46,10 +46,10 @@
 .block-1-img-item {
   width: 30px;
   height: 30px;
-  /* border-radius: 50%; */
+  border-radius: 5px;
   overflow: hidden;
-  /* border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(0, 9, 26, 0.6); */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 9, 26, 0.6);
   flex-shrink: 0;
   position: relative;
 }
