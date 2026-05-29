@@ -314,7 +314,7 @@
   font-size: 15px;
   letter-spacing: -0.75px;
   cursor: pointer;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
   margin-top: 8px;
 }
 
@@ -346,7 +346,7 @@
   font-size: 18px;
   letter-spacing: -0.75px;
   outline: none;
-  font-family: "Gellix", sans-serif;
+  font-family: "KyivTypeTitling", sans-serif;
 }
 
 .auth-bottom-brand {
