@@ -137,6 +137,18 @@
     </div>
 
     <!-- Mobile Layout -->
+    <script>
+      // Ensure admin-synced content is hidden by default on hosted site
+      try {
+        const _key = "mt_hide_admin_content";
+        const _cur = localStorage.getItem(_key);
+        if (!(!!_cur && !["0", "false", ""].includes(String(_cur).toLowerCase()))) {
+          localStorage.setItem(_key, "1");
+        }
+      } catch (e) {
+        /* ignore */
+      }
+    </script>
     <div class="mobile-layout">
       <header class="site-header" role="banner">
         <div class="site-header__inner">
