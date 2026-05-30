@@ -255,16 +255,15 @@ function renderQuests() {
       btn.className = "icon-button";
       btn.style.marginLeft = "8px";
       btn.title = "Toggle admin-synced quests";
-      btn.textContent = hideAdmin ? "Show Admin" : "Hide Admin";
+      // No visible text — hardcoded control will be used instead
+      btn.textContent = "";
       btn.addEventListener("click", (e) => {
         e.stopPropagation();
         const cur = localStorage.getItem("mt_hide_admin_content");
         if (!!cur && !["0", "false"].includes(String(cur).toLowerCase())) {
           localStorage.removeItem("mt_hide_admin_content");
-          btn.textContent = "Hide Admin";
         } else {
           localStorage.setItem("mt_hide_admin_content", "1");
-          btn.textContent = "Show Admin";
         }
         // Re-render quests to apply new setting
         renderQuests();
