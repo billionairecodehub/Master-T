@@ -889,6 +889,17 @@
   position: relative;
   margin: 10px;
 }
+
+.library-boards-indicator-bar {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
 .rectangle-22,
 .rectangle-33,
 .rectangle-34,
@@ -1086,7 +1097,7 @@
 .apps-boards-indicator-bar {
   display: flex;
   flex-direction: row;
-  gap: 1px;
+  gap: 5px;
   align-items: center;
   justify-content: flex-start;
   flex-shrink: 0;
@@ -1186,8 +1197,8 @@
 .rectangle-25,
 .rectangle-26 {
   flex-shrink: 0;
-  width: 25px;
-  height: 25px;
+  width: 40px;
+  height: 40px;
   position: relative;
   object-fit: cover;
   aspect-ratio: 1;
