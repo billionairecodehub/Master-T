@@ -1,33 +1,46 @@
-/* KyivTypeTitling — local font files uploaded by user */
+/* KyivTypeSerif — local serif font files uploaded by user */
 @font-face {
-  font-family: "KyivTypeTitling";
+  font-family: "KyivTypeSerif";
   src:
-    url("font/KyivTypeTitling-Regular.woff2") format("woff2"),
-    url("font/KyivTypeTitling-Regular.woff") format("woff"),
-    url("font/KyivTypeTitling-Regular.ttf") format("truetype");
+    url("font/KyivTypeSerif-Regular.woff2") format("woff2"),
+    url("font/KyivTypeSerif-Regular.woff") format("woff"),
+    url("font/KyivTypeSerif-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "KyivTypeTitling";
+  font-family: "KyivTypeSerif";
   src:
-    url("font/KyivTypeTitling-Medium.woff2") format("woff2"),
-    url("font/KyivTypeTitling-Medium.woff") format("woff"),
-    url("font/KyivTypeTitling-Medium.ttf") format("truetype");
+    url("font/KyivTypeSerif-Medium.woff2") format("woff2"),
+    url("font/KyivTypeSerif-Medium.woff") format("woff"),
+    url("font/KyivTypeSerif-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
+  font-family: "KyivTypeSerif";
+  src:
+    url("font/KyivTypeSerif-Bold.woff2") format("woff2"),
+    url("font/KyivTypeSerif-Bold.woff") format("woff"),
+    url("font/KyivTypeSerif-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Keep KyivTypeTitling defined as an alias pointing to the same Serif files so
+   existing CSS that references KyivTypeTitling continues to work. */
+@font-face {
   font-family: "KyivTypeTitling";
   src:
-    url("font/KyivTypeTitling-Bold.woff2") format("woff2"),
-    url("font/KyivTypeTitling-Bold.woff") format("woff"),
-    url("font/KyivTypeTitling-Bold.ttf") format("truetype");
-  font-weight: 700;
+    url("font/KyivTypeSerif-Regular.woff2") format("woff2"),
+    url("font/KyivTypeSerif-Regular.woff") format("woff"),
+    url("font/KyivTypeSerif-Regular.ttf") format("truetype");
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
@@ -36,10 +49,10 @@
    while the project migrates to the new font name. */
 /* Removed legacy "Gellix" alias blocks — using KyivTypeTitling exclusively */
 
-/* Default site font — prefer the new KyivTypeTitling name first */
+/* Default site font — prefer the new KyivTypeSerif (serif family) */
 html,
 body {
-  font-family: "KyivTypeTitling", Arial, Helvetica, sans-serif;
+  font-family: "KyivTypeSerif", Georgia, "Times New Roman", serif;
 }
 
 /* Rostock Kaligraph — used only for header brand (unchanged) */

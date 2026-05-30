@@ -40,7 +40,7 @@
   );
 
   /* ── TYPOGRAPHY ── */
-  --font-family-primary: "Manrope", "KyivTypeTitling", sans-serif;
+  --font-family-primary: "Manrope", "KyivTypeSerif", serif;
   --font-weight-regular: 400;
   --font-weight-bold: 700;
 
