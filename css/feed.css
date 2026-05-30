@@ -73,7 +73,7 @@
 .master-togan {
   color: #fff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 24px;
   /* line-height: 20px; */
   letter-spacing: -0.07em;
@@ -95,7 +95,7 @@
 .post-24-min-ago {
   color: #fff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 16px;
   letter-spacing: -0.7px;
   font-weight: 400;
@@ -117,7 +117,7 @@
 .feed-post-content {
   color: #fff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 16px;
   font-weight: 400;
   opacity: 0.75;
@@ -129,7 +129,7 @@
 .feed-post-label {
   color: #fff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 16px;
   font-weight: 700;
   opacity: 0.75;
@@ -176,7 +176,7 @@
 .feed-like-count {
   color: #fff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 15px;
   letter-spacing: -0.07em;
   font-weight: 400;
@@ -203,7 +203,7 @@
 .feed-impression-count {
   color: #fff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 15px;
   font-weight: 400;
   opacity: 0.75;
@@ -244,7 +244,7 @@
 .get-red-pill-game-15 {
   color: #fff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 16px;
   font-weight: 700;
   opacity: 0.75;
@@ -417,7 +417,7 @@ button {
   font-weight: 600;
   color: rgba(255, 255, 255, 0.95);
   text-transform: lowercase;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   letter-spacing: -0.09rem;
 }
 

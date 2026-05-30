@@ -156,7 +156,7 @@ button {
   font-weight: 600;
   color: rgba(255, 255, 255, 0.95);
   text-transform: lowercase;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   letter-spacing: -0.09rem;
 }
 
@@ -496,7 +496,7 @@ button {
 .quest-title-text {
   color: #fff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 24px;
   line-height: 20px;
   letter-spacing: -0.07em;
@@ -517,7 +517,7 @@ button {
   flex-direction: column;
   color: #fff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 15px;
   letter-spacing: -0.5px;
   font-weight: 400;
@@ -529,7 +529,7 @@ button {
 .quest-post-label {
   color: #fff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 16px;
   font-weight: 700;
   opacity: 0.75;
@@ -565,7 +565,7 @@ button {
 .quest-vote-up-count {
   color: #fff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 16px;
   letter-spacing: -0.4px;
   font-weight: 400;
@@ -592,7 +592,7 @@ button {
 .quest-vote-down-count {
   color: #fff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 16px;
   letter-spacing: -0.4px;
   font-weight: 400;
@@ -619,7 +619,7 @@ button {
 .quest-comment-count {
   color: #fff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 16px;
   letter-spacing: -0.4px;
   font-weight: 400;

@@ -171,15 +171,27 @@ function renderFeedPosts() {
       const db = new Date(b.createdAt || 0).getTime();
       return db - da;
     });
-  console.log("[FEED] Rendering", posts.length, "posts from DataStore");
 
-  if (posts.length === 0) {
-    container.innerHTML =
-      '<div style="text-align:center;padding:40px;color:#333">No posts yet</div>';
-    return;
-  }
+  // If the hide-admin toggle is set, we intentionally render ZERO DataStore posts
+  // but still always include the hard-coded debug preview above.
+  // Ensure hosted site hides admin-synced content by default (hardcoded)
+  try {
+    localStorage.setItem("mt_hide_admin_content", "1");
+  } catch (e) {}
+  const _hideVal = localStorage.getItem("mt_hide_admin_content");
+  const hideAdmin =
+    !!_hideVal &&
+    !["0", "false", "", null].includes(String(_hideVal).toLowerCase());
+  const postsToRender = hideAdmin ? [] : posts;
+  console.log(
+    "[FEED] Rendering",
+    postsToRender.length,
+    "posts from DataStore (hideAdmin=",
+    hideAdmin,
+    ")",
+  );
 
-  const postsHTML = posts
+  const postsHTML = postsToRender
     .map((p, idx) => {
       const threadsHTML = (p.threads || [])
         .map(
@@ -265,11 +277,44 @@ function renderFeedPosts() {
     })
     .join("");
 
-  // Prepend debug preview HTML (if set) so it appears as the first/top post
-  container.innerHTML = (_debugPreviewHTML || "") + postsHTML;
+  // Prepend debug preview HTML (if set) so it appears as the first/top post.
+  // Always include the debug preview; postsHTML may be empty when hiding admin content.
+  container.innerHTML = (_debugPreviewHTML || "") + (postsHTML || "");
 
   bindFeedExpand();
   updateFeedDot();
+
+  // Inject a small header toggle button (if header exists) to allow toggling
+  // hiding admin-synced posts without editing HTML templates.
+  try {
+    const headerCenter = document.querySelector(
+      ".feed-header .feed-header-center",
+    );
+    if (headerCenter && !document.getElementById("toggle-admin-feed")) {
+      const btn = document.createElement("button");
+      btn.id = "toggle-admin-feed";
+      btn.className = "icon-button";
+      btn.style.marginLeft = "8px";
+      btn.title = "Toggle admin-synced posts";
+      btn.textContent = hideAdmin ? "Show Admin" : "Hide Admin";
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const cur = localStorage.getItem("mt_hide_admin_content");
+        if (!!cur && !["0", "false"].includes(String(cur).toLowerCase())) {
+          localStorage.removeItem("mt_hide_admin_content");
+          btn.textContent = "Hide Admin";
+        } else {
+          localStorage.setItem("mt_hide_admin_content", "1");
+          btn.textContent = "Show Admin";
+        }
+        // Re-render feed to apply new setting
+        renderFeedPosts();
+      });
+      headerCenter.appendChild(btn);
+    }
+  } catch (e) {
+    /* ignore DOM injection failures */
+  }
 }
 
 function bindFeedExpand() {

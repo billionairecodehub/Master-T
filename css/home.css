@@ -761,7 +761,7 @@
   border-radius: 4px;
   background: transparent;
   color: rgba(200, 215, 255, 0.7);
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   box-sizing: border-box;
   transition: var(--transition-fast);
   backdrop-filter: var(--glass-blur-md);
@@ -790,7 +790,7 @@
   letter-spacing: var(--letter-spacing-normal);
   cursor: pointer;
   transition: var(--transition-fast);
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   backdrop-filter: var(--glass-blur-md);
 }
 
@@ -889,6 +889,17 @@
   position: relative;
   margin: 10px;
 }
+
+.library-boards-indicator-bar {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
 .rectangle-22,
 .rectangle-33,
 .rectangle-34,
@@ -975,7 +986,7 @@
 .knowledge-never-goes-out-of-style {
   color: #000000;
   text-align: left;
-  font-family: "KyivTypeTitling-Regular", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 12px;
   letter-spacing: -0.07em;
   font-weight: 400;
@@ -985,7 +996,7 @@
 .store-library {
   color: #000000;
   text-align: left;
-  font-family: "KyivTypeTitling-Regular", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 64px;
   line-height: 50px;
   letter-spacing: -0.09em;
@@ -1086,7 +1097,7 @@
 .apps-boards-indicator-bar {
   display: flex;
   flex-direction: row;
-  gap: 1px;
+  gap: 5px;
   align-items: center;
   justify-content: flex-start;
   flex-shrink: 0;
@@ -1141,7 +1152,7 @@
 .togan-ai-based-chat {
   color: #ddd;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 12px;
   letter-spacing: 0;
   font-weight: 600;
@@ -1150,7 +1161,7 @@
 .apps-content {
   color: #aaa;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 14px;
   letter-spacing: 0px;
   font-weight: 400;
@@ -1186,8 +1197,8 @@
 .rectangle-25,
 .rectangle-26 {
   flex-shrink: 0;
-  width: 25px;
-  height: 25px;
+  width: 40px;
+  height: 40px;
   position: relative;
   object-fit: cover;
   aspect-ratio: 1;
@@ -1195,7 +1206,7 @@
 .get-in-with-game-solution-based-creativity {
   color: #ffffff;
   text-align: center;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 12px;
   letter-spacing: -0.07em;
   font-weight: 400;
@@ -1204,7 +1215,7 @@
 .app-title {
   color: #ffffff;
   text-align: center;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 128px;
   letter-spacing: -0.09em;
   font-weight: 400;
@@ -1371,7 +1382,7 @@
   flex-direction: column;
   gap: 8px;
   align-items: flex-start;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   justify-content: flex-start;
   flex-shrink: 0;
   width: 176px;
@@ -1380,7 +1391,7 @@
 .knowledge-never-goes-out-of-style {
   color: #000000;
   text-align: center;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 12px;
   letter-spacing: -0.07em;
   font-weight: 400;
@@ -1390,7 +1401,7 @@
 .store-library {
   color: #000000;
   text-align: center;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 64px;
   line-height: 50px;
   letter-spacing: -0.09em;

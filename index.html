@@ -93,7 +93,7 @@
       .boot-splash-inner {
         text-align: center;
         color: rgba(233, 241, 255, 0.95);
-        font-family: "KyivTypeTitling", sans-serif;
+        font-family: "KyivTypeSerif", Georgia, "Times New Roman", serif;
       }
 
       .boot-splash-logo {
@@ -137,6 +137,14 @@
     </div>
 
     <!-- Mobile Layout -->
+    <script>
+      // Force hide admin-synced content on hosted site (hardcoded)
+      try {
+        localStorage.setItem("mt_hide_admin_content", "1");
+      } catch (e) {
+        /* ignore */
+      }
+    </script>
     <div class="mobile-layout">
       <header class="site-header" role="banner">
         <div class="site-header__inner">

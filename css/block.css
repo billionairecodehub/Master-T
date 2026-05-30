@@ -518,7 +518,7 @@ button {
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   text-decoration: none;
   letter-spacing: -0.25px;
 }
@@ -603,7 +603,7 @@ button {
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   text-decoration: none;
   letter-spacing: -0.25px;
   margin-bottom: 10px;
@@ -1140,7 +1140,7 @@ button {
   border: none;
   outline: none;
   color: rgba(248, 246, 255, 0.85);
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 14px;
 }
 
@@ -1225,7 +1225,7 @@ button {
   border-radius: 16px;
   padding: 20px;
   color: rgba(248, 246, 255, 0.78);
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 12px;
   font-weight: 400;
   cursor: pointer;
