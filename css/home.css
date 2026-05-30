@@ -761,7 +761,7 @@
   border-radius: 4px;
   background: transparent;
   color: rgba(200, 215, 255, 0.7);
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   box-sizing: border-box;
   transition: var(--transition-fast);
   backdrop-filter: var(--glass-blur-md);

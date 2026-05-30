@@ -59,7 +59,7 @@
 }
 
 .umodal-title {
-  font-family: "KyivTypeTitling", Arial, sans-serif;
+  font-family: "KyivTypeSerif", Georgia, serif;
   font-size: clamp(18px, 3.4vw, 24px);
   font-weight: 600;
   letter-spacing: -0.6px;

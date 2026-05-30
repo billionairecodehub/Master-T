@@ -110,7 +110,7 @@
   color: var(--color-accent-light);
   font-family: var(--font-family-primary);
   letter-spacing: var(--letter-spacing-normal);
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
 }
 
 .app-search-input::placeholder {

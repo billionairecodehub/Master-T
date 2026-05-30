@@ -156,7 +156,7 @@ button {
   font-weight: 600;
   color: rgba(255, 255, 255, 0.95);
   text-transform: lowercase;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   letter-spacing: -0.09rem;
 }
 

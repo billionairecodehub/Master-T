@@ -518,7 +518,7 @@ button {
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   text-decoration: none;
   letter-spacing: -0.25px;
 }

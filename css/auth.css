@@ -10,7 +10,7 @@
   background: linear-gradient(135deg, #06091e 0%, #0d1535 50%, #08091f 100%);
   z-index: 9999;
   overflow: hidden;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
 }
 
 .auth-screen {
