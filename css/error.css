@@ -117,7 +117,7 @@ body {
   line-height: 1;
   letter-spacing: -0.5px;
   color: #edf4ff;
-  font-family: "KyivTypeTitling", Arial, sans-serif;
+  font-family: "KyivTypeSerif", Georgia, serif;
 }
 
 .search-card {
@@ -193,7 +193,7 @@ body {
   color: rgba(201, 212, 245, 0.58);
   font-size: clamp(10px, 3.6vw, 15px);
   letter-spacing: -0.6px;
-  font-family: "KyivTypeTitling", Arial, sans-serif;
+  font-family: "KyivTypeSerif", Georgia, serif;
 }
 
 .not-found .fallback-msg {

@@ -74,7 +74,7 @@
 }
 
 .umodal-label {
-  font-family: "KyivTypeTitling", Arial, sans-serif;
+  font-family: "KyivTypeSerif", Georgia, serif;
   font-size: clamp(13px, 2.9vw, 16px);
   line-height: 1.55;
   letter-spacing: -0.3px;
@@ -93,7 +93,7 @@
   color: rgba(240, 246, 255, 0.95);
   border-radius: 10px;
   padding: 12px 14px;
-  font-family: "KyivTypeTitling", Arial, sans-serif;
+  font-family: "KyivTypeSerif", Georgia, serif;
   font-size: clamp(13px, 2.7vw, 15px);
   outline: none;
 }
@@ -115,7 +115,7 @@
   border-radius: 10px;
   min-height: 42px;
   padding: 10px 16px;
-  font-family: "KyivTypeTitling", Arial, sans-serif;
+  font-family: "KyivTypeSerif", Georgia, serif;
   font-size: clamp(12px, 2.6vw, 14px);
   font-weight: 600;
   letter-spacing: -0.2px;

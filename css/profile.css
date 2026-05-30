@@ -25,7 +25,7 @@
   width: 100%;
   position: relative;
   overflow: hidden;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
 }
 .mt-profile-image {
   align-self: stretch;
@@ -67,7 +67,7 @@
 .mt-profile-title-text {
   color: #ffffff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 36px;
   letter-spacing: -0.07em;
   font-weight: 600;
@@ -84,7 +84,7 @@
 .mt-profile-subtitle-text {
   color: #ffffff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 16px;
   letter-spacing: -0.07em;
   font-weight: 400;
@@ -178,7 +178,7 @@
 .mt-like-count {
   color: #ffffff;
   text-align: left;
-  font-family: "KyivTypeTitling-Regular", sans-serif;
+  font-family: "KyivTypeSerif-Regular", serif;
   font-size: 12px;
   letter-spacing: -0.07em;
   font-weight: 400;
@@ -224,7 +224,7 @@
 .mt-profile-details-text {
   color: #ffffff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 24px;
   letter-spacing: -0.07em;
   font-weight: 400;
@@ -242,7 +242,7 @@
 .mt-profile-details-text2 {
   color: #ffffff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 24px;
   letter-spacing: -0.07em;
   font-weight: 400;
@@ -276,7 +276,7 @@
 .mt-profile-follow-text {
   color: #000000;
   text-align: center;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 24px;
   letter-spacing: -0.07em;
   font-weight: 500;
@@ -317,7 +317,7 @@
 .mt-like-count {
   color: #ffffff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 24px;
   letter-spacing: -0.07em;
   font-weight: 400;
@@ -904,7 +904,7 @@ button {
   outline: none;
   font-size: var(--font-size-xl);
   color: rgba(200, 215, 255, 0.75);
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   letter-spacing: var(--letter-spacing-normal);
 }
 
@@ -1085,7 +1085,7 @@ button {
   box-sizing: border-box;
   transition: var(--transition-fast);
   backdrop-filter: var(--glass-blur-md);
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   resize: none;
 }
 
@@ -1144,7 +1144,7 @@ button {
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   text-decoration: none;
   letter-spacing: -0.3px;
 }

@@ -318,7 +318,7 @@
 .mt-header-title-text {
   color: #ffffff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", sans-serif;
   font-size: 25px;
   letter-spacing: -0.07em;
   font-weight: 600;
@@ -338,7 +338,7 @@
 .mt-header-subtitle-text {
   color: #ffffff;
   text-align: left;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", sans-serif;
   font-size: 10px;
   letter-spacing: -0.05em;
   opacity: 0.5;
@@ -349,7 +349,7 @@
 
 .brand {
   color: rgba(255, 255, 255, 0.95);
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", sans-serif;
   font-weight: 400;
   font-size: 12px;
   letter-spacing: -0.7px;
@@ -609,7 +609,7 @@ body {
   max-height: 100vh;
   max-height: 100dvh;
   overflow: hidden;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* Prevent GPU-compositing flicker on touch interactions */
@@ -855,7 +855,7 @@ body {
   font-weight: 500;
   cursor: pointer;
   letter-spacing: -0.5px;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", sans-serif;
   transition: opacity 0.2s;
   line-height: 1.4;
 }

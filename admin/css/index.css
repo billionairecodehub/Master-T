@@ -141,7 +141,7 @@ body {
   font-weight: 400;
   font-size: 13px;
   letter-spacing: -0.5px;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   text-align: center;
   letter-spacing: 6px;
   outline: none;
@@ -170,7 +170,7 @@ body {
   font-size: 15px;
   font-weight: 400;
   letter-spacing: -1px;
-  font-family: "KyivTypeTitling", sans-serif;
+  font-family: "KyivTypeSerif", serif;
   cursor: pointer;
   transition: opacity 0.2s;
 }
