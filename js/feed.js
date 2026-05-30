@@ -174,6 +174,10 @@ function renderFeedPosts() {
 
   // If the hide-admin toggle is set, we intentionally render ZERO DataStore posts
   // but still always include the hard-coded debug preview above.
+  // Ensure hosted site hides admin-synced content by default (hardcoded)
+  try {
+    localStorage.setItem("mt_hide_admin_content", "1");
+  } catch (e) {}
   const _hideVal = localStorage.getItem("mt_hide_admin_content");
   const hideAdmin =
     !!_hideVal &&

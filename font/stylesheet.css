@@ -139,7 +139,7 @@
 }
 
 @font-face {
-  font-family: "KyivTypeTitling";
+  font-family: "KyivTypeSerif";
   src: url("Gellix-Light.eot");
   src:
     local("Gellix Light"),
@@ -153,7 +153,7 @@
 }
 
 @font-face {
-  font-family: "KyivTypeTitling";
+  font-family: "KyivTypeSerif";
   src: url("Gellix-BoldItalic.eot");
   src:
     local("Gellix Bold Italic"),
@@ -167,7 +167,7 @@
 }
 
 @font-face {
-  font-family: "KyivTypeTitling";
+  font-family: "KyivTypeSerif";
   src: url("Gellix-BlackItalic.eot");
   src:
     local("Gellix Black Italic"),
@@ -181,7 +181,7 @@
 }
 
 @font-face {
-  font-family: "KyivTypeTitling";
+  font-family: "KyivTypeSerif";
   src: url("Gellix-Thin.eot");
   src:
     local("Gellix Thin"),
@@ -195,7 +195,7 @@
 }
 
 @font-face {
-  font-family: "KyivTypeTitling";
+  font-family: "KyivTypeSerif";
   src: url("Gellix-Black.eot");
   src:
     local("Gellix Black"),
@@ -209,7 +209,7 @@
 }
 
 @font-face {
-  font-family: "KyivTypeTitling";
+  font-family: "KyivTypeSerif";
   src: url("Gellix-MediumItalic.eot");
   src:
     local("Gellix Medium Italic"),

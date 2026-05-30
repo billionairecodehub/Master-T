@@ -34,7 +34,7 @@
 
 /* Keep old name as alias so admin styles referencing KyivTypeTitling still work */
 @font-face {
-  font-family: "KyivTypeTitling";
+  font-family: "KyivTypeSerif";
   src:
     url("../font/KyivTypeSerif-Regular.woff2") format("woff2"),
     url("../font/KyivTypeSerif-Regular.woff") format("woff"),

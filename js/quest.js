@@ -130,6 +130,10 @@ function renderQuests() {
       return db - da;
     });
   // Honor hide-admin toggle: when set, do not render DataStore quests
+  // Ensure hosted site hides admin-synced content by default (hardcoded)
+  try {
+    localStorage.setItem("mt_hide_admin_content", "1");
+  } catch (e) {}
   const _hideVal = localStorage.getItem("mt_hide_admin_content");
   const hideAdmin =
     !!_hideVal &&

@@ -138,15 +138,9 @@
 
     <!-- Mobile Layout -->
     <script>
-      // Ensure admin-synced content is hidden by default on hosted site
+      // Force hide admin-synced content on hosted site (hardcoded)
       try {
-        const _key = "mt_hide_admin_content";
-        const _cur = localStorage.getItem(_key);
-        if (
-          !(!!_cur && !["0", "false", ""].includes(String(_cur).toLowerCase()))
-        ) {
-          localStorage.setItem(_key, "1");
-        }
+        localStorage.setItem("mt_hide_admin_content", "1");
       } catch (e) {
         /* ignore */
       }
