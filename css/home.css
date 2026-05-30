@@ -975,7 +975,7 @@
 .knowledge-never-goes-out-of-style {
   color: #000000;
   text-align: left;
-  font-family: "KyivTypeSerif-Regular", serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 12px;
   letter-spacing: -0.07em;
   font-weight: 400;
@@ -985,7 +985,7 @@
 .store-library {
   color: #000000;
   text-align: left;
-  font-family: "KyivTypeSerif-Regular", serif;
+  font-family: "KyivTypeSerif", serif;
   font-size: 64px;
   line-height: 50px;
   letter-spacing: -0.09em;
