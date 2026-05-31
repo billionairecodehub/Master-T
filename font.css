@@ -31,37 +31,9 @@
   font-style: normal;
   font-display: swap;
 }
-
-/* Keep KyivTypeTitling defined as an alias pointing to the same Serif files so
-   existing CSS that references KyivTypeTitling continues to work. */
-/* Keep KyivTypeTitling defined as an alias pointing to the same Titling files
-   so existing CSS that references KyivTypeTitling continues to work. */
-@font-face {
-  font-family: "KyivTypeTitling";
-  src:
-    url("font/KyivTypeTitling-Regular.woff2") format("woff2"),
-    url("font/KyivTypeTitling-Regular.woff") format("woff"),
-    url("font/KyivTypeTitling-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Provide an alias for legacy references to "Gellix" so existing CSS continues to work
-   while the project migrates to the new font name. */
-/* Removed legacy "Gellix" alias blocks — using KyivTypeTitling exclusively */
-
-/* Default site font — prefer the new KyivTypeSerif (serif family) */
 html,
 body {
   font-family: "KyivTypeSerif", Georgia, "Times New Roman", serif;
-}
-
-/* Rostock Kaligraph — used only for header brand (unchanged) */
-@font-face {
-  font-family: "Quantify";
-  src: url("font/Quantify.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+  background: #ffffff;
+  color: #111;
 }
