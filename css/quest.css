@@ -462,7 +462,7 @@ button {
   justify-content: flex-start;
   position: relative;
   border: 0.5px solid rgba(107, 158, 255, 0.12);
-  margin-top: 10px;
+  margin: 10px;
 }
 .quest-post-wrapper {
   display: flex;
