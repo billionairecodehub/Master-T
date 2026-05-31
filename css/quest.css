@@ -454,7 +454,7 @@ button {
 .quest-post-board {
   background: transparent;
   border-radius: 2px;
-  padding: 40px 22px;
+  padding: 44px 22px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -467,7 +467,7 @@ button {
 .quest-post-wrapper {
   display: flex;
   flex-direction: row;
-  gap: 22px;
+  gap: 35px;
   align-items: flex-start;
   justify-content: space-between;
   flex-shrink: 0;
@@ -477,7 +477,7 @@ button {
 .quest-post-content {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 22px;
   align-items: flex-start;
   justify-content: flex-start;
   flex: 1 1 auto;
@@ -521,7 +521,7 @@ button {
   font-size: 15px;
   letter-spacing: -0.5px;
   font-weight: 400;
-  opacity: 0.4;
+  opacity: 0.75;
   position: relative;
   gap: 5px;
   align-self: stretch;
@@ -532,7 +532,6 @@ button {
   font-family: "KyivTypeSerif", serif;
   font-size: 16px;
   font-weight: 700;
-  opacity: 0.75;
   position: relative;
   align-self: stretch;
 }
