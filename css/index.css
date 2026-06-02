@@ -813,8 +813,8 @@ body {
 }
 
 .nav-icon {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
   opacity: 0.45;
   filter: brightness(1.1) saturate(0.7);
